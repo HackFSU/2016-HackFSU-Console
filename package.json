@@ -1,0 +1,14 @@
+{
+  "name": "hackfsu-console",
+  "version": "0.0.1",
+  "description": "Web app for hackfsu administration",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Trevor Helms",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.0.0"
+  }
+}
