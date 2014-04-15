@@ -5,6 +5,7 @@ var app = express();
 // Allow files in public/ to be accessed directly
 app.use(express.static(__dirname + '/public'));
 
+
 app.get('/', function(req, res) {
 	res.send("It's working...");
 });
