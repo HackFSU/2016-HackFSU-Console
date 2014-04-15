@@ -8,7 +8,7 @@ html(lang='en')
 		meta(name='description', content='HackFSU Web Console for admins')
 		meta(name='author', content='Trevor Helms')
 
-		title #{title}
+		title HackFSU Console - #{title}
 		link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
 		link(rel='stylesheet', href='css/custom.css')
 
@@ -24,10 +24,10 @@ html(lang='en')
 					a.navbar-brand(href='#') HackFSU Console
 				div(class='navbar-collapse collapse')
 					ul(class='nav navbar-nav')
-						li.active
-							a(href='#') Home
-						li
-							a(href='#test') Test Tab
+						li#home
+							a(href='/') Home
+						li#data
+							a(href='/data') Data
 						li.dropdown
 							a.dropdown-toggle(href='#', data-toggle='dropdown') 
 								| Dropdown 
@@ -35,6 +35,7 @@ html(lang='en')
 							ul.dropdown-menu
 								li
 									a(href='#') Action
+		block content
 
 		// JavaScripts here so page loads plus rapidement
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')

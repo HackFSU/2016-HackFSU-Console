@@ -5,6 +5,7 @@ var app = express();
 // Set up routes. All subfolders of routes must be included and include an 
 // index.js file specifying the exports
 var routes = require('./routes');
+var data = require('./routes/data');
 
 // Set up views/templating engine
 app.set('views', __dirname + '/views');
@@ -15,6 +16,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 app.get('/', routes.index);
+app.get('/data', data.index);
 
 
 // Boot up server
