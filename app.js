@@ -2,6 +2,10 @@
 var express = require('express');
 var app = express();
 
+// Set up routes. All subfolders of routes must be included and include an 
+// index.js file specifying the exports
+var routes = require('./routes');
+
 // Set up views/templating engine
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -10,11 +14,7 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 
 
-app.get('/', function(req, res) {
-	res.render('index', {
-		title: 'HackFSU Console'
-	});
-});
+app.get('/', routes.index);
 
 
 // Boot up server
