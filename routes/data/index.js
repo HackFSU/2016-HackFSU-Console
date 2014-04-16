@@ -6,9 +6,18 @@ exports.index = function(req, res) {
             count: true
         },
         function(err, result, body, success) {
+            var checkIns = 0;
+
+            body.results.forEach(function(user) {
+                if (user.checkedin) {
+                    checkIns++;
+                }
+            })
+
             res.render('data/index', {
                 title: 'Data Management',
-       			count: body.count,
+                count: body.count,
+                checkins: checkIns,
                 users: body.results
             });
         });
