@@ -12,4 +12,11 @@ block content
 						th School
 						th Email
 				tbody
+					each val, index in people
+						tr
+							td= val.objectId
+							td= val.name
+							td= val.school
+							td= val.email
+
 
