@@ -1,19 +1,24 @@
 var user = require('../../src/data/user.js');
+var kaiseki = require('../../src/init.js').kaiseki;
 
 exports.index = function(req, res) {
-    var users;
 
-    function getPeople(callback) {
-        users = user.getUsers();
-        callback(users);
+    function getPeople(res) {
+        var users = user.getUsers(res);
+        //callback(users);
     }
 
-    function render(users) {
-        res.render('data/index', {
-            title: 'Data Management',
-            people: users
-        });
-    }
+    kaiseki.getUsers({
+            limit: 500
+        },
+        function(err, result, body, success) {
+            //users = body;
+            res.render('data/index', {
+                title: 'Data Management',
+                people: body
+            });
+    });
 
-    getPeople(render);
+
+    //getPeople(res);
 };
