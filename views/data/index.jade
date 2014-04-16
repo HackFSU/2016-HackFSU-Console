@@ -3,20 +3,26 @@ block content
 	.container
 		div(class='panel panel-default')
 			div.panel-heading
-				| People
+				= 'Users: ' + count
 			table.table
 				thead
 					tr
-						th ID
 						th Name
+						th Username
 						th School
 						th Email
+						th Checked In
 				tbody
-					each val, index in people
+					each user in users
 						tr
-							td= val.objectId
-							td= val.name
-							td= val.school
-							td= val.email
+							td= user.name
+							td= user.username
+							td= user.school
+							td= user.email
+							td
+								if user.checkedin == true
+									| Yes
+								else
+									| No
 
 
