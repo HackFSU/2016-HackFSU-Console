@@ -1,0 +1,13 @@
+body {
+    font-family: 400 13px/22px "Helvetica Neue", Helvetica;
+    color: #444;
+    line-height: 22px;
+}
+h1, h2 {
+    font-family:'Open Sans', sans-serif;
+    font-weight: 300;
+}
+h3, h4, h5, h6 {
+    font-family:'Open Sans', sans-serif;
+    font-weight: 400;
+}
