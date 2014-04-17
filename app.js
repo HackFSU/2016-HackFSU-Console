@@ -6,6 +6,7 @@ var app = express();
 // index.js file specifying the exports
 var routes = require('./routes');
 var data = require('./routes/data');
+var updates = require('./routes/updates');
 
 // Set up views/templating engine
 app.set('views', __dirname + '/views');
@@ -17,6 +18,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', routes.index);
 app.get('/data', data.index);
+app.get('/updates', updates.index);
 
 
 // Boot up server

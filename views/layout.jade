@@ -32,6 +32,8 @@ html(lang='en')
 								a(href='/') Home
 							li#data
 								a(href='/data') Data
+							li#updates
+								a(href='/updates') Updates
 							li.dropdown
 								a.dropdown-toggle(href='#', data-toggle='dropdown') 
 									| Dropdown 
@@ -39,6 +41,9 @@ html(lang='en')
 								ul.dropdown-menu
 									li
 										a(href='#') Action
+						ul(class='nav navbar-nav navbar-right')
+							li
+								a(href='signin') Sign In
 			block content
 		.footer
 			.container

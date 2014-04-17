@@ -15,5 +15,8 @@ $(document).ready(function() {
         case 'data':
             $('#data').addClass('active');
             break;
+        case 'updates':
+            $('#updates').addClass('active');
+            break;
     }
 });
