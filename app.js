@@ -32,6 +32,7 @@ kaiseki.masterKey = app.locals.MASTER_KEY;
 app.get('/', routes.index);
 app.get('/data', data.index(kaiseki));
 app.get('/updates', updates.index(kaiseki));
+app.get('/updates/add', updates.add(kaiseki));
 
 
 // Boot up server

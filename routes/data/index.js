@@ -14,7 +14,7 @@ exports.index = function(kaiseki) {
                 })
 
                 res.render('data/index', {
-                    title: 'Data Management',
+                    title: 'Users',
                     count: body.count,
                     checkins: checkIns,
                     users: body.results
