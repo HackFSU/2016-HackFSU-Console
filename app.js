@@ -5,12 +5,6 @@ var app = express();
 // Module dependencies
 var Kaiseki = require('kaiseki');
 
-// Set up routes. All subfolders of routes must be included and include an 
-// index.js file specifying the exports
-var routes = require('./routes');
-var data = require('./routes/data');
-var updates = require('./routes/updates');
-
 // Set up views/templating engine
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -27,12 +21,17 @@ app.locals.REST_KEY = "Yv6wS2RcB2iYqs3Fn7kNpGsjSSquY0Xj50uKQxbFar";
 var kaiseki = new Kaiseki(app.locals.APP_ID, app.locals.REST_KEY);
 kaiseki.masterKey = app.locals.MASTER_KEY;
 
+// Specify route files
+var routes = require('./routes');
+var data = require('./routes/data')(kaiseki);
+var updates = require('./routes/updates')(kaiseki);
+
 
 // Set up routes
 app.get('/', routes.index);
-app.get('/data', data.index(kaiseki));
-app.get('/updates', updates.index(kaiseki));
-app.get('/updates/add', updates.add(kaiseki));
+app.get('/data', data.index);
+app.get('/updates', updates.index);
+app.get('/updates/add', updates.add);
 
 
 // Boot up server

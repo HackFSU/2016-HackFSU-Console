@@ -1,4 +1,10 @@
-exports.index = function(kaiseki) {
+module.exports = function(kaiseki) {
+	return {
+		index: index(kaiseki)
+	}
+}
+
+function index(kaiseki) {
     return function(req, res) {
         kaiseki.getUsers({
                 limit: 500,

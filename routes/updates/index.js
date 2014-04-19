@@ -1,4 +1,11 @@
-exports.index = function(kaiseki) {
+module.exports = function(kaiseki) {
+	return {
+		index: index(kaiseki),
+		add: add(kaiseki)
+	}
+}
+
+function index(kaiseki) {
     return function(req, res) {
         var params = {
             count: true
@@ -15,7 +22,7 @@ exports.index = function(kaiseki) {
     }
 };
 
-exports.add = function(kaiseki) {
+function add(kaiseki) {
     return function(req, res) {
         res.render('updates/add', {
             title: 'Add Update'
