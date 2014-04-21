@@ -1,14 +1,16 @@
 module.exports = function(kaiseki) {
 	return {
 		index: index(kaiseki),
+		createNew: createNew(kaiseki),
 		add: add(kaiseki)
-	}
-}
+	};
+};
 
 function index(kaiseki) {
     return function(req, res) {
         var params = {
-            count: true
+            count: true,
+            order: '-createdAt'
         };
 
         kaiseki.getObjects('Updates', params, function(err, result, body, success) {
@@ -23,12 +25,43 @@ function index(kaiseki) {
 };
 
 function add(kaiseki) {
+	return function(req, res) {
+		// Validate input
+		req.assert('updateTitle', 'You can\'t update without a title!').notEmpty();
+		req.assert('updateTitle', 'Title needs to be shorter than %2 characters.').len(1, 40);
+		req.assert('updateMessage', 'You must specify a message!!!').notEmpty();
+
+		var errors = req.validationErrors();
+
+		if (!errors) {
+			var update = {
+				title: req.body.updateTitle,
+				msg: req.body.updateMessage
+			};
+			
+			kaiseki.createObject('Updates', update, function(err, result, body, success) {
+				res.location('/updates/new');
+				res.render('updates/new', {
+					title: 'Create New Update'
+				});
+			});
+		}
+		else {
+			res.location('/updates/new');
+			res.render('updates/new', {
+				title: 'Create New Update'
+			});
+		}
+	};
+}
+
+function createNew(kaiseki) {
     return function(req, res) {
-        res.render('updates/add', {
-            title: 'Add Update'
-        });
+       	res.render('updates/new', {
+           	title: 'Create New Update'
+       	});   
     };
-};
+}
 
 /*
 * Converts a time string into a string representing the "time ago" since then

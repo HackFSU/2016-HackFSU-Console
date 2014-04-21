@@ -12,11 +12,13 @@ $(document).ready(function() {
         case '':
             $('#home').addClass('active');
             break;
-        case 'data':
+        case 'users':
             $('#data').addClass('active');
             break;
         case 'updates':
             $('#updates').addClass('active');
             break;
+        case 'email':
+            $('#email').addClass('active');
     }
 });

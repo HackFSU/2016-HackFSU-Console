@@ -10,9 +10,9 @@ html(lang='en')
 
 		link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300', rel='stylesheet', type='text/css')
 		link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
-		link(rel='stylesheet', href='css/navbar-fixed.css')
-		link(rel='stylesheet', href='css/fonts.css')
-		link(rel='stylesheet', href='css/sticky-footer.css')
+		link(rel='stylesheet', href='/css/navbar-fixed.css')
+		link(rel='stylesheet', href='/css/fonts.css')
+		link(rel='stylesheet', href='/css/sticky-footer.css')
 
 		title HackFSU Console - #{title}
 	body
@@ -31,9 +31,11 @@ html(lang='en')
 							li#home
 								a(href='/') Home
 							li#data
-								a(href='/data') Data
+								a(href='/users') Users
 							li#updates
 								a(href='/updates') Updates
+							li#email
+								a(href='/email') Emails
 							li.dropdown
 								a.dropdown-toggle(href='#', data-toggle='dropdown') 
 									| Dropdown 
