@@ -2,25 +2,23 @@
 1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
 2 info using npm@1.4.3
 3 info using node@v0.10.26
-4 verbose run-script [ 'prestart', 'start', 'poststart' ]
-5 info prestart hackfsu-console@0.0.1
-6 info start hackfsu-console@0.0.1
-7 verbose unsafe-perm in lifecycle true
-8 info hackfsu-console@0.0.1 Failed to exec start script
-9 error hackfsu-console@0.0.1 start: `node app.js`
-9 error Exit status 8
-10 error Failed at the hackfsu-console@0.0.1 start script.
-10 error This is most likely a problem with the hackfsu-console package,
-10 error not with npm itself.
-10 error Tell the author that this fails on your system:
-10 error     node app.js
-10 error You can get their info via:
-10 error     npm owner ls hackfsu-console
-10 error There is likely additional logging output above.
-11 error System Linux 3.11.0-19-generic
-12 error command "/usr/local/bin/node" "/usr/local/bin/npm" "start"
-13 error cwd /home/trevor/HackFSU/WebConsole
-14 error node -v v0.10.26
-15 error npm -v 1.4.3
-16 error code ELIFECYCLE
-17 verbose exit [ 1, true ]
+4 error Error: Invalid version: "0.1-alpha"
+4 error     at Object.module.exports.fixVersionField (/usr/local/lib/node_modules/npm/node_modules/read-package-json/node_modules/normalize-package-data/lib/fixer.js:185:13)
+4 error     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/node_modules/normalize-package-data/lib/normalize.js:29:38
+4 error     at Array.forEach (native)
+4 error     at normalize (/usr/local/lib/node_modules/npm/node_modules/read-package-json/node_modules/normalize-package-data/lib/normalize.js:28:15)
+4 error     at final (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:328:33)
+4 error     at then (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:126:33)
+4 error     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:317:40
+4 error     at fs.js:266:14
+4 error     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:105:5
+4 error     at Object.oncomplete (fs.js:107:15)
+5 error If you need help, you may report this *entire* log,
+5 error including the npm and node versions, at:
+5 error     <http://github.com/npm/npm/issues>
+6 error System Linux 3.11.0-20-generic
+7 error command "/usr/local/bin/node" "/usr/local/bin/npm" "start"
+8 error cwd /home/trevor/HackFSU/WebConsole
+9 error node -v v0.10.26
+10 error npm -v 1.4.3
+11 verbose exit [ 1, true ]
