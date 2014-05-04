@@ -16,8 +16,7 @@ module.exports = (app) ->
 				res.render 'updates/all',
 					title: 'Updates',
 					updates: body.results,
-					count: body.count,
-					timeAgo: app.helpers.timeAgo
+					count: body.count
 
 		# Add update to Parse
 		@add = (req, res) ->

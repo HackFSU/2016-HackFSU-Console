@@ -22,7 +22,7 @@ module.exports = (app) ->
 	app.kaiseki.masterKey = PARSE_MASTER_KEY
 
 	# Load helper functions
-	app.helpers = require __dirname + '/../app/helpers'
+	app.locals.helpers = require __dirname + '/../app/helpers'
 
 	# Autoload controllers
 	autoload 'app/controllers', app
