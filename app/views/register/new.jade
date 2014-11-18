@@ -9,7 +9,7 @@ block content
                     Hey, people are going to register through this form. It's not prettty
                     yet, but it will be!
 
-                form.form-horizontal(name='newRegistration', method='post', action='/register/submit', role='form')
+                form.form-horizontal(name='registration', method='post', action='/register/submit', role='form')
                     .form-group
                         label(for='register_firstName', class='col-lg-2 control-label') First Name
                         .col-lg-6
@@ -20,4 +20,4 @@ block content
                             input#register_lastName(type='text', class='form-control', name='register_lastName', placeholder='And put your last name here', value=register_lastName)
                     .form-group
                         div(class='col-lg-offset-2 col-lg-5 pull-right')
-                            button(type='submit', class='btn btn-default') Send us your registration!
+                            button(type='submit', class='btn btn-primary') Send!

@@ -23,6 +23,9 @@ module.exports = (app) ->
 	# Create email
 	app.get '/email', app.EmailController.new
 
+	# Start new registration
+	app.get '/register', app.RegisterController.new
+
 	# Page not found (404)
 	# This should always be the LAST route specified
 	app.get '*', (req, res) ->
