@@ -1,2 +1,4 @@
 node_modules
 *.log
+bash
+resetNode.sh
