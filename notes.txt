@@ -8,3 +8,16 @@ We need a page similar to users/ that shows registrations and let's an admin (Ma
 That page should send the appropriate acceptance/denial email and when they create their account if accepted, the app will move their info to the users table
 Then under users we will have an easy check in system for the day of hackfsu
 And obviously we will need some authentication and login for admins/users
+
+
+Jared is working on:
+	-login
+		-Using 'Users' parse class
+	-ACL
+	
+
+Node
+	-use nodemon to run for auto update
+
+Parse
+	-https://github.com/shiki/kaiseki
