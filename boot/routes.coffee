@@ -26,6 +26,9 @@ module.exports = (app) ->
 	# Start new registration
 	app.get '/register', app.RegisterController.new
 
+	# Submit registration
+	app.post '/register/submit', app.RegisterController.submit
+
 	# Page not found (404)
 	# This should always be the LAST route specified
 	app.get '*', (req, res) ->
