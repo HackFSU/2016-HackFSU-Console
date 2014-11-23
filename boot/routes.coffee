@@ -10,7 +10,7 @@ module.exports = (app) ->
 
 	# All users
 	app.get '/users', app.UsersController.all
-	
+
 	# User Signin
 	app.get '/users/signin', app.UsersController.signin
 	# User Signin
@@ -34,13 +34,15 @@ module.exports = (app) ->
 
 	# Start new registration
 	app.get '/register', app.RegisterController.new
-	
-	
+
+	# Submit registration
+	app.post '/register/submit', app.RegisterController.submit
+
+
 	# Error page. errorMsg is outputed
 	app.get '/error', app.StaticPagesController.error
-	
+
 	# Page not found (404)
 	# This should always be the LAST route specified
 	app.get '*', (req, res) ->
 		res.render '404', title: 'Error 404'
-		
