@@ -18,6 +18,7 @@ PARSE_REST_KEY = 'r3mkEB00tKOdTpdAAFp0sNxV0M6JsWEPhwpFar6N'
 Kaiseki = require 'kaiseki'
 bodyParser = require 'body-parser'
 validator = require 'express-validator'
+Mandrill = require 'mandrill-api/mandrill'
 autoload = require '../lib/autoload'
 
 # Configuration
@@ -25,6 +26,9 @@ module.exports = (app) ->
 	# Create a Parse (Kaiseki) object
 	app.kaiseki = new Kaiseki PARSE_APP_ID, PARSE_REST_KEY
 	app.kaiseki.masterKey = PARSE_MASTER_KEY
+
+	# Create Mandrill object
+	app.mandrill = new Mandrill.Mandrill('Dqs5qY4wZParpstZXPf7Xg') 
 
 	# Load helper functions
 	app.locals.helpers = require __dirname + '/../app/helpers'
