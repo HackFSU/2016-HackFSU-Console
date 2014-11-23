@@ -11,6 +11,15 @@ module.exports = (app) ->
 	# All users
 	app.get '/users', app.UsersController.all
 
+	# User Signin
+	app.get '/users/signin', app.UsersController.signin
+	# User Signin
+	app.post '/users/signin_submit', app.UsersController.signin_submit
+	# User Signup
+	app.get '/users/signup', app.UsersController.signup
+	# User Signup_submit
+	app.post '/users/signup_submit', app.UsersController.signup_submit
+
 	# All updates
 	app.get '/updates', app.UpdatesController.all
 
@@ -28,6 +37,10 @@ module.exports = (app) ->
 
 	# Submit registration
 	app.post '/register/submit', app.RegisterController.submit
+
+
+	# Error page. errorMsg is outputed
+	app.get '/error', app.StaticPagesController.error
 
 	# Page not found (404)
 	# This should always be the LAST route specified

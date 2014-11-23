@@ -1,0 +1,23 @@
+PARSE LOGIN:
+Username:	th13@my.fsu.edu
+Password:	dreamincode1
+
+Well, I've created the basic registration form and it can submit things to the db. We're going to have a registration table where regs go and later when we send emails saying they're accepted and to create their account, we will remove them from the registration table and put them in the User table which has special parse functions already made for auth/logging in. That way too we will have a non cluttered user list for who is actually (supposedly) coming to the event. So we still need a page that lets people create an account (we will send a link in the email, so they will just need to ask for a password and confirmation). Also, we need to send a brief email when a registration is submitted telling them thank you and to look for another email down the line where they will find out if they are accepted or not. We should also create a special token when a registration is submitted that we will use in the link sent to them to create their account (this is a form of verifying they have a .edu address. So they're a student). We also need the main HackFSU page with all the assorted Info on it.
+
+We need a page similar to users/ that shows registrations and let's an admin (Matt) accept or reject applications easily
+That page should send the appropriate acceptance/denial email and when they create their account if accepted, the app will move their info to the users table
+Then under users we will have an easy check in system for the day of hackfsu
+And obviously we will need some authentication and login for admins/users
+
+
+Jared is working on:
+	-login
+		-Using 'Users' parse class
+	-ACL
+	
+
+Node
+	-use nodemon to run for auto update
+
+Parse
+	-https://github.com/shiki/kaiseki

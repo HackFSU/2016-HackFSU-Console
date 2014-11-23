@@ -4,10 +4,15 @@
 # Author: Trevor Helms
 ###
 
-# Parse API Keys
-PARSE_APP_ID = '4NDzxeC8KxdZi4Kyok7QfGhtS27GuHfntNh9ZSfL'
-PARSE_MASTER_KEY = 'k5K40usqxTLInr0OkDpyanoFO6ChaDkQsZTfCwRu'
-PARSE_REST_KEY = 'Yv6wS2RcB2iYqs3Fn7kNpGsjSSquY0Xj50uKQxbFar'
+# Parse API Keys (HackFSU)
+# PARSE_APP_ID = '4NDzxeC8KxdZi4Kyok7QfGhtS27GuHfntNh9ZSfL'
+# PARSE_MASTER_KEY = 'k5K40usqxTLInr0OkDpyanoFO6ChaDkQsZTfCwRu'
+# PARSE_REST_KEY = 'Yv6wS2RcB2iYqs3Fn7kNpGsjSSquY0Xj50uKQxbFar'
+
+# Parse API Keys (HackFSU-test)
+PARSE_APP_ID = 'jeoeVa2Nz3VLmrnWpAknbWKZADXHbmQltPSlU8mX'
+PARSE_MASTER_KEY = 'gTclGMjxCpE65arcXFqfdPbbrYb0NdTdu1XYzg0Q'
+PARSE_REST_KEY = 'r3mkEB00tKOdTpdAAFp0sNxV0M6JsWEPhwpFar6N'
 
 # Module dependencies
 Kaiseki = require 'kaiseki'
@@ -33,8 +38,10 @@ module.exports = (app) ->
 	app.set 'views', __dirname + '/../app/views'
 	app.set 'view engine', 'jade'
 	app.use require('express').static __dirname + '/../public'
-	app.use bodyParser()
 	app.use validator()
+	app.use bodyParser.json()
+	app.use bodyParser.urlencoded {extended: true} 
+	
 
 	# Development settings
 	if (env == 'development')

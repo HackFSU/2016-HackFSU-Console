@@ -1,0 +1,18 @@
+extend ../layout
+block content
+	.container
+		h1 Sign In
+		div(class='panel panel-default')
+			.panel-body
+				form.form-horizontal(name='signup', method='post', action='/users/signin_submit', role='form')
+					.form-group
+						label(for='username', class='col-lg-2 control-label', name='username') Username
+						.col-lg-6
+							input#username(type='text', class='form-control', name='username', placeholder='Username')
+					.form-group
+						label(for='password', class='col-lg-2 control-label', name='password') Password
+						.col-lg-6
+							input#password(type='password', class='form-control', name='password', placeholder='Password')
+					.form-group
+						div(class='col-lg-offset-2 col-lg-5 pull-right')
+							button(type='submit', class='btn btn-primary') Sign in			
