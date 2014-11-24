@@ -6,6 +6,7 @@ extend layout
 block content
 	.container
 		h1 #[strong Oops! You have encountered an error!]
-		h2 #{pageData.errorMsg}
-		h4 
-			a(href="#{pageData.backLocation}") Go Back
+		if pageData
+			h2 #{pageData.errorMsg}
+			h4 
+				a(href="#{pageData.backLocation}") Go Back
