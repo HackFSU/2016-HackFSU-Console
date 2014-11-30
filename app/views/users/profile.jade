@@ -1,0 +1,8 @@
+extend ../layout
+block content
+	.container
+		if pageData
+			h1 #{pageData.firstName} #{pageData.lastName}
+			p ParseSessionToken #{pageData.parseSessionToken}
+		else
+			h1 Error: No data found

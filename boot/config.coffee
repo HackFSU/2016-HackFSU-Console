@@ -20,6 +20,7 @@ bodyParser = require 'body-parser'
 validator = require 'express-validator'
 Mandrill = require 'mandrill-api/mandrill'
 autoload = require '../lib/autoload'
+session = require 'express-session'
 
 # Configuration
 module.exports = (app) ->
@@ -50,3 +51,18 @@ module.exports = (app) ->
 	# Development settings
 	if (env == 'development')
 		app.locals.pretty = true
+		
+	#Session settings
+	app.use session 
+		name: 'connect.sid'
+		secret: 'super secret secrety secret' #TODO: make this encoded
+		cookie:
+			maxAge: 864000		#10 days
+		saveUninitialized: false
+		resave: false
+	app.use (req,res,next) ->
+		res.locals.session = req.session;
+		next();
+		
+		
+			

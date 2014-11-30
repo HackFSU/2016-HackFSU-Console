@@ -28,29 +28,35 @@ html(lang='en')
 							span.icon-bar
 						a.navbar-brand(href='#') HackFSU Console
 					div(class='navbar-collapse collapse')
-						ul(class='nav navbar-nav')
-							li#home
-								a(href='/') Home
-							li#data
-								a(href='/users') Users
-							li#updates
-								a(href='/updates') Updates
-							li#email
-								a(href='/email') Emails
-							li.dropdown
-								a.dropdown-toggle(href='#', data-toggle='dropdown') 
-									| Dropdown 
-									b.caret
-								ul.dropdown-menu
-									li
-										a(href='#') Action
+						
 						ul(class='nav navbar-nav navbar-right')
-							li 
-								a(href='/register') Register
-							li
-								a(href='/users/signin') Sign In
-							li
-								a(href='/users/signup') Sign Up
+							if session.signin == 1
+								li
+									a(href='/users/profile') Profile
+								li
+									a(href='/users/signout') Logout
+									
+								//- admin only options
+								if session.isAdmin == true
+									li.dropdown
+										a.dropdown-toggle(href='#', data-toggle='dropdown') 
+											| Admin Tools 
+											b.caret
+										ul.dropdown-menu
+											li#data
+												a(href='/admin/allusers') All Users
+											li#updates
+												a(href='/updates') Updates
+											li#email
+												a(href='/email') Emails
+							else 
+								li
+									a(href='/users/signin') Login
+								li 
+									a(href='/register') Register
+								li
+									a(href='/users/signup') Sign Up
+								
 			block content
 		.footer
 			.container

@@ -1,27 +1,19 @@
+# Handles user sessions, signup, and profiles
+
 module.exports = (app) ->
 	class app.UsersController
-		@all = (req, res) ->
-			app.kaiseki.getUsers
-				limit: 500,
-				count: true
-			,
-			(err, result, body, success) ->
-				checkIns = 0;
-
-				body.results.forEach (user) ->
-					checkIns++ if user.checkedin
-
-				res.render 'users/all',
-					title: 'Users',
-					count: body.count,
-					checkins: checkIns
-					users: body.results
-		
 		@signin = (req, res) ->
+			# console.log("SIGNIN SESSION: " + JSON.stringify req.session)
 			
-			res.render 'users/signin',
-				title: 'Sign in'
-				
+			if req.session.signin == 1 			#signed in
+				res.redirect('/users/profile');
+			else
+				if req.session.signin == 2 		#failed/no attempt
+					console.log "Login failed!"
+					req.session.signin = 0
+				res.render 'users/signin',
+					title: 'Sign in'
+			
 		@signin_submit = (req, res) ->
 			isValidInput = false
 			if req.body.username? and
@@ -31,7 +23,10 @@ module.exports = (app) ->
 			userInfo =
 				username: req.body.username
 				password: req.body.password
-				
+			
+			#reset signin flag
+			req.session.signin = 0
+			
 			if isValidInput
 				# check parse
 				app.kaiseki.loginUser req.body.username, req.body.password,
@@ -42,20 +37,29 @@ module.exports = (app) ->
 						if success
 							msgs.push("PARSE - LOGIN SUCCESS!")
 							#TODO save parse session info
+							req.session.parseSessionToken = body.sessionToken
+							req.session.firstName = body.firstName
+							req.session.lastName = body.lastName
+							req.session.email = body.email
+							req.session.isAdmin = body.isAdmin
+							req.session.signin = 1
+																							
 						else
 							msgs.push("PARSE - LOGIN FAILURE!")
+							req.session.signin = 2
 						
 						msgs.push("> error: " + JSON.stringify error)
 						msgs.push("> body: " + JSON.stringify body)
 						for line in msgs 
 							console.log(line)
-			
-			# failed
-			res.render 'users/signin',
-				title: 'Sign in'
+						
+						res.redirect '/users/signin'
+				
+			else
+				console.log 'Invalid input'
+				res.redirect '/users/signin'
 				
 		@signup = (req, res) ->
-			
 			res.render 'users/signup',
 				title: 'Sign up'
 		
@@ -66,29 +70,20 @@ module.exports = (app) ->
 			if req.body.firstName? and
 			req.body.lastName? and
 			req.body.email? and
-			req.body.username? and
 			req.body.password?
 				# TODO: actually validate this. This checks existence only
 				isValidInput = true; 
 			
-			userInfo = 
-				username: req.body.username
-				password: req.body.password
-				firstName: req.body.firstName
-				lastName: req.body.lastName
-				email: req.body.email
-			
-			
-			console.log "User submit " + JSON.stringify userInfo
 			
 			if isValidInput
-			# 	userInfo = 
-			# 		username: req.body.username
-			# 		password: req.body.password
-			# 		firstName: req.body.firstName
-			# 		lastName: req.body.lastName
-			# 		email: req.body.email
-				
+				#console.log "User submit " + JSON.stringify userInfo
+				userInfo = 
+					username: req.body.email
+					password: req.body.password
+					firstName: req.body.firstName
+					lastName: req.body.lastName
+					email: req.body.email
+					isAdmin: false			#manually assign admins
 				
 				app.kaiseki.createUser userInfo, 
 					(error, response, body, success) ->
@@ -115,4 +110,20 @@ module.exports = (app) ->
 					pageData:
 						errorMsg: 'Error: Invalid Input'
 						backLocation: '/users/signup'
+		
+		
+		@signout = (req, res) ->
+			req.session.destroy()
+			res.redirect '/'
+			
+		@profile  = (req, res) ->
+			#console.log("PROFILE SESSION: " + JSON.stringify req.session)
+			
+			res.render 'users/profile',
+				title: 'Profile'
+				pageData:
+					parseSessionToken: req.session.parseSessionToken
+					firstName: req.session.firstName
+					lastName: req.session.lastName
+			
 

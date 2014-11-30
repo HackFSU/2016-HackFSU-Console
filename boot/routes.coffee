@@ -8,17 +8,26 @@ module.exports = (app) ->
 	# Index
 	app.get '/', app.StaticPagesController.index
 
-	# All users
-	app.get '/users', app.UsersController.all
+	# ADMINISTRATION ###########################################
+	# Home
+	app.get '/admin', app.AdminController.home
+	app.get '/admin/home', app.AdminController.home
+	# all users
+	app.get '/admin/allUsers', app.AdminController.allUsers
 
-	# User Signin
+
+	# USER #####################################################
+	# Signin
 	app.get '/users/signin', app.UsersController.signin
-	# User Signin
 	app.post '/users/signin_submit', app.UsersController.signin_submit
-	# User Signup
+	# Signup
 	app.get '/users/signup', app.UsersController.signup
-	# User Signup_submit
 	app.post '/users/signup_submit', app.UsersController.signup_submit
+	# Signout
+	app.get '/users/signout', app.UsersController.signout
+	# Profile
+	app.get '/users/profile', app.UsersController.profile
+	
 
 	# All updates
 	app.get '/updates', app.UpdatesController.all
