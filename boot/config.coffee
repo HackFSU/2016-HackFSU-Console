@@ -4,16 +4,6 @@
 # Author: Trevor Helms
 ###
 
-# Parse API Keys (HackFSU)
-# PARSE_APP_ID = '4NDzxeC8KxdZi4Kyok7QfGhtS27GuHfntNh9ZSfL'
-# PARSE_MASTER_KEY = 'k5K40usqxTLInr0OkDpyanoFO6ChaDkQsZTfCwRu'
-# PARSE_REST_KEY = 'Yv6wS2RcB2iYqs3Fn7kNpGsjSSquY0Xj50uKQxbFar'
-
-# Parse API Keys (HackFSU-test)
-PARSE_APP_ID = 'jeoeVa2Nz3VLmrnWpAknbWKZADXHbmQltPSlU8mX'
-PARSE_MASTER_KEY = 'gTclGMjxCpE65arcXFqfdPbbrYb0NdTdu1XYzg0Q'
-PARSE_REST_KEY = 'r3mkEB00tKOdTpdAAFp0sNxV0M6JsWEPhwpFar6N'
-
 # Module dependencies
 Kaiseki = require 'kaiseki'
 bodyParser = require 'body-parser'
@@ -21,13 +11,10 @@ validator = require 'express-validator'
 Mandrill = require 'mandrill-api/mandrill'
 autoload = require '../lib/autoload'
 session = require 'express-session'
+dotenv = require 'dotenv'
 
 # Configuration
 module.exports = (app) ->
-	# Create a Parse (Kaiseki) object
-	app.kaiseki = new Kaiseki PARSE_APP_ID, PARSE_REST_KEY
-	app.kaiseki.masterKey = PARSE_MASTER_KEY
-
 	# Create Mandrill object
 	app.mandrill = new Mandrill.Mandrill('Dqs5qY4wZParpstZXPf7Xg') 
 
@@ -36,7 +23,10 @@ module.exports = (app) ->
 
 	# Autoload controllers
 	autoload 'app/controllers', app
-
+	
+	# Load env
+	dotenv.load()
+	
 	# Configure app settings
 	env = process.env.NODE_ENV || 'development'
 	app.set 'port', process.env.PORT || 5000
@@ -47,6 +37,11 @@ module.exports = (app) ->
 	app.use bodyParser.json()
 	app.use bodyParser.urlencoded {extended: true} 
 	
+	# Create a Parse (Kaiseki) object
+	app.kaiseki = new Kaiseki process.env.PARSE_APP_ID_TEST, 
+	process.env.PARSE_REST_KEY_TEST
+	app.kaiseki.masterKey = process.env.PARSE_MASTER_KEY_TEST
+
 
 	# Development settings
 	if (env == 'development')
@@ -55,7 +50,7 @@ module.exports = (app) ->
 	#Session settings
 	app.use session 
 		name: 'connect.sid'
-		secret: 'super secret secrety secret' #TODO: make this encoded
+		secret: process.env.SECRET + ' '
 		cookie:
 			maxAge: 864000		#10 days
 		saveUninitialized: false
@@ -63,6 +58,15 @@ module.exports = (app) ->
 	app.use (req,res,next) ->
 		res.locals.session = req.session;
 		next();
+		
+	
+	#debug crap
+	console.log 'ENV VARS ->'
+	console.log ("> PARSE_APP_ID_TEST=" + process.env.PARSE_APP_ID_TEST)
+	console.log ("> PARSE_REST_KEY_TEST=" + process.env.PARSE_REST_KEY_TEST)
+	console.log ("> PARSE_MASTER_KEY_TEST=" + process.env.PARSE_MASTER_KEY_TEST)
+	console.log ("> SECRET=" + process.env.SECRET)
+	console.log '-------------------------------'
 		
 		
 			

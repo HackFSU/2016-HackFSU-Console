@@ -1,10 +1,16 @@
-HackFSU Console
-===============
+HackFSU Web Console
+===================
+
+#### Description
+This will be the final landing page + background management website for HackFSU, to be hosted at hackfsu.com. Admin users have access to admin tools, while other users will just be able to login and register + do app stuff. 
 
 #### Setup and Deployment Instructions
 
 ###### Prerequisites: 
-Install Node.JS, NPM, and Heroku Toolbelt (https://toolbelt.heroku.com/)
+
+1. Install node.js, npm
+2. `process.env` is needed to connect to Parse (gitignored for security)
+
 
 ###### To setup and run project:
 
@@ -12,12 +18,6 @@ Install Node.JS, NPM, and Heroku Toolbelt (https://toolbelt.heroku.com/)
 2. `cd path/to/project`
 3. `npm install`
 4. `npm start`
-
-###### To deploy to Heroku:
-
-1. Have Heroku toolbelt installed and configured
-2. `git remote add heroku git@heroku.com:hackfsu-console.git` 
-3. `git push heroku master`
 
 #### Project Structure
 
@@ -36,4 +36,61 @@ Install Node.JS, NPM, and Heroku Toolbelt (https://toolbelt.heroku.com/)
     TODO: Move CSS and JS to `app/assets/` and create asset pipeline
 * `package.json` Contains general project information and npm dependencies.
 * `server.js` Loads the coffeescript module and boot scripts (probably will never need to be changed)
+* `.env` (not in git for security) Contains environment variables, such as keys/usernames/passwords to connect to outside sources 
+
+
+#### Pages
+##### Public
+* `/` 
+* `/` 
+* `/` 
+
+##### User
+* `/` 
+* `/` 
+* `/` 
+* `/` 
+
+##### Admin
+* `/` 
+* `/` 
+* `/` 
+* `/` 
+* `/` 
+* `/` 
+
+#### Use Cases
+##### Public
 * 
+* 
+* 
+* 
+* 
+
+##### User
+* 
+* 
+* 
+* 
+
+##### Admin
+* 
+* 
+* 
+* 
+* 
+
+#### Parse
+* We are using the kaiseki API - https://github.com/shiki/kaiseki
+* currently using HackFSU-test
+* PreviewSubscription
+	Contains the email for the preview email subscription
+* TODO - keep track of this stuff here
+
+#### Notes
+* If you add a page, PLEASE ADD IT TO THIS README!
+* We are using Jade over HTML and CoffeScript over Javascript. Learn them! They are quite nice. Also, in Sublime there are some good addons for syntax/conversion to make them even easier.
+* Please try to document! It helps the development process move along faster + more smoothly. 
+
+
+

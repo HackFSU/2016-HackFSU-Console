@@ -17,6 +17,7 @@
     "express-validator": "^2.1.1",
     "coffee-script": "^1.8.0",
     "mandrill-api": "^1.0.41",
-    "express-session": "^1.9.2"
+    "express-session": "^1.9.2",
+    "dotenv": "0.4.0"
   }
 }
