@@ -1,0 +1,31 @@
+extend ../layout
+block content
+	.container
+		div(class='panel panel-default')
+			div.panel-heading
+				h3.panel-title
+					= title
+					span.pull-right
+						= 'Total: ' + count + '  |  Checked In: ' + checkins
+			table(class='table table-striped')
+				thead
+					tr
+						th Name
+						th Username
+						th School
+						th Email
+						th Checked In
+				tbody
+					each user in users
+						tr
+							td= user.name
+							td= user.username
+							td= user.school
+							td= user.email
+							td
+								if user.checkedin == true
+									| Yes
+								else
+									| No
+
+
