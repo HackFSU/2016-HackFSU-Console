@@ -2,3 +2,8 @@ node_modules
 .dropbox*
 desktop.ini
 .env
+<<<<<<< HEAD
+=======
+notes.txt
+.dropbox*
+>>>>>>> 68148829eed1d3b3024833c69e1927e23563d12b
