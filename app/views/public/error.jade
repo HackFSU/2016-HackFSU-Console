@@ -1,0 +1,12 @@
+//- Throw to this page when an error is found somewhere not handled by js
+//- You MUST pass a pageData.errorMsg and pageData.backLocation
+//- This can also be used for debug purposes
+
+extend layout
+block content
+	.container
+		h1 #[strong Oops! You have encountered an error!]
+		if pageData
+			h2 #{pageData.errorMsg}
+			h4 
+				a(href="#{pageData.backLocation}") Go Back
