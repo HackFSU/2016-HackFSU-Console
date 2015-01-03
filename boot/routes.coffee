@@ -1,35 +1,41 @@
 ###
-# Specify all routes here.
-#
-# Author: Trevor
+	Specify all routes here.
+	
 ###
 
 module.exports = (app) ->
-	# Index
-	app.get '/', app.StaticPagesController.index
-
+	
 	# ADMINISTRATION ###########################################
 	# Home
 	app.get '/admin', app.AdminController.home
-	app.get '/admin/home', app.AdminController.home
+	
 	# all users
 	app.get '/admin/allUsers', app.AdminController.allUsers
 
 
 	# USER #####################################################
-	# Signin
-	app.get '/users/signin', app.UsersController.signin
-	app.post '/users/signin_submit', app.UsersController.signin_submit
-	# Signup
-	app.get '/users/signup', app.UsersController.signup
-	app.post '/users/signup_submit', app.UsersController.signup_submit
+	
 	# Signout
 	app.get '/users/signout', app.UsersController.signout
 	# Profile
 	app.get '/users/profile', app.UsersController.profile
 	
-
-	# All updates
+	
+	# PUBLIC ###################################################
+	# Index
+	app.get '/', app.PublicController.index
+	app.get '/index', app.PublicController.index
+	app.get '/home', app.PublicController.index
+	
+	# Signin
+	app.get '/signin', app.UsersController.signin
+	app.post '/signin_submit', app.UsersController.signin_submit
+	
+	# Signup
+	app.get '/signup', app.UsersController.signup
+	app.post '/signup_submit', app.UsersController.signup_submit
+	
+	# View updates
 	app.get '/updates', app.UpdatesController.all
 
 	# Create update
@@ -42,16 +48,16 @@ module.exports = (app) ->
 	app.get '/email', app.EmailController.new
 
 	# Start new registration
-	app.get '/register', app.RegisterController.new
+	app.get '/apply', app.RegisterController.new
 
 	# Submit registration
 	app.post '/register/submit', app.RegisterController.submit
 
 
 	# Error page. errorMsg is outputed
-	app.get '/error', app.StaticPagesController.error
+	app.get '/error', app.PublicController.error
 
 	# Page not found (404)
 	# This should always be the LAST route specified
 	app.get '*', (req, res) ->
-		res.render '404', title: 'Error 404'
+		res.render 'public/404', title: 'Error 404'

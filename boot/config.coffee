@@ -29,7 +29,7 @@ module.exports = (app) ->
 	
 	# Configure app settings
 	env = process.env.NODE_ENV || 'development'
-	app.set 'port', process.env.PORT || 5000
+	app.set 'port', process.env.PORT || 5003
 	app.set 'views', __dirname + '/../app/views'
 	app.set 'view engine', 'jade'
 	app.use require('express').static __dirname + '/../public'
@@ -41,7 +41,6 @@ module.exports = (app) ->
 	app.kaiseki = new Kaiseki process.env.PARSE_APP_ID_TEST, 
 	process.env.PARSE_REST_KEY_TEST
 	app.kaiseki.masterKey = process.env.PARSE_MASTER_KEY_TEST
-
 
 	# Development settings
 	if (env == 'development')

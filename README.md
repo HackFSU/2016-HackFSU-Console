@@ -40,57 +40,60 @@ This will be the final landing page + background management website for HackFSU,
 
 
 #### Pages
-##### Public
-* `/` 
-* `/` 
-* `/` 
+##### Public Access
+* `/` `/index` `/home` -- homepage
+* `/contact` -- HacFSU contact info
+* `/apply` -- apply for HackFSU
+* `/signup/$confirmationEmailCode` -- create acc. (code req.)
+* `/signin` -- signin to account
+* `/signin/passwordreset -- reset password via email
+* `/error` -- misc error thrown
+* 404 -- page not found
 
-##### User
-* `/` 
-* `/` 
-* `/` 
-* `/` 
+##### User Access
+* `/users/signout` -- signout
+* `/users/profile` -- view user profile
+* `/updates` -- view updates
 
-##### Admin
-* `/` 
-* `/` 
-* `/` 
-* `/` 
+##### Admin Access
+* `/admin` -- admin home
+* `/admin/updates` -- manage updates
+* `/admin/applications` -- manage apps
+* `/admin/users` -- manage users
+* `/admin/email` -- manage emails
 * `/` 
 * `/` 
 
 #### Use Cases
 ##### Public
-* 
-* 
-* 
-* 
-* 
+* Apply (wave 1) -- account not created
+* Signup (wave 2) -- creates an account to signin with
+* View information
 
 ##### User
-* 
-* 
-* 
-* 
+* View Profile
+* View Updates
+* Signin
+* Reset Password using email
+* Logout
+* ???
 
 ##### Admin
-* 
-* 
-* 
-* 
-* 
+* view/accept/deny/delete applications
+* view/send/edit/delete global updates (seen on web+iOS+android)
+* search/browse/checkin users
+* ???
 
 #### Parse
 * We are using the kaiseki API - https://github.com/shiki/kaiseki
 * currently using HackFSU-test
 * PreviewSubscription
 	Contains the email for the preview email subscription
-* TODO - keep track of this stuff here
+* Tables must be protected correctly in parse
+* TODO: backup last year's stuff
+* The .env file is required to make this work (get it from Jared). It has our private Parse keys
 
 #### Notes
 * If you add a page, PLEASE ADD IT TO THIS README!
 * We are using Jade over HTML and CoffeScript over Javascript. Learn them! They are quite nice. Also, in Sublime there are some good addons for syntax/conversion to make them even easier.
 * Please try to document! It helps the development process move along faster + more smoothly. 
-
-
-
