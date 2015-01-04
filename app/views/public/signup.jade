@@ -1,4 +1,35 @@
 extend ../layout
 block content
 	.container
-		h1 #{title}
+		h1 Account Sign Up
+		div(class='panel panel-default')
+			.panel-heading
+				h3.panel-title= title
+			.panel-body
+				p.
+						This will be the account sign up page. Not to be confused 
+						with the application page.
+				p
+						strong TODO:&nbsp;
+						| make this full
+
+				form.form-horizontal(name='signup', method='post', action='/signup_submit', role='form')
+						.form-group
+							label(for='firstName', class='col-lg-2 control-label') First Name
+							.col-lg-6
+								input(type='text', class='form-control' placeholder='Put your first name here', name='firstName', value=firstName)
+						.form-group
+							label(for='lastName', class='col-lg-2 control-label') Last Name
+							.col-lg-6
+								input(type='text', class='form-control', name='lastName', placeholder='And put your last name here', value=lastName)
+						.form-group
+							label(for='email', class='col-lg-2 control-label', name='email') Email
+							.col-lg-6
+								input(type='text', class='form-control', name='email', placeholder='youremail@school.edu', value=email)
+						.form-group
+							label(for='password', class='col-lg-2 control-label', name='password') Password
+							.col-lg-6
+								input(type='password', class='form-control', name='password', placeholder='Password')
+						.form-group
+							div(class='col-lg-offset-2 col-lg-5 pull-right')
+								button(type='submit', class='btn btn-primary') Submit!

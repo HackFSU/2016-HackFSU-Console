@@ -11,8 +11,10 @@ validator = require 'express-validator'
 Mandrill = require 'mandrill-api/mandrill'
 autoload = require '../lib/autoload'
 session = require 'express-session'
+cookieParser = require('cookie-parser')
 dotenv = require 'dotenv'
 acl = require '../lib/acl'
+flash = require 'express-flash'
 
 # Configuration
 module.exports = (app) ->
@@ -59,9 +61,14 @@ module.exports = (app) ->
 		res.locals.session = req.session;
 		next();
 	
-	# Enforce ACL
+	# Handle Flash messages
+	app.use cookieParser(process.env.SECRET + ' ')
+	app.use flash()
+	
+	# Enforce ACL (needs to be last)
 	app.use acl
-		
+	
+	
 	
 	#debug crap
 	console.log 'ENV VARS ->'

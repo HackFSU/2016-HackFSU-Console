@@ -48,8 +48,7 @@ module.exports = (app) ->
 	
 	# Signup
 	app.get '/signup', app.PublicController.signup
-	# app.get '/signup', app.UsersController.signup
-	# app.post '/signup_submit', app.UsersController.signup_submit
+	app.post '/signup_submit', app.PublicController.signup_submit
 	
 	# View updates
 	app.get '/updates', app.PublicController.updates

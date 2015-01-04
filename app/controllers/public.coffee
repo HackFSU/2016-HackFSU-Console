@@ -24,9 +24,6 @@ module.exports = (app) ->
 			res.render 'public/apply',
 				title: 'Apply'
 				
-		@signup = (req, res) ->
-			res.render 'public/signup',
-				title: 'Sign Up'
 		
 		@updates = (req, res) ->
 			res.render 'public/updates',
@@ -37,7 +34,7 @@ module.exports = (app) ->
 				title: 'Schedule'
 		
 		########################################################################
-		# Signin
+		# Signin - final submission done via post
 		########################################################################
 		@signin = (req, res) ->			
 			if req.session.signin == 1 			#signed in
@@ -87,3 +84,47 @@ module.exports = (app) ->
 			else
 				console.log 'Invalid input'
 				res.redirect '/signin'
+				
+				
+		########################################################################
+		# Signup - final submission done via post
+		########################################################################
+		@signup = (req, res) ->
+			res.render 'public/signup',
+				title: 'Sign Up'
+		@signup_submit = (req, res) ->
+			if req.body.firstName? and
+			req.body.lastName? and
+			req.body.email? and
+			req.body.password?
+
+				userInfo = 
+					username: req.body.email 		#username is email
+					password: req.body.password
+					firstName: req.body.firstName
+					lastName: req.body.lastName
+					email: req.body.email
+					isAdmin: false			#manually assign admins later
+				
+				app.kaiseki.createUser userInfo, 
+					(error, response, body, success) ->
+						msgs = []
+						if success
+							msgs.push("PARSE - SIGNUP SUCCESS!")
+						else
+							msgs.push("PARSE - SIGNUP FAILURE!")
+						
+						msgs.push("> error: " + JSON.stringify error)
+						# msgs.push("> response: " + JSON.stringify response) this doesnt work 
+						msgs.push("> body: " + JSON.stringify body)
+							
+						for line in msgs 
+							console.log(line)
+							
+				res.redirect '/signin'				
+			else
+				console.log 'Invalid input'
+				res.redirect '/signup'
+			
+			
+				
