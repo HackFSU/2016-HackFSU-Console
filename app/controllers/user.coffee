@@ -3,8 +3,9 @@
 module.exports = (app) ->
 	class app.UserController
 		@signout = (req, res) ->
-			res.render 'user/signout',
-				title: 'Sign out'
+			# req.flash('success', "You have signed out.")
+			req.session.destroy()
+			res.redirect '/'
 		
 		@profile = (req, res) ->
 			res.render 'user/profile',

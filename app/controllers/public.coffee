@@ -61,6 +61,7 @@ module.exports = (app) ->
 						msgs = []
 						
 						if success
+							req.flash('success', 'You have successfully signed in!')
 							msgs.push("PARSE - LOGIN SUCCESS!")
 							#TODO save parse session info
 							req.session.parseSessionToken = body.sessionToken
@@ -71,6 +72,7 @@ module.exports = (app) ->
 							req.session.signin = 1
 																							
 						else
+							req.flash('error', app.locals.helpers.getParseError(error,body))
 							msgs.push("PARSE - LOGIN FAILURE!")
 							req.session.signin = 2
 						
@@ -82,7 +84,7 @@ module.exports = (app) ->
 						res.redirect '/signin'
 				
 			else
-				console.log 'Invalid input'
+				req.flash('error', 'Error: Invalid Input!')
 				res.redirect '/signin'
 				
 				
@@ -108,22 +110,27 @@ module.exports = (app) ->
 				
 				app.kaiseki.createUser userInfo, 
 					(error, response, body, success) ->
+						#debug
 						msgs = []
 						if success
 							msgs.push("PARSE - SIGNUP SUCCESS!")
 						else
 							msgs.push("PARSE - SIGNUP FAILURE!")
-						
 						msgs.push("> error: " + JSON.stringify error)
-						# msgs.push("> response: " + JSON.stringify response) this doesnt work 
 						msgs.push("> body: " + JSON.stringify body)
-							
 						for line in msgs 
 							console.log(line)
 							
-				res.redirect '/signin'				
+						if success
+							req.flash('success', 'Sign up successful!')
+							res.redirect '/signin'
+						else
+							req.flash('error', app.locals.helpers.getParseError(error,body))
+							res.redirect '/signup'
+							
+						
 			else
-				console.log 'Invalid input'
+				req.flash('error', 'Error: Invalid Input!')
 				res.redirect '/signup'
 			
 			
