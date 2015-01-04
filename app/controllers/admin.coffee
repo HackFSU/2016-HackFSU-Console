@@ -26,7 +26,7 @@ module.exports = (app) ->
 		@home = (req, res) ->
 			if checkForAdmin req, res
 				res.render 'admin/home',
-					title: 'Admin Home'
+					title: 'Admin - Home'
 		
 		# Lists all users in a chart
 		@allUsers = (req, res) ->
@@ -46,4 +46,23 @@ module.exports = (app) ->
 						count: body.count,
 						checkins: checkIns
 						users: body.results
-
+						
+		@updates = (req, res) ->
+			if checkForAdmin req, res
+				res.render 'admin/updates',
+					title: 'Admin - Update Management'
+		
+		@applications = (req, res) ->
+			if checkForAdmin req, res
+				res.render 'admin/applications',
+					title: 'Admin - Application Management'
+					
+		@users = (req, res) ->
+			if checkForAdmin req, res
+				res.render 'admin/users',
+					title: 'Admin - User Management'
+		
+		@emails = (req, res) ->
+			if checkForAdmin req, res
+				res.render 'admin/emails',
+					title: 'Admin - Email Management'

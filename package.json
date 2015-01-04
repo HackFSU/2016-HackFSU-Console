@@ -7,7 +7,7 @@
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Trevor Helms",
+  "author": "HackFSU",
   "license": "ISC",
   "dependencies": {
     "express": "^4.10.2",

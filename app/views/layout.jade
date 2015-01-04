@@ -34,28 +34,34 @@ html(lang='en')
 								li
 									a(href='/users/profile') Profile
 								li
-									a(href='/users/signout') Logout
+									a(href='/users/signout') Sign out
 									
 								//- admin only options
 								if session.isAdmin == true
 									li.dropdown
-										a.dropdown-toggle(href='#', data-toggle='dropdown') 
+										a.dropdown-toggle(href='/admin', data-toggle='dropdown') 
 											| Admin Tools 
 											b.caret
 										ul.dropdown-menu
-											li#data
-												a(href='/admin/allusers') All Users
-											li#updates
-												a(href='/updates') Updates
-											li#email
-												a(href='/email') Emails
+											li
+												a(href='/admin/updates') Updates
+											li
+												a(href='/admin/applications') Applications
+											li
+												a(href='/admin/users') Users
+											li
+												a(href='/admin/email') Emails
 							else 
 								li
-									a(href='/signin') Login
+									a(href='/signin') Sign In
 								li 
-									a(href='/apply') Register
+									a(href='/apply') Apply
 								li
 									a(href='/signup') Sign Up
+								li
+									a(href='/contact') Contact
+								li
+									a(href='/schedule') Schedule
 								
 			block content
 		.footer

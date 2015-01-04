@@ -43,24 +43,26 @@ This will be the final landing page + background management website for HackFSU,
 ##### Public Access
 * `/` `/index` `/home` -- homepage
 * `/contact` -- HacFSU contact info
+* `/sponsor` -- sponsorship information (current + new sponsor info)
+* `/schedule` -- schedule information
+* `/updates` -- view updates
 * `/apply` -- apply for HackFSU
 * `/signup/$confirmationEmailCode` -- create acc. (code req.)
 * `/signin` -- signin to account
-* `/signin/passwordreset -- reset password via email
+* `/signin/passwordreset` -- reset password via email
 * `/error` -- misc error thrown
 * 404 -- page not found
 
 ##### User Access
-* `/users/signout` -- signout
-* `/users/profile` -- view user profile
-* `/updates` -- view updates
+* `/user/signout` -- signout
+* `/user/profile` -- view user profile
 
 ##### Admin Access
 * `/admin` -- admin home
 * `/admin/updates` -- manage updates
 * `/admin/applications` -- manage apps
 * `/admin/users` -- manage users
-* `/admin/email` -- manage emails
+* `/admin/emails` -- manage emails
 * `/` 
 * `/` 
 
@@ -97,3 +99,4 @@ This will be the final landing page + background management website for HackFSU,
 * If you add a page, PLEASE ADD IT TO THIS README!
 * We are using Jade over HTML and CoffeScript over Javascript. Learn them! They are quite nice. Also, in Sublime there are some good addons for syntax/conversion to make them even easier.
 * Please try to document! It helps the development process move along faster + more smoothly. 
+* If there is time, we could implement a 'view participants' page that shows people's categories + team status, as well as a way to contact them (via facebook?). A LFG essentailly. Could be tied into app
