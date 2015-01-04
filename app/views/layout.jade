@@ -32,17 +32,19 @@ html(lang='en')
 						ul(class='nav navbar-nav navbar-right')
 							if session.signin == 1
 								li
-									a(href='/users/profile') Profile
+									a(href='/user/profile') Profile
 								li
-									a(href='/users/signout') Sign out
+									a(href='/user/signout') Sign out
 									
 								//- admin only options
 								if session.isAdmin == true
 									li.dropdown
-										a.dropdown-toggle(href='/admin', data-toggle='dropdown') 
-											| Admin Tools 
+										a.dropdown-toggle(href='#', data-toggle='dropdown') 
+											| Admin Console
 											b.caret
 										ul.dropdown-menu
+											li
+												a(href='/admin') Home
 											li
 												a(href='/admin/updates') Updates
 											li
@@ -50,7 +52,7 @@ html(lang='en')
 											li
 												a(href='/admin/users') Users
 											li
-												a(href='/admin/email') Emails
+												a(href='/admin/emails') Emails
 							else 
 								li
 									a(href='/signin') Sign In
@@ -67,7 +69,7 @@ html(lang='en')
 		.footer
 			.container
 				p(class="text-muted credit").
-					&copy; 2014 Trevor Helms and Jared Bennett
+					&copy; 2015 Jared Bennett and Trevor Helms
 
 
 

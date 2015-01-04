@@ -9,6 +9,10 @@ module.exports = (app) ->
 		@profile = (req, res) ->
 			res.render 'user/profile',
 				title: 'Profile'
+				pageData:
+					parseSessionToken: req.session.parseSessionToken
+					firstName: req.session.firstName
+					lastName: req.session.lastName
 
 			
 

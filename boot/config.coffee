@@ -12,6 +12,7 @@ Mandrill = require 'mandrill-api/mandrill'
 autoload = require '../lib/autoload'
 session = require 'express-session'
 dotenv = require 'dotenv'
+acl = require '../lib/acl'
 
 # Configuration
 module.exports = (app) ->
@@ -57,6 +58,9 @@ module.exports = (app) ->
 	app.use (req,res,next) ->
 		res.locals.session = req.session;
 		next();
+	
+	# Enforce ACL
+	app.use acl
 		
 	
 	#debug crap

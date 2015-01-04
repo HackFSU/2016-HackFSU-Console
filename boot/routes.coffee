@@ -9,6 +9,18 @@ module.exports = (app) ->
 	# Home
 	app.get '/admin', app.AdminController.home
 	
+	# updates
+	app.get '/admin/updates', app.AdminController.updates
+	
+	# applications
+	app.get '/admin/applications', app.AdminController.applications
+	
+	# users
+	app.get '/admin/users', app.AdminController.users
+	
+	# emails
+	app.get '/admin/emails', app.AdminController.emails
+	
 	# all users
 	# app.get '/admin/allUsers', app.AdminController.allUsers
 
@@ -20,7 +32,7 @@ module.exports = (app) ->
 	# app.get '/users/signout', app.UsersController.signout
 	
 	# Profile
-	app.get '/user/signout', app.UserController.profile
+	app.get '/user/profile', app.UserController.profile
 	# app.get '/users/profile', app.UsersController.profile
 	
 	
@@ -32,8 +44,7 @@ module.exports = (app) ->
 		
 	# Signin
 	app.get '/signin', app.PublicController.signin
-	# app.get '/signin', app.UsersController.signin
-	# app.post '/signin_submit', app.UsersController.signin_submit
+	app.post '/signin_submit', app.PublicController.signin_submit
 	
 	# Signup
 	app.get '/signup', app.PublicController.signup

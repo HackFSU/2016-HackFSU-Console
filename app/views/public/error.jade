@@ -2,11 +2,11 @@
 //- You MUST pass a pageData.errorMsg and pageData.backLocation
 //- This can also be used for debug purposes
 
-extend layout
+extend ../layout
 block content
 	.container
-		h1 #[strong Oops! You have encountered an error!]
-		if pageData
-			h2 #{pageData.errorMsg}
-			h4 
-				a(href="#{pageData.backLocation}") Go Back
+		h1 #[strong #{errorData.msg}]
+		if errorData
+			if errorData.returnLocation
+				h4 
+					a(href="#{errorData.returnLocation}") #{errorData.returnMsg}
