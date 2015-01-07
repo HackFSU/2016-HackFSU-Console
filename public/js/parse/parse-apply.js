@@ -54,7 +54,7 @@ $('#application').submit(function(event) {
     QAs: [$('input[type=radio][name=QA0][value=Yes]').is(':checked'), $('#QA1').val(), $('#QA2').val(), $('#QA3').val(), $('#QA4').val(), $('#QA5').val()]
   };
   console.log(JSON.stringify(appData));
-  appValid = true;
+  appValid = checkAppData(appData);
   if (appValid !== true) {
 
   } else {
@@ -63,11 +63,15 @@ $('#application').submit(function(event) {
     try {
       if (filecontrol.files.length > 0) {
         file = filecontrol.files[0];
-        name = appData.firstName + "-" + appData.lastName + "_resume";
+        name = (appData.firstName ? appData.firstName : "NULL") + "-" + (appData.lastName ? appData.lastName : "NULL") + "_resume";
         parts = file.name.split('.');
         ext = parts[parts.length - 1].toUpperCase();
         if (ext !== 'PDF') {
+          appValid = 7;
           return alert("Résumé must be a .pdf file");
+        } else if (file.size > 9000000) {
+          appValid = 7;
+          return alert("Résumé has a max file size of 10MB");
         }
         appData.resume = new Parse.File(name, file);
       }
@@ -79,16 +83,18 @@ $('#application').submit(function(event) {
     } finally {
 
     }
-    Application = Parse.Object.extend('Applications');
-    appParse = new Application();
-    appParse.save(appData, {
-      success: function(appParse) {
-        return console.log("Parse Success!");
-      },
-      error: function(appParse, error) {
-        return console.log("Parse Failure!");
-      }
-    });
+    if (appValid === true) {
+      Application = Parse.Object.extend('Applications');
+      appParse = new Application();
+      appParse.save(appData, {
+        success: function(appParse) {
+          return console.log("Parse Success!");
+        },
+        error: function(appParse, error) {
+          return console.log("Parse Failure!");
+        }
+      });
+    }
   }
   console.log(appValid);
 });
@@ -118,7 +124,7 @@ checkAppData = function(appData) {
     return 4;
   }
   if (!(appData.QAs[0] || $('input[type=radio][name=QA0][value=No]').is(':checked'))) {
-    return 7;
+    return 8;
   }
   return true;
 };

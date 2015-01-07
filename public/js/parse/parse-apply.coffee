@@ -37,7 +37,7 @@
 startParse()
 
 
-# Handle form submission
+# Handle form submission 
 $('#application').submit (event) ->
 	event.preventDefault()
 	
@@ -63,8 +63,8 @@ $('#application').submit (event) ->
 	console.log JSON.stringify appData
 	
 	# check values for correct input
-	# appValid = checkAppData(appData)
-	appValid = true #DEBUG
+	appValid = checkAppData(appData)
+	
 	if(appValid != true) 
 		# handle error
 	else
@@ -74,12 +74,18 @@ $('#application').submit (event) ->
 		try 
 			if(filecontrol.files.length > 0)
 				file = filecontrol.files[0]
-				name = appData.firstName + "-" + appData.lastName + "_resume"
+				name = (if appData.firstName then appData.firstName else "NULL") + 
+					"-" + (if appData.lastName then appData.lastName else "NULL") + 
+					"_resume"
 				
 				parts = file.name.split('.')
 				ext = parts[parts.length - 1].toUpperCase()
 				if(ext != 'PDF')
+					appValid = 7
 					return alert("Résumé must be a .pdf file")
+				else if (file.size > 9000000)
+					appValid = 7
+					return alert("Résumé has a max file size of 10MB")
 				
 				appData.resume = new Parse.File(name, file)
 		catch e
@@ -89,16 +95,17 @@ $('#application').submit (event) ->
 			console.log 'Error: Failed to retrieve resume file'
 		finally
 			#nothing
-		
-		# submit to parse
-		Application = Parse.Object.extend 'Applications'
-		appParse = new Application()
-		appParse.save appData,
-			success: (appParse) ->
-				console.log "Parse Success!"
-			,
-			error: (appParse, error) ->
-				console.log "Parse Failure!"
+			
+		if appValid == true
+			# submit to parse (this REALLY should be done server side, but idgaf)
+			Application = Parse.Object.extend 'Applications'
+			appParse = new Application()
+			appParse.save appData,
+				success: (appParse) ->
+					console.log "Parse Success!"
+				,
+				error: (appParse, error) ->
+					console.log "Parse Failure!"
 		
 		
 	
@@ -121,7 +128,7 @@ checkAppData = (appData) ->
 	if !appData.school.trim() then return 2
 	if !(appData.email.trim() && re.test(appData.email)) then return 3
 	if !appData.year then return 4
-	if !(appData.QAs[0] || $('input[type=radio][name=QA0][value=No]').is(':checked')) then return 7
+	if !(appData.QAs[0] || $('input[type=radio][name=QA0][value=No]').is(':checked')) then return 8
 	
 	# no invalids triggered
 	return true
