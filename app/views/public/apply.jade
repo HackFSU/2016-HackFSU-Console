@@ -2,3 +2,102 @@ extend ../layout
 block content
 	.container
 		h1 #{title}
+		div(class='panel panel-default')
+			.panel-heading
+				h3.panel-title= title
+			.panel-body
+				p.
+					Application Form - TODO: make it look cool
+				p
+					strong TODO:&nbsp;
+					| Make school a selection list
+
+				form.form-horizontal(id='application', action='', role='form')
+					.form-group
+						label(for='firstName', class='col-lg-2 control-label') First Name *
+						.col-lg-6
+							input#firstName(type='text', class='form-control' placeholder='Put your first name here', name='firstName', value=firstName)
+					
+					.form-group
+						label(for='lastName', class='col-lg-2 control-label') Last Name *
+						.col-lg-6
+							input#lastName(type='text', class='form-control', name='lastName', placeholder='And put your last name here', value=lastName)
+				
+					.form-group
+						label(for='school', class='col-lg-2 control-label') School *
+						.col-lg-6
+							input#school(type='text', class='form-control', name='school', placeholder='Put the name of your school here (for now)', value=school)
+					
+					.form-group
+						label(for='email', class='col-lg-2 control-label') Email (use your .edu) *
+						.col-lg-6
+							.input-group
+								input#email(type='text', class='form-control', name='email', placeholder='youremail@your.edu', value=email)
+					
+					.form-group
+						label(for='year', class='col-lg-2 control-label') Current Year *
+						.col-lg-6
+							select#year(class='form-control', name='year', value='year')
+								option(selected='true', disabled='true') Please select the classification that best describes you
+								option(value='Freshman') Freshman
+								option(value='Sophomore') Sophomore
+								option(value='Junior') Junior
+								option(value='Senior') Senior
+								option(value='Graduate Student') Graduate Student
+								option(value='High School Student') High School Student
+					
+					.form-group
+						label(for='major', class='col-lg-2 control-label') Major
+						.col-lg-6
+							input#major(type='text', class='form-control', name='major', placeholder='What are you majoring in?!', value=major)
+					
+					.form-group
+						label(for='github', class='col-lg-2 control-label') GitHub
+						.col-lg-6
+							.input-group
+								span.input-group-addon http://github.com/
+								input#github(type='text', class='form-control', name='github', placeholder='yourUserName', value=github)
+					.form-group
+						label(for='github', class='col-lg-2 control-label') Résumé
+						.col-lg-6
+							.input-group
+								input#resume(type='file', class='form-control', name='resume', value=resume)
+					
+					
+					//- These questions could be added dynamically if needed
+					.form-group
+						label(for='QA0', class='col-lg-2 control-label') Will this be your first hackathon? *
+						.col-lg-6
+							label.radio-inline
+								input(type='radio', name='QA0', value='Yes')
+								| Yes
+							label.radio-inline
+								input(type='radio', name='QA0', value='No')
+								| No
+					.form-group
+						label(for='QA1', class='col-lg-2 control-label') What is one thing you hate about hackathons?
+						.col-lg-6
+							input#QA1(type='text', class='form-control', name='QA1', placeholder='', value=QA1)
+					.form-group
+						label(for='QA2', class='col-lg-2 control-label') What do you want to learn or hack on for the weekend?
+						.col-lg-6
+							input#QA2(type='text', class='form-control', name='QA2', placeholder='', value=QA2)
+					.form-group
+						label(for='QA3', class='col-lg-2 control-label') What are some things you have made that you are proud of?
+						.col-lg-6
+							input#QA3(type='text', class='form-control', name='QA3', placeholder='', value=QA3)
+					.form-group
+						label(for='QA4', class='col-lg-2 control-label') Food Allergies?
+						.col-lg-6
+							input#QA4(type='text', class='form-control', name='QA4', placeholder='', value=QA4)
+					.form-group
+						label(for='QA5', class='col-lg-2 control-label') Any other comments?
+						.col-lg-6
+							input#QA5(type='text', class='form-control', name='QA5', placeholder='', value=QA5)
+								
+					.form-group
+						div(class='col-lg-offset-2 col-lg-5 pull-right')
+							button(type='submit', class='btn btn-primary') Apply!
+
+block localJavascript
+	script(src='js/parse/parse-apply.js')
