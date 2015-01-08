@@ -9,7 +9,7 @@ This will be the final landing page + background management website for HackFSU,
 ###### Prerequisites: 
 
 1. Install node.js, npm
-2. `process.env` is needed to connect to Parse (gitignored for security)
+2. `.env` is needed to connect to Parse (gitignored for security)
 
 
 ###### To setup and run project:

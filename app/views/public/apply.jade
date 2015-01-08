@@ -12,7 +12,7 @@ block content
 					strong TODO:&nbsp;
 					| Make school a selection list
 
-				form.form-horizontal(id='application', action='', role='form')
+				form.form-horizontal(id='application', method='post', action='/apply_submit', role='form')
 					.form-group
 						label(for='firstName', class='col-lg-2 control-label') First Name *
 						.col-lg-6
@@ -32,7 +32,7 @@ block content
 						label(for='email', class='col-lg-2 control-label') Email (use your .edu) *
 						.col-lg-6
 							.input-group
-								input#email(type='text', class='form-control', name='email', placeholder='youremail@your.edu', value=email)
+								input#email(type='email', class='form-control', name='email', placeholder='youremail@your.edu', value=email)
 					
 					.form-group
 						label(for='year', class='col-lg-2 control-label') Current Year *
@@ -57,11 +57,11 @@ block content
 							.input-group
 								span.input-group-addon http://github.com/
 								input#github(type='text', class='form-control', name='github', placeholder='yourUserName', value=github)
-					.form-group
-						label(for='github', class='col-lg-2 control-label') Résumé
-						.col-lg-6
-							.input-group
-								input#resume(type='file', class='form-control', name='resume', value=resume)
+					//- .form-group
+					//- 	label(for='github', class='col-lg-2 control-label') Résumé
+					//- 	.col-lg-6
+					//- 		.input-group
+					//- 			input#resume(type='file', class='form-control', name='resume', value=resume)
 					
 					
 					//- These questions could be added dynamically if needed
@@ -77,23 +77,23 @@ block content
 					.form-group
 						label(for='QA1', class='col-lg-2 control-label') What is one thing you hate about hackathons?
 						.col-lg-6
-							input#QA1(type='text', class='form-control', name='QA1', placeholder='', value=QA1)
+							input#QA1(type='textarea', class='form-control', name='QA1', placeholder='', value=QA1)
 					.form-group
 						label(for='QA2', class='col-lg-2 control-label') What do you want to learn or hack on for the weekend?
 						.col-lg-6
-							input#QA2(type='text', class='form-control', name='QA2', placeholder='', value=QA2)
+							input#QA2(type='textarea', class='form-control', name='QA2', placeholder='', value=QA2)
 					.form-group
 						label(for='QA3', class='col-lg-2 control-label') What are some things you have made that you are proud of?
 						.col-lg-6
-							input#QA3(type='text', class='form-control', name='QA3', placeholder='', value=QA3)
+							input#QA3(type='textarea', class='form-control', name='QA3', placeholder='', value=QA3)
 					.form-group
 						label(for='QA4', class='col-lg-2 control-label') Food Allergies?
 						.col-lg-6
-							input#QA4(type='text', class='form-control', name='QA4', placeholder='', value=QA4)
+							input#QA4(type='textarea', class='form-control', name='QA4', placeholder='', value=QA4)
 					.form-group
 						label(for='QA5', class='col-lg-2 control-label') Any other comments?
 						.col-lg-6
-							input#QA5(type='text', class='form-control', name='QA5', placeholder='', value=QA5)
+							input#QA5(type='textarea', class='form-control', name='QA5', placeholder='', value=QA5)
 								
 					.form-group
 						div(class='col-lg-offset-2 col-lg-5 pull-right')

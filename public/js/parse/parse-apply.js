@@ -4,43 +4,15 @@
 	Handles submission of application for /apply
 
 	Dependencies:
-		parse-connection.js
 		JQuery
-	
-	Parse Class:
-		Applications
-			firstName - String
-			lastName - String
-			email - String
-			school - String (from list?)
-			major - String
-			year - String (from list?)
-			github - String
-			resume - file (10MB limit)
-			QAs - Array of answers to below questions
-				[0] Will this be your first hackathon?
-					(t/f)
-				[1] What is one thing you hate about hackathons?
-					(string)
-				[2] What do you want to learn or hack on for the weekend?
-					(array of strings)
-				[3] What are some things you have made that you are proud of?
-					(string)
-				[4] Food Allergies 
-					(array of strings)
-				[5] Comments? 
-					(array of strings)
-				
 	IDs
 		-match parse ids except for QAs
 		QA[0-5]
  */
 var checkAppData;
 
-startParse();
-
 $('#application').submit(function(event) {
-  var Application, appData, appParse, appValid, e, ext, file, filecontrol, filename, name, parts;
+  var appData, appValid;
   event.preventDefault();
   appData = {
     firstName: $('#firstName').val(),
@@ -50,7 +22,6 @@ $('#application').submit(function(event) {
     major: $('#major').val(),
     year: $('#year').val(),
     github: $('#github').val(),
-    resume: null,
     QAs: [$('input[type=radio][name=QA0][value=Yes]').is(':checked'), $('#QA1').val(), $('#QA2').val(), $('#QA3').val(), $('#QA4').val(), $('#QA5').val()]
   };
   console.log(JSON.stringify(appData));
@@ -58,40 +29,17 @@ $('#application').submit(function(event) {
   if (appValid !== true) {
 
   } else {
-    filecontrol = $('#resume')[0];
-    filename = $('#resume').value;
-    try {
-      if (filecontrol.files.length > 0) {
-        file = filecontrol.files[0];
-        name = (appData.firstName ? appData.firstName : "NULL") + "-" + (appData.lastName ? appData.lastName : "NULL") + "_resume";
-        parts = file.name.split('.');
-        ext = parts[parts.length - 1].toUpperCase();
-        if (ext !== 'PDF') {
-          appValid = 7;
-          return alert("Résumé must be a .pdf file");
-        } else if (file.size > 9000000) {
-          appValid = 7;
-          return alert("Résumé has a max file size of 10MB");
-        }
-        appData.resume = new Parse.File(name, file);
-      }
-    } catch (_error) {
-      e = _error;
-      appData.resume = void 0;
-      console.log(e);
-      console.log('Error: Failed to retrieve resume file');
-    } finally {
-
-    }
     if (appValid === true) {
-      Application = Parse.Object.extend('Applications');
-      appParse = new Application();
-      appParse.save(appData, {
-        success: function(appParse) {
-          return console.log("Parse Success!");
+      $.ajax({
+        type: 'post',
+        url: '/apply_submit',
+        data: appData,
+        success: function(res) {
+          console.log(JSON.stringify(res, void 0, 2));
+          return alert("Application Submitted!");
         },
-        error: function(appParse, error) {
-          return console.log("Parse Failure!");
+        error: function() {
+          return alert("Error in submit!");
         }
       });
     }
