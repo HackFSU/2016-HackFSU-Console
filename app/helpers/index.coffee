@@ -41,16 +41,4 @@ exports.getParseError = (error, body) ->
 		else 'Error ' + body.code + ': ' + body.error 
 	
 	return msg
-
-# Returns html to the respective personalized email
-exports.genEmail = (eName,eData) ->
-	switch eName
-		when "applicationConfirmation"
-			# REQUIRED: firstName
-			return "" +
-				"<img src='http://hackfsu.com/img/ninetiesFeather.png'><br>" + 
-				"<strong>Thank you for your application, " + eData.firstName + "!" + "</strong><br>"
-				"<span>We will let you know if you can come soon!</span>"
-		else
-			console.log "Email Generation Error - " + eName
-			return null
+	

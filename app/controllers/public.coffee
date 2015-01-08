@@ -232,47 +232,55 @@ module.exports = (app) ->
 						# 	, (e) ->
 						# 		 console.log 'Mandrill - Error: ' + e.name + ' - ' + e.message
 						
-						path = require 'path'
-						templatesDir = path.resolve(__dirname,'../..', 'emails')
-						app.emailTemplates templatesDir,  (err, template) ->
-							if err
-								console.log err
-							else
-								locals =
-									firstName: appData.firstName
-								Render = (locals) ->
-									this.locals = locals
-									this.send = (err,html,text) ->
-										message = 
-											'html': html,
-											'text': text,
-											'subject': 'We\'ve Received Your HackFSU Application!',
-											'from_email': 'register@hackfsu.com',
-											'from_name': 'HackFSU Application'
-											'to': [
-												'email': appData.email,
-												'name': req.body.firstName + ' ' + req.body.lastName,
-												'type': 'to'
-											]	
+						# path = require 'path'
+						# templatesDir = path.resolve(__dirname,'../..', 'emails')
+						# app.emailTemplates templatesDir,  (err, template) ->
+						# 	if err
+						# 		console.log err
+						# 	else
+						# 		locals =
+						# 			firstName: appData.firstName
+						# 		Render = (locals) ->
+						# 			this.locals = locals
+						# 			this.send = (err,html,text) ->
+						# 				message = 
+						# 					'html': html,
+						# 					'text': text,
+						# 					'subject': 'We\'ve Received Your HackFSU Application!',
+						# 					'from_email': 'register@hackfsu.com',
+						# 					'from_name': 'HackFSU Application'
+						# 					'to': [
+						# 						'email': appData.email,
+						# 						'name': req.body.firstName + ' ' + req.body.lastName,
+						# 						'type': 'to'
+						# 					]	
 											
-										app.mandrill.messages.send 'message': message, 'async': false, (result) ->
-											 console.log ' > Mandrill - Email Sent Success'
-										, (e) ->
-											 console.log ' > Mandrill - Error: ' + e.name + ' - ' + e.message
+						# 				app.mandrill.messages.send 'message': message, 'async': false, (result) ->
+						# 					 console.log ' > Mandrill - Email Sent Success'
+						# 				, (e) ->
+						# 					 console.log ' > Mandrill - Error: ' + e.name + ' - ' + e.message
 									
-									this.batch = (batch) ->
-										batch this.locals, templatesDir, this.send
+						# 			this.batch = (batch) ->
+						# 				batch this.locals, templatesDir, this.send
 									
-									return
+						# 			return
 								
-								template 'applyConfirm', true, (err, batch) ->
-									if this.err
-										console.log this.err
-									else
-										render = new Render(locals)
-										render.batch(batch)
-									return
+						# 		template 'applyConfirm', true, (err, batch) ->
+						# 			if this.err
+						# 				console.log this.err
+						# 			else
+						# 				render = new Render(locals)
+						# 				render.batch(batch)
+						# 			return
 						
+						app.emailTemplate 'applyConfirm', 
+							to_email: appData.email
+							from_email: 'register@hackfsu.com'
+							from_name: 'HackFSU'
+							subject: 'Rad Submission, Man'
+							locals:
+								firstName: appData.firstName
+								lastName: appData.lastName
 						
 						#reply with result
 						res.send
