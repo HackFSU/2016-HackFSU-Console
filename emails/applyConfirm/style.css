@@ -1,0 +1,16 @@
+/*This is converted into inline styling*/
+
+/* MAIN START */
+body {
+	color: #000099;
+}
+p {
+	padding-left: 30px;
+}
+
+/* MAIN END */
+
+p.test {
+	width: 50%;
+}
+

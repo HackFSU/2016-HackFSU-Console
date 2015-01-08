@@ -15,6 +15,7 @@ cookieParser = require 'cookie-parser'
 dotenv = require 'dotenv'
 acl = require '../lib/acl'
 flash = require 'express-flash'
+emailTemplates = require 'email-templates'
 
 # Configuration
 module.exports = (app) ->
@@ -23,6 +24,9 @@ module.exports = (app) ->
 
 	# Load helper functions
 	app.locals.helpers = require __dirname + '/../app/helpers'
+
+	# Load email template function
+	app.emailTemplates = emailTemplates
 
 	# Autoload controllers
 	autoload 'app/controllers', app

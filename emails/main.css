@@ -1,0 +1,12 @@
+/*
+	This will be converted into inline css.
+	Used for the main layout.
+	Must be MANUALLY copy/pasted to local style.css
+ */
+
+body {
+	color: #FFFF00;
+}
+p {
+	padding-left: 30px;
+}
