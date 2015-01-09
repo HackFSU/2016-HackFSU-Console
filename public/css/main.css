@@ -52,6 +52,14 @@ form {
   background-color: rgba(255, 255, 255, 0.7);
   -webkit-box-shadow: none;
   box-shadow: none;
+  color: #223060;
+}
+
+.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+  border-bottom: 3px solid #223060;
 }
 
 textarea {
@@ -81,13 +89,23 @@ label {
   color: rgba(30, 177, 173, 1);
 }
 .form-group > label.hasInputError {
-  color: rgba(255, 46, 46, 1);
+  color: #ed748e;
 }
 .form-error-msg {
-  display:inline;
-  color: rgba(255, 46, 46, 1);
+  float: left;
+  color: #ed748e;
   margin-right: 2em;
 }
+
+.form-group select {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 3px solid rgba(30, 177, 173, 1);
+}
+
+.form-group select:focus {
+  border: 3px solid #233060;
+}
+
 
 .input-group-addon {
   border: 3px solid rgba(30, 177, 173, 1);
@@ -110,6 +128,11 @@ label {
   cursor: pointer;
   border: 3px solid rgba(30, 177, 173, 0.7);
   color: rgba(30, 177, 173, 0.7);
+}
+
+.btn:focus {
+  color: rgba(30, 177, 173, 0.7);
+  outline: 0;
 }
 
 
@@ -526,7 +549,11 @@ li {
 }
 
 p {
-  color: rgba(0, 0, 0, 1);
+  color: #233060;
+}
+
+.credit {
+  color: #ed748e;
 }
 
 .container {
@@ -542,7 +569,7 @@ p {
 }
 
 .containerfooter {
- background-color:#080808;
+ background-color:#181818;
  width:100%;
  height:150px;
  padding:70px 275px 0px 275px;
@@ -551,6 +578,7 @@ p {
 .containerHeader {
   padding-left: 15%;
   margin-bottom: 25px;
+  margin-top: 6em;
 }
 
 .foot {
