@@ -48,12 +48,11 @@ module.exports = (app) ->
 	app.post '/signin_submit', app.PublicController.signin_submit
 	
 	# Signup
-	app.get '/signup', app.PublicController.signup
-	app.post '/signup_submit', app.PublicController.signup_submit
+	#app.get '/signup', app.PublicController.signup
+	#app.post '/signup_submit', app.PublicController.signup_submit
 	
 	# View updates
-	app.get '/updates', app.PublicController.updates
-	# app.get '/updates', app.UpdatesController.all
+	#app.get '/updates', app.PublicController.updates
 
 	# Create update
 	# app.get '/updates/new', app.UpdatesController.new
@@ -72,13 +71,13 @@ module.exports = (app) ->
 	# app.post '/register/submit', app.RegisterController.submit
 	
 	# Contact HackFSU
-	app.get '/contact', app.PublicController.contact
+	#app.get '/contact', app.PublicController.contact
 	
 	# Hackathoon Schedule
-	app.get '/schedule', app.PublicController.schedule
+	#app.get '/schedule', app.PublicController.schedule
 
 	# Error page. errorMsg is outputed
-	app.get '/error', app.PublicController.error
+	#app.get '/error', app.PublicController.error
 
 	# Page not found (404)
 	# This should always be the LAST route specified
