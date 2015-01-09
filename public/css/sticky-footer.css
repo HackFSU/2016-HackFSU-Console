@@ -12,7 +12,7 @@
     /* Negative indent footer by its height */
     margin: 0 auto -60px;
     /* Pad bottom by footer height */
-    padding: 0 0 60px;
+    padding: 0px;
 }
 /* Set the fixed height of the footer here */
  #footer {

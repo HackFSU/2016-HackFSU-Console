@@ -14,6 +14,7 @@ html(lang='en')
 		link(rel='stylesheet', href='/css/navbar-fixed.css')
 		link(rel='stylesheet', href='/css/fonts.css')
 		link(rel='stylesheet', href='/css/sticky-footer.css')
+		link(rel='stylesheet', href='/css/main.css')
 		
 		block localCSS
 
@@ -90,11 +91,11 @@ html(lang='en')
 									span(aria-hidden="true") &times;
 								| #{messages.warning}
 							
-			block content
-		.footer
-			.container
-				p(class="text-muted credit").
-					&copy; 2015 Jared Bennett and Trevor Helms
+				block content
+			.footer
+				.containerfooter
+					p(class="text-muted credit").
+						&copy; 2015 Jared Bennett and Trevor Helms
 
 
 
