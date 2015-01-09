@@ -20,6 +20,7 @@ module.exports = (app) ->
 	
 	# emails
 	app.get '/admin/emails', app.AdminController.emails
+	app.post '/admin/emails_submit', app.AdminController.emails_submit
 	
 	# all users
 	# app.get '/admin/allUsers', app.AdminController.allUsers
