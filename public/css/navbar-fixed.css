@@ -2,5 +2,5 @@
 * Push body content down so it isn't under the navbar
 */
 body {
-    padding-top: 70px;
+    padding-top: 0px;
 }

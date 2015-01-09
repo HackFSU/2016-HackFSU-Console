@@ -1,7 +1,9 @@
 extend ../layout
 block content
 	.container
-		h1 Application
+		.containerHeader
+			h1 Application
+
 		div(class='col-lg-offset-2 col-lg-10 pull-left')
 
 				form.form-horizontal(id='application', method='post', action='/apply_submit', role='form')
