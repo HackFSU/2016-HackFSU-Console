@@ -2,7 +2,7 @@
 
 /* MAIN START */
 body {
-	color: #233263;
+	/*color: #233263;*/
 	font-family: 'Lato', sans-serif;
 	font-weight: 100;
 	font-size: 1em;
@@ -12,14 +12,14 @@ table.tableOuter {
 	border: 0;
 	width: 100%;
 	height: 100%;
-	background-color: #020715;
-	padding: 2em;
+	/*background-color: #0FFFFF;*/
+	/*padding: 2em;*/
 }
 table.tableOuter tr td {
 	padding: 0;
 }
 table.tableInner {
-	background-color: #FFFFFF;
+	/*background-color: #FFFFFF;*/
 	width: 100%;
 	height: 100%;
 	padding: 2em;
@@ -46,7 +46,7 @@ td #header span {
 	font-family: 'Uni Sans', sans-serif;
 	font-weight: 800;
 	font-size: 5em;
-	color: #020715;
+	/*color: #020715;*/
 }
 
 td #content {
