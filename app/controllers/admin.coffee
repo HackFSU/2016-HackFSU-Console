@@ -87,7 +87,7 @@ module.exports = (app) ->
 					switch buttonNum
 						when '0'  #send all emails that have not been sent
 							# RETRIEVE EMAIL OBJECTS
-							parseClass = 'PrevSubTest'
+							parseClass = 'PreviewSubscription'
 							params =
 								where: {emailSent: {'ne':true}}
 							app.kaiseki.getObject parseClass, params, 
