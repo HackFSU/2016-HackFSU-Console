@@ -62,8 +62,8 @@ html(lang='en')
 											li
 												a(href='/admin/emails') Emails
 							else 
-								li
-									a(href='/signin') Sign In
+								//- li
+								//- 	a(href='/signin') Sign In
 								li 
 									a(href='/apply') Apply
 								//- li
@@ -96,7 +96,8 @@ html(lang='en')
 									span(aria-hidden="true") &times;
 								| #{messages.warning}
 							
-				block content
+			block content
+			
 			.footer
 				.containerfooter(align="center")
 					.socials
