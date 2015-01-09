@@ -114,17 +114,18 @@ module.exports = (app) ->
 								from_email: eData.from_email
 								from_name: eData.from_name
 								to: [
-									email: eData.emailTo
+									email: eData.to_email
 									name: if eData.locals.firstName || 
 										eData.locals.lastName then eData.locals.firstName + 
-										' ' + eData.locals.lastName else eData.emailTo
+										' ' + eData.locals.lastName else eData.to_email
 									type: 'to'
 								]	
 								
-							app.mandrill.messages.send 'message': message, 'async': false, (result) ->
-								 console.log ' > Mandrill - Email Sent Success'
-							, (e) ->
-								 console.log ' > Mandrill - Error: ' + e.name + ' - ' + e.message
+							app.mandrill.messages.send 'message': message, 'async': true, 
+								(result) ->
+									console.log ' > Mandrill - Email Sent Success'
+								, (e) ->
+									console.log ' > Mandrill - Error: ' + e.name + ' - ' + e.message
 						else
 							console.log ' > Email-templates - Error: ' + err
 							
