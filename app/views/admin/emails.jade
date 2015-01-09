@@ -2,3 +2,24 @@ extend ../layout
 block content
 	.container
 		h1 #{title}
+		table.table
+			thread
+				tr
+					th Email Template
+					th Description
+					th Actions
+			tbody
+				tr
+					td applyConfirm
+					td Application submission confirmation
+					td (auto)
+				tr
+					td registrationSubscribe
+					td Preview subscription email, saying registration is open
+					td 
+						button.btn.btn-primary#registrationSubscribe Send!
+				
+
+block localJavascript
+	script(src='js/admin/admin-emails.js')
+		

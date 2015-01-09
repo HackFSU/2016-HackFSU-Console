@@ -1,8 +1,8 @@
 extend ../layout
 block content
 	.container
-		h1 Application
-		div(class='col-lg-offset-2 col-lg-10 pull-left')
+		h1#title Application
+		div#application(class='col-lg-offset-2 col-lg-10 pull-left')
 
 				form.form-horizontal(id='application', method='post', action='/apply_submit', role='form')
 					.form-group
@@ -77,7 +77,11 @@ block content
 							p
 								input(type="checkbox" id="android")
 								label(for="android") Android
-
+								
+							p
+								input(type="checkbox" id="web")
+								label(for="web") Web
+								
 							p
 								input(type="checkbox" id="front")
 								label(for="front") Front End
@@ -108,8 +112,12 @@ block content
 							input#QA5(type='text', class='form-control', name='QA5', placeholder='', value=QA5)
 								
 					.form-group
+						div(class='form-error-msg col-lg-offset-4 col-lg-6 pull-left')
 						div(class='col-lg-offset-7 col-lg-5 pull-right')
-							button(type='submit', class='btn') holla.
-
+							button#submit(type='submit', class='btn') holla.
+		
 block localJavascript
-	script(src='js/parse/parse-apply.js')
+	script(src='js/public/public-apply.js')
+block localCSS
+	link(rel='stylesheet', href='/css/shakeText.css')
+	link(rel='stylesheet', href='/css/public/public-apply.css')

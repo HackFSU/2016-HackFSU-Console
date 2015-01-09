@@ -183,16 +183,27 @@ module.exports = (app) ->
 			console.log 'Application Recieved'
 			
 			inputErrors = req.validationErrors(true)
+			
+			
 			if(!inputErrors)
 				#proceed to submit app
 				
+				#make sure boolean QAs are boolean
+				QAs = req.param('QAs')			
+				QAs[0] = QAs[0] == 'true'
+				if QAs[2] #loop wasnt working for some reason idgaf
+					QAs[2][0] = QAs[2][0] == 'true'
+					QAs[2][1] = QAs[2][1] == 'true'
+					QAs[2][2] = QAs[2][2] == 'true'
+					QAs[2][3] = QAs[2][3] == 'true'
+					QAs[2][4] = QAs[2][4] == 'true'
+					QAs[2][5] = QAs[2][5] == 'true'
+					QAs[2][6] = QAs[2][6] == 'true'
+				
 				# truncate all responses at 500 characters, not the t/f tho
-				QAs = req.param('QAs')
 				QAs[1] = if QAs[1] then QAs[1].substring(0,500) else ""
-				QAs[2] = if QAs[2] then QAs[2].substring(0,500) else ""
 				QAs[3] = if QAs[3] then QAs[3].substring(0,500) else ""
 				QAs[4] = if QAs[4] then QAs[4].substring(0,500) else ""
-				QAs[5] = if QAs[5] then QAs[5].substring(0,500) else ""
 				
 				# collect data
 				appData =
@@ -210,68 +221,6 @@ module.exports = (app) ->
 				app.kaiseki.createObject 'Applications', appData, (error, result, body, success) ->
 					if success
 						console.log " > Parse - App submit success"
-						
-						# #get email
-						# htmlEmail = app.locals.helpers.genEmail 'applicationConfirmation',
-						# 	firstName: appData.firstName
-						
-						# if htmlEmail != null
-						# 	# send a confirmation email
-						# 	message = 
-						# 		'html': htmlEmail,
-						# 		'subject': 'We\'ve Received Your HackFSU Application!',
-						# 		'from_email': 'register@hackfsu.com',
-						# 		'from_name': 'HackFSU Application'
-						# 		'to': [
-						# 			'email': appData.email,
-						# 			'name': req.body.firstName + ' ' + req.body.lastName,
-						# 			'type': 'to'
-						# 		]	
-						# 	app.mandrill.messages.send 'message': message, 'async': false, (result) ->
-						# 		 console.log("Mandrill - Email Sent Success")   
-						# 	, (e) ->
-						# 		 console.log 'Mandrill - Error: ' + e.name + ' - ' + e.message
-						
-						# path = require 'path'
-						# templatesDir = path.resolve(__dirname,'../..', 'emails')
-						# app.emailTemplates templatesDir,  (err, template) ->
-						# 	if err
-						# 		console.log err
-						# 	else
-						# 		locals =
-						# 			firstName: appData.firstName
-						# 		Render = (locals) ->
-						# 			this.locals = locals
-						# 			this.send = (err,html,text) ->
-						# 				message = 
-						# 					'html': html,
-						# 					'text': text,
-						# 					'subject': 'We\'ve Received Your HackFSU Application!',
-						# 					'from_email': 'register@hackfsu.com',
-						# 					'from_name': 'HackFSU Application'
-						# 					'to': [
-						# 						'email': appData.email,
-						# 						'name': req.body.firstName + ' ' + req.body.lastName,
-						# 						'type': 'to'
-						# 					]	
-											
-						# 				app.mandrill.messages.send 'message': message, 'async': false, (result) ->
-						# 					 console.log ' > Mandrill - Email Sent Success'
-						# 				, (e) ->
-						# 					 console.log ' > Mandrill - Error: ' + e.name + ' - ' + e.message
-									
-						# 			this.batch = (batch) ->
-						# 				batch this.locals, templatesDir, this.send
-									
-						# 			return
-								
-						# 		template 'applyConfirm', true, (err, batch) ->
-						# 			if this.err
-						# 				console.log this.err
-						# 			else
-						# 				render = new Render(locals)
-						# 				render.batch(batch)
-						# 			return
 						
 						app.emailTemplate 'applyConfirm', 
 							to_email: appData.email

@@ -55,6 +55,14 @@ label {
   font-weight: 400;
   color: rgba(30, 177, 173, 1);
 }
+.form-group > label.hasInputError {
+  color: rgba(255, 46, 46, 1);
+}
+.form-error-msg {
+  display:inline;
+  color: rgba(255, 46, 46, 1);
+  margin-right: 2em;
+}
 
 .input-group-addon {
   border: 3px solid rgba(30, 177, 173, 1);
@@ -78,9 +86,6 @@ label {
   border: 3px solid rgba(30, 177, 173, 0.7);
   color: rgba(30, 177, 173, 0.7);
 }
-
-
-
 
 
 /* Checkboxes */
