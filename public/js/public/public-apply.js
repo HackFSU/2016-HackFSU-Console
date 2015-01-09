@@ -93,15 +93,18 @@ endInSuccess = function() {
     sub.text('Success!');
     sub.attr('disabled', 'true');
     sub.fadeIn(500, function() {});
-    return displayEnd("Thank you for applying!", "You should be receiving an email confirmation soon.");
+    return displayEnd("Thanks for applying!", "You should be receiving a confirmation email soon.");
   });
 };
 
 displayEnd = function(header, subtext) {
+  $('input').attr('disabled', 'disabled');
+  $('checkbox').attr('disabled', 'disabled');
+  $('select').attr('disabled', 'disabled');
   return $('#application').fadeTo(1000, 0, function() {
     var $newMsg;
-    $newMsg = $("<div id='endDisplay'><h1>" + header + "</h1><p>" + subtext + "</p>");
-    $newMsg.insertAfter($('.containerHeader')).fadeIn(1000, function() {
+    $newMsg = $("<div id='endDisplay'><h3>" + header + "</h3><h4>" + subtext + "</h4>");
+    $newMsg.appendTo($('.containerHeader')).fadeIn(1000, function() {
       return $("html, body").animate({
         scrollTop: 0
       }, 500);

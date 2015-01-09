@@ -49,8 +49,9 @@ block content
 						label(for='github', class='col-lg-2 control-label') GitHub
 						.col-lg-6
 							.input-group
-								span.input-group-addon http://github.com/
-								input#github(type='text', class='form-control', name='github', placeholder='bet you have some mad PRs', value=github)					
+								span(class='input-group-addon')
+									| http://github.com/
+								input#github(type='text', class='form-control', name='github', placeholder='bet you have some mad PRs', value=github)
 					
 					//- These questions could be added dynamically if needed
 					.form-group
@@ -120,6 +121,6 @@ block content
 		
 block localJavascript
 	script(src='js/public/public-apply.js')
-block localCSS
-	link(rel='stylesheet', href='/css/shakeText.css')
-	link(rel='stylesheet', href='/css/public/public-apply.css')
+//- block localCSS
+	//- link(rel='stylesheet', href='/css/shakeText.css')
+	//- link(rel='stylesheet', href='/css/public/public-apply.css')

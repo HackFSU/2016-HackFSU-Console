@@ -148,11 +148,11 @@ label {
   outline: 0;
   font-size: 3em;
   margin: 25px;
-  margin-left: 55px;
   padding-top: 13px !important;
   border: 5px solid rgba(30, 177, 173, 1);
   border-radius: 5px !important;
   line-height: 1em;
+  width:5.5em;
 }
 
 .btn-header:hover {
@@ -472,7 +472,7 @@ video {
 }
 
 .video-overlay img {
-  margin-left: -30px;
+  margin-left: -3.1em;
   max-width: 30em;
   margin-bottom: 25px;
 }
@@ -541,6 +541,14 @@ li {
   padding: 0.2em;
   font-weight: bold;
 }
+
+#applyBtn {
+  margin-left:1em;
+}
+#sponsorBtn {
+  margin-right:1em;
+}
+
 
 p {
   color: #233060;
@@ -703,5 +711,3 @@ p {
   90% { -webkit-transform:     translate(-1px, 0px) rotate(0deg); transform:     translate(-1px, 0px) rotate(0deg); }
   100% { -webkit-transform:     translate(1px, 0px) rotate(0deg); transform:     translate(1px, 0px) rotate(0deg); }
 }
-
-
