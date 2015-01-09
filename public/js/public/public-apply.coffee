@@ -100,14 +100,17 @@ endInSuccess = () ->
 		sub.text('Success!')
 		sub.attr('disabled', 'true')
 		sub.fadeIn(500, ()->)
-		displayEnd("Thanks for applying!", "You should be receiving an email confirmation soon.")
+		displayEnd("Thanks for applying!", "You should be receiving a confirmation email soon.")
 	
 
 displayEnd = (header, subtext) ->
+	$('input').attr('disabled','disabled');
+	$('checkbox').attr('disabled','disabled');
+	$('select').attr('disabled','disabled');
 	$('#application').fadeTo 1000, 0, ()->
 		#create message
-		$newMsg = $("<div id='endDisplay'><h1>"+header+ "</h1><p>"+subtext+"</p>")
-		$newMsg.insertAfter($('.containerHeader')).fadeIn 1000, ()->
+		$newMsg = $("<div id='endDisplay'><h3>"+header+ "</h3><h4>"+subtext+"</h4>")
+		$newMsg.appendTo($('.containerHeader')).fadeIn 1000, ()->
 			$("html, body").animate({ scrollTop: 0 }, 500)
 		return
 	
