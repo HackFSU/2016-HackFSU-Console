@@ -18,6 +18,7 @@ html(lang='en')
 		link(rel='stylesheet', href='/css/fonts.css')
 		link(rel='stylesheet', href='/css/sticky-footer.css')
 		link(rel='stylesheet', href='/css/main.css')
+		link(rel='stylesheet', href='/css/fontello.css')
 		
 		block localCSS
 
@@ -98,8 +99,17 @@ html(lang='en')
 				block content
 			.footer
 				.containerfooter
-					p(class="credit").
-						&copy; 2015 HackFSU
+					.socials
+						
+						a(href='https://www.twitter.com/HackFSU')
+							.icon-twitter 
+						|   
+						a(href='') 
+							.icon-facebook
+						p(class="credit").
+							&copy; 2015 HackFSU
+
+					
 
 
 

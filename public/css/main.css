@@ -594,6 +594,26 @@ p {
  width:100%;
  height:150px;
  padding:70px 275px 0px 275px;
+
+}
+
+.containerfooter .socials {
+  position: relative;
+  margin-top: -40px;
+  width: 250px;
+  left: 50%;
+   -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.containerfooter .socials div {
+  margin: 10px;
+  font-size: 40px;
+  color: #ed748e;
+}
+
+.containerfooter .socials div:hover {
+  color: #fff;
 }
 
 .containerHeader {
