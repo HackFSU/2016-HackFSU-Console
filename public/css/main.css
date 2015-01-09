@@ -152,7 +152,7 @@ label {
   border: 5px solid rgba(30, 177, 173, 1);
   border-radius: 5px !important;
   line-height: 1em;
-  width:5.5em;
+  width: 6em;
 }
 
 .btn-header:hover {
@@ -427,6 +427,10 @@ a:hover {
 
     video {
       display: none;
+    }
+
+    .btn-header {
+      margin-top: 10px;
     }
 
   }
