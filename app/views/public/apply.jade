@@ -32,7 +32,7 @@ block content
 						label(for='year', class='col-lg-2 control-label') Current Year *
 						.col-lg-6
 							select#year(class='form-control', name='year', value='year')
-								option(selected='true', disabled='true') Shoutout to Saved By The Bell
+								option(selected='true', disabled='true') Pick a year
 								option(value='Freshman') Freshman
 								option(value='Sophomore') Sophomore
 								option(value='Junior') Junior
@@ -105,16 +105,16 @@ block content
 								label(for="sleep") Sleep
 
 					.form-group
-						label(for='QA4', class='col-lg-2 control-label') Food Allergies?
+						label(for='QA4', class='col-lg-2 control-label') Dietary restrictions?
 						.col-lg-6
-							input#QA4(type='text', class='form-control', name='QA4', placeholder='', value=QA4)
+							input#QA4(type='text', class='form-control', name='QA4', placeholder='Vegan, vegetarian, etc.', value=QA4)
 					.form-group
 						label(for='QA5', class='col-lg-2 control-label') Comments?
 						.col-lg-6
-							input#QA5(type='text', class='form-control', name='QA5', placeholder='', value=QA5)
+							input#QA5(type='text', class='form-control', name='QA5', placeholder="We're all ears!", value=QA5)
 								
 					.form-group
-						div(class='form-error-msg col-lg-offset-4 col-lg-6 pull-left')
+						div(class='form-error-msg col-lg-offset-2 col-lg-6 pull-left')
 						div(class='col-lg-offset-7 col-lg-5 pull-right')
 							button#submit(type='submit', class='btn') holla.
 		

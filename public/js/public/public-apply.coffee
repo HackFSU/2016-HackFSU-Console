@@ -100,7 +100,7 @@ endInSuccess = () ->
 		sub.text('Success!')
 		sub.attr('disabled', 'true')
 		sub.fadeIn(500, ()->)
-		displayEnd("Thank you for applying!", "You should be receiving an email confirmation soon.")
+		displayEnd("Thanks for applying!", "You should be receiving an email confirmation soon.")
 	
 
 displayEnd = (header, subtext) ->
