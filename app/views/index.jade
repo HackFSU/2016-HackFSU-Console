@@ -1,80 +1,77 @@
 extend layout
 block content
-	.containerbody
-		div
-			.video-cont
-				.image-bg
+		.header-cont
+			.image-bg
 
-				div(id='video-bg')
-					.video-color
-					.video-overlay
-						img(src='img/ninetiesFeather.png')
-						h1
-							a(target='_blank' href='https://www.youtube.com/watch?v=vimZj8HW0Kg') Don't call it a comeback.
-						h1.
-							Registration opens January 9th.
+			div(id='video-bg')
+				.video-color
+				.video-overlay
+					img(src='img/logo-header.png')
+					h1
+						a(target='_blank' href='https://www.youtube.com/watch?v=vimZj8HW0Kg') "Don't call it a comeback"
+					//h1.
+						//Registration opens January 9th.
 
-						div(id='vidForm')
-							form.video-form(id='previewEmailSubscribe', action='', role='form')
-								input#email(spellcheck='off', type='text', class='video-input', name='email', autocomplete='off', placeholder='info@hackfsu.com', value=email)
-								button(type='submit', id='submit', class='video-btn') Get Notified
+					a(href='/apply')
+						div(class='btn btn-header', id='applyBtn') Apply
+					div(class='btn btn-header', id='sponsorBtn') Sponsor
+					div(style='clear: both')
 
-					video(loop, autoplay)
-						source(type='video/mp4', src='res/hackfsu_bgv2.mp4')
-
-					.mobileBG
-
-			.foot.
-				Tallahassee FL &#8226; 30 Hours
+				.foot.
+					Tallahassee FL &#8226; 30 Hours
 
 
 		// .jumbotron
 			// h1 HackFSU
 				// p.
 					// Welcome to the HackFSU Website			
-		p
-			h1 HackFSU
+		
 
-			| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mauris nunc, dictum maximus purus a, pharetra commodo ante. Sed molestie sapien nec dolor lacinia egestas. Vestibulum congue justo non urna maximus, eu mollis est ultrices. Proin dapibus libero ut sollicitudin aliquam. Sed sodales quam sed est mattis, at pellentesque eros bibendum.
+		.containerbody
 
-		.sect
-			h1 FAQ
+			p
+				h1 HackFSU
 
-			.row
-				.col-md-4
-					h3 Who can go?
+				| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mauris nunc, dictum maximus purus a, pharetra commodo ante. Sed molestie sapien nec dolor lacinia egestas. Vestibulum congue justo non urna maximus, eu mollis est ultrices. Proin dapibus libero ut sollicitudin aliquam. Sed sodales quam sed est mattis, at pellentesque eros bibendum.
 
-					| Anyone that is currently a student or has graduate in the past year is allowed to hack! High Schoolers apply and we'll notify you if any problems come about.
-				.col-md-4
-					h3 When & Where is it?
+			.sect
+				h1 FAQ
 
-					| Quisque rutrum pharetra orci, eget lacinia velit commodo non. Mauris venenatis at tellus nec efficitur. Suspendisse lobortis ex in semper tincidunt. 
-				.col-md-4
-					h3 Travel Reimbursement?
+				.row
+					.col-md-4
+						h3 Who can go?
 
-					| We will be scheduling busses from the most interested and passionate schools. Email bus@hackfsu.com if you want to organize one!
+						| Anyone that is currently a student or has graduate in the past year is allowed to hack! High Schoolers apply and we'll notify you if any problems come about.
+					.col-md-4
+						h3 When & Where is it?
 
-			<br/>
+						| Quisque rutrum pharetra orci, eget lacinia velit commodo non. Mauris venenatis at tellus nec efficitur. Suspendisse lobortis ex in semper tincidunt. 
+					.col-md-4
+						h3 Travel Reimbursement?
 
-			.row
-				.col-md-4
-					h3 Prizes?
+						| We will be scheduling busses from the most interested and passionate schools. Email <span> bus@hackfsu.com </span> if you want to organize one!
 
-					| Of course we’ll have them, but we value the learning and community aspects over monetary prizes. Rest assured that the weekend spent will be well worth it.
-				.col-md-4
-					h3 How does registration work?
+				<br/>
 
-					| Once registration closes we will be going over every application. Preference will be given to hackers in Florida and the South East. Once the acceptance and wait-lists have been decided you will be notified through email. At that point you will need to confirm your attendance to save your spot.
-				.col-md-4
-					h3 Not a student?
+				.row
+					.col-md-4
+						h3 Prizes?
 
-					| Mentor! Give back to the community by helping hackers learn and build something awesome. Shoot us an email and we’ll go from there. 
+						| Of course we’ll have them, but we value the learning and community aspects over monetary prizes. Rest assured that the weekend spent will be well worth it.
+					.col-md-4
+						h3 How does registration work?
+
+						| Once registration closes we will be going over every application. Preference will be given to hackers in Florida and the South East. Once the acceptance and wait-lists have been decided you will be notified through email. At that point you will need to confirm your attendance to save your spot.
+					.col-md-4
+						h3 Not a student?
+
+						| Mentor! Give back to the community by helping hackers learn and build something awesome. Shoot us an email and we’ll go from there. 
 
 
-		.sect
-			h1 Sponsors
+			.sect
+				h1 Sponsors
 
-			| Interested in sponsoring? Shoot us an email at sponsors@hackfsu.com!
+				| Interested in sponsoring? Shoot us an email at <span> sponsors@hackfsu.com</span>!
 
 block localJavascript	
 	script(src='js/parse.js')

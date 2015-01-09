@@ -101,7 +101,7 @@ displayEnd = function(header, subtext) {
   return $('#application').fadeTo(1000, 0, function() {
     var $newMsg;
     $newMsg = $("<div id='endDisplay'><h1>" + header + "</h1><p>" + subtext + "</p>");
-    $newMsg.insertAfter($('#title')).fadeIn(1000, function() {
+    $newMsg.insertAfter($('.containerHeader')).fadeIn(1000, function() {
       return $("html, body").animate({
         scrollTop: 0
       }, 500);
