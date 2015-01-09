@@ -158,7 +158,6 @@ label {
 
 
 
-
 /* Checkboxes */
 
 /* Base for label styling */
@@ -300,6 +299,12 @@ label {
   margin-left: 15px;
 }
 
+.notice {
+  font-size: 1.2em;
+  margin-top: 30px;
+  margin-bottom: 70px;
+}
+
 span {
   color: #ed748e;
 }
@@ -388,7 +393,22 @@ a:hover {
       font-size: 8px;
     }
 
-    
+    .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+      background-color: transparent;
+    }
+
+    .navbar-inverse .navbar-toggle {
+      border: none;
+    }
+
+    .navbar-inverse .navbar-nav>li>a {
+      text-align: center;
+      font-size: 2.5em;
+      max-width: 12em;
+      left: 50%;
+      -webkit-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+    }
 
     .video-overlay {
       top: 15% !important;
@@ -398,47 +418,15 @@ a:hover {
       font-size: 1.5em !important;
     }
 
-    .mobileBG {
-      display: block !important;
-    }
 
     video {
       display: none;
     }
 
-    .video-btn {
-      font-size: 0.7em;
-      width: 30%;
-      position: relative;
-      right: 1px;
-      bottom: -41px;
-    }
-
-    .video-btn:hover {
-      font-size: 0.7em;
-      width: 30%;
-      position: relative;
-      right: 1px;
-    }
-
-    .success-btn {
-      font-size: 0.7em;
-      position: relative;
-      margin: 0 auto;
-      margin-top: 20px;
-      padding: 1px 6px 1px 6px;
-    }
-
-    .video-input {
-      min-width: 60%;
-      position: relative;
-      left: 0;
-    }
-
   }
 
 .image-bg {
-  background: url('../img/westcottbw.jpg') no-repeat center center;
+ background: url('../img/westcottbw.jpg') no-repeat center center;
  background-size: cover;
  width: 100%;
  height: 100%;

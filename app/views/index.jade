@@ -6,7 +6,8 @@ block content
 			div(id='video-bg')
 				.video-color
 				.video-overlay
-					img(src='img/logo-header.png')
+					a(target='_blank' href='https://www.youtube.com/watch?v=NyAzdjWNNQg')
+						img(src='img/logo-header.png')
 					h1
 						a(target='_blank' href='https://www.youtube.com/watch?v=vimZj8HW0Kg') "Don't call it a comeback"
 					//h1.
@@ -14,7 +15,8 @@ block content
 
 					a(href='/apply')
 						div(class='btn btn-header', id='applyBtn') Apply
-					div(class='btn btn-header', id='sponsorBtn') Sponsor
+					a(href='#sponsors')
+						div(class='btn btn-header', id='sponsorBtn') Sponsor
 					div(style='clear: both')
 
 				.foot.
@@ -28,11 +30,14 @@ block content
 		
 
 		.containerbody
+			
+			.notice
+				| <b>NOTICE</b>: We realize that there is no date released, we apologize. We want you guys to have the most rad-tacular time possible. In doing so, we are currently working with multiple venue's to make sure you have the best experience. Follow us on <a href='https://twitter.com/hackfsu'>Twitter</a> and <a href='/apply'>Apply</a> to get notified!  -- The HackFSU Crew
 
-			p
-				h1 HackFSU
+			
+			h1 The Hacking Culture
 
-				| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mauris nunc, dictum maximus purus a, pharetra commodo ante. Sed molestie sapien nec dolor lacinia egestas. Vestibulum congue justo non urna maximus, eu mollis est ultrices. Proin dapibus libero ut sollicitudin aliquam. Sed sodales quam sed est mattis, at pellentesque eros bibendum.
+			| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mauris nunc, dictum maximus purus a, pharetra commodo ante. Sed molestie sapien nec dolor lacinia egestas. Vestibulum congue justo non urna maximus, eu mollis est ultrices. Proin dapibus libero ut sollicitudin aliquam. Sed sodales quam sed est mattis, at pellentesque eros bibendum.
 
 			.sect
 				h1 FAQ
@@ -69,6 +74,7 @@ block content
 
 
 			.sect
-				h1 Sponsors
+				a(name='#sponsors')
+					h1 Sponsors
 
 				| Interested in sponsoring? Shoot us an email at <span> sponsors@hackfsu.com</span>!
