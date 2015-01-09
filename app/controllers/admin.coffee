@@ -80,7 +80,7 @@ module.exports = (app) ->
 			console.log "----EMAIL MANAGMENT-----"
 			console.log templateName + " " + buttonNum
 			
-			emailsSent = 0
+			sentEmails = 0
 			
 			switch templateName
 				when 'registrationSubscribe'
@@ -89,29 +89,34 @@ module.exports = (app) ->
 							# RETRIEVE EMAIL OBJECTS
 							parseClass = 'PrevSubTest'
 							params =
-								where: {emailSent: {'$ne':'true'}}
+								where: {emailSent: {'ne':true}}
 							app.kaiseki.getObject parseClass, params, 
 							(err,res,body,success) ->
 								if success
 									console.log body.length + ' Emails found.'
 									for obj in body
-										#send email
-										app.emailTemplate templateName, 
-											to_email: obj.email
-											from_email: 'register@hackfsu.com'
-											from_name: 'HackFSU'
-											subject: 'Registration is open!'
-											locals: {}
+										if !obj.emailSent
+											++sentEmails
+											#send email
+											app.emailTemplate templateName, 
+												to_email: obj.email
+												from_email: 'register@hackfsu.com'
+												from_name: 'HackFSU'
+												subject: 'Registration is open!'
+												locals: {}
 												
-										
-										#update object
-										app.kaiseki.updateObject parseClass, obj.objectId,
-											{emailSent: true},
-											(err,res,body,success) ->
-												if success
-													console.log obj.email + " successfully marked as sent"
-												else
-													console.log obj.email + " failed to mark as sent"
+											
+											#update object
+											app.kaiseki.updateObject parseClass, obj.objectId,
+												{emailSent: true},
+												(err,res,body,success) ->
+													if success
+														console.log "Parse object successfully marked as sent"
+													else
+														console.log "Parse object failed to mark as sent"
+									
+									console.log sentEmails + " Emails sent."
+									return
 									
 								else
 									console.log 'No emails found: ' + JSON.stringify body
@@ -122,10 +127,9 @@ module.exports = (app) ->
 							
 				else
 					console.log "Invlaid email template"
-			
-			
+								
 			
 			res.send
-				emailsSent: emailsSent
+				sentEmails: sentEmails
 			
 			

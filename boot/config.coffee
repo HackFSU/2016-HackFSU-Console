@@ -87,6 +87,8 @@ module.exports = (app) ->
 		# 	locals:
 		# 		firstName: "Jared"
 		# 		lastName: "Bennett"
+		# 	success: function(to_email) #called after mandrill success
+		# 	error: function(to_email) #called after mandrill error
 		
 		# if eName && eData.emailTo && eData.locals
 		
@@ -124,8 +126,12 @@ module.exports = (app) ->
 							app.mandrill.messages.send 'message': message, 'async': true, 
 								(result) ->
 									console.log ' > Mandrill - Email Sent Success - eData= ' + JSON.stringify eData
+									if eData.success
+										eData.success(eData.to_email)
 								, (e) ->
 									console.log ' > Mandrill - Error: ' + e.name + ' - ' + e.message
+									if eData.error
+										eData.error(eData.to_email)
 						else
 							console.log ' > Email-templates - Error: ' + err
 							
