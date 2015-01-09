@@ -20,9 +20,7 @@ module.exports = (app) ->
 			res.render 'public/contact',
 				title: 'Contact'
 				
-		@apply = (req, res) ->
-			res.render 'public/apply',
-				title: 'Apply'
+		
 				
 		
 		@updates = (req, res) ->
@@ -133,5 +131,179 @@ module.exports = (app) ->
 				req.flash('error', 'Error: Invalid Input!')
 				res.redirect '/signup'
 			
+		########################################################################
+		# Apply - final submission done via post\
+		# Parse Class:
+		# Applications
+		# 	firstName - String
+		# 	lastName - String
+		# 	email - String
+		# 	school - String (from list?)
+		# 	major - String
+		# 	year - String (from list?)
+		# 	github - String
+		# 	QAs - Array of answers to below questions
+		# 		[0] Will this be your first hackathon?
+		# 			(t/f)
+		# 		[1] What is one thing you hate about hackathons?
+		# 			(string)
+		# 		[2] What do you want to learn or hack on for the weekend?
+		# 			(array of strings)
+		# 		[3] What are some things you have made that you are proud of?
+		# 			(string)
+		# 		[4] Food Allergies 
+		# 			(array of strings)
+		# 		[5] Comments? 
+		# 			(array of strings)
+		########################################################################
+		
+		@apply = (req, res) ->
+			res.render 'public/apply',
+				title: 'Apply'
+		@apply_submit = (req,res) ->
+			# validate input (assert + sanitize all)
+			req.assert('firstName', 'First Name Requied')
+			req.assert('lastName','Last Name Required')
+			req.assert('email','Valid Email Requied').isEmail()
+			req.assert('school').optional().len(0,100)
+			req.assert('major').optional().len(0,100)
+			req.assert('year').optional().len(0,100)
+			req.assert('github').optional().len(0,100)
+			req.assert('QAs','Answer Required')
 			
+			req.sanitize('firstName').toString()
+			req.sanitize('lastName').toString()
+			req.sanitize('email').toString()
+			req.sanitize('school').toString()
+			req.sanitize('major').toString()
+			req.sanitize('year').toString()
+			req.sanitize('github').toString()
+			
+		
+			console.log 'Application Recieved'
+			
+			inputErrors = req.validationErrors(true)
+			if(!inputErrors)
+				#proceed to submit app
 				
+				# truncate all responses at 500 characters, not the t/f tho
+				QAs = req.param('QAs')
+				QAs[1] = if QAs[1] then QAs[1].substring(0,500) else ""
+				QAs[2] = if QAs[2] then QAs[2].substring(0,500) else ""
+				QAs[3] = if QAs[3] then QAs[3].substring(0,500) else ""
+				QAs[4] = if QAs[4] then QAs[4].substring(0,500) else ""
+				QAs[5] = if QAs[5] then QAs[5].substring(0,500) else ""
+				
+				# collect data
+				appData =
+					firstName: req.param('firstName')
+					lastName: req.param('lastName')
+					email: req.param('email')
+					school: req.param('school')
+					major: req.param('major')
+					year: req.param('year')
+					github: req.param('github')
+					# resume: req.body.resume DO IN SIGNUP INSTEAD
+					QAs: QAs
+				
+				#submit to parse
+				app.kaiseki.createObject 'Applications', appData, (error, result, body, success) ->
+					if success
+						console.log " > Parse - App submit success"
+						
+						# #get email
+						# htmlEmail = app.locals.helpers.genEmail 'applicationConfirmation',
+						# 	firstName: appData.firstName
+						
+						# if htmlEmail != null
+						# 	# send a confirmation email
+						# 	message = 
+						# 		'html': htmlEmail,
+						# 		'subject': 'We\'ve Received Your HackFSU Application!',
+						# 		'from_email': 'register@hackfsu.com',
+						# 		'from_name': 'HackFSU Application'
+						# 		'to': [
+						# 			'email': appData.email,
+						# 			'name': req.body.firstName + ' ' + req.body.lastName,
+						# 			'type': 'to'
+						# 		]	
+						# 	app.mandrill.messages.send 'message': message, 'async': false, (result) ->
+						# 		 console.log("Mandrill - Email Sent Success")   
+						# 	, (e) ->
+						# 		 console.log 'Mandrill - Error: ' + e.name + ' - ' + e.message
+						
+						# path = require 'path'
+						# templatesDir = path.resolve(__dirname,'../..', 'emails')
+						# app.emailTemplates templatesDir,  (err, template) ->
+						# 	if err
+						# 		console.log err
+						# 	else
+						# 		locals =
+						# 			firstName: appData.firstName
+						# 		Render = (locals) ->
+						# 			this.locals = locals
+						# 			this.send = (err,html,text) ->
+						# 				message = 
+						# 					'html': html,
+						# 					'text': text,
+						# 					'subject': 'We\'ve Received Your HackFSU Application!',
+						# 					'from_email': 'register@hackfsu.com',
+						# 					'from_name': 'HackFSU Application'
+						# 					'to': [
+						# 						'email': appData.email,
+						# 						'name': req.body.firstName + ' ' + req.body.lastName,
+						# 						'type': 'to'
+						# 					]	
+											
+						# 				app.mandrill.messages.send 'message': message, 'async': false, (result) ->
+						# 					 console.log ' > Mandrill - Email Sent Success'
+						# 				, (e) ->
+						# 					 console.log ' > Mandrill - Error: ' + e.name + ' - ' + e.message
+									
+						# 			this.batch = (batch) ->
+						# 				batch this.locals, templatesDir, this.send
+									
+						# 			return
+								
+						# 		template 'applyConfirm', true, (err, batch) ->
+						# 			if this.err
+						# 				console.log this.err
+						# 			else
+						# 				render = new Render(locals)
+						# 				render.batch(batch)
+						# 			return
+						
+						app.emailTemplate 'applyConfirm', 
+							to_email: appData.email
+							from_email: 'register@hackfsu.com'
+							from_name: 'HackFSU'
+							subject: 'Rad Submission, Man'
+							locals:
+								firstName: appData.firstName
+								lastName: appData.lastName
+						
+						#reply with result
+						res.send
+							appValid: true
+
+					else
+						console.log " > Parse - App submit failed"
+						console.log "   > " + JSON.stringify error
+						console.log "   > " + JSON.stringify body
+						
+						#reply with result
+						res.send
+							appValid: false
+							parse:
+								error: error
+								code: body.code
+								msg: body.msg
+							
+			else
+				console.log "Application input error occurred"
+				console.log JSON.stringify inputErrors
+				res.send
+					appValid: false
+					inputErrors: inputErrors
+			
+			

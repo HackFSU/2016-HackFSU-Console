@@ -65,7 +65,8 @@ module.exports = (app) ->
 
 	# Apply to HackFSU
 	app.get '/apply', app.PublicController.apply
-
+	app.post '/apply_submit', app.PublicController.apply_submit
+	
 	# Submit registration
 	# app.post '/register/submit', app.RegisterController.submit
 	
