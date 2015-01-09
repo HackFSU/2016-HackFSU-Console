@@ -100,10 +100,10 @@ module.exports = (app) ->
 				Render = (locals) ->
 					this.locals = locals
 					this.send = (err,html,text) ->
-						console.log " > EMAIL HTML:"
-						console.log html
-						console.log " > EMAIL TEXT:"
-						console.log text
+						# console.log " > EMAIL HTML:"
+						# console.log html
+						# console.log " > EMAIL TEXT:"
+						# console.log text
 						
 						if !err
 							console.log ' > Email-templates - Creation success'
@@ -123,7 +123,7 @@ module.exports = (app) ->
 								
 							app.mandrill.messages.send 'message': message, 'async': true, 
 								(result) ->
-									console.log ' > Mandrill - Email Sent Success'
+									console.log ' > Mandrill - Email Sent Success - eData= ' + JSON.stringify eData
 								, (e) ->
 									console.log ' > Mandrill - Error: ' + e.name + ' - ' + e.message
 						else

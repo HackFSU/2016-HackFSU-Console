@@ -1,14 +1,24 @@
 html
 	body
-		.table-outer
-			.table-center
-				.header
-					img(src='http://hackfsu.com/img/ninetiesFeather.png')
-						
-				.content
-					block content
-					
-				.footer
-					| -- 
-					br
-					| HackFSU
+		table.tableOuter
+			tr
+				td
+					table.tableInner
+						tr
+							td#header(align='center', valign='top')
+								img(src='http://hackfsu.com/img/ninetiesFeather.png', alt='logo')
+								span &#32;HACKFSU
+						tr
+							td#content
+								block content
+						tr
+							td#footer(align='center', valign='top')
+								a(href='http://www.facebook.com/hackfsu') Facebook
+								| &#32;&#8226;&#32;
+								a(href='http://twitter.com/hackfsu') Twitter
+								| <br/><br/><br/>
+								
+								.unsubscribe
+									| If you'd like to unsubscribe and stop receiving emails from HackFSU, 
+									a(href='*|UNSUB:http://hackfsu.com/unsubscribe|*') click here
+									| .<br/>But why would you do that?<br/>
