@@ -67,6 +67,10 @@ textarea {
   margin-top: 12px;
 } 
 
+textarea:focus {
+  border: 3px solid #223060 !important;
+}
+
 label {
   font-weight: 400;
 }
