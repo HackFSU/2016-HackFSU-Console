@@ -31,6 +31,10 @@ module.exports = (app) ->
 			res.render 'public/schedule',
 				title: 'Schedule'
 		
+		@shareables = (req, res) ->
+			res.render 'public/shareables',
+				title: 'Shareables'
+				
 		########################################################################
 		# Signin - final submission done via post
 		########################################################################
