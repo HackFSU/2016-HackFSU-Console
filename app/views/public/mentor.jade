@@ -1,0 +1,14 @@
+extend ../layout
+block localCSS
+	link(rel="import", href="/elements/my-element.html")
+
+block content
+	.container
+		.containerHeader
+			h1 #{title}
+		.page
+			
+			my-element
+				img(src="/img/logo-old.png", height="70")
+				h2 HackFSU
+				p This is totally working with polymer's shadow DOM

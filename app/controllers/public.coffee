@@ -19,9 +19,6 @@ module.exports = (app) ->
 		@contact = (req, res) ->
 			res.render 'public/contact',
 				title: 'Contact'
-				
-		
-				
 		
 		@updates = (req, res) ->
 			res.render 'public/updates',
@@ -30,6 +27,14 @@ module.exports = (app) ->
 		@schedule = (req, res) ->
 			res.render 'public/schedule',
 				title: 'Schedule'
+				
+		@sponsor = (req,res) ->
+			res.render 'public/sponsor',
+				title: 'Sponsor'
+		
+		@mentor = (req,res) ->
+			res.render 'public/mentor',
+				title: 'Mentor'
 		
 		########################################################################
 		# Signin - final submission done via post

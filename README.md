@@ -42,15 +42,16 @@ This will be the final landing page + background management website for HackFSU,
 #### Pages
 ##### Public Access
 * `/` `/index` `/home` -- homepage
-* `/contact` -- HacFSU contact info
-* `/sponsor` -- sponsorship information (current + new sponsor info)
-* `/schedule` -- schedule information
-* `/updates` -- view updates
+* `/sponsor` -- sponsorship information and sponsor of the month
 * `/apply` -- apply for HackFSU
-* `/signup/$confirmationEmailCode` -- create acc. (code req.)
 * `/signin` -- signin to account
-* `/signin/passwordreset` -- reset password via email
-* `/error` -- misc error thrown
+* `/mentor` -- mentor application/information page
+* ~~`/signup/$confirmationEmailCode` -- create acc. (code req.)~~
+* ~~`/updates` -- view updates~~
+* ~~`/schedule` -- schedule information~~
+* ~~`/contact` -- HacFSU contact info~~
+* ~~`/signin/passwordreset` -- reset password via email~~
+* ~~`/error` -- misc error thrown~~
 * 404 -- page not found
 
 ##### User Access

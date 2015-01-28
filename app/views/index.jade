@@ -1,4 +1,13 @@
 extend layout
+
+block localCSS
+	//- link(rel="import", href="/bower_components/paper-button/paper-button.html")
+
+block localJavascript
+	script(src='/bower_components/readmore/readmore.min.js')
+	script(src='/js/public/public-index.js')
+	
+
 block content
 		.header-cont
 			.image-bg
@@ -11,7 +20,8 @@ block content
 					h1
 						a(target='_blank' href='http://youtu.be/vimZj8HW0Kg?t=10s') "Don't call it a comeback"
 					a(href='/apply')
-						div(class='btn btn-header', id='applyBtn') Apply
+						.btn.btn-header#applyBtn(raised) Apply
+						//- div(class='btn btn-header', id='applyBtn') Apply
 					a(href='#sponsors')
 						div(class='btn btn-header', id='sponsorBtn') Sponsor
 					div(style='clear: both')
@@ -26,12 +36,13 @@ block content
 			<br/>  -- The HackFSU Crew
 
 			
+		
 			h1 The Hacking Culture
+			.readmoreSect
+				| Student hackathons have exploded all over the US, Canada, and the UK mainly because the returning rate of hackers is insane. Organizers are struggling to meet the demand of hacking spots while hackers are constantly looking for the next event, often throwing their own. Once you attend one you're hooked. The sense of community is unrivaled from any other kind of event in the nation and it has been formed from the common goal to hack. To be a hacker comes with an attitude of building to learn, creating to build, and learning to create. Come find out what hacking means to you as we throw the best <span>90's hackathon </span>Florida and the South East will ever see. 
 
-			| Student hackathons have exploded all over the US, Canada, and the UK mainly because the returning rate of hackers is insane. Organizers are struggling to meet the demand of hacking spots while hackers are constantly looking for the next event, often throwing their own. Once you attend one you're hooked. The sense of community is unrivaled from any other kind of event in the nation and it has been formed from the common goal to hack. To be a hacker comes with an attitude of building to learn, creating to build, and learning to create. Come find out what hacking means to you as we throw the best <span>90's hackathon </span>Florida and the South East will ever see. 
-
-			h3 What is a hackathon?
-			| An event usually lasting anywhere from twenty four to forty eight hours that brings in software and hardware engineers, designers, and other inspired students to create team projects, or hacks, from scratch. We work with sponsors, recruiters, and mentors to ensure that every hacker has an amazing time and learns as much as they can. Hackathons change lives every weekend, read up on them by <a target='_blank' href='https://medium.com/search?q=hackathons'>searching for blog posts</a> written by the community. You can start with <a target='_blank' href='https://medium.com/hackathons-anonymous/wtf-is-a-hackathon-92668579601'>WTF is a hackathon?</a> by our buddy Dave Fontenot. 
+				h3 What is a hackathon?
+				| An event usually lasting anywhere from twenty four to forty eight hours that brings in software and hardware engineers, designers, and other inspired students to create team projects, or hacks, from scratch. We work with sponsors, recruiters, and mentors to ensure that every hacker has an amazing time and learns as much as they can. Hackathons change lives every weekend, read up on them by <a target='_blank' href='https://medium.com/search?q=hackathons'>searching for blog posts</a> written by the community. You can start with <a target='_blank' href='https://medium.com/hackathons-anonymous/wtf-is-a-hackathon-92668579601'>WTF is a hackathon?</a> by our buddy Dave Fontenot. 
 
 
 			.sect
