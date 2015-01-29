@@ -292,6 +292,7 @@ label {
 
 
 .sect {
+  padding-top: 2em;
   margin-top: 5%;
   margin-bottom: 5%;
 }
@@ -424,11 +425,6 @@ a:hover {
       top: 15% !important;
     }
 
-    .foot {
-      font-size: 1.5em !important;
-    }
-
-
     video {
       display: none;
     }
@@ -438,6 +434,11 @@ a:hover {
     }
 
   }
+
+.tempspacer {
+  padding-top: 4em;
+  width: 100%;
+}
 
 .image-bg {
  background: url('../img/westcottbw.jpg') no-repeat center center;
@@ -450,7 +451,8 @@ a:hover {
 
 .header-cont {
   height: 100%;
-  width: 100%;  
+  width: 100%; 
+  /*padding-bottom: 3em;*/
 }
 
 .mobileBG {
@@ -640,8 +642,8 @@ p {
 .foot {
   font-family: 'Uni Sans', sans-serif;
   font-weight: 700;
-  bottom: 2em;
-  font-size: 1.875em;
+  bottom: 3em;
+  font-size: 2.5em;
   z-index: 1006;
   left: 50%;
   -webkit-transform: translate(-50%, 0);
@@ -650,6 +652,7 @@ p {
   color: rgba(30, 177, 173, 1);
   font-weight: bold;
   float: left;
+  text-align: center;
 }
 
 

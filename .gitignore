@@ -1,4 +1,5 @@
 node_modules
 .dropbox*
 desktop.ini
+public/bower_components
 .env
