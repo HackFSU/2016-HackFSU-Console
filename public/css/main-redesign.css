@@ -783,16 +783,13 @@ h3 {
 
 .banner {
   width: 100%;
-  background-color: #3082c1; 
+  background-image: url(/img/sponsors/mailchimp_banner_color.jpg)
 }
 .banner img {
   display: block;
   height: auto;
   margin-left: auto;
   margin-right: auto;
-  /*margin-left: 15%;
-  margin-right: 15%;
-  width: 70%;*/
 }
 @media (min-width: 1340px) {
   .banner img {
