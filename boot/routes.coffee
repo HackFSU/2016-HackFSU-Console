@@ -49,6 +49,9 @@ module.exports = (app) ->
 	app.get '/signin', app.PublicController.signin
 	app.post '/signin_submit', app.PublicController.signin_submit
 	
+	# Shareables
+	app.get '/shareables', app.PublicController.shareables
+
 	# Signup
 	#app.get '/signup', app.PublicController.signup
 	#app.post '/signup_submit', app.PublicController.signup_submit

@@ -36,6 +36,10 @@ module.exports = (app) ->
 			res.render 'public/mentor',
 				title: 'Mentor'
 		
+		@shareables = (req, res) ->
+			res.render 'public/shareables',
+				title: 'Shareables'
+				
 		########################################################################
 		# Signin - final submission done via post
 		########################################################################
