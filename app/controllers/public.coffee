@@ -188,6 +188,10 @@ module.exports = (app) ->
 			
 			inputErrors = req.validationErrors(true)
 			
+			# somehow this was undefined and crashed, this is precaution
+			inputErrors = if req.param('QAs') != undefined then inputErrors else true
+			if !inputErrors
+				inputErrors = if req.param('QAs')[0] != undefined then inputErrors else true
 			
 			if(!inputErrors)
 				#proceed to submit app
@@ -196,13 +200,13 @@ module.exports = (app) ->
 				QAs = req.param('QAs')			
 				QAs[0] = QAs[0] == 'true'
 				if QAs[2] #loop wasnt working for some reason idgaf
-					QAs[2][0] = QAs[2][0] == 'true'
-					QAs[2][1] = QAs[2][1] == 'true'
-					QAs[2][2] = QAs[2][2] == 'true'
-					QAs[2][3] = QAs[2][3] == 'true'
-					QAs[2][4] = QAs[2][4] == 'true'
-					QAs[2][5] = QAs[2][5] == 'true'
-					QAs[2][6] = QAs[2][6] == 'true'
+					QAs[2][0] = if QAs[2][0] then QAs[2][0] == 'true' else false
+					QAs[2][1] = if QAs[2][1] then QAs[2][1] == 'true' else false
+					QAs[2][2] = if QAs[2][2] then QAs[2][2] == 'true' else false
+					QAs[2][3] = if QAs[2][3] then QAs[2][3] == 'true' else false
+					QAs[2][4] = if QAs[2][4] then QAs[2][4] == 'true' else false
+					QAs[2][5] = if QAs[2][5] then QAs[2][5] == 'true' else false
+					QAs[2][6] = if QAs[2][6] then QAs[2][6] == 'true' else false
 				
 				# truncate all responses at 500 characters, not the t/f tho
 				QAs[1] = if QAs[1] then QAs[1].substring(0,500) else ""
