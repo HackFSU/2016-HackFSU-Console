@@ -18,3 +18,25 @@ $('.readmoreSect').readmore({
   embedCSS: false,
   startOpen: false
 });
+
+$('#applyBtn, #sponsorBtn, #logoBtn').jrumble();
+
+$('#hypeBtn').jrumble({
+  x: 10,
+  y: 10,
+  rotation: 4,
+  opacity: true,
+  opacityMin: .75
+});
+
+$('.header-btn, #logoBtn').hover(function() {
+  $(this).trigger('startRumble');
+}, function() {
+  return $(this).trigger('stopRumble');
+});
+
+$('#sponsorBtn').click(function() {
+  return $('html, body').animate({
+    scrollTop: $('[name=sponsors]').offset().top
+  }, 2000);
+});

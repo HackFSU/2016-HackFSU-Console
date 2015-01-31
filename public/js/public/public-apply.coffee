@@ -61,7 +61,7 @@ $('#application').submit (event) ->
 				$('label[for=' +$(this).attr('name')+']').removeClass('hasInputError')
 				$('.form-error-msg').text("")
 			
-		shake('#submit')
+		$('#submit').shakeIt()
 	else
 		$('#submit').text('Submitting...')
 		
@@ -136,8 +136,8 @@ checkAppData = (appData) ->
 	return true
 
 
-shake = (jq) ->
-	errField = $(jq)
-	errField.addClass('shakeText')
-	errField.one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', (e) ->
-		errField.removeClass('shakeText')
+# shake = (jq) ->
+# 	errField = $(jq)
+# 	errField.addClass('shakeText')
+# 	errField.one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', (e) ->
+# 		errField.removeClass('shakeText')

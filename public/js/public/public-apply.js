@@ -19,7 +19,7 @@
 /*
  * Handle form submission
  */
-var checkAppData, displayEnd, endInError, endInSuccess, shake;
+var checkAppData, displayEnd, endInError, endInSuccess;
 
 $('#application').submit(function(event) {
   var appData, appValid;
@@ -50,7 +50,7 @@ $('#application').submit(function(event) {
         return $('.form-error-msg').text("");
       });
     }
-    shake('#submit');
+    $('#submit').shakeIt();
   } else {
     $('#submit').text('Submitting...');
     if (appValid === true) {
@@ -164,13 +164,4 @@ checkAppData = function(appData) {
     };
   }
   return true;
-};
-
-shake = function(jq) {
-  var errField;
-  errField = $(jq);
-  errField.addClass('shakeText');
-  return errField.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(e) {
-    return errField.removeClass('shakeText');
-  });
 };

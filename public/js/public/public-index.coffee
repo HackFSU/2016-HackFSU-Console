@@ -16,3 +16,24 @@ $('.readmoreSect').readmore
 	embedCSS: false
 	startOpen: false
 	
+# Rumble dem buttons on hover
+$('#applyBtn, #sponsorBtn, #logoBtn').jrumble()
+$('#hypeBtn').jrumble
+	x: 10
+	y: 10
+	rotation: 4
+	opacity: true
+	opacityMin: .75
+	
+	
+$('.header-btn, #logoBtn').hover ()->
+	$(this).trigger 'startRumble'
+	return
+, () ->
+	$(this).trigger 'stopRumble'
+
+#Smooth scroll to sponsors
+$('#sponsorBtn').click ()->
+	$('html, body').animate
+		scrollTop: $('[name=sponsors]').offset().top
+	, 2000
