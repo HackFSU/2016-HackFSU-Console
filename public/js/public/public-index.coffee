@@ -17,7 +17,7 @@ $('.readmoreSect').readmore
 	startOpen: false
 	
 # Rumble dem buttons on hover
-$('#applyBtn, #sponsorBtn, #logoBtn').jrumble()
+# $('#applyBtn, #sponsorBtn, #logoBtn').jrumble()
 $('#hypeBtn').jrumble
 	x: 10
 	y: 10
@@ -26,7 +26,7 @@ $('#hypeBtn').jrumble
 	opacityMin: .75
 	
 	
-$('.header-btn, #logoBtn').hover ()->
+$('.header-btn').hover ()->
 	$(this).trigger 'startRumble'
 	return
 , () ->

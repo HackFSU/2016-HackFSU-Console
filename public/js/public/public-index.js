@@ -19,8 +19,6 @@ $('.readmoreSect').readmore({
   startOpen: false
 });
 
-$('#applyBtn, #sponsorBtn, #logoBtn').jrumble();
-
 $('#hypeBtn').jrumble({
   x: 10,
   y: 10,
@@ -29,7 +27,7 @@ $('#hypeBtn').jrumble({
   opacityMin: .75
 });
 
-$('.header-btn, #logoBtn').hover(function() {
+$('.header-btn').hover(function() {
   $(this).trigger('startRumble');
 }, function() {
   return $(this).trigger('stopRumble');

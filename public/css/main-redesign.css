@@ -312,7 +312,7 @@ label {
 }
 .header-bottom {
   position: absolute;
-  bottom: 0;
+  bottom: .2em;
   width: 100%;
   font-family: 'Uni Sans', sans-serif;
   font-weight: 700;
@@ -585,6 +585,7 @@ p {
   margin-top: 6em;
 }
 
+
 .footer {
   padding-top: 100px;
 }
@@ -777,5 +778,21 @@ h3 {
 .sponsor-old {
   opacity: .3;
 }
+
+.inside-banner {
+  width: 100%;
+  height: auto;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+#learnMoreBtn {
+  width: 8em;
+  margin-top: 0;
+  margin-bottom: 3em;
+  font-size: 1.5em;
+  padding: 20px !important;
+}
+
 
 /********************************************************/

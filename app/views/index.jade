@@ -15,7 +15,7 @@ block content
 				a.cleanLink(target='_blank' href='//www.youtube.com/watch?v=NyAzdjWNNQg')
 					img#logoBtn(src='img/logo-header.png')
 				h1.singleLineText.header-motto
-					a(target='_blank' href='http://youtu.be/vimZj8HW0Kg?t=10s') "Don't call it a comeback"
+					a.cleanLink(target='_blank' href='http://youtu.be/vimZj8HW0Kg?t=10s') "Don't call it a comeback"
 				
 				a.cleanLink(href='/apply')
 					.btn.header-btn#applyBtn Apply
@@ -94,14 +94,18 @@ block content
 
 			.sect
 				a(name='sponsors')
-					h1.singleLineText Sponsors
+				h1.singleLineText Sponsors
+				
+				h3 Sponsor of the Month
+				a.cleanLink(href="//mailchimp.com")
+					img.inside-banner(src="/img/sponsors/mailchimp_banner.jpg")
+				center
+					a.cleanLink(href="/sponsor")
+						.btn.header-btn#learnMoreBtn Learn More
+					
 				| Interested in sponsoring? Shoot us an email at <a href='mailto:sponsors@hackfsu.com'>sponsors@hackfsu.com</a>!
-		
-		.banner.fadeHover
-			a.cleanLink(href="/sponsor")
-				img(src="/img/sponsors/mailchimp_banner.jpg")
-		
-		.containerbody
-			.sponsor-old
-				h3 Past Sponsors
-				img(src='/img/sponsors/sponsors_2014.png', width="100%", height="auto")
+				<br><br><br><br>
+				.sponsor-old
+					h3 Past Sponsors
+					
+					img(src='/img/sponsors/sponsors_2014.png', width="100%", height="auto")
