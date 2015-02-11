@@ -44,7 +44,47 @@ module.exports = (app) ->
 				title: 'Mentor'
 		
 		@mentor_submit = (req,res) ->
+			#TODO: server-side validation
 			
+			#get post data
+			obj = 
+				firstName: 		if req.body.firstName? 		then req.body.firstName else null
+				lastName: 		if req.body.lastName? 		then req.body.lastName else null
+				email: 			if req.body.email? 			then req.body.email else null
+				affiliation:	if req.body.affiliation? 	then req.body.affiliation else null
+				skills:			if req.body.skills?	 		then req.body.skills else null
+				phoneNumber:	if req.body.phoneNumber? 	then req.body.phoneNumber else null
+				times:			if req.body.times? 			then req.body.times else new Array()
+			
+			#create parse object
+			mentor = new app.models.Mentors(app.kaiseki, obj)
+			mentor.createNew()
+			.then (success) ->
+				console.log "Mentor Submit success"
+				
+				#send confirmation email
+				app.emailTemplate 'mentorConfirm', 
+					to_email: obj.email
+					from_email: 'info@hackfsu.com'
+					from_name: 'HackFSU'
+					subject: 'Inspire the Future'
+					locals:
+						firstName: obj.firstName
+						lastName: obj.lastName
+				
+				#return response
+				res.send
+					success: true,
+					msg: ""
+					
+					
+			, (err) ->
+				console.log "Mentor Submit failure"
+				res.send
+					success: false,
+					msg: err
+				
+				return 
 		
 				
 		########################################################################

@@ -41,7 +41,7 @@ $('#mentorForm').submit (event)->
 		$('.form-error-msg').text val.msg
 		$('#submit').shakeIt()
 	else
-		console.log JSON.stringify obj, undefined, 2
+		# console.log JSON.stringify obj, undefined, 2
 		#preform submission
 		$('#submit').text 'Submitting...'
 		$.ajax
@@ -52,9 +52,9 @@ $('#mentorForm').submit (event)->
 				if res.success == true
 					endInSuccess()
 				else
-					endInFailure()
+					endInError()
 			error: () ->
-				endInFailure()
+				endInError()
 	
 	return
 

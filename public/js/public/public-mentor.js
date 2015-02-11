@@ -22,7 +22,6 @@ $('#mentorForm').submit(function(event) {
     phoneNumber: $('#phoneNumber').val(),
     times: [$('#sat-midnight-morning').is(':checked'), $('#sat-morning-midday').is(':checked'), $('#sat-midday-evening').is(':checked'), $('#sat-evening-midnight').is(':checked'), $('#sun-midnight-morning').is(':checked')]
   };
-  console.log(JSON.stringify(obj.times, void 0, 2));
   val = validate(obj);
   $('label').removeClass('hasInputError');
   $('.form-error-msg').text('');
@@ -31,7 +30,6 @@ $('#mentorForm').submit(function(event) {
     $('.form-error-msg').text(val.msg);
     $('#submit').shakeIt();
   } else {
-    console.log(JSON.stringify(obj, void 0, 2));
     $('#submit').text('Submitting...');
     $.ajax({
       type: 'post',
@@ -41,11 +39,11 @@ $('#mentorForm').submit(function(event) {
         if (res.success === true) {
           return endInSuccess();
         } else {
-          return endInFailure();
+          return endInError();
         }
       },
       error: function() {
-        return endInFailure();
+        return endInError();
       }
     });
   }

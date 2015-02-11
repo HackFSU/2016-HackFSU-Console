@@ -12,7 +12,7 @@ Dependencies:
  */
 $('.readmoreSect').readmore({
   speed: 100,
-  collapsedHeight: 150,
+  collapsedHeight: 280,
   moreLink: '<a class="readmoreLink" href="#">Read more</a>',
   lessLink: '<a class="readmoreLink" href="#">Close</a>',
   embedCSS: false,
