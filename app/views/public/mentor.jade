@@ -3,12 +3,66 @@ block localCSS
 	link(rel="import", href="/elements/my-element.html")
 
 block content
-	.container
-		.containerHeader
-			h1 #{title}
-		.page
+	.containerbody
+		h1.singleLineText Become a HackFSU Mentor
+		p Hackathons are for hacking. A student’s ability to hack is hindered when they do not have the experience or any knowledge of debugging or developing. This is where you come in. Hackathons are the best possible environment for newcomers and veterans alike. They are surrounded by peers and encouragement to build and learn anything in the shortest amount of time possible. Be a Mentor, make a difference. 
+	
+		form.form-horizontal(id='mentorForm', method='post', action='#', role='form')
+			.form-group
+				label.col-lg-3.control-label(for='firstName') First Name
+				.col-lg-7
+					input.form-control(type='text', placeholder='John', name='firstName', value=firstName)
 			
-			my-element
-				img(src="/img/logo-old.png", height="70")
-				h2 HackFSU
-				p This is totally working with polymer's shadow DOM
+			.form-group
+				label.col-lg-3.control-label(for='lastName') Last Name
+				.col-lg-7
+					input.form-control(type='text', name='lastName', placeholder='Smith', value=lastName)
+			
+			.form-group
+				label.col-lg-3.control-label(for='email') Email
+				.col-lg-7
+					input.form-control(type='email', name='email', placeholder='your@email.edu', value=email)
+			
+			.form-group
+				label.col-lg-3.control-label(for='phoneNumber') Phone Number
+				.col-lg-7
+					input.form-control(type='text', name='phoneNumber', placeholder='123-456-7890', value=phoneNumber)
+			
+			.form-group
+				label.col-lg-3.control-label(for='affiliation') Affiliation
+				.col-lg-7
+					input.form-control(type='text', name='affiliation', placeholder='FSU', value=affiliation)
+			
+			.form-group
+				label.col-lg-3.control-label(for='skills') Languages, frameworks, or other technologies you are comfortable with
+				.col-lg-7
+					textarea.form-control(rows='3', name='skills', placeholder="Anything you want to help with!", value=skills)
+			
+			.form-group
+				label.col-lg-3.control-label(for='times') Hacking Starts at Midnight on Friday March 20th and ends Sunday March 22nd at 6 AM , when will you be available?
+				.col-lg-7(style='margin-top: 12px')
+					h3 Sat
+					p
+						input(type="checkbox", for='times', name='sat-midnight-morning')
+						label(for="sat-midnight-morning") Midnight - Morning
+
+					p
+						input(type="checkbox", for='times', name='sat-morning-midday')
+						label(for="sat-morning-midday") Morning - Midday
+						
+					p
+						input(type="checkbox", for='times', name='sat-midday-evening')
+						label(for="sat-midday-evening") Midday - Evening
+						
+					p
+						input(type="checkbox", for='times', name='sat-evening-midnight')
+						label(for="sat-evening-midnight") Evening - Midnight
+
+					h3 Sun
+					p
+						input(type="checkbox", for='times', name='sun-midnight-morning')
+						label(for="sun-midnight-morning") Midnight - Morning
+			.form-group
+				.col-lg-4.pull-right
+					button.btn(type='submit') Submit
+				
