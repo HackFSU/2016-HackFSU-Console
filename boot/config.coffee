@@ -17,6 +17,10 @@ acl = require '../lib/acl'
 flash = require 'express-flash'
 emailTemplates = require 'email-templates'
 
+# Models
+models =
+	Mentors: require '../app/models/mentors'
+
 # Configuration
 module.exports = (app) ->
 	
@@ -46,7 +50,11 @@ module.exports = (app) ->
 	app.kaiseki = new Kaiseki process.env.PARSE_APP_ID_TEST, 
 	process.env.PARSE_REST_KEY_TEST
 	app.kaiseki.masterKey = process.env.PARSE_MASTER_KEY_TEST
-
+	
+	
+	#Store models
+	app.models = models
+	
 	# Development settings
 	if (env == 'development')
 		app.locals.pretty = true
@@ -96,7 +104,7 @@ module.exports = (app) ->
 		templatesDir = path.resolve(__dirname,'..', 'emails')
 		app.emailTemplates templatesDir,  (err, template) ->
 			if err
-				console.log err
+				console.log '> emailTemplates error'
 			else
 				locals = eData.locals
 				Render = (locals) ->

@@ -1,41 +1,44 @@
 extend layout
+
+block localCSS
+	//- link(rel="import", href="/bower_components/paper-button/paper-button.html")
+
+block localJavascript
+	script(src='/bower_components/readmore/readmore.min.js')
+	script(src='/js/public/public-index.js')
+	
+
 block content
 		.header-cont
-			.image-bg
+			.header-overlay
+			.containerbody.header-center
+				a.cleanLink(target='_blank' href='//www.youtube.com/watch?v=NyAzdjWNNQg')
+					img#logoBtn(src='img/logo-header.png')
+				h1.singleLineText.header-motto
+					a.cleanLink(target='_blank' href='http://youtu.be/vimZj8HW0Kg?t=10s') "Don't call it a comeback"
+				
+				a.cleanLink(href='/apply')
+					.btn.header-btn#applyBtn Apply
+				.btn.header-btn#sponsorBtn Sponsor
+				a.cleanLink(href='//www.youtube.com/watch?v=VtgGd9kW550&feature=youtu.be')
+					.btn.header-btn#hypeBtn GET HYPED
+				
+				div(style='clear: both')
 
-			div(id='video-bg')
-				.video-color
-				.video-overlay
-					a(target='_blank' href='https://www.youtube.com/watch?v=NyAzdjWNNQg')
-						img(src='img/logo-header.png')
-					h1
-						a(target='_blank' href='http://youtu.be/vimZj8HW0Kg?t=10s') "Don't call it a comeback"
-					a(href='/apply')
-						div(class='btn btn-header', id='applyBtn') Apply
-					a(href='#sponsors')
-						div(class='btn btn-header', id='sponsorBtn') Sponsor
-					div(style='clear: both')
-
-				.foot.
-					Tallahassee FL &#8226; 30 Hours
-
+			.header-bottom.
+				March 20th - 22nd
+				<br>Tallahassee FL &#8226; 30 Hours
 		.containerbody
-			
-			.notice
-			| <b>NOTICE</b>: We realize that there is no date released, we apologize. We want you guys to have the most rad-tacular time possible. In doing so, we are currently working with multiple venue's to make sure you have the best experience. Follow us on <a href='https://twitter.com/hackfsu'>Twitter</a> and <a href='/apply'>Apply</a> to get notified!
-			<br/>  -- The HackFSU Crew
+			h1.singleLineText The Hacking Culture
+			.readmoreSect
+				| Student hackathons have exploded all over the US, Canada, and the UK mainly because the returning rate of hackers is insane. Organizers are struggling to meet the demand of hacking spots while hackers are constantly looking for the next event, often throwing their own. Once you attend one you're hooked. The sense of community is unrivaled from any other kind of event in the nation and it has been formed from the common goal to hack. To be a hacker comes with an attitude of building to learn, creating to build, and learning to create. Come find out what hacking means to you as we throw the best <span>90's hackathon </span>Florida and the South East will ever see. 
 
-			
-			h1 The Hacking Culture
-
-			| Student hackathons have exploded all over the US, Canada, and the UK mainly because the returning rate of hackers is insane. Organizers are struggling to meet the demand of hacking spots while hackers are constantly looking for the next event, often throwing their own. Once you attend one you're hooked. The sense of community is unrivaled from any other kind of event in the nation and it has been formed from the common goal to hack. To be a hacker comes with an attitude of building to learn, creating to build, and learning to create. Come find out what hacking means to you as we throw the best <span>90's hackathon </span>Florida and the South East will ever see. 
-
-			h3 What is a hackathon?
-			| An event usually lasting anywhere from twenty four to forty eight hours that brings in software and hardware engineers, designers, and other inspired students to create team projects, or hacks, from scratch. We work with sponsors, recruiters, and mentors to ensure that every hacker has an amazing time and learns as much as they can. Hackathons change lives every weekend, read up on them by <a target='_blank' href='https://medium.com/search?q=hackathons'>searching for blog posts</a> written by the community. You can start with <a target='_blank' href='https://medium.com/hackathons-anonymous/wtf-is-a-hackathon-92668579601'>WTF is a hackathon?</a> by our buddy Dave Fontenot. 
+				h3 What is a hackathon?
+				| An event usually lasting anywhere from twenty four to forty eight hours that brings in software and hardware engineers, designers, and other inspired students to create team projects, or hacks, from scratch. We work with sponsors, recruiters, and mentors to ensure that every hacker has an amazing time and learns as much as they can. Hackathons change lives every weekend, read up on them by <a target='_blank' href='https://medium.com/search?q=hackathons'>searching for blog posts</a> written by the community. You can start with <a target='_blank' href='https://medium.com/hackathons-anonymous/wtf-is-a-hackathon-92668579601'>WTF is a hackathon?</a> by our buddy Dave Fontenot. 
 
 
 			.sect
-				h1 FAQ
+				h1.singleLineText FAQ
 
 				.row
 					.col-md-4
@@ -45,13 +48,15 @@ block content
 					.col-md-4
 						h3 When & Where is it?
 
-						| Check out the notice above, but we can assure you that it will take place in Tallahassee in close proximity to Florida State University. We will also be releasing the schedule closer to the event.  
+						| The hackathon will take place inside of the 
+						a(href="http://www.google.com/maps/place/Dirac+Science+Library/@30.445006,-84.299961,15z/data=!4m2!3m1!1s0x0:0x68e88c654fcf10f8") Dirac Science Library
+						| &#32;on the Florida State University campus. It will begin on Friday, March 20th and end on Sunday, March 22nd. We will be releasing a more comprehensive schedule closer to the event.
 					.col-md-4
 						h3 Not a student?
 
-						| Mentor! Give back to the community by helping hackers learn and build something awesome. Shoot us an <a href='mailto:info@hackfsu.com'>email</a> and we’ll go from there. 
-
-					
+						| Mentor! Give back to the community by helping hackers learn and build something awesome. 
+						a(href='/mentor') Sign up here!
+						
 
 				<br/>
 
@@ -89,6 +94,18 @@ block content
 
 			.sect
 				a(name='sponsors')
-					h1 Sponsors
-
+				h1.singleLineText Sponsors
+				
+				h3 Sponsor of the Month
+				a.cleanLink(href="//mailchimp.com")
+					img.inside-banner(src="/img/sponsors/mailchimp_banner.jpg")
+				center
+					a.cleanLink(href="/sponsor")
+						.btn.header-btn#learnMoreBtn Learn More
+					
 				| Interested in sponsoring? Shoot us an email at <a href='mailto:sponsors@hackfsu.com'>sponsors@hackfsu.com</a>!
+				<br><br><br><br>
+				.sponsor-old
+					h3 Past Sponsors
+					
+					img(src='/img/sponsors/sponsors_2014.png', width="100%", height="auto")

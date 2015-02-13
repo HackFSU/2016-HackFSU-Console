@@ -6,6 +6,7 @@
 module.exports = (app) ->
 	
 	# ADMINISTRATION ###########################################
+	
 	# Home
 	app.get '/admin', app.AdminController.home
 	
@@ -38,6 +39,7 @@ module.exports = (app) ->
 	
 	
 	# PUBLIC ###################################################
+	
 	# Index
 	app.get '/', app.PublicController.index
 	app.get '/index', app.PublicController.index
@@ -70,15 +72,21 @@ module.exports = (app) ->
 	app.get '/apply', app.PublicController.apply
 	app.post '/apply_submit', app.PublicController.apply_submit
 	
-	# Submit registration
-	# app.post '/register/submit', app.RegisterController.submit
-	
 	# Contact HackFSU
 	#app.get '/contact', app.PublicController.contact
 	
-	# Hackathoon Schedule
+	# Hackathon Schedule
 	#app.get '/schedule', app.PublicController.schedule
-
+	
+	# Mentor form
+	app.get '/mentor', app.PublicController.mentor
+	app.post '/mentor_submit', app.PublicController.mentor_submit
+	
+	# Sponsor page (includes sponsor of the month at the top)
+	app.get '/sponsor', app.PublicController.sponsor
+	
+	# OTHER ###################################################
+	
 	# Error page. errorMsg is outputed
 	#app.get '/error', app.PublicController.error
 

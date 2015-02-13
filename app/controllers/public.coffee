@@ -19,9 +19,6 @@ module.exports = (app) ->
 		@contact = (req, res) ->
 			res.render 'public/contact',
 				title: 'Contact'
-				
-		
-				
 		
 		@updates = (req, res) ->
 			res.render 'public/updates',
@@ -30,10 +27,65 @@ module.exports = (app) ->
 		@schedule = (req, res) ->
 			res.render 'public/schedule',
 				title: 'Schedule'
+				
+		@sponsor = (req,res) ->
+			res.render 'public/sponsor',
+				title: 'Sponsor'
 		
 		@shareables = (req, res) ->
 			res.render 'public/shareables',
 				title: 'Shareables'
+		
+		########################################################################
+		# Mentor
+		########################################################################
+		@mentor = (req,res) ->
+			res.render 'public/mentor',
+				title: 'Mentor'
+		
+		@mentor_submit = (req,res) ->
+			#TODO: server-side validation
+			
+			#get post data
+			obj = 
+				firstName: 		if req.body.firstName? 		then req.body.firstName else null
+				lastName: 		if req.body.lastName? 		then req.body.lastName else null
+				email: 			if req.body.email? 			then req.body.email else null
+				affiliation:	if req.body.affiliation? 	then req.body.affiliation else null
+				skills:			if req.body.skills?	 		then req.body.skills else null
+				phoneNumber:	if req.body.phoneNumber? 	then req.body.phoneNumber else null
+				times:			if req.body.times? 			then req.body.times else new Array()
+			
+			#create parse object
+			mentor = new app.models.Mentors(app.kaiseki, obj)
+			mentor.createNew()
+			.then (success) ->
+				console.log "Mentor Submit success"
+				
+				#send confirmation email
+				app.emailTemplate 'mentorConfirm', 
+					to_email: obj.email
+					from_email: 'info@hackfsu.com'
+					from_name: 'HackFSU'
+					subject: 'Inspire the Future'
+					locals:
+						firstName: obj.firstName
+						lastName: obj.lastName
+				
+				#return response
+				res.send
+					success: true,
+					msg: ""
+					
+					
+			, (err) ->
+				console.log "Mentor Submit failure"
+				res.send
+					success: false,
+					msg: err
+				
+				return 
+		
 				
 		########################################################################
 		# Signin - final submission done via post
@@ -188,6 +240,10 @@ module.exports = (app) ->
 			
 			inputErrors = req.validationErrors(true)
 			
+			# somehow this was undefined and crashed, this is precaution
+			inputErrors = if req.param('QAs') != undefined then inputErrors else true
+			if !inputErrors
+				inputErrors = if req.param('QAs')[0] != undefined then inputErrors else true
 			
 			if(!inputErrors)
 				#proceed to submit app
@@ -196,13 +252,13 @@ module.exports = (app) ->
 				QAs = req.param('QAs')			
 				QAs[0] = QAs[0] == 'true'
 				if QAs[2] #loop wasnt working for some reason idgaf
-					QAs[2][0] = QAs[2][0] == 'true'
-					QAs[2][1] = QAs[2][1] == 'true'
-					QAs[2][2] = QAs[2][2] == 'true'
-					QAs[2][3] = QAs[2][3] == 'true'
-					QAs[2][4] = QAs[2][4] == 'true'
-					QAs[2][5] = QAs[2][5] == 'true'
-					QAs[2][6] = QAs[2][6] == 'true'
+					QAs[2][0] = if QAs[2][0] then QAs[2][0] == 'true' else false
+					QAs[2][1] = if QAs[2][1] then QAs[2][1] == 'true' else false
+					QAs[2][2] = if QAs[2][2] then QAs[2][2] == 'true' else false
+					QAs[2][3] = if QAs[2][3] then QAs[2][3] == 'true' else false
+					QAs[2][4] = if QAs[2][4] then QAs[2][4] == 'true' else false
+					QAs[2][5] = if QAs[2][5] then QAs[2][5] == 'true' else false
+					QAs[2][6] = if QAs[2][6] then QAs[2][6] == 'true' else false
 				
 				# truncate all responses at 500 characters, not the t/f tho
 				QAs[1] = if QAs[1] then QAs[1].substring(0,500) else ""

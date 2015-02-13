@@ -1,0 +1,73 @@
+extend ../layout
+block localCSS
+	link(rel="import", href="/elements/my-element.html")
+
+block content
+	.containerbody
+		h1.singleLineText Become a HackFSU Mentor
+		
+		.sponsor-blurb
+			p Hackathons are for hacking. A student’s ability to hack is hindered when they do not have the experience or any knowledge of debugging or developing. This is where you come in. Hackathons are the best possible environment for newcomers and veterans alike. They are surrounded by peers and encouragement to build and learn anything in the shortest amount of time possible. Be a Mentor, make a difference. 
+	
+		form.form-horizontal#mentorForm(method='post', action='#', role='form')
+			.form-group
+				label.col-lg-3.control-label(for='firstName') First Name
+				.col-lg-8
+					input.form-control(type='text', placeholder='John', id='firstName', value=firstName)
+			
+			.form-group
+				label.col-lg-3.control-label(for='lastName') Last Name
+				.col-lg-8
+					input.form-control(type='text', id='lastName', placeholder='Smith', value=lastName)
+			
+			.form-group
+				label.col-lg-3.control-label(for='email') Email
+				.col-lg-8
+					input.form-control(type='email', id='email', placeholder='your@email.io', value=email)
+			
+			.form-group
+				label.col-lg-3.control-label(for='phoneNumber') Phone Number
+				.col-lg-8
+					input.form-control(type='text', id='phoneNumber', placeholder='123-456-7890', value=phoneNumber)
+			
+			.form-group
+				label.col-lg-3.control-label(for='affiliation') Affiliation
+				.col-lg-8
+					input.form-control(type='text', id='affiliation', placeholder='FSU', value=affiliation)
+			
+			.form-group
+				label.col-lg-3.control-label(for='skills') Languages, frameworks, or other technologies you are comfortable with
+				.col-lg-8
+					textarea.form-control(rows='3', id='skills', placeholder="Objective-C, Angular, C++, Java, Ruby on Rails, HMTL/CSS, JavaScript...", value=skills)
+			
+			.form-group(style='margin-top: 50px')
+				label(for='times') Hacking Starts at Midnight on Friday March 20th and ends Sunday March 22nd at 6 AM , when will you be available?
+				.col-lg-offset-3.col-lg-4
+					h3 Sat
+					p
+						input(type="checkbox", for='times', id='sat-midnight-morning')
+						label(for="sat-midnight-morning") Midnight - Morning
+
+					p
+						input(type="checkbox", for='times', id='sat-morning-midday')
+						label(for="sat-morning-midday") Morning - Midday
+						
+					p
+						input(type="checkbox", for='times', id='sat-midday-evening')
+						label(for="sat-midday-evening") Midday - Evening
+						
+					p
+						input(type="checkbox", for='times', id='sat-evening-midnight')
+						label(for="sat-evening-midnight") Evening - Midnight
+				.col-lg-3
+					h3 Sun
+					p
+						input(type="checkbox", for='times', id='sun-midnight-morning')
+						label(for="sun-midnight-morning") Midnight - Morning
+			.form-group
+				.form-error-msg.col-lg-offset-1.col-lg-6.pull-left
+				.col-lg-3.pull-right
+					button.btn#submit(type='submit') Submit
+
+block localJavascript
+	script(type="text/javascript", src='/js/public/public-mentor.js')
