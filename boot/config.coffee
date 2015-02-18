@@ -20,6 +20,7 @@ emailTemplates = require 'email-templates'
 # Models
 models =
 	Mentors: require '../app/models/mentors'
+	Applications: require '../app/models/applications'
 
 # Configuration
 module.exports = (app) ->
@@ -164,7 +165,7 @@ module.exports = (app) ->
 	
 	
 	# Enforce ACL (needs to be last)
-	app.use acl
+	# app.use acl
 	
 	#debug crap
 	console.log 'ENV VARS ->'

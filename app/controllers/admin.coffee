@@ -24,43 +24,51 @@ module.exports = (app) ->
 	class app.AdminController
 		
 		@home = (req, res) ->
-			if checkForAdmin req, res
-				res.render 'admin/home',
-					title: 'Admin - Home'
+			res.render 'admin/home',
+				title: 'Admin - Home'
 		
 		# Lists all users in a chart
 		@allUsers = (req, res) ->
-			if checkForAdmin req, res
-				app.kaiseki.getUsers
-					limit: 500,
-					count: true
-				,
-				(err, result, body, success) ->
-					checkIns = 0;
+			app.kaiseki.getUsers
+				limit: 500,
+				count: true
+			,
+			(err, result, body, success) ->
+				checkIns = 0;
 
-					body.results.forEach (user) ->
-						checkIns++ if user.checkedin
+				body.results.forEach (user) ->
+					checkIns++ if user.checkedin
 
-					res.render 'admin/allUsers',
-						title: 'All Users',
-						count: body.count,
-						checkins: checkIns
-						users: body.results
+				res.render 'admin/allUsers',
+					title: 'All Users',
+					count: body.count,
+					checkins: checkIns
+					users: body.results
 						
 		@updates = (req, res) ->
-			if checkForAdmin req, res
-				res.render 'admin/updates',
-					title: 'Admin - Update Management'
+			res.render 'admin/updates',
+				title: 'Admin - Update Management'
 		
 		@applications = (req, res) ->
-			if checkForAdmin req, res
+			
+			#load all application data
+			p = app.models.Applications.getAllApps(app.kaiseki)
+			p.then (apps)-> #resolve
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
+					apps: apps
+					
+			, (err)-> #reject
+				res.render 'admin/applications',
+					title: 'Admin - Application Management'
+					apps: new Array()
+					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'
+					
+			
 					
 		@users = (req, res) ->
-			if checkForAdmin req, res
-				res.render 'admin/users',
-					title: 'Admin - User Management'
+			res.render 'admin/users',
+				title: 'Admin - User Management'
 		
 		########################################################################
 		# Email Management

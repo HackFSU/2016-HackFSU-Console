@@ -1,8 +1,27 @@
 extend ../layout
 block content
-	.container
-		h1 #{title}
-
+	.containerbody
+		h1.singleLineText Application Managment
+		
+		//- SCHOOL SUMMARY (Jared)
+		table
+			
+		
+		//- ALL APPS (Michelle)
+		table.table.table-striped
+			thead
+				tr
+					th School
+					th Email
+			tbody
+				for app in apps
+					tr
+						td #{app.school}
+						td #{app.email}
+			tfoot
+				tr
+					th School
+					th Email
 
 		block localJavascript
 			script(src='js/parse/parse-admin-users.js')
