@@ -16,15 +16,11 @@ Use:
 	
 
 ###
+CLASS_NAME = 'Mentors'
 
-
-Q = require 'q' #for async
-
-module.exports =
-	class Mentors		
-		constructor: (kaiseki, obj)->
-			@CLASS_NAME = 'Mentors'
-			@kaiseki = kaiseki
+module.exports = (app) ->
+	class app.models.Mentors		
+		constructor: (obj)->
 			@obj = obj
 			
 			#Store object correctly
@@ -49,9 +45,9 @@ module.exports =
 			
 		# Creates a new parse object from this instance
 		createNew: ()=>
-			deferred = Q.defer()			
+			deferred = app.Q.defer()			
 			
-			@kaiseki.createObject @CLASS_NAME, @obj,
+			app.kaiseki.createObject CLASS_NAME, @obj,
 				(err,res,body,success)->
 					if err
 						console.log "PARSE: 'Mentors' Object creation error!"
@@ -65,4 +61,6 @@ module.exports =
 			
 			deferred.promise 
 		
+		@test: ()->
+			console.log 'fuck'
 		

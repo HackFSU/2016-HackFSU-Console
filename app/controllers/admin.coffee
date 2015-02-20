@@ -12,8 +12,8 @@
 Kaiseki = require 'kaiseki'
 
 module.exports = (app) ->
-	class app.AdminController
-		
+	@app = app
+	class app.AdminController	
 		@home = (req, res) ->
 			res.render 'admin/home',
 				title: 'Admin - Home'
@@ -41,9 +41,9 @@ module.exports = (app) ->
 				title: 'Admin - Update Management'
 		
 		@applications = (req, res) ->
-			application =  new app.models.Applications(app.kaiseki)
 			#load all application data
-			p =  app.models.Applications.getAllApps(app.kaiseki)
+			# console.log 'APP:' + JSON.stringify @app, undefined, 2
+			p = @app.models.Applications.getAllApps()
 			p.then (apps)-> #resolve
 				#setup some known names and email (last part), case is ignored
 				#Most will be auto-generated, this is for duplicate avoidance
@@ -98,53 +98,62 @@ module.exports = (app) ->
 		
 				added = false
 				email = ''
-				for app in apps
-					console.log app.firstName
+				for appl in apps
+					appl.school = appl.school.trim()
+					# console.log appl.firstName
 					added = false
-					eparts = app.email.split('@')
+					eparts = appl.email.split('@')
 					isEdu = false #will only check against others or save if it is
 					foundEmail = false
 					
 					if eparts.length == 2
 						eparts = eparts[1].split('.')
 						isEdu = eparts[eparts.length-1] == 'edu'
-						console.log isEdu + ' ' + JSON.stringify eparts
+						# console.log isEdu + ' ' + JSON.stringify eparts
 						email = eparts[eparts.length-2]
-						console.log 'e='+email
+						# console.log 'e='+email
 					else
-						console.log app.email+" IS INVALID" + JSON.stringify eparts
+						console.log appl.email+" IS INVALID" + JSON.stringify eparts
 						email = 'invalidEmail' #should not happen
 					
 					for school in schools when !added
 						#check against known name
 						for name in school.names when !added
-							if app.school.toLowerCase() == name.toLowerCase() 
+							if appl.school.toLowerCase() == name.toLowerCase()
 								added = true
 						
 						#check against emails
 						if isEdu
 							for e in school.emails when !foundEmail
-								if email.toLowerCase() == e.toLowerCase() 
+								if email.toLowerCase().trim() == e.toLowerCase().trim()
 									foundEmail = true
 									if !added #is a new school name
 										added = true
-										school.names.push app.school
+										school.names.push appl.school
 										
 							if added and !foundEmail
 								school.emails.push email
 						
 						if added
-							console.log '+1 TO ' + school.names[0]
+							# console.log '+1 TO ' + school.names[0]
 							++school.count
 							
 					if !added
-						console.log 'NEW SCHOOL: ' + app.school
+						# console.log 'NEW SCHOOL: ' + appl.school
 						#add new school
 						schools.push
-							names: [app.school]
+							names: [appl.school]
 							emails: if isEdu then [email] else new Array()
 							count: 1
-					
+				
+				# Sort schools
+				schools.sort (a,b)->
+					if a.count > b.count
+						return -1
+					else if a.count < b.count
+						return 1
+					else return 0
+				
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
 					apps: apps
@@ -155,9 +164,7 @@ module.exports = (app) ->
 					title: 'Admin - Application Management'
 					apps: new Array()
 					schools: new Array()
-					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'
-					
-			
+					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'					
 					
 		@users = (req, res) ->
 			res.render 'admin/users',

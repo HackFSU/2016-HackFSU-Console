@@ -28,15 +28,13 @@ Use:
 ###
 
 
-Q = require 'q' #for async
 CLASS_NAME = 'Applications'
 
-module.exports =
-	class Applications		
-		constructor: (kaiseki, obj)->
+module.exports = (app) ->
+	class app.models.Applications
+		constructor: (obj)->
 			obj = if obj? then obj else {}
-			@kaiseki = kaiseki
-			
+
 			#Store object correctly
 			@obj = 
 				firstName: 		if obj.firstName? then obj.firstName else null
@@ -62,13 +60,13 @@ module.exports =
 					if !@obj.QAs[2][i]? then @obj.QAs[2][i] = false
 					
 		# Pulls all records
-		@getAllApps: (kaiseki)->
-			deferred = Q.defer()			
+		@getAllApps: ()->
+			deferred = app.Q.defer()			
 			
 			params =
 				limit: 1000
 			
-			kaiseki.getObjects CLASS_NAME, params,
+			app.kaiseki.getObjects CLASS_NAME, params,
 				(err,res,body,success)->
 					if err
 						console.log "PARSE: '"+CLASS_NAME+"' Object getAll error!"
@@ -82,6 +80,4 @@ module.exports =
 						
 						deferred.resolve(body)
 			
-			deferred.promise 
-		
-		
+			return deferred.promise 

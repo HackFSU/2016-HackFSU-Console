@@ -16,11 +16,7 @@ dotenv = require 'dotenv'
 acl = require '../lib/acl'
 flash = require 'express-flash'
 emailTemplates = require 'email-templates'
-
-# Models
-models =
-	Mentors: require '../app/models/mentors'
-	Applications: require '../app/models/applications'
+Q = require 'q'
 
 # Configuration
 module.exports = (app) ->
@@ -36,10 +32,11 @@ module.exports = (app) ->
 	
 	# Load env
 	dotenv.load()
+	app.env = process.env
 	
 	# Configure app settings
-	env = process.env.NODE_ENV || 'development'
-	app.set 'port', process.env.PORT || 5003
+	env = app.env.NODE_ENV || 'development'
+	app.set 'port', app.env.PORT || 5003
 	app.set 'views', __dirname + '/../app/views'
 	app.set 'view engine', 'jade'
 	app.use require('express').static __dirname + '/../public'
@@ -48,14 +45,15 @@ module.exports = (app) ->
 	app.use bodyParser.urlencoded {extended: true} 
 	
 	# Create a Parse (Kaiseki) object
-	app.kaiseki = new Kaiseki process.env.PARSE_APP_ID_TEST, 
-	process.env.PARSE_REST_KEY_TEST
-	app.kaiseki.masterKey = process.env.PARSE_MASTER_KEY_TEST
+	app.kaiseki = new Kaiseki app.env.PARSE_APP_ID_TEST, 
+	app.env.PARSE_REST_KEY_TEST
+	app.kaiseki.masterKey = app.env.PARSE_MASTER_KEY_TEST
 	
-	app.env = process.env
+	#setup models (must setup db first)
+	app.Q = Q
+	app.models = {}
+	autoload 'app/models', app
 	
-	#Store models
-	app.models = models
 	
 	# Development settings
 	if (env == 'development')
@@ -64,7 +62,7 @@ module.exports = (app) ->
 	#Session settings
 	app.use session 
 		name: 'connect.sid'
-		secret: process.env.SECRET + ' '
+		secret: app.env.SECRET + ' '
 		cookie:
 			maxAge: 864000		#10 days
 		saveUninitialized: false
@@ -74,11 +72,11 @@ module.exports = (app) ->
 		next();
 	
 	# Handle Flash messages
-	app.use cookieParser(process.env.SECRET + ' ')
+	app.use cookieParser(app.env.SECRET + ' ')
 	app.use flash()
 	
 	# Create Mandrill object
-	app.mandrill = new Mandrill.Mandrill process.env.MANDRILL_KEY  
+	app.mandrill = new Mandrill.Mandrill app.env.MANDRILL_KEY  
 	# Load email template function
 	app.emailTemplates = emailTemplates
 	
@@ -170,10 +168,10 @@ module.exports = (app) ->
 	
 	#debug crap
 	console.log 'ENV VARS ->'
-	console.log ("> PARSE_APP_ID_TEST=" + process.env.PARSE_APP_ID_TEST)
-	console.log ("> PARSE_REST_KEY_TEST=" + process.env.PARSE_REST_KEY_TEST)
-	console.log ("> PARSE_MASTER_KEY_TEST=" + process.env.PARSE_MASTER_KEY_TEST)
-	console.log ("> SECRET=" + process.env.SECRET)
+	console.log ("> PARSE_APP_ID_TEST=" + app.env.PARSE_APP_ID_TEST)
+	console.log ("> PARSE_REST_KEY_TEST=" + app.env.PARSE_REST_KEY_TEST)
+	console.log ("> PARSE_MASTER_KEY_TEST=" + app.env.PARSE_MASTER_KEY_TEST)
+	console.log ("> SECRET=" + app.env.SECRET)
 	console.log '-------------------------------'
 		
 		

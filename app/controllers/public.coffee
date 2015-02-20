@@ -57,7 +57,7 @@ module.exports = (app) ->
 				times:			if req.body.times? 			then req.body.times else new Array()
 			
 			#create parse object
-			mentor = new app.models.Mentors(app.kaiseki, obj)
+			mentor = new app.models.Mentors(obj)
 			mentor.createNew()
 			.then (success) ->
 				console.log "Mentor Submit success"
