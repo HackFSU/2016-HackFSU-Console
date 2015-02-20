@@ -52,6 +52,7 @@ module.exports = (app) ->
 	process.env.PARSE_REST_KEY_TEST
 	app.kaiseki.masterKey = process.env.PARSE_MASTER_KEY_TEST
 	
+	app.env = process.env
 	
 	#Store models
 	app.models = models

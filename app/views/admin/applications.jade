@@ -3,8 +3,33 @@ block content
 	.containerbody
 		h1.singleLineText Application Managment
 		
+		
+		
 		//- SCHOOL SUMMARY (Jared)
-		table
+		table.table.table-striped
+			thead
+				tr
+					th School
+					th Email
+					th Count
+			tbody
+				for school in schools
+					tr
+						//- all matching school names
+						td
+							for name in school.names
+								| #{name}; 
+						//- all matching email extensions
+						td 
+							for email in school.emails
+								| #{email}; 
+						//- count of all for the school
+						td #{school.count}
+			tfoot
+				tr
+					th School
+					th Count
+					
 			
 		
 		//- ALL APPS (Michelle)

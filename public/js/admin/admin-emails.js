@@ -19,7 +19,12 @@ $('button').click(function(event) {
     url: '/admin/emails_submit',
     data: data,
     success: function(res) {
-      return console.log(JSON.stringify(res, void 0, 2));
+      console.log(JSON.stringify(res, void 0, 2));
+      if (res.sentEmails != null) {
+        return alert(sentEmails + ' emails sent!');
+      } else {
+        return alert('Not sure how many emails were sent...');
+      }
     },
     error: function() {}
   });

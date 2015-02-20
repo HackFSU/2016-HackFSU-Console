@@ -34,8 +34,8 @@ CLASS_NAME = 'Applications'
 module.exports =
 	class Applications		
 		constructor: (kaiseki, obj)->
+			obj = if obj? then obj else {}
 			@kaiseki = kaiseki
-			@obj = obj
 			
 			#Store object correctly
 			@obj = 
@@ -62,7 +62,7 @@ module.exports =
 					if !@obj.QAs[2][i]? then @obj.QAs[2][i] = false
 					
 		# Pulls all records
-		@getAllApps: (kaiseki)=>
+		@getAllApps: (kaiseki)->
 			deferred = Q.defer()			
 			
 			params =

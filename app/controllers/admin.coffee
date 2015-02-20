@@ -8,17 +8,8 @@
 # Returns true if admin
 # Otherwise redirects to '/' and returns false
 # Needs to be checked before every admin-only page
-checkForAdmin = (req, res) ->
-			if req.session.signin == 1
-				if req.session.isAdmin == true
-					return true
-				else
-					console.log "Restricted: " + req.session.email
-					res.redirect '/'
-			else
-				console.log "Not logged in"
-				res.redirect '/'
-			return false
+
+Kaiseki = require 'kaiseki'
 
 module.exports = (app) ->
 	class app.AdminController
@@ -50,18 +41,120 @@ module.exports = (app) ->
 				title: 'Admin - Update Management'
 		
 		@applications = (req, res) ->
-			
+			application =  new app.models.Applications(app.kaiseki)
 			#load all application data
-			p = app.models.Applications.getAllApps(app.kaiseki)
+			p =  app.models.Applications.getAllApps(app.kaiseki)
 			p.then (apps)-> #resolve
+				#setup some known names and email (last part), case is ignored
+				#Most will be auto-generated, this is for duplicate avoidance
+				schools = [
+					{
+						names: ['FSU', 'Florida State University', 'Florida State']
+						emails: ['fsu.edu']
+						count: 0
+					}
+					{
+						names: ['GT', 'Georgia Institute of Technology', 'Georgia Tech']
+						emails: ['gatech.edu']
+						count: 0
+					}
+					{
+						names: ['UM', 'University of Miami']
+						emails: ['stetson.edu']
+						count: 0
+					}
+					{
+						names: ['VT', 'Virginia tech']
+						emails: ['vt.edu']
+						count: 0
+					}
+					{
+						names: ['Stetson University']
+						emails: ['stetson.edu']
+						count: 0
+					}
+					{
+						names: ['UCF', 'University of Central Florida']
+						emails: ['ucf.edu']
+						count: 0
+					}
+					{
+						names: ['UNC', 'University of North Carolina']
+						emails: ['unc.edu']
+						count: 0
+					}
+					{
+						names: ['UNT', 'University of North Texas']
+						emails: ['unt.edu']
+						count: 0
+					}
+					{
+						names: ['Duke University']
+						emails: ['duke.edu']
+						count: 0
+					}
+				]
+				
+		
+				added = false
+				email = ''
+				for app in apps
+					console.log app.firstName
+					added = false
+					eparts = app.email.split('@')
+					isEdu = false #will only check against others or save if it is
+					foundEmail = false
+					
+					if eparts.length == 2
+						eparts = eparts[1].split('.')
+						isEdu = eparts[eparts.length-1] == 'edu'
+						console.log isEdu + ' ' + JSON.stringify eparts
+						email = eparts[eparts.length-2]
+						console.log 'e='+email
+					else
+						console.log app.email+" IS INVALID" + JSON.stringify eparts
+						email = 'invalidEmail' #should not happen
+					
+					for school in schools when !added
+						#check against known name
+						for name in school.names when !added
+							if app.school.toLowerCase() == name.toLowerCase() 
+								added = true
+						
+						#check against emails
+						if isEdu
+							for e in school.emails when !foundEmail
+								if email.toLowerCase() == e.toLowerCase() 
+									foundEmail = true
+									if !added #is a new school name
+										added = true
+										school.names.push app.school
+										
+							if added and !foundEmail
+								school.emails.push email
+						
+						if added
+							console.log '+1 TO ' + school.names[0]
+							++school.count
+							
+					if !added
+						console.log 'NEW SCHOOL: ' + app.school
+						#add new school
+						schools.push
+							names: [app.school]
+							emails: if isEdu then [email] else new Array()
+							count: 1
+					
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
 					apps: apps
+					schools: schools
 					
 			, (err)-> #reject
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
 					apps: new Array()
+					schools: new Array()
 					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'
 					
 			
@@ -74,9 +167,9 @@ module.exports = (app) ->
 		# Email Management
 		########################################################################
 		@emails = (req, res) ->
-			if checkForAdmin req, res
-				res.render 'admin/emails',
-					title: 'Admin - Email Management'
+			res.render 'admin/emails',
+				title: 'Admin - Email Management'
+					
 		@emails_submit = (req, res) ->
 			req.assert 'templateName', 'Missing templateName'
 			req.assert 'buttonNum', 'Missing buttonNum'
@@ -132,7 +225,96 @@ module.exports = (app) ->
 							
 						else
 							console.log "Invalid Email Button"
+				
+				when 'spreadTheWord'
+					params = 
+				 		limit: 2000
+					switch buttonNum
+						when '0' #send emails to 2014, if not sent
+							# Create a Parse (Kaiseki) object for the other place
+							kaisekiOld = new Kaiseki app.env.PARSE_APP_ID, 
+							app.env.PARSE_REST_KEY
+							kaisekiOld.masterKey = app.env.PARSE_MASTER_KEY
 							
+							parseClass = 'UserTest'
+							templateName = 'spreadTheWord'
+							kaisekiOld.getObjects parseClass, params
+							, (err,res,body,success) ->
+								if success
+									console.log 'Emails found'
+									
+									for obj in body
+										if !obj.sentEmails?
+											obj.sentEmails = 
+												spreadTheWord: false
+										if !obj.sentEmails.spreadTheWord
+											++sentEmails
+											#send email
+											app.emailTemplate templateName, 
+												to_email: obj.email
+												from_email: 'info@hackfsu.com'
+												from_name: 'HackFSU'
+												subject: 'Spread the Word!'
+												locals:
+													firstName: obj.firstName
+													lastName: obj.lastName
+											
+												
+											obj.sentEmails.spreadTheWord = true
+												
+											#update object
+											kaisekiOld.updateObject parseClass, obj.objectId,
+												{sentEmails: obj.sentEmails},
+												(err,res,body,success) ->
+													if success
+														console.log "Parse object successfully marked as sent"
+													else
+														console.log "Parse object failed to mark as sent"
+									
+								else 
+									console.log 'No emails found: ' + JSON.stringify body
+							
+						when '1' #send emails to 2015, if not sent
+							#send to emails from HackFSU 2015
+							parseClass = 'ApplicationsTest'
+							templateName = 'spreadTheWord'
+							app.kaiseki.getObjects parseClass, params
+							, (err,res,body,success) ->
+								if success
+									console.log 'Emails found'
+									
+									for obj in body
+										if !obj.sentEmails?
+											obj.sentEmails = 
+												spreadTheWord: false
+										if !obj.sentEmails.spreadTheWord
+											++sentEmails
+											#send email
+											app.emailTemplate templateName, 
+												to_email: obj.email
+												from_email: 'info@hackfsu.com'
+												from_name: 'HackFSU'
+												subject: 'Spread the Word!'
+												locals:
+													firstName: obj.firstName
+													lastName: obj.lastName
+											
+												
+											obj.sentEmails.spreadTheWord = true
+												
+											#update object
+											app.kaiseki.updateObject parseClass, obj.objectId,
+												{sentEmails: obj.sentEmails},
+												(err,res,body,success) ->
+													if success
+														console.log "Parse object successfully marked as sent"
+													else
+														console.log "Parse object failed to mark as sent"
+									
+								else 
+									console.log 'No emails found: ' + JSON.stringify body
+						else
+							console.log 'Invalid Email Button' 
 				else
 					console.log "Invlaid email template"
 								

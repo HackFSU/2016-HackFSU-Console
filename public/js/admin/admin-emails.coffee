@@ -20,6 +20,10 @@ $('button').click (event) ->
 		success: (res) ->
 			console.log JSON.stringify res, undefined, 2
 			# alert("Application Submitted!")
+			if res.sentEmails?
+				alert(sentEmails + ' emails sent!')
+			else
+				alert('Not sure how many emails were sent...')
 		error: () ->
 			# alert("Error in submit!")
 
