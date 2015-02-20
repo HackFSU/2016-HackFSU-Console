@@ -110,7 +110,7 @@ module.exports = (app) ->
 						eparts = eparts[1].split('.')
 						isEdu = eparts[eparts.length-1] == 'edu'
 						# console.log isEdu + ' ' + JSON.stringify eparts
-						email = eparts[eparts.length-2]
+						email = eparts[eparts.length-2] + "." + eparts[eparts.length-1]
 						# console.log 'e='+email
 					else
 						console.log appl.email+" IS INVALID" + JSON.stringify eparts
@@ -152,8 +152,9 @@ module.exports = (app) ->
 						return -1
 					else if a.count < b.count
 						return 1
-					else return 0
-				
+					else
+						return 0
+						
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
 					apps: apps
