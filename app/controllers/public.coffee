@@ -130,8 +130,9 @@ module.exports = (app) ->
 							msgs.push("PARSE - LOGIN FAILURE!")
 							req.session.signin = 2
 						
-						msgs.push("> error: " + JSON.stringify error)
-						msgs.push("> body: " + JSON.stringify body)
+						# msgs.push("> error: " + JSON.stringify error)
+						# msgs.push("> body: " + JSON.stringify body)
+						msgs.push("> USER LOGIN SUCCESSFULL: " + body.firstName + " " + body.lastName + " " + body.email)
 						for line in msgs 
 							console.log(line)
 						
@@ -171,7 +172,9 @@ module.exports = (app) ->
 						else
 							msgs.push("PARSE - SIGNUP FAILURE!")
 						msgs.push("> error: " + JSON.stringify error)
-						msgs.push("> body: " + JSON.stringify body)
+						# msgs.push("> body: " + JSON.stringify body)
+						msgs.push("> USER SIGNUP SUCCESSFULL: " + body.firstName + " " + body.lastName + " " + body.email)
+
 						for line in msgs 
 							console.log(line)
 							
