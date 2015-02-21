@@ -3,37 +3,128 @@
 /*
 For: /admin/applications
  */
-var currTab, tabHtml;
 
-tabHtml = {
-  schools: $('#schools').wrap('<p/>').parent().html(),
-  all: $('#all').wrap('<p/>').parent().html()
-};
+(function() {
+  var dtSettings_QAs, dtSettings_all, dtSettings_schools;
 
-$('#schools').unwrap();
+  dtSettings_schools = {
+    order: [[2, 'desc']],
+    aLengthMenu: [[25, 50, 75, -1], [25, 50, 75, "All"]],
+    iDisplayLength: 25,
+    autoWidth: true
+  };
 
-$('#all').unwrap().remove();
+  dtSettings_all = {
+    order: [[0, 'asc']],
+    aLengthMenu: [[50, 100, 200, 300, -1], [50, 100, 200, 300, "All"]],
+    iDisplayLength: 50,
+    autoWidth: true
+  };
 
-currTab = 0;
+  dtSettings_QAs = [
+    {
+      order: [[0, 'asc']],
+      aLengthMenu: [[50, 100, 200, 300, -1], [50, 100, 200, 300, "All"]],
+      iDisplayLength: 50,
+      autoWidth: true
+    }
+  ];
 
-$('a[role="tab"][href="#schools"]').click(function(e) {
-  e.preventDefault();
-  console.log('clicked school');
-  if (currTab !== 0) {
-    $('#all').remove();
-    $('#tabContainer').append(tabHtml.schools);
-    currTab = 0;
-  }
-  return $(this).tab('show');
-});
+  dtSettings_QAs.push(dtSettings_QAs[0]);
 
-$('a[role="tab"][href="#all"]').click(function(e) {
-  e.preventDefault();
-  console.log('clicked all');
-  if (currTab !== 1) {
-    $('#schools').remove();
-    $('#tabContainer').append(tabHtml.all);
-    currTab = 1;
-  }
-  return $(this).tab('show');
-});
+  dtSettings_QAs.push(dtSettings_QAs[0]);
+
+  dtSettings_QAs.push(dtSettings_QAs[0]);
+
+  dtSettings_QAs.push(dtSettings_QAs[0]);
+
+  $(document).ready(function() {
+    var currTab, refreshTabs, tabHtml;
+    currTab = [0, 0];
+    tabHtml = {
+      schools: $('#schools').wrap('<p/>').parent().html(),
+      all: $('#all').wrap('<p/>').parent().html(),
+      QAs: [void 0, $('#QA1').wrap('<p/>').parent().html(), $('#QA2').wrap('<p/>').parent().html(), $('#QA3').wrap('<p/>').parent().html(), $('#QA4').wrap('<p/>').parent().html()]
+    };
+    $('#tabContainer1').empty();
+    tabHtml.QAs[0] = $('#QAs').wrap('<p/>').parent().html();
+    $('#QAs').unwrap().remove();
+    $('#tabContainer0').empty();
+    $('#tabContainer0').append(tabHtml.schools);
+    $('#DT-schools').DataTable(dtSettings_schools);
+    refreshTabs = function() {
+      $('a[role="tab"]').click(function(e) {
+        var href;
+        e.preventDefault();
+        href = $(this).attr('href');
+        switch (href) {
+          case '#schools':
+            if (currTab[0] !== 0) {
+              $('#tabContainer0').empty();
+              $('#tabContainer0').append(tabHtml.schools);
+              $('#DT-schools').DataTable(dtSettings_schools);
+              return currTab[0] = 0;
+            }
+            break;
+          case '#all':
+            if (currTab[0] !== 1) {
+              $('#tabContainer0').empty();
+              $('#tabContainer0').append(tabHtml.all);
+              $('#DT-all').DataTable(dtSettings_all);
+              return currTab[0] = 1;
+            }
+            break;
+          case '#QAs':
+            if (currTab[0] !== 2) {
+              $('#tabContainer0').empty();
+              $('#tabContainer0').append(tabHtml.QAs[0]);
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.QAs[1]);
+              $('#DT-QA1').DataTable(dtSettings_QAs[1]);
+              currTab[0] = 2;
+              currTab[1] = 0;
+              return refreshTabs();
+            }
+            break;
+          case '#QA1':
+            if (currTab[1] !== 0) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.QAs[1]);
+              $('#DT-QA1').DataTable(dtSettings_QAs[1]);
+              return currTab[1] = 0;
+            }
+            break;
+          case '#QA2':
+            if (currTab[1] !== 1) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.QAs[2]);
+              $('#DT-QA2').DataTable(dtSettings_QAs[2]);
+              return currTab[1] = 1;
+            }
+            break;
+          case '#QA3':
+            if (currTab[1] !== 2) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.QAs[3]);
+              $('#DT-QA3').DataTable(dtSettings_QAs[2]);
+              return currTab[1] = 2;
+            }
+            break;
+          case '#QA4':
+            if (currTab[1] !== 3) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.QAs[4]);
+              $('#DT-QA4').DataTable(dtSettings_QAs[4]);
+              return currTab[1] = 3;
+            }
+            break;
+          default:
+            return console.log('Invalid tab id');
+        }
+      });
+      return $(this).tab('show');
+    };
+    return refreshTabs();
+  });
+
+}).call(this);

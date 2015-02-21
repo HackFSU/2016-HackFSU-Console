@@ -1,0 +1,24 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "verbose": false,
+  "quiet": true,
+  "events": {
+    "restart": "./restart.sh"
+  },
+  "watch": [
+    "app/*",
+    "boot/*",
+    "emails/*",
+    "lib/*",
+    "public/js/*"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json jade coffee",
+  "delay": "2"
+}

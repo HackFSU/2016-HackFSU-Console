@@ -10,31 +10,35 @@ Dependencies:
 
  * Readmore
  */
-$('.readmoreSect').readmore({
-  speed: 100,
-  collapsedHeight: 280,
-  moreLink: '<a class="readmoreLink" href="#">Read more</a>',
-  lessLink: '<a class="readmoreLink" href="#">Close</a>',
-  embedCSS: false,
-  startOpen: false
-});
 
-$('#hypeBtn').jrumble({
-  x: 10,
-  y: 10,
-  rotation: 4,
-  opacity: true,
-  opacityMin: .75
-});
+(function() {
+  $('.readmoreSect').readmore({
+    speed: 100,
+    collapsedHeight: 280,
+    moreLink: '<a class="readmoreLink" href="#">Read more</a>',
+    lessLink: '<a class="readmoreLink" href="#">Close</a>',
+    embedCSS: false,
+    startOpen: false
+  });
 
-$('.header-btn').hover(function() {
-  $(this).trigger('startRumble');
-}, function() {
-  return $(this).trigger('stopRumble');
-});
+  $('#hypeBtn').jrumble({
+    x: 10,
+    y: 10,
+    rotation: 4,
+    opacity: true,
+    opacityMin: .75
+  });
 
-$('#sponsorBtn').click(function() {
-  return $('html, body').animate({
-    scrollTop: $('[name=sponsors]').offset().top
-  }, 2000);
-});
+  $('.header-btn').hover(function() {
+    $(this).trigger('startRumble');
+  }, function() {
+    return $(this).trigger('stopRumble');
+  });
+
+  $('#sponsorBtn').click(function() {
+    return $('html, body').animate({
+      scrollTop: $('[name=sponsors]').offset().top
+    }, 2000);
+  });
+
+}).call(this);

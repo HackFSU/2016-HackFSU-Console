@@ -2,8 +2,12 @@
 	Specify all routes here.
 	
 ###
+acl = require '../lib/acl'
 
 module.exports = (app) ->
+	# Enforce ACL
+	app.use acl
+	
 	
 	# ADMINISTRATION ###########################################
 	
@@ -50,7 +54,7 @@ module.exports = (app) ->
 	app.post '/signin_submit', app.PublicController.signin_submit
 	
 	# Shareables
-	app.get '/shareables', app.PublicController.shareables
+	# app.get '/shareables', app.PublicController.shareables
 
 	# Signup
 	#app.get '/signup', app.PublicController.signup

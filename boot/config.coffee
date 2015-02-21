@@ -164,7 +164,7 @@ module.exports = (app) ->
 	
 	
 	# Enforce ACL (needs to be last)
-	# app.use acl
+	app.use acl
 	
 	#debug crap
 	console.log 'ENV VARS ->'

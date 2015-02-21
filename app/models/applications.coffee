@@ -28,6 +28,8 @@ Use:
 ###
 
 
+
+
 CLASS_NAME = 'Applications'
 
 module.exports = (app) ->

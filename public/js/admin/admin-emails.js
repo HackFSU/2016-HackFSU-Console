@@ -6,26 +6,30 @@
 	Dependencies:
 		jquery
  */
-$('button').click(function(event) {
-  var data;
-  event.preventDefault();
-  data = {
-    templateName: $(this).attr('id'),
-    buttonNum: $('button[id=' + $(this).attr('id') + ']').index($(this))
-  };
-  console.log(JSON.stringify(data));
-  $.ajax({
-    type: 'post',
-    url: '/admin/emails_submit',
-    data: data,
-    success: function(res) {
-      console.log(JSON.stringify(res, void 0, 2));
-      if (res.sentEmails != null) {
-        return alert(sentEmails + ' emails sent!');
-      } else {
-        return alert('Not sure how many emails were sent...');
-      }
-    },
-    error: function() {}
+
+(function() {
+  $('button').click(function(event) {
+    var data;
+    event.preventDefault();
+    data = {
+      templateName: $(this).attr('id'),
+      buttonNum: $('button[id=' + $(this).attr('id') + ']').index($(this))
+    };
+    console.log(JSON.stringify(data));
+    $.ajax({
+      type: 'post',
+      url: '/admin/emails_submit',
+      data: data,
+      success: function(res) {
+        console.log(JSON.stringify(res, void 0, 2));
+        if (res.sentEmails != null) {
+          return alert(sentEmails + ' emails sent!');
+        } else {
+          return alert('Not sure how many emails were sent...');
+        }
+      },
+      error: function() {}
+    });
   });
-});
+
+}).call(this);

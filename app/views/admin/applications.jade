@@ -2,20 +2,23 @@ extend ../layout
 block content
 	.containerbody
 		h1.singleLineText Application Managment
-		
+	
+	.container
 		#tabs(role='tabpanel')
 			//- Nav tabs
 			ul.nav.nav-tabs(roles='tablist')
 				li.active(role='presentation')
 					a(href='#schools', aria-controls='schools', role='tab' data-toggle='tab') Schools
 				li(role='presentation')
-					a(href='#all', aria-controls='all', role='tab' data-toggle='tab') All Applications
-			
+					a(href='#all', aria-controls='all', role='tab' data-toggle='tab') Applications
+				li(role='presentation')
+					a(href='#QAs', aria-controls='QAs', role='tab' data-toggle='tab') Q/A
+				
 			//- Tab panes
-			.tab-content#tabContainer
+			.tab-content#tabContainer0
 				.tap-pane.active#schools(role='tabpanel')
 					//- | SCHOOL SUMMARY (Jared)
-					table.table.table-striped
+					table.display#DT-schools
 						thead
 							tr
 								th School
@@ -37,29 +40,169 @@ block content
 						tfoot
 							tr
 								th School
+								th Email
 								th Count
 				
 				.tap-pane#all(role='tabpanel')
 					//- | ALL APPS (Michelle)
-					table.table.table-striped
+					table.display#DT-all
 						thead
 							tr
-								th School
+								th First Name
+								th Last Name
 								th Email
+								th School
+								th Major
+								th Year
+								th GitHub
+								th First?
+								th Status
+								th Functions
 						tbody
 							for app in apps
 								tr
-									td #{app.school}
+									td #{app.firstName}
+									td #{app.lastName}
 									td #{app.email}
+									td #{app.school}
+									td #{app.major}
+									td #{app.year}
+									td #{app.github}
+									td #{app.QAs[0]}
+									td TODO
+									td TODO
 						tfoot
 							tr
-								th School
+								th First Name
+								th Last Name
 								th Email
-						
+								th School
+								th Major
+								th Year
+								th GitHub
+								th First?
+								th Status
+								th Functions
+				
+				.tap-pane#QAs(role='tabpanel')
+						#tabsQAs(role='tabpanel')
+							//- Nav tabs
+							ul.nav.nav-pills(roles='tablist')
+								li.active(role='presentation')
+									a(href='#QA1', aria-controls='QA1', role='tab' data-toggle='tab') One thing you hate about hackthons?
+								li(role='presentation')
+									a(href='#QA2', aria-controls='QA2', role='tab' data-toggle='tab') Things you want to learn?
+								li(role='presentation')
+									a(href='#QA3', aria-controls='QA3', role='tab' data-toggle='tab') Dietary restriction?
+								li(role='presentation')
+									a(href='#QA4', aria-controls='QA4', role='tab' data-toggle='tab') Comments?
+							.tab-content#tabContainer1
+								.tap-pane#QA1(role='tabpanel')
+									table.display#DT-QA1
+										thead
+											tr
+												th First Name
+												th Last Name
+												th Answer
+												
+										tbody
+											for app in apps
+												if app.QAs[1].trim()
+													tr
+														td #{app.firstName}
+														td #{app.lastName}
+														td #{app.QAs[1]}
+													
+										tfoot
+											tr
+												th First Name
+												th Last Name
+												th Answer
+								.tap-pane#QA2(role='tabpanel')
+									table.display#DT-QA2
+										thead
+											tr
+												th Option
+												th Count
+												
+										tbody
+											tr
+												td iOS
+												td #{QA2Counts[0]}
+											tr
+												td Android
+												td #{QA2Counts[1]}
+											tr
+												td Web
+												td #{QA2Counts[2]}
+											tr
+												td Front End
+												td #{QA2Counts[3]}
+											tr
+												td Back End
+												td #{QA2Counts[4]}
+											tr
+												td 'Off The Shelf' Hardware: Myo, Oculus Rift, Leap Motion, etc.
+												td #{QA2Counts[5]}
+											tr
+												td Microcontrollers: Arduino, Raspberry Pi, etc.
+												td #{QA2Counts[6]}
+	
+										tfoot
+											tr
+												th Option
+												th Count
+												
+								.tap-pane#QA3(role='tabpanel')
+									table.display#DT-QA3
+										thead
+											tr
+												th First Name
+												th Last Name
+												th Answer
+												
+										tbody
+											for app in apps 
+												if app.QAs[3].trim()
+													tr
+														td #{app.firstName}
+														td #{app.lastName}
+														td #{app.QAs[3]}
+													
+										tfoot
+											tr
+												th First Name
+												th Last Name
+												th Answer
+								.tap-pane#QA4(role='tabpanel')
+									//- | ALL APPS (Michelle)
+									table.display#DT-QA4
+										thead
+											tr
+												th First Name
+												th Last Name
+												th Answer
+												
+										tbody
+											for app in apps
+												if app.QAs[4].trim()
+													tr
+														td #{app.firstName}
+														td #{app.lastName}
+														td #{app.QAs[4]}
+													
+										tfoot
+											tr
+												th First Name
+												th Last Name
+												th Answer
+												
 			
 		
 block localCSS
-	ink(rel='stylesheet', href='/css/admin/admin-applications.css')
+	link(rel='stylesheet', href='/css/admin/admin-applications.css')
+	link(rel='stylesheet', href='//cdn.datatables.net/1.10.5/css/jquery.dataTables.min.css')
 	
 block localJavascript
+	script(src='//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js')
 	script(src='/js/admin/admin-applications.js')

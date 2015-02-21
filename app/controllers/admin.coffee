@@ -98,6 +98,7 @@ module.exports = (app) ->
 		
 				added = false
 				email = ''
+				QA2Counts = [0,0,0,0,0,0,0]
 				for appl in apps
 					appl.school = appl.school.trim()
 					# console.log appl.firstName
@@ -145,27 +146,37 @@ module.exports = (app) ->
 							names: [appl.school]
 							emails: if isEdu then [email] else new Array()
 							count: 1
+					
+					# get counts for Q3
+					for i in [0..7]
+						if appl.QAs[2][i] == true
+							++QA2Counts[i]
 				
-				# Sort schools
-				schools.sort (a,b)->
-					if a.count > b.count
-						return -1
-					else if a.count < b.count
-						return 1
-					else
-						return 0
-						
+				# Sort schools (done locally now)
+				# schools.sort (a,b)->
+				# 	if a.count > b.count
+				# 		return -1
+				# 	else if a.count < b.count
+				# 		return 1
+				# 	else
+				# 		return 0
+				
+				# get counts for Q3
+				
+				
+				
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
 					apps: apps
 					schools: schools
-					
+					QA2Counts: QA2Counts
 			, (err)-> #reject
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
 					apps: new Array()
 					schools: new Array()
-					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'					
+					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'
+					QA2Counts: [0,0,0,0,0,0,0]
 					
 		@users = (req, res) ->
 			res.render 'admin/users',
