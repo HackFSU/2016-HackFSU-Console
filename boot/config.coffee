@@ -13,7 +13,6 @@ autoload = require '../lib/autoload'
 session = require 'express-session'
 cookieParser = require 'cookie-parser'
 dotenv = require 'dotenv'
-acl = require '../lib/acl'
 flash = require 'express-flash'
 emailTemplates = require 'email-templates'
 Q = require 'q'
@@ -163,8 +162,7 @@ module.exports = (app) ->
 	
 	
 	
-	# Enforce ACL (needs to be last)
-	app.use acl
+
 	
 	#debug crap
 	console.log 'ENV VARS ->'

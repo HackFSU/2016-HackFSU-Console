@@ -54,11 +54,11 @@ module.exports = (app) ->
 	app.post '/signin_submit', app.PublicController.signin_submit
 	
 	# Shareables
-	# app.get '/shareables', app.PublicController.shareables
+	app.get '/shareables', app.PublicController.shareables
 
 	# Signup
-	#app.get '/signup', app.PublicController.signup
-	#app.post '/signup_submit', app.PublicController.signup_submit
+	app.get '/signup', app.PublicController.signup
+	app.post '/signup_submit', app.PublicController.signup_submit
 	
 	# View updates
 	#app.get '/updates', app.PublicController.updates

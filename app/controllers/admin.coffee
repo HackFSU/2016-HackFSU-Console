@@ -40,6 +40,9 @@ module.exports = (app) ->
 			res.render 'admin/updates',
 				title: 'Admin - Update Management'
 		
+		########################################################################
+		# Application Management
+		########################################################################
 		@applications = (req, res) ->
 			#load all application data
 			# console.log 'APP:' + JSON.stringify @app, undefined, 2
