@@ -1,35 +1,35 @@
 extend ../layout
 block content
+	.containerbody
+		h1.singleLineText Account Sign Up
 	.container
-		h1 Account Sign Up
-		div(class='panel panel-default')
-			.panel-heading
-				h3.panel-title= title
-			.panel-body
-				p.
-						This will be the account sign up page. Not to be confused 
-						with the application page.
-				p
-						strong TODO:&nbsp;
-						| make this full
-
-				form.form-horizontal(name='signup', method='post', action='/signup_submit', role='form')
-						.form-group
-							label(for='firstName', class='col-lg-2 control-label') First Name
-							.col-lg-6
-								input(type='text', class='form-control' placeholder='Put your first name here', name='firstName', value=firstName)
-						.form-group
-							label(for='lastName', class='col-lg-2 control-label') Last Name
-							.col-lg-6
-								input(type='text', class='form-control', name='lastName', placeholder='And put your last name here', value=lastName)
-						.form-group
-							label(for='email', class='col-lg-2 control-label', name='email') Email
-							.col-lg-6
-								input(type='text', class='form-control', name='email', placeholder='youremail@school.edu', value=email)
-						.form-group
-							label(for='password', class='col-lg-2 control-label', name='password') Password
-							.col-lg-6
-								input(type='password', class='form-control', name='password', placeholder='Password')
-						.form-group
-							div(class='col-lg-offset-2 col-lg-5 pull-right')
-								button(type='submit', class='btn btn-primary') Submit!
+		#application.col-lg-offset-2.col-lg-10.pull-left
+			form.form-horizontal(id='application', method='post', action='/signup_submit', role='form')
+				.form-group
+					label(for='key', class='col-lg-2 control-label') Access Key *
+					.col-lg-6
+						input#key(type='password', class='form-control', name='key', placeholder='Are you really from HackFSU?', value=key)
+				.form-group
+					label(for='firstName', class='col-lg-2 control-label') First Name *
+					.col-lg-6
+						input#firstName(type='text', class='form-control' placeholder='What do your homies call you', name='firstName', value=firstName)
+				
+				.form-group
+					label(for='lastName', class='col-lg-2 control-label') Last Name *
+					.col-lg-6
+						input#lastName(type='text', class='form-control', name='lastName', placeholder='Whats the fam go by', value=lastName)
+			
+				.form-group
+					label(for='email', class='col-lg-2 control-label') Email *
+					.col-lg-6
+						input#email(type='email', class='form-control', name='email', placeholder='What\'s your .edu', value=email)
+				.form-group
+					label(for='password', class='col-lg-2 control-label') Password *
+					.col-lg-6
+						input#password(type='password', class='form-control', name='password', placeholder='Tell me your secrets', value=password)
+				
+				.form-group
+					div(class='form-error-msg col-lg-offset-2 col-lg-6 pull-left')
+					div(class='col-lg-offset-7 col-lg-5 pull-right')
+						button#submit(type='submit', class='btn') Submit
+	.footer-spacer

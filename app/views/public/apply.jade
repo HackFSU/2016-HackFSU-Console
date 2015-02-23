@@ -1,11 +1,9 @@
 extend ../layout
 block content
 	.container
-		.containerHeader
-			h1 Application
+		.containerbody
+			h1.singleLineText Application
 		div#application(class='col-lg-offset-2 col-lg-10 pull-left')
-
-
 				form.form-horizontal(id='application', method='post', action='/apply_submit', role='form')
 					.form-group
 						label(for='firstName', class='col-lg-2 control-label') First Name *

@@ -153,7 +153,9 @@ module.exports = (app) ->
 			if req.body.firstName? and
 			req.body.lastName? and
 			req.body.email? and
-			req.body.password?
+			req.body.password? and
+			req.body.key? and
+			req.body.key == app.env.SIGNUP_KEY
 
 				userInfo = 
 					username: req.body.email 		#username is email
@@ -168,21 +170,17 @@ module.exports = (app) ->
 						#debug
 						msgs = []
 						if success
-							msgs.push("PARSE - SIGNUP SUCCESS!")
+							msgs.push("> USER SIGNUP SUCCESSFULL: " + body.firstName + " " + body.lastName + " " + body.email)
 						else
 							msgs.push("PARSE - SIGNUP FAILURE!")
-						msgs.push("> error: " + JSON.stringify error)
-						# msgs.push("> body: " + JSON.stringify body)
-						msgs.push("> USER SIGNUP SUCCESSFULL: " + body.firstName + " " + body.lastName + " " + body.email)
+							msgs.push("> error: " + JSON.stringify error)
 
 						for line in msgs 
 							console.log(line)
 							
 						if success
-							req.flash('success', 'Sign up successful!')
 							res.redirect '/signin'
 						else
-							req.flash('error', app.locals.helpers.getParseError(error,body))
 							res.redirect '/signup'
 							
 						
