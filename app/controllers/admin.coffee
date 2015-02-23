@@ -63,7 +63,7 @@ module.exports = (app) ->
 					}
 					{
 						names: ['UM', 'University of Miami']
-						emails: ['stetson.edu']
+						emails: ['umiami.edu', 'miami.edu']
 						count: 0
 					}
 					{
@@ -123,7 +123,7 @@ module.exports = (app) ->
 					for school in schools when !added
 						#check against known name
 						for name in school.names when !added
-							if appl.school.toLowerCase() == name.toLowerCase()
+							if appl.school.toLowerCase() == name.toLowerCase().trim()
 								added = true
 						
 						#check against emails
