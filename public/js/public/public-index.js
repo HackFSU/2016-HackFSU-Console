@@ -15,8 +15,8 @@ Dependencies:
   $('.readmoreSect').readmore({
     speed: 100,
     collapsedHeight: 280,
-    moreLink: '<a class="readmoreLink" href="#">Read more</a>',
-    lessLink: '<a class="readmoreLink" href="#">Close</a>',
+    moreLink: '<a class="readmoreLink link-text href="#">Read more</a>',
+    lessLink: '<a class="readmoreLink link-text" href="#">Close</a>',
     embedCSS: false,
     startOpen: false
   });
@@ -29,7 +29,7 @@ Dependencies:
     opacityMin: .75
   });
 
-  $('.header-btn').hover(function() {
+  $('#hypeBtn').hover(function() {
     $(this).trigger('startRumble');
   }, function() {
     return $(this).trigger('stopRumble');
@@ -37,7 +37,7 @@ Dependencies:
 
   $('#sponsorBtn').click(function() {
     return $('html, body').animate({
-      scrollTop: $('[name=sponsors]').offset().top
+      scrollTop: $('[name=sponsors]').offset().top - 50
     }, 2000);
   });
 

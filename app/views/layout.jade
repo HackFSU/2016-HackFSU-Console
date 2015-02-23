@@ -15,9 +15,9 @@ html(lang='en')
 
 		link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300', rel='stylesheet', type='text/css')
 		link(rel='stylesheet', href='/css/bootstrap.min.css')
-		link(rel='stylesheet', href='/css/square-corners.css')
+		//- link(rel='stylesheet', href='/css/square-corners.css')
 		link(rel='stylesheet', href='/css/navbar-fixed.css')
-		link(rel='stylesheet', href='/css/fonts.css')
+		//- link(rel='stylesheet', href='/css/fonts.css')
 		link(rel='stylesheet', href='/css/sticky-footer.css')
 		link(rel='stylesheet', href='/css/main-redesign.css')
 		link(rel='stylesheet', href='/css/fontello.css')
@@ -71,34 +71,36 @@ html(lang='en')
 							li
 								a(href='/mentor') Mentor
 							li
+								a(href='/spreadtheword') Spread the word
+							li
 								a(href='/sponsor') Sponsor of the Month
 							//- li
 								a(href='/contact') Contact
 							//- li
 							//- 	a(href='/schedule') Schedule
-			block flashMessages
-				if messages
-					.flashMessages
-						if messages.error
-							div(class="alert alert-danger alert-dismissible")
-								button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-									span(aria-hidden="true") &times;
-								| #{messages.error}
-						if messages.info
-							div(class="alert alert-info alert-dismissible")
-								button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-									span(aria-hidden="true") &times;
-								| #{messages.info}
-						if messages.success
-							div(class="alert alert-success alert-dismissible")
-								button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-									span(aria-hidden="true") &times;
-								| #{messages.success}
-						if messages.warning
-							div(class="alert alert-warning alert-dismissible")
-								button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-									span(aria-hidden="true") &times;
-								| #{messages.warning}
+			//- block flashMessages
+			//- 	if messages
+			//- 		.flashMessages
+			//- 			if messages.error
+			//- 				div(class="alert alert-danger alert-dismissible")
+			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
+			//- 						span(aria-hidden="true") &times;
+			//- 					| #{messages.error}
+			//- 			if messages.info
+			//- 				div(class="alert alert-info alert-dismissible")
+			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
+			//- 						span(aria-hidden="true") &times;
+			//- 					| #{messages.info}
+			//- 			if messages.success
+			//- 				div(class="alert alert-success alert-dismissible")
+			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
+			//- 						span(aria-hidden="true") &times;
+			//- 					| #{messages.success}
+			//- 			if messages.warning
+			//- 				div(class="alert alert-warning alert-dismissible")
+			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
+			//- 						span(aria-hidden="true") &times;
+			//- 					| #{messages.warning}
 			
 			.navbar-spacer
 			block content
@@ -112,7 +114,7 @@ html(lang='en')
 						p(class="credit").
 							&copy; 2015 HackFSU
 						| 
-						a(href='http://www.facebook.com/hackfsu') 
+						a(href='https://www.facebook.com/events/400602133450423/') 
 							.icon-facebook
 						
 		

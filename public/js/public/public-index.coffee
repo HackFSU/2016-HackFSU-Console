@@ -11,8 +11,8 @@ Dependencies:
 $('.readmoreSect').readmore
 	speed: 100
 	collapsedHeight: 280
-	moreLink: '<a class="readmoreLink" href="#">Read more</a>'
-	lessLink: '<a class="readmoreLink" href="#">Close</a>'
+	moreLink: '<a class="readmoreLink link-text href="#">Read more</a>'
+	lessLink: '<a class="readmoreLink link-text" href="#">Close</a>'
 	embedCSS: false
 	startOpen: false
 	
@@ -26,7 +26,7 @@ $('#hypeBtn').jrumble
 	opacityMin: .75
 	
 	
-$('.header-btn').hover ()->
+$('#hypeBtn').hover ()->
 	$(this).trigger 'startRumble'
 	return
 , () ->
@@ -35,5 +35,5 @@ $('.header-btn').hover ()->
 #Smooth scroll to sponsors
 $('#sponsorBtn').click ()->
 	$('html, body').animate
-		scrollTop: $('[name=sponsors]').offset().top
+		scrollTop: $('[name=sponsors]').offset().top - 50
 	, 2000
