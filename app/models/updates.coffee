@@ -43,13 +43,14 @@ module.exports = (app) ->
 			deferred.promise 
 		
 		# Sends push notification with the given title
-		@sendPush: (title)=>
+		@sendPush: (title,subtitle)=>
 			deferred = app.Q.defer()
 			
 			notification = 
 				channels: [PUSH_CHANNEL]
 				data:
 					alert: title
+					info: subtitle
 			
 			app.kaiseki.sendPushNotification notification, 
 				(err, res, body, success)->

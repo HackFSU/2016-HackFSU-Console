@@ -78,7 +78,7 @@ module.exports = (app) ->
 					# Send Push notification
 					console.log 'UPDATE CREATED!: ' + JSON.stringify obj
 					if(obj.sendPush)
-						app.models.Updates.sendPush obj.title
+						app.models.Updates.sendPush obj.title, obj.subtitle
 					
 					res.send
 						success: true
