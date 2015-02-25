@@ -69,7 +69,9 @@ block content
 									td #{app.year}
 									td #{app.github}
 									td #{app.QAs[0]}
-									td TODO
+									td 
+										button(onclick='approve(app)') Approve
+										button(onclick='deny(app)') Deny
 									td TODO
 						tfoot
 							tr
