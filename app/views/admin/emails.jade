@@ -1,7 +1,8 @@
 extend ../layout
 block content
+	.containerbody
+		h1.singleLineText Email Management
 	.container
-		h1 #{title}
 		table.table
 			thread
 				tr
@@ -22,8 +23,7 @@ block content
 					td spreadTheWord
 					td Spread the word about HackFSU email to all known emails
 					td 
-						button.btn.header-btn#spreadTheWord Send 2014s!
-						button.btn.header-btn#spreadTheWord Send 2015s!
+						button.btn.header-btn#spreadTheWord Send!
 
 block localJavascript
 	script(src='/js/admin/admin-emails.js')

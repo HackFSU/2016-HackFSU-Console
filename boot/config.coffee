@@ -133,7 +133,7 @@ module.exports = (app) ->
 								
 							app.mandrill.messages.send 'message': message, 'async': true, 
 								(result) ->
-									console.log ' > Mandrill - Email Sent Success - eData= ' + JSON.stringify eData
+									console.log ' > Mandrill - Email Sent Success - subject="'+ eData.subject+'" to_email= ' + eData.to_email
 									if eData.success
 										eData.success(eData.to_email)
 								, (e) ->

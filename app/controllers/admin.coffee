@@ -258,8 +258,8 @@ module.exports = (app) ->
 			console.log " "
 			console.log "----EMAIL MANAGMENT-----"
 			console.log templateName + " " + buttonNum
-			
-			sentEmails = 0
+		
+			totalSent = 0
 			
 			switch templateName
 				when 'registrationSubscribe'
@@ -275,7 +275,7 @@ module.exports = (app) ->
 									console.log body.length + ' Emails found.'
 									for obj in body
 										if !obj.emailSent
-											++sentEmails
+											++totalSent
 											#send email
 											app.emailTemplate templateName, 
 												to_email: obj.email
@@ -293,9 +293,8 @@ module.exports = (app) ->
 														console.log "Parse object successfully marked as sent"
 													else
 														console.log "Parse object failed to mark as sent"
-									
-									console.log sentEmails + " Emails sent."
-									return
+											
+											console.log totalSent + " Emails sent."
 									
 								else
 									console.log 'No emails found: ' + JSON.stringify body
@@ -309,88 +308,130 @@ module.exports = (app) ->
 				 		limit: 2000
 					switch buttonNum
 						when '0' #send emails to 2014, if not sent
-							# Create a Parse (Kaiseki) object for the other place
+							CLASS_2014_NAME = 'User'
+							CLASS_2015_NAME = 'Applications'
+							
+							#complete list of sent emails
+							checkedEmails = []
+							hasBeenSent = false
+
+							totalSent = 0;
+							e = 
+								from_email: 'info@hackfsu.com'
+								from_name: 'HackFSU'
+								subject: 'Spread the Word!'
+							
 							kaisekiOld = new Kaiseki app.env.PARSE_APP_ID, 
 							app.env.PARSE_REST_KEY
 							kaisekiOld.masterKey = app.env.PARSE_MASTER_KEY
 							
-							parseClass = 'UserTest'
-							templateName = 'spreadTheWord'
-							kaisekiOld.getObjects parseClass, params
-							, (err,res,body,success) ->
-								if success
-									console.log 'Emails found'
-									
-									for obj in body
-										if !obj.sentEmails?
-											obj.sentEmails = 
-												spreadTheWord: false
-										if !obj.sentEmails.spreadTheWord
-											++sentEmails
-											#send email
-											app.emailTemplate templateName, 
-												to_email: obj.email
-												from_email: 'info@hackfsu.com'
-												from_name: 'HackFSU'
-												subject: 'Spread the Word!'
-												locals:
-													firstName: obj.firstName
-													lastName: obj.lastName
-											
-												
-											obj.sentEmails.spreadTheWord = true
-												
-											#update object
-											kaisekiOld.updateObject parseClass, obj.objectId,
-												{sentEmails: obj.sentEmails},
-												(err,res,body,success) ->
-													if success
-														console.log "Parse object successfully marked as sent"
-													else
-														console.log "Parse object failed to mark as sent"
-									
-								else 
-									console.log 'No emails found: ' + JSON.stringify body
+							params =
+								limit: 1000
 							
-						when '1' #send emails to 2015, if not sent
-							#send to emails from HackFSU 2015
-							parseClass = 'ApplicationsTest'
-							templateName = 'spreadTheWord'
-							app.kaiseki.getObjects parseClass, params
-							, (err,res,body,success) ->
-								if success
-									console.log 'Emails found'
-									
-									for obj in body
-										if !obj.sentEmails?
-											obj.sentEmails = 
-												spreadTheWord: false
-										if !obj.sentEmails.spreadTheWord
-											++sentEmails
-											#send email
-											app.emailTemplate templateName, 
-												to_email: obj.email
-												from_email: 'info@hackfsu.com'
-												from_name: 'HackFSU'
-												subject: 'Spread the Word!'
-												locals:
-													firstName: obj.firstName
-													lastName: obj.lastName
+							app.kaiseki.getObjects CLASS_2015_NAME, params,
+								(err,res,body,success)->
+									if err
+										console.log "PARSE: '"+CLASS_2015_NAME+"' Object getAll error!"
+									else if !success
+										console.log "PARSE: '"+CLASS_2015_NAME+"' Object getAll failure!"
+									else
+										console.log "PARSE: '"+CLASS_2015_NAME+"' Object getAll success!"
+										
+										# send if not already done
+										for obj in body
 											
+											
+											if !obj.sentEmails?
+												obj.sentEmails = 
+													spreadTheWord: false
+													
+											if !obj.sentEmails.spreadTheWord
+												#check if sent already
+												hasBeenSent = false
+												for currEmail in checkedEmails when !hasBeenSent
+													if currEmail == obj.email
+														hasBeenSent = true
+														console.log 'already sent to ' + obj.email
 												
-											obj.sentEmails.spreadTheWord = true
-												
-											#update object
-											app.kaiseki.updateObject parseClass, obj.objectId,
-												{sentEmails: obj.sentEmails},
-												(err,res,body,success) ->
-													if success
-														console.log "Parse object successfully marked as sent"
-													else
-														console.log "Parse object failed to mark as sent"
-									
-								else 
-									console.log 'No emails found: ' + JSON.stringify body
+												if !hasBeenSent
+													#send email
+													++totalSent
+													
+													
+													app.emailTemplate templateName, 
+														to_email: obj.email
+														from_email: e.from_email
+														from_name: e.from_name
+														subject: e.subject
+														locals:
+															firstName: obj.firstName
+															lastName: obj.lastName
+													
+												#update object
+												obj.sentEmails.spreadTheWord = true
+												app.kaiseki.updateObject CLASS_2015_NAME, obj.objectId,
+													{sentEmails: obj.sentEmails},
+													(err,res,body,success) ->
+														if success
+															console.log "Parse object successfully marked as sent."
+														else
+															console.log "Parse object failed to mark as sent: " + JSON.stringify body
+											checkedEmails.push obj.email
+											
+										
+										# Now get 2014
+										kaisekiOld.getUsers params,
+											(err,res,body,success)->
+												if err
+													console.log "PARSE: '"+CLASS_2014_NAME+"' Object getAll error!"
+												else if !success
+													console.log "PARSE: '"+CLASS_2014_NAME+"' Object getAll failure!"
+												else
+													console.log "PARSE: '"+CLASS_2014_NAME+"' Object getAll success!"
+													
+													# send if not already done
+													for obj in body
+														
+														if !obj.sentEmails?
+															obj.sentEmails = 
+																spreadTheWord: false
+
+														
+														if !obj.sentEmails.spreadTheWord
+															
+															#check if sent already
+															hasBeenSent = false
+															for currEmail in checkedEmails when !hasBeenSent
+																if currEmail == obj.email
+																	hasBeenSent = true
+																	console.log 'already sent to ' + obj.email
+															
+															if !hasBeenSent
+																#send email
+																++totalSent
+																
+																app.emailTemplate templateName, 
+																	to_email: obj.email
+																	from_email: e.from_email
+																	from_name: e.from_name
+																	subject: e.subject
+																	locals:
+																		firstName: obj.name
+																		lastName: ""
+															
+															#update object
+															obj.sentEmails.spreadTheWord = true
+															kaisekiOld.updateUser obj.objectId,
+																{sentEmails: obj.sentEmails},
+																(err,res,body,success) ->
+																	if success
+																		console.log "Parse object successfully marked as sent."
+																	else
+																		console.log "Parse object failed to mark as sent: " + JSON.stringify body
+														checkedEmails.push obj.email
+														
+													console.log totalSent + " Emails sent."
+							
 						else
 							console.log 'Invalid Email Button' 
 				else
@@ -398,6 +439,6 @@ module.exports = (app) ->
 								
 			
 			res.send
-				sentEmails: sentEmails
+				sentEmails: totalSent
 			
 			

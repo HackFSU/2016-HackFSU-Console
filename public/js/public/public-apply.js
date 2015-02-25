@@ -36,7 +36,7 @@
       major: $('#major').val(),
       year: $('#year').val(),
       github: $('#github').val(),
-      QAs: [$('input[type=radio][name=QA0][value=Yes]').is(':checked'), $('#QA1').val(), [$('#ios').is(':checked'), $('#android').is(':checked'), $('#web').is(':checked'), $('#front').is(':checked'), $('#back').is(':checked'), $('#shelf').is(':checked'), $('#micro').is(':checked')]]
+      QAs: [$('input[type=radio][name=QA0][value=Yes]').is(':checked'), $('#QA1').val(), [$('#ios').is(':checked'), $('#android').is(':checked'), $('#web').is(':checked'), $('#front').is(':checked'), $('#back').is(':checked'), $('#shelf').is(':checked'), $('#micro').is(':checked')], $('#QA3').val(), $('#QA4').val()]
     };
     console.log(JSON.stringify(appData));
     appValid = checkAppData(appData);

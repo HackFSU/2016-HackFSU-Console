@@ -249,7 +249,7 @@ module.exports = (app) ->
 			if(!inputErrors)
 				#proceed to submit app
 				
-				#make sure boolean QAs are boolean
+				#make sure boolean QA s are boolean
 				QAs = req.param('QAs')			
 				QAs[0] = QAs[0] == 'true'
 				if QAs[2] #loop wasnt working for some reason idgaf
@@ -262,9 +262,9 @@ module.exports = (app) ->
 					QAs[2][6] = if QAs[2][6] then QAs[2][6] == 'true' else false
 				
 				# truncate all responses at 500 characters, not the t/f tho
-				QAs[1] = if QAs[1] then QAs[1].substring(0,500) else ""
-				QAs[3] = if QAs[3] then QAs[3].substring(0,500) else ""
-				QAs[4] = if QAs[4] then QAs[4].substring(0,500) else ""
+				QAs[1] = if QAs[1]? then QAs[1].substring(0,500) else ""
+				QAs[3] = if QAs[3]? then QAs[3].substring(0,500) else ""
+				QAs[4] = if QAs[4]? then QAs[4].substring(0,500) else ""
 				
 				# collect data
 				appData =

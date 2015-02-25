@@ -41,6 +41,8 @@ $('#application').submit (event) ->
 				$('#shelf').is(':checked')
 				$('#micro').is(':checked')
 			]
+			$('#QA3').val()
+			$('#QA4').val()
 		]
 		
 	console.log JSON.stringify appData
