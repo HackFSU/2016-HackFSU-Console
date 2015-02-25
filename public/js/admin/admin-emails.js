@@ -9,27 +9,35 @@
 
 (function() {
   $('button').click(function(event) {
-    var data;
+    var data, prompt;
     event.preventDefault();
     data = {
       templateName: $(this).attr('id'),
       buttonNum: $('button[id=' + $(this).attr('id') + ']').index($(this))
     };
-    console.log(JSON.stringify(data));
-    $.ajax({
-      type: 'post',
-      url: '/admin/emails_submit',
-      data: data,
-      success: function(res) {
-        console.log(JSON.stringify(res, void 0, 2));
-        if (res.sentEmails != null) {
-          return alert(sentEmails + ' emails sent!');
-        } else {
-          return alert('Not sure how many emails were sent...');
-        }
-      },
-      error: function() {}
-    });
+    prompt = 'Are you sure you want to send out "' + data.templateName + '" to people?';
+    if ($(this).disabled) {
+      alert('This action is disabled, and for a good reason. Stahp.');
+    } else if (confirm(prompt)) {
+      console.log('Emails sent out to ' + data.templateName);
+      console.log(JSON.stringify(data));
+      $.ajax({
+        type: 'post',
+        url: '/admin/emails_submit',
+        data: data,
+        success: function(res) {
+          console.log(JSON.stringify(res, void 0, 2));
+          if (res.sentEmails != null) {
+            return alert(sentEmails + ' emails sent!');
+          } else {
+            return alert('Not sure how many emails were sent...');
+          }
+        },
+        error: function() {}
+      });
+    } else {
+      console.log('No emails sent to ' + data.templateName);
+    }
   });
 
 }).call(this);
