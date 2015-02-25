@@ -16,6 +16,7 @@ module.exports = (app) ->
 	
 	# updates
 	app.get '/admin/updates', app.AdminController.updates
+	app.post '/admin/updates_create', app.AdminController.updates_create
 	
 	# applications
 	app.get '/admin/applications', app.AdminController.applications

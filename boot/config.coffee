@@ -16,6 +16,7 @@ dotenv = require 'dotenv'
 flash = require 'express-flash'
 emailTemplates = require 'email-templates'
 Q = require 'q'
+moment = require 'moment'
 
 # Configuration
 module.exports = (app) ->
@@ -23,7 +24,7 @@ module.exports = (app) ->
 
 	# Load helper functions
 	app.locals.helpers = require __dirname + '/../app/helpers'
-
+	app.moment = moment
 	
 
 	# Autoload controllers

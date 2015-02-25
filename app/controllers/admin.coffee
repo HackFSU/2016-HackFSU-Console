@@ -35,10 +35,66 @@ module.exports = (app) ->
 					count: body.count,
 					checkins: checkIns
 					users: body.results
-						
+		
+		########################################################################
+		# Updates Management
+		########################################################################
 		@updates = (req, res) ->
-			res.render 'admin/updates',
-				title: 'Admin - Update Management'
+			#load all current updates
+			p = @app.models.Updates.getAll()
+			p.then (body)-> #resolve
+				
+				updates = new Array()
+				for update in body
+					updates.push
+						title: update.title
+						subtitle: update.subtitle
+						createdAt: @app.moment(update.createdAt).format('M/D/YYYY HH:mm:ss A')
+				
+				res.render 'admin/updates',
+					title: 'Admin - Update Management'
+					updates: updates
+			, (err)-> #reject
+				res.render 'admin/updates',
+					title: 'Admin - Update Management'
+					updates: new Array()
+			
+			
+		
+		@updates_create = (req,res)->
+			# TODO - sanitize
+			valid = true
+			
+			obj =
+				title: if req.body.title?	then req.body.title	else valid = false
+				subtitle: if req.body.subtitle?	then req.body.subtitle	else valid = false
+				sendPush: if req.body.sendPush?	then req.body.sendPush == 'true'	else valid = false
+			
+			if valid
+				# Create Update
+				update = new app.models.Updates(obj)
+				p = update.createNew()
+				p.then ()-> #resolve
+					# Send Push notification
+					console.log 'UPDATE CREATED!: ' + JSON.stringify obj
+					if(obj.sendPush)
+						app.models.Updates.sendPush obj.title
+					
+					res.send
+						success: true
+						msg: ""
+					
+				, (err)-> #reject
+					res.send
+						success: false
+						msg: "Parse error: " + err
+				
+				
+				
+			else 
+				res.send
+					success: false
+					msg: "Invalid input"
 		
 		########################################################################
 		# Application Management

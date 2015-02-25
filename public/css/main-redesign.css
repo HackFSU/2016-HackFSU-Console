@@ -40,7 +40,9 @@ h3, h4, h5, h6 {
     font-weight: bold;
 }
 
-
+.text-medium {
+  font-size: 20px;
+}
 
 
 /*****************************************************************************
@@ -764,9 +766,8 @@ p {
 .sponsor-blurb {
   margin-bottom: 8em;
 }
-.sponsor-blurb p {
-  font-size: 20px;
-}
+
+
 
 .sponsor-questions {
   margin-top: 5em;
@@ -815,7 +816,7 @@ p {
   width: 100%;
   height: auto;
   max-width: 350px;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 

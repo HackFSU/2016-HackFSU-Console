@@ -1,4 +1,66 @@
 extend ../layout
 block content
+	.containerbody
+		h1.singleLineText Updates Management
+		
+		
+		h2 Create New Update
+		br
+		.form-container
+			form.form-horizontal#newUpdateFrom(method='post', action='#', role='form')
+				.form-group
+					label.col-lg-2.control-label(for='title') Title *
+					.col-lg-9
+						input.form-control#title(type='text', placeholder='Only thing seen in push notification')
+				
+				.form-group
+					label.col-lg-2.control-label(for='subtitle') Subtitle *
+					.col-lg-9
+						textarea.form-control#subtitle(rows='2', placeholder="Seen in app under the title")
+				
+				.form-group
+					.col-lg-2
+					.col-lg-9
+							input#sendPush(type="checkbox", for='sendPush', checked)
+							label(for="sendPush") Send push notifcation?
+
+				.form-group
+					.form-error-msg.col-lg-offset-1.col-lg-6.pull-left
+					.col-lg-3.pull-right
+						button.btn#submit(type='submit') Send
+		
+		
+		br
+		br
+			
+		h2 Previous Updates
+		br
 	.container
-		h1 #{title}
+		table.display#DT
+			thead
+				tr
+					th Title
+					th Subtitle
+					th CreatedAt
+					th Functions
+			tbody
+				for update in updates
+					tr
+						td #{update.title}
+						td #{update.subtitle}
+						td #{update.createdAt}
+						td TODO
+			tfoot
+				tr
+					th Title
+					th Subtitle
+					th CreatedAt
+					th Functions
+		
+
+block localCSS
+	link(rel='stylesheet', href='//cdn.datatables.net/1.10.5/css/jquery.dataTables.min.css')
+	
+block localJavascript
+	script(src='//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js')
+	script(type="text/javascript", src='/js/admin/admin-updates.js')
