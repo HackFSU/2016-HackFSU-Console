@@ -70,9 +70,10 @@ block content
 									td #{app.github}
 									td #{app.QAs[0]}
 									td 
+										#{app.status}
+									td
 										button(onclick='approve(app)') Approve
 										button(onclick='deny(app)') Deny
-									td TODO
 						tfoot
 							tr
 								th First Name

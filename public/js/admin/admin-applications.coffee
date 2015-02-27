@@ -146,4 +146,18 @@ $(document).ready ()->
 		$(this).tab 'show'
 	
 	refreshTabs()
-	
+
+accept = (app)->
+	# save staus in db
+	app.save(null,
+		success:  = (app)->)
+			app.set("status", "accepted"))
+	# send email - TODO
+
+deny = (app)->
+	# save status in db
+	app.save(null,
+		success:  = (app)->)
+			app.set("status", "denied"))
+	# send email- TODO
+
