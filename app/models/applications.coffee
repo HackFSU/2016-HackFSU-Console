@@ -20,6 +20,7 @@ Class Specific vars:
 						String => Dietary restriction
 						String => Comments
 					]
+	String 		status = 'denied' 'waitlisted' 'approved' 'going' 'not going'
 Use:
 	1. Import model
 	2. Create new object (if isNew, creates object in parse)
@@ -83,3 +84,102 @@ module.exports = (app) ->
 						deferred.resolve(body)
 			
 			return deferred.promise 
+		
+		# Generates and returns a 60 unique charcter randomized string (checks it)
+		@generateNewConfirmationId: ()->
+			deferred = app.Q.defer()
+			data =
+				limit: 1000
+			
+			
+			#get all current ids
+			CLOUD_FUNCTION = 'getAllConfirmationIds'
+			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"+
+										" Got " + body.result.length
+						
+						#generate new key
+						unique = false
+						key = ''
+						while !unique
+							unique = true
+							key = app.uuid.v4()
+							for k in body.result when unique
+								if k == key
+									unique = false
+						
+						deferred.resolve(key)
+			
+			return deferred.promise
+		
+		### Parse CC function
+			Checks if a confirmation id is valid.
+			if it is, result = 
+				valid: true
+				objectId: (string)
+				firstName: (string)
+				lastName: (string)
+				hasDiet: (boolean)		#if we have data on their diet question
+			if it isnt, result =
+				valid: false
+		### 
+		@getAppSimpleByConfirmationId: (confirmationId) ->
+			deferred = app.Q.defer()			
+			
+			data = 
+				confirmationId: confirmationId
+			
+			CLOUD_FUNCTION = 'getAppSimpleByConfirmationId'
+			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"+
+						
+						deferred.resolve(body.result)
+			
+			return deferred.promise
+		
+		# Sets the application as approved and assigns it a confirmationId.
+		# Returns confirmationId
+		@approve: (objectId) ->
+			deferred = app.Q.defer()			
+			
+			p = app.models.Applications.generateNewConfirmationId()
+			p.then (confirmationId)-> #resolve
+				console.log 'PARSE: confirmationId ' + confirmationId + ' created'
+				
+				data =
+					status: 'approved'
+					confirmationId: confirmationId
+				
+				app.kaiseki.updateObject CLASS_NAME, objectId, data,
+					(err,res,body,success)->
+						if err
+							console.log "PARSE: '"+CLASS_NAME+"' approve error!"
+							deferred.reject(err)
+						else if !success
+							console.log "PARSE: '"+CLASS_NAME+"' approve failure!"
+							deferred.reject()
+						else
+							console.log "PARSE: '"+CLASS_NAME+"' approve success!"							
+							
+							deferred.resolve(confirmationId)
+				
+			, ()-> #reject
+				console.log 'PARSE: confirmationId creation failed.'
+
+			return deferred.promise

@@ -4,17 +4,18 @@
 ###
 
 # Module dependencies
-Kaiseki = require 'kaiseki'
-validator = require 'express-validator'
-Mandrill = require 'mandrill-api/mandrill'
-autoload = require '../lib/autoload'
-session = require 'express-session'
-cookieParser = require 'cookie-parser'
-dotenv = require 'dotenv'
-flash = require 'express-flash'
-emailTemplates = require 'email-templates'
-Q = require 'q'
-moment = require 'moment'
+Kaiseki = require 'kaiseki'						#parse db access
+validator = require 'express-validator'		#req validation
+Mandrill = require 'mandrill-api/mandrill'	#email sending
+autoload = require '../lib/autoload'			#autoloading files
+session = require 'express-session'				#handling user sessions
+cookieParser = require 'cookie-parser'			#handling cookies
+dotenv = require 'dotenv'							#env variable handling
+flash = require 'express-flash'					#flash bar
+emailTemplates = require 'email-templates'	#email creation
+Q = require 'q'										#async handling
+moment = require 'moment'							#Date parsing
+uuid = require 'node-uuid'							#random string generation
 
 # Configuration
 module.exports = (app) ->
@@ -77,6 +78,10 @@ module.exports = (app) ->
 	app.mandrill = new Mandrill.Mandrill app.env.MANDRILL_KEY  
 	# Load email template function
 	app.emailTemplates = emailTemplates
+	
+	
+	#Utility storage
+	app.uuid = uuid
 	
 	###
 	# Sends email using the email-templates and mandrill libraries

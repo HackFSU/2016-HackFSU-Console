@@ -82,6 +82,10 @@ module.exports = (app) ->
 	app.get '/apply', app.PublicController.apply
 	app.post '/apply_submit', jsonParser, app.PublicController.apply_submit
 	
+	# Confirm Attendance page
+	app.get '/confirm/:confirmationId', app.PublicController.confirm
+	app.post '/confirm_submit', jsonParser, app.PublicController.confirm_submit
+	
 	# Contact HackFSU
 	#app.get '/contact', app.PublicController.contact
 	

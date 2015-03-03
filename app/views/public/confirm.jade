@@ -1,0 +1,16 @@
+extend ../layout
+block content
+	.containerbody
+		h1.singleLineText #{title}
+		
+		if !foundApp
+			h2 Error!
+			p #{msg}
+		else
+			//- Application found, check status
+			
+			h2 Hello #{appData.firstName} #{appData.lastName}!
+			
+			p Applcation Status: #{appData.status} 
+			
+		

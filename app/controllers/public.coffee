@@ -314,5 +314,56 @@ module.exports = (app) ->
 				res.send
 					appValid: false
 					inputErrors: inputErrors
+		
+		########################################################################
+		# Attendance confimation
+		# id = randomly generated and sent via email
+		########################################################################
+		@confirm = (req, res) ->
+			title = 'Attendance Confimation'
+			view = 'public/confirm'
 			
-			
+			#test id
+			if req.params.confirmationId?
+				cId = req.params.confirmationId
+				p = app.models.Applications.generateNewConfirmationId()
+
+				p = app.models.Applications.getAppSimpleByConfirmationId(cId)
+				p.then (appl)-> #resolve
+					console.log 'appl= ' + JSON.stringify appl, undefined, 2
+					
+					if appl.valid
+						console.log 'Valid confirmationId "' + cId + '" for ' + 
+							appl.firstName + ' ' + appl.lastName
+							
+						res.render view,
+							title: title
+							foundApp: true
+							appData: appl
+					else
+						console.log 'Invalid confirmationId "' + cId + '"'
+						res.render view,
+							title: title
+							foundApp: false
+							msg: 'Invalid confirmationId "' + cId + '"'
+									
+				, ()-> #reject
+					console.log 'Failed to check confirmationId ' + cId
+					
+					res.render view,
+						title: title
+						foundApp: false
+						msg: 'Problem checking confirmation id, try refreshing this page.'
+				
+			else
+				# no id found in request
+				res.render view,
+					title: title
+					foundApp: false
+					msg: 'Confirmation id not found'
+		
+		@confirm_submit = (req, res) ->
+			#TODO
+			res.send
+				valid: true
+		
