@@ -69,11 +69,10 @@ block content
 									td #{app.year}
 									td #{app.github}
 									td #{app.QAs[0]}
-									td 
-										#{app.status}
+									td #{app.status}
 									td
-										button(onclick='approve(app)') Approve
-										button(onclick='deny(app)') Deny
+										form(action='/accept_application', method='post', id='acceptForm', role='form')
+											button#submit(type='submit', class='btn') Accept
 						tfoot
 							tr
 								th First Name
@@ -209,3 +208,5 @@ block localCSS
 block localJavascript
 	script(src='//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js')
 	script(src='/js/admin/admin-applications.js')
+	script(src='/js/admin/admin-accept.js')
+

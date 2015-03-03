@@ -83,3 +83,71 @@ module.exports = (app) ->
 						deferred.resolve(body)
 			
 			return deferred.promise 
+
+		# Pulls record
+		@getAppById: (objectId)->
+			deferred = app.Q.defer()			
+
+			app.kaiseki.getObject CLASS_NAME, objectId,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLASS_NAME+"' Object get " + objectId + " error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLASS_NAME+"' Object get " + objectId + " failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLASS_NAME+"' Object get " + objectId + " success!"+
+										" Got " + body.length
+						
+						deferred.resolve(body)
+			
+			return deferred.promise
+
+		@acceptApplication: (objectId)->
+			deferred = app.Q.defer()
+			app = getAppById(objectId)
+
+
+			params =
+				status: "accepted"
+
+			app.kaiseki.updateObject CLASS_NAME, objectId, params,
+				(err, res, body, success) ->
+					if err
+						console.log "PARSE: '"+CLASS_NAME+"' Object " + objectId + " update error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLASS_NAME+"' Object get " + objectId + " update failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLASS_NAME+"' Object get " + objectId + " update success!"+
+										" Got " + body.length
+						
+						deferred.resolve(body)
+			
+			return deferred.promise
+
+		@denyApplication: (objectId)->
+			deferred = app.Q.defer()
+			app = getAppById(objectId)
+
+
+			params =
+				status: "denied"
+
+			app.kaiseki.updateObject CLASS_NAME, objectId, params,
+				(err, res, body, success) ->
+					if err
+						console.log "PARSE: '"+CLASS_NAME+"' Object " + objectId + " update error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLASS_NAME+"' Object get " + objectId + " update failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLASS_NAME+"' Object get " + objectId + " update success!"+
+										" Got " + body.length
+						
+						deferred.resolve(body)
+			
+			return deferred.promise
