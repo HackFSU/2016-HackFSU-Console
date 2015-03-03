@@ -217,12 +217,7 @@ module.exports = (app) ->
 		@apply = (req, res) ->
 			res.render 'public/apply',
 				title: 'Apply'
-		@apply_submit = (req,res) ->
-			console.log 'BODY: ' + JSON.stringify req.body, undefined, 2
-			
-			console.log 'QAS RAW: ' + JSON.stringify req.body.QAs, undefined, 2
-			
-			
+		@apply_submit = (req,res) ->						
 			# validate input (assert + sanitize all)
 			req.assert('firstName', 'First Name Requied')
 			req.assert('lastName','Last Name Required')
@@ -240,9 +235,7 @@ module.exports = (app) ->
 			req.sanitize('major').toString()
 			req.sanitize('year').toString()
 			req.sanitize('github').toString()
-			
-			console.log 'QAS RAW: ' + JSON.stringify req.body.QAs, undefined, 2
-			
+						
 			console.log 'Application Recieved'
 			
 			inputErrors = req.validationErrors(true)
@@ -271,9 +264,7 @@ module.exports = (app) ->
 				QAs[1] = if QAs[1]? then QAs[1].substring(0,500) else ""
 				QAs[3] = if QAs[3]? then QAs[3].substring(0,500) else ""
 				QAs[4] = if QAs[4]? then QAs[4].substring(0,500) else ""
-				
-				console.log 'QAS: ' + JSON.stringify QAs, undefined, 2
-				
+								
 				# collect data
 				appData =
 					firstName: req.body.firstName
