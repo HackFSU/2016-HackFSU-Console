@@ -1,12 +1,10 @@
 ###
 # Loads module dependencies and configures app.
 #
-# Author: Trevor Helms
 ###
 
 # Module dependencies
 Kaiseki = require 'kaiseki'
-bodyParser = require 'body-parser'
 validator = require 'express-validator'
 Mandrill = require 'mandrill-api/mandrill'
 autoload = require '../lib/autoload'
@@ -20,8 +18,6 @@ moment = require 'moment'
 
 # Configuration
 module.exports = (app) ->
-	
-
 	# Load helper functions
 	app.locals.helpers = require __dirname + '/../app/helpers'
 	app.moment = moment
@@ -41,8 +37,10 @@ module.exports = (app) ->
 	app.set 'view engine', 'jade'
 	app.use require('express').static __dirname + '/../public'
 	app.use validator()
-	app.use bodyParser.json()
-	app.use bodyParser.urlencoded {extended: true} 
+	
+	# Moved to routes setup
+	# app.use bodyParser.json()
+	# app.use bodyParser.urlencoded {extended: true} 
 	
 	# Create a Parse (Kaiseki) object
 	app.kaiseki = new Kaiseki app.env.PARSE_APP_ID_TEST, 

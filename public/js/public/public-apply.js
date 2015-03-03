@@ -59,19 +59,20 @@
       $('#submit').text('Submitting...');
       if (appValid === true) {
         $.ajax({
-          type: 'post',
+          type: 'POST',
           url: '/apply_submit',
-          data: appData,
+          data: JSON.stringify(appData),
+          contentType: 'application/json',
           success: function(res) {
             console.log(JSON.stringify(res, void 0, 2));
-            if (res.appValid === true) {
+            if (res.appValid) {
               return endInSuccess();
             } else {
-              return endInFailure();
+              endInError();
             }
           },
           error: function() {
-            return endInFailure();
+            endInError();
           }
         });
       }
@@ -82,7 +83,7 @@
   endInError = function() {
     var sub;
     sub = $('#submit');
-    return sub.fadeOut(500, function() {
+    sub.fadeOut(500, function() {
       sub.text('Error!');
       sub.attr('disabled', 'true');
       sub.fadeIn(500, function() {});
@@ -93,7 +94,7 @@
   endInSuccess = function() {
     var sub;
     sub = $('#submit');
-    return sub.fadeOut(500, function() {
+    sub.fadeOut(500, function() {
       sub.text('Success!');
       sub.attr('disabled', 'true');
       sub.fadeIn(500, function() {});
@@ -105,10 +106,10 @@
     $('input').attr('disabled', 'disabled');
     $('checkbox').attr('disabled', 'disabled');
     $('select').attr('disabled', 'disabled');
-    return $('#application').fadeTo(1000, 0, function() {
+    $('#application').fadeTo(1000, 0, function() {
       var $newMsg;
       $newMsg = $("<div id='endDisplay'><h3>" + header + "</h3><h4>" + subtext + "</h4>");
-      $newMsg.appendTo($('.containerHeader')).fadeIn(1000, function() {
+      $newMsg.appendTo($('.formResult')).fadeIn(1000, function() {
         return $("html, body").animate({
           scrollTop: 0
         }, 500);

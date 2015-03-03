@@ -66,21 +66,23 @@ $('#application').submit (event) ->
 		$('#submit').shakeIt()
 	else
 		$('#submit').text('Submitting...')
-		
 		if appValid == true
 			#submit via ajax
 			$.ajax
-				type: 'post'
+				type: 'POST'
 				url: '/apply_submit'
-				data: appData
+				data: JSON.stringify appData
+				contentType: 'application/json'
 				success: (res) ->
 					console.log JSON.stringify res, undefined, 2
-					if res.appValid == true
+					if res.appValid
 						endInSuccess()
 					else
-						endInFailure()
+						endInError()
+						return
 				error: () ->
-					endInFailure()
+					endInError()
+					return
 					
 	
 	console.log appValid
@@ -95,6 +97,7 @@ endInError = () ->
 		sub.attr('disabled', 'true')
 		sub.fadeIn(500, ()->)
 		displayEnd("An unexpected error has occured!", "Refresh this window and try resubmitting your application.")	
+	return
 	
 endInSuccess = () ->
 	sub = $('#submit')
@@ -103,6 +106,7 @@ endInSuccess = () ->
 		sub.attr('disabled', 'true')
 		sub.fadeIn(500, ()->)
 		displayEnd("Thanks for applying!", "You should be receiving a confirmation email soon.")
+	return
 	
 
 displayEnd = (header, subtext) ->
@@ -112,10 +116,10 @@ displayEnd = (header, subtext) ->
 	$('#application').fadeTo 1000, 0, ()->
 		#create message
 		$newMsg = $("<div id='endDisplay'><h3>"+header+ "</h3><h4>"+subtext+"</h4>")
-		$newMsg.appendTo($('.containerHeader')).fadeIn 1000, ()->
+		$newMsg.appendTo($('.formResult')).fadeIn 1000, ()->
 			$("html, body").animate({ scrollTop: 0 }, 500)
 		return
-	
+	return
 
 ###
 # Checks appdata for correct input. Returns true for valid,

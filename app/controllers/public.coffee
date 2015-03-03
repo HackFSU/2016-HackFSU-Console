@@ -218,6 +218,11 @@ module.exports = (app) ->
 			res.render 'public/apply',
 				title: 'Apply'
 		@apply_submit = (req,res) ->
+			console.log 'BODY: ' + JSON.stringify req.body, undefined, 2
+			
+			console.log 'QAS RAW: ' + JSON.stringify req.body.QAs, undefined, 2
+			
+			
 			# validate input (assert + sanitize all)
 			req.assert('firstName', 'First Name Requied')
 			req.assert('lastName','Last Name Required')
@@ -236,21 +241,22 @@ module.exports = (app) ->
 			req.sanitize('year').toString()
 			req.sanitize('github').toString()
 			
-		
+			console.log 'QAS RAW: ' + JSON.stringify req.body.QAs, undefined, 2
+			
 			console.log 'Application Recieved'
 			
 			inputErrors = req.validationErrors(true)
 			
 			# somehow this was undefined and crashed, this is precaution
-			inputErrors = if req.param('QAs') != undefined then inputErrors else true
+			inputErrors = if req.body.QAs != undefined then inputErrors else true
 			if !inputErrors
-				inputErrors = if req.param('QAs')[0] != undefined then inputErrors else true
+				inputErrors = if req.body.QAs != undefined then inputErrors else true
 			
 			if(!inputErrors)
 				#proceed to submit app
 				
 				#make sure boolean QA s are boolean
-				QAs = req.param('QAs')			
+				QAs = req.body.QAs
 				QAs[0] = QAs[0] == 'true'
 				if QAs[2] #loop wasnt working for some reason idgaf
 					QAs[2][0] = if QAs[2][0] then QAs[2][0] == 'true' else false
@@ -266,15 +272,17 @@ module.exports = (app) ->
 				QAs[3] = if QAs[3]? then QAs[3].substring(0,500) else ""
 				QAs[4] = if QAs[4]? then QAs[4].substring(0,500) else ""
 				
+				console.log 'QAS: ' + JSON.stringify QAs, undefined, 2
+				
 				# collect data
 				appData =
-					firstName: req.param('firstName')
-					lastName: req.param('lastName')
-					email: req.param('email')
-					school: req.param('school')
-					major: req.param('major')
-					year: req.param('year')
-					github: req.param('github')
+					firstName: req.body.firstName
+					lastName: req.body.lastName
+					email: req.body.email
+					school: req.body.school
+					major: req.body.major
+					year: req.body.year
+					github: req.body.github
 					# resume: req.body.resume DO IN SIGNUP INSTEAD
 					QAs: QAs
 				

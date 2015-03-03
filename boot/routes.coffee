@@ -3,8 +3,13 @@
 	
 ###
 acl = require '../lib/acl'
+bodyParser = require 'body-parser'
 
 module.exports = (app) ->
+	#Body parsers
+	jsonParser = bodyParser.json()
+	urlencodedParser = bodyParser.urlencoded {extended: false}
+	
 	# Enforce ACL
 	app.use acl
 	
@@ -16,7 +21,7 @@ module.exports = (app) ->
 	
 	# updates
 	app.get '/admin/updates', app.AdminController.updates
-	app.post '/admin/updates_create', app.AdminController.updates_create
+	app.post '/admin/updates_create', urlencodedParser, app.AdminController.updates_create
 	
 	# applications
 	app.get '/admin/applications', app.AdminController.applications
@@ -26,7 +31,7 @@ module.exports = (app) ->
 	
 	# emails
 	app.get '/admin/emails', app.AdminController.emails
-	app.post '/admin/emails_submit', app.AdminController.emails_submit
+	app.post '/admin/emails_submit', urlencodedParser, app.AdminController.emails_submit
 	
 	# all users
 	# app.get '/admin/allUsers', app.AdminController.allUsers
@@ -52,14 +57,14 @@ module.exports = (app) ->
 		
 	# Signin
 	app.get '/signin', app.PublicController.signin
-	app.post '/signin_submit', app.PublicController.signin_submit
+	app.post '/signin_submit', urlencodedParser, app.PublicController.signin_submit
 	
 	# Shareables
 	app.get '/spreadtheword', app.PublicController.shareables
 
 	# Signup
 	app.get '/signup', app.PublicController.signup
-	app.post '/signup_submit', app.PublicController.signup_submit
+	app.post '/signup_submit', urlencodedParser, app.PublicController.signup_submit
 	
 	# View updates
 	#app.get '/updates', app.PublicController.updates
@@ -68,14 +73,14 @@ module.exports = (app) ->
 	# app.get '/updates/new', app.UpdatesController.new
 
 	# Add update
-	# app.post '/updates/add', app.UpdatesController.add
+	# app.post '/updates/add', urlencodedParser, app.UpdatesController.add
 
 	# Create email
 	# app.get '/email', app.EmailController.new
 
 	# Apply to HackFSU
 	app.get '/apply', app.PublicController.apply
-	app.post '/apply_submit', app.PublicController.apply_submit
+	app.post '/apply_submit', jsonParser, app.PublicController.apply_submit
 	
 	# Contact HackFSU
 	#app.get '/contact', app.PublicController.contact
@@ -86,7 +91,7 @@ module.exports = (app) ->
 	# Mentor form
 	app.get '/mentor', app.PublicController.mentor
 	app.get '/mentors', app.PublicController.mentor
-	app.post '/mentor_submit', app.PublicController.mentor_submit
+	app.post '/mentor_submit',urlencodedParser, app.PublicController.mentor_submit
 	
 	# Sponsor page (includes sponsor of the month at the top)
 	app.get '/sponsor', app.PublicController.sponsor
