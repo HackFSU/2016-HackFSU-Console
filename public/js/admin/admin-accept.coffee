@@ -1,22 +1,24 @@
 ###
 
-For: /admin/accept_application
+For: /admin/accept
 
 ###
 
-$('#acceptForm').submit (event) ->
-	event.preventDefault()
-
+$('#accept').click() ->
+ 
 	console.log "App Accepted"
 
-	data = {}
+	data = 
+		objectId: $('#appId').val()
 
+	$('#accept').txt 'Sending...'
 	$.ajax
 		type: 'post'
-		url: '/accept_application'
+		url: '/admin/accept'
 		data: data
 		success: (res) ->
 			console.log 'Success'
+			$('#submit').text 'Sent!'
 		error: () ->
 			console.log 'Error'
 

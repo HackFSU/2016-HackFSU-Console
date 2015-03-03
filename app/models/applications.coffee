@@ -48,6 +48,7 @@ module.exports = (app) ->
 				year:				if obj.year? then obj.year else null
 				github:			if obj.github? then obj.github else null
 				QAs:				if obj.QAs? then obj.QAs else new Array()
+				status:			'Pending'
 			
 			#fill in QAs
 			if @obj.QAs.length != 5
@@ -84,7 +85,7 @@ module.exports = (app) ->
 						deferred.resolve(body)
 			
 			return deferred.promise 
-				
+
 		# Generates and returns a 60 unique charcter randomized string (checks it)
 		@generateNewConfirmationId: ()->
 			deferred = app.Q.defer()

@@ -71,8 +71,10 @@ block content
 									td #{app.QAs[0]}
 									td #{app.status}
 									td
-										form(action='/accept_application', method='post', id='acceptForm', role='form')
-											button#submit(type='submit', class='btn') Accept
+										form(action='/admin/accept', method='post', id='acceptForm', role='form')
+											input(type='hidden' id='appId' value='#{app.objectId}')
+											button#accept(type='submit') Accept
+
 						tfoot
 							tr
 								th First Name
