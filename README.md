@@ -9,15 +9,24 @@ This will be the final landing page + background management website for HackFSU,
 ###### Prerequisites: 
 
 1. Install node.js, npm
-2. `.env` is needed to connect to Parse (gitignored for security)
+2. `.env` is needed to connect to Parse (gitignored for security, ask Jared)
 
 
-###### To setup and run project:
+#### Setup Documentation
+1. git clone this repo via command line git (branch + checkout if needed)
+2. install nodejs and npm via whatever package manager/installer
+3. install nodemon with `npm install nodemon -g`
+4. install bower with `npm install bower -g`
+5. install coffeescript with 'npm install coffee-script -g'
+5. In the root folder, run `npm install` to install the backend dependencies
+6. In the `public/` folder, run `bower install` to install the frontend dependencies
+7. In the root directory, run `nodemon` to start the server. If an error occurs, try to fix it and then run `rs` inside of the nodemon session to restart without force closing. If you are running on linux you can just use the makefile ('make')
+8. Access your test server by going to `http://localhost:PORT/` or `http://LOCAL_IP:PORT/` when you are sharing the network.
 
-1. Clone or fork repository
-2. `cd path/to/project`
-3. `npm install`
-4. `npm start`
+##### USE SUBLIME TEXT 3 WITH THESE PACKAGES:
+- Package manager (of course)
+- BetterCoffeeScript
+- Jade
 
 #### Project Structure
 
@@ -45,7 +54,9 @@ This will be the final landing page + background management website for HackFSU,
 * `/sponsor` -- sponsorship information and sponsor of the month
 * `/apply` -- apply for HackFSU
 * `/signin` -- signin to account
-* `/mentor` -- mentor application/information page
+* `/mentor` `/mentors` -- mentor application/information page
+* `/spreadtheword` -- shareables + contest page
+* `/sponsor` -- Sponsor of the month page
 * ~~`/signup/$confirmationEmailCode` -- create acc. (code req.)~~
 * ~~`/updates` -- view updates~~
 * ~~`/schedule` -- schedule information~~
