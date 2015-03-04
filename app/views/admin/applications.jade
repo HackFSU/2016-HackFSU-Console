@@ -69,8 +69,12 @@ block content
 									td #{app.year}
 									td #{app.github}
 									td #{app.QAs[0]}
-									td TODO
-									td TODO
+									td #{app.status}
+									td
+										form(action='/admin/accept', method='post', id='acceptForm', role='form')
+											input(type='hidden' id='appId' value='#{app.objectId}')
+											button#accept(type='submit') Accept
+
 						tfoot
 							tr
 								th First Name
@@ -206,3 +210,5 @@ block localCSS
 block localJavascript
 	script(src='//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js')
 	script(src='/js/admin/admin-applications.js')
+	script(src='/js/admin/admin-accept.js')
+

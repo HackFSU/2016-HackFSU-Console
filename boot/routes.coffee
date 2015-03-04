@@ -25,6 +25,7 @@ module.exports = (app) ->
 	
 	# applications
 	app.get '/admin/applications', app.AdminController.applications
+	app.post '/admin/accept', app.AdminController.accept
 	
 	# users
 	app.get '/admin/users', app.AdminController.users

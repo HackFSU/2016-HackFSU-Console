@@ -146,4 +146,3 @@ $(document).ready ()->
 		$(this).tab 'show'
 	
 	refreshTabs()
-	

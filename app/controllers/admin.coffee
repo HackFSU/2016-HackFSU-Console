@@ -236,7 +236,35 @@ module.exports = (app) ->
 					schools: new Array()
 					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'
 					QA2Counts: [0,0,0,0,0,0,0]
+		@accept = (req, res) ->
+			appl = @app.models.Applications.approve(req.param 'objectId')
+			.then (success) ->
+				console.log "Application Approve success"
+				
+				#send confirmation email
+				#app.emailTemplate 'applyConfirm', 
+				#	to_email: appl.email
+				#	from_email: 'info@hackfsu.com'
+				#	from_name: 'HackFSU'
+				#	subject: 'Inspire the Future'
+				#	locals:
+				#		firstName: obj.firstName
+				#		lastName: obj.lastName
+				
+				#return response
+				res.send
+					success: true,
+					msg: ""
 					
+					
+			, (err) ->
+				console.log "Application Approve failure"
+				res.send
+					success: false,
+					msg: err
+				
+				return 
+
 		@users = (req, res) ->
 			res.render 'admin/users',
 				title: 'Admin - User Management'
