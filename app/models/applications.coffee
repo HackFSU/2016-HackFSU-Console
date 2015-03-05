@@ -20,7 +20,7 @@ Class Specific vars:
 						String => Dietary restriction
 						String => Comments
 					]
-	String 		status = 'denied' 'waitlisted' 'approved' 'going' 'not going'
+	String 		status = 'denied' 'waitlisted' 'accepted' 'going' 'not going' 'pending'
 Use:
 	1. Import model
 	2. Create new object (if isNew, creates object in parse)
@@ -122,6 +122,38 @@ module.exports = (app) ->
 			return deferred.promise
 		
 		### Parse CC function
+			Grabs just enough data from the app with the objectId to send an email
+			if valid, result = 
+				firstName: (string)
+				lastName: (string)
+				email: (string)
+				status: (string)
+			else result = null
+				
+		###
+		@getAppSimpleByObjectId: (objectId)->
+			deferred = app.Q.defer()			
+			
+			data = 
+				objectId: objectId
+			
+			CLOUD_FUNCTION = 'getAppSimpleByObjectId'
+			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"+
+						
+						deferred.resolve(body.result)
+			
+			return deferred.promise
+		
+		### Parse CC function
 			Checks if a confirmation id is valid.
 			if it is, result = 
 				valid: true
@@ -156,7 +188,7 @@ module.exports = (app) ->
 		
 		# Sets the application as approved and assigns it a confirmationId.
 		# Returns confirmationId
-		@approve: (objectId) ->
+		@accept: (objectId) ->
 			deferred = app.Q.defer()			
 			
 			p = app.models.Applications.generateNewConfirmationId()
@@ -164,7 +196,7 @@ module.exports = (app) ->
 				console.log 'PARSE: confirmationId ' + confirmationId + ' created'
 				
 				data =
-					status: 'approved'
+					status: 'accepted'
 					confirmationId: confirmationId
 				
 				app.kaiseki.updateObject CLASS_NAME, objectId, data,
@@ -180,7 +212,91 @@ module.exports = (app) ->
 							
 							deferred.resolve(confirmationId)
 				
-			, ()-> #reject
+			, (err)-> #reject
 				console.log 'PARSE: confirmationId creation failed.'
+				deferred.reject(err)
 
+			return deferred.promise
+		
+		@waitlist: (objectId) ->
+			deferred = app.Q.defer()			
+			
+			data =
+				status: 'waitlisted'
+			
+			app.kaiseki.updateObject CLASS_NAME, objectId, data,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLASS_NAME+"' approve error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLASS_NAME+"' approve failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLASS_NAME+"' approve success!"							
+						
+						deferred.resolve(confirmationId)
+				
+			return deferred.promise
+			
+		
+		@confirmSave: (confirmData)->
+			deferred = app.Q.defer()
+			
+			params = 
+				limit: 1
+				where:
+					confirmationId: confirmData.confirmationId
+			
+			#get application
+			app.kaiseki.getObjects CLASS_NAME, params,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLASS_NAME+"' getObjects error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLASS_NAME+"' getObjects failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLASS_NAME+"' getObjects success!"							
+						
+						# update with new data
+						data = 
+							status:				if confirmData.going? then 'going' else 'not going'
+							phoneNumber:		confirmData.phoneNumber
+							tshirt: 				confirmData.tshirt
+							confirmQAs:
+								agreement: 		confirmData.agreement
+								specialNeeds: 	confirmData.specialNeeds
+								diet: 			confirmData.diet
+								comments: 		confirmData.comments
+						
+						console.log 'Confirming... ' + JSON.stringify data, undefined, 2
+							
+						app.kaiseki.updateObject CLASS_NAME, body[0].objectId, data,
+							(err,res,body2,success)->
+								if err
+									console.log "PARSE: '"+CLASS_NAME+"' confirmSave error!"
+									deferred.reject(err)
+								else if !success
+									console.log "PARSE: '"+CLASS_NAME+"' confirmSave failure! " + 
+									deferred.reject()
+								else if !body2.updatedAt?
+									console.log "PARSE: '"+CLASS_NAME+"' confirmSave none updated!"
+									deferred.reject()
+								else
+									console.log "PARSE: '"+CLASS_NAME+"' confirmSave success! "+
+										"Object: " + body[0].objectId + "UpdatedAt: " + body2.updatedAt							
+									
+									
+									#save anon stats
+									as = new app.models.AnonStats
+										bday: confirmData.bday
+										gender: confirmData.gender
+									p = as.create()
+									p.then ()-> #resolve
+										deferred.resolve()
+									, ()-> #reject
+										deferred.reject()
+			
 			return deferred.promise

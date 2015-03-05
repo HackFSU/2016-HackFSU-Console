@@ -71,9 +71,10 @@ block content
 									td #{app.QAs[0]}
 									td #{app.status}
 									td
-										form(action='/admin/accept', method='post', id='acceptForm', role='form')
-											input(type='hidden' id='appId' value='#{app.objectId}')
-											button#accept(type='submit') Accept
+										form(name='appActionForm', action='#', role='form')
+											input(name='objectId', value='#{app.objectId}' hidden)
+											button.btn(name='accept', type='submit') Accept
+											button.btn(name='waitlist', type='submit') Waitlist
 
 						tfoot
 							tr

@@ -333,19 +333,20 @@ module.exports = (app) ->
 					console.log 'appl= ' + JSON.stringify appl, undefined, 2
 					
 					if appl.valid
-						console.log 'Valid confirmationId "' + cId + '" for ' + 
+						console.log 'Valid confirmation id "' + cId + '" for ' + 
 							appl.firstName + ' ' + appl.lastName
 							
 						res.render view,
 							title: title
 							foundApp: true
 							appData: appl
+							confirmationId: cId
 					else
-						console.log 'Invalid confirmationId "' + cId + '"'
+						console.log 'Invalid confirmation id "' + cId + '"'
 						res.render view,
 							title: title
 							foundApp: false
-							msg: 'Invalid confirmationId "' + cId + '"'
+							msg: 'Invalid confirmation id "' + cId + '"'
 									
 				, ()-> #reject
 					console.log 'Failed to check confirmationId ' + cId
@@ -363,7 +364,36 @@ module.exports = (app) ->
 					msg: 'Confirmation id not found'
 		
 		@confirm_submit = (req, res) ->
-			#TODO
-			res.send
-				valid: true
+			#TODO: server-side validation
+			
+			#get post data
+			confirmData =
+				confirmationId: 	if req.body.confirmationId?	then req.body.confirmationId else null
+				going: 				if req.body.going?				then req.body.going else null
+				phoneNumber: 		if req.body.phoneNumber?		then req.body.phoneNumber else null
+				tshirt: 				if req.body.tshirt?				then req.body.tshirt else null
+				specialNeeds: 		if req.body.specialNeeds?		then req.body.specialNeeds else null
+				# resume: 				null # do after
+				diet: 				if req.body.diet?					then req.body.diet else null
+				comments: 			if req.body.comments?			then req.body.comments else null
+				agreement: 			if req.body.agreement?			then req.body.agreement else null
+				gender: 				if req.body.gender?				then req.body.gender else null
+				bday: 				if req.body.bday?					then req.body.bday else null
+				
+			if confirmData.confirmationId?
+				#run it all
+				p = app.models.Applications.confirmSave(confirmData)
+				p.then ()->
+					res.send
+						success: true
+				, ()->
+					res.send
+						success: false
+						msg: 'Something went wrong saving'
+			else
+				res.send
+					success: false
+					msg: 'Missing confirmationId'
+				
+				return 
 		

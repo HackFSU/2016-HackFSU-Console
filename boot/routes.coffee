@@ -11,7 +11,7 @@ module.exports = (app) ->
 	urlencodedParser = bodyParser.urlencoded {extended: false}
 	
 	# Enforce ACL
-	app.use acl
+	# app.use acl
 	
 	
 	# ADMINISTRATION ###########################################
@@ -25,7 +25,7 @@ module.exports = (app) ->
 	
 	# applications
 	app.get '/admin/applications', app.AdminController.applications
-	app.post '/admin/accept', app.AdminController.accept
+	app.post '/admin/applications_action', jsonParser, app.AdminController.applications_action
 	
 	# users
 	app.get '/admin/users', app.AdminController.users

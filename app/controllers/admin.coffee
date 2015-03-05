@@ -236,34 +236,80 @@ module.exports = (app) ->
 					schools: new Array()
 					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'
 					QA2Counts: [0,0,0,0,0,0,0]
-		@accept = (req, res) ->
-			appl = @app.models.Applications.approve(req.param 'objectId')
-			.then (success) ->
-				console.log "Application Approve success"
-				
-				#send confirmation email
-				#app.emailTemplate 'applyConfirm', 
-				#	to_email: appl.email
-				#	from_email: 'info@hackfsu.com'
-				#	from_name: 'HackFSU'
-				#	subject: 'Inspire the Future'
-				#	locals:
-				#		firstName: obj.firstName
-				#		lastName: obj.lastName
-				
-				#return response
-				res.send
-					success: true,
-					msg: ""
+		@applications_action = (req, res) ->
+			if req.body.objectId? && req.body.action?
+				p = @app.models.Applications.getAppSimpleByObjectId(req.body.objectId)
+				p.then (appData)->
+					if appData? && appData.status == 'pending' || appData.status == 'waitlist'
+						switch req.body.action
+							when 'accept'		#accept this app
+								p = @app.models.Applications.accept(req.body.objectId)
+								p.then (cId)->
+									
+									#App accepted, now send email notification
+									
+									
+									res.send
+										success: true
+									
+								, (err)->
+									res.send
+										success: false
+										msg: 'Error accepting application'
+									
+							when 'waitlist'	#waitlist this app
+								p = @app.models.Applications.waitlist(req.body.objectId)
+								p.then (cId)->
+									
+									#App waitlisted, now send email notification
+									
+									
+									res.send
+										success: true
+									
+								, (err)->
+									res.send
+										success: false
+										msg: 'Error waitlisting application'
 					
-					
-			, (err) ->
-				console.log "Application Approve failure"
-				res.send
-					success: false,
-					msg: err
+				, (err)->
+					res.send
+						success: false
+						msg: 'Error retrieving application'
 				
-				return 
+				
+				
+				.then (success) ->
+					console.log "Application acception success"
+					
+					#send confirmation email
+					#app.emailTemplate 'applyConfirm', 
+					#	to_email: appl.email
+					#	from_email: 'info@hackfsu.com'
+					#	from_name: 'HackFSU'
+					#	subject: 'Inspire the Future'
+					#	locals:
+					#		firstName: obj.firstName
+					#		lastName: obj.lastName
+					
+					#return response
+					res.send
+						success: true,
+						msg: ""
+						
+						
+				, (err) ->
+					console.log "Application Approve failure"
+					res.send
+						success: false,
+						msg: err
+			
+			else
+				res.send
+					success: false
+					msg: 'Missing params'
+					
+			return 
 
 		@users = (req, res) ->
 			res.render 'admin/users',

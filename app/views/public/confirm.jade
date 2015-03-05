@@ -10,7 +10,147 @@ block content
 			//- Application found, check status
 			
 			h2 Hello #{appData.firstName} #{appData.lastName}!
-			
-			p Applcation Status: #{appData.status} 
-			
-		
+			//- 
+				br
+				p.text-medium Applcation Status: <b>#{appData.status}</b>
+			br
+			if appData.status == 'going'
+				p.
+					See you there! If for some reason you end up not being able to come, 
+					please tell us so that we can open up your spot to someone else!
+				button.btn.btn-large I cannot go, sadly
+				
+			else if appData.status == 'not going'
+				p.
+					We have already opened up your spot for someone else, but if you have 
+					changed your mind, you can choose to get put on the waitlist!
+				button.btn.btn-large I actually want to go...
+				
+			else if appData.status == 'accepted'
+				.formResult
+				form.form-horizontal#confirmForm(method='post', action='#', role='form')
+					h3 Congratulations you have been accepted! Please fill out this form to confirm your spot!
+					input#confirmationId(value='#{confirmationId}', hidden)
+					.form-group(style='margin-top: 50px')
+						.col-sm-4.col-sm-offset-2
+							input#going-y(type="radio", name='going', value='Yes')
+							label(for="going-y") I will be attending HackFSU
+						.col-sm-4
+							input#going-n(type="radio", name='going', value='No')
+							label(for="going-n") I will not be attending HackFSU
+					
+					//- Hidden + covered section until above is as yes
+					.overlay-container(style='margin-top: 25px')
+						br
+						.overlay-img
+						.overlay-content
+							.form-group
+								label.control-label.col-sm-3(for='phoneNumber') Phone Number? *
+								.col-sm-9
+									input.form-control#phoneNumber(type='text', placeholder='123-456-7890')
+
+							.form-group
+								label.control-label.col-sm-3(for='tshirt') T-Shirt size? *
+								.col-sm-2(style='margin-top: 9px')
+									p.text-medium Mens
+									p
+										input#tshirt-m-xs(type="radio", name='tshirt', value='m-xs')
+										label(for="tshirt-m-xs") Extra Small
+									p
+										input#tshirt-m-s(type="radio", name='tshirt', value='m-s')
+										label(for="tshirt-m-s") Small
+									p
+										input#tshirt-m-m(type="radio", name='tshirt', value='m-m')
+										label(for="tshirt-m-m") Medium
+									p
+										input#tshirt-m-l(type="radio", name='tshirt', value='m-l')
+										label(for="tshirt-m-l") Large
+									p
+										input#tshirt-m-xl(type="radio", name='tshirt', value='m-xl')
+										label(for="tshirt-m-xl") Extra Large
+								.col-sm-2.col-sm-offset-1(style='margin-top: 9px')
+									p.text-medium Womens
+									p
+										input#tshirt-w-xs(type="radio", name='tshirt', value='w-xs')
+										label(for="tshirt-w-xs") Extra Small
+									p
+										input#tshirt-w-s(type="radio", name='tshirt', value='w-s')
+										label(for="tshirt-w-s") Small
+									p
+										input#tshirt-w-m(type="radio", name='tshirt', value='w-m')
+										label(for="tshirt-w-m") Medium
+									p
+										input#tshirt-w-l(type="radio", name='tshirt', value='w-l')
+										label(for="tshirt-w-l") Large
+									p
+										input#tshirt-w-xl(type="radio", name='tshirt', value='w-xl')
+										label(for="tshirt-w-xl") Extra Large
+							
+							.form-group
+								label.control-label.col-sm-3(for='specialNeeds') Special Needs?
+								.col-sm-9
+									input.form-control#specialNeeds(type='text', name='specialNeeds', placeholder="Wheelchair access etc.")
+							
+							//- TODO
+							//- .form-group
+							//- 	label.control-label.col-sm-3(for='resume') Résumé?
+							//- 	.col-sm-9
+							//- 		input.form-control#resume(type='file', name='resume')
+							
+							
+							
+							p.text-medium(style='margin-top: 100px').
+								Anonymous, voluntary statistics
+							.form-group
+								label.control-label.col-sm-3(for='gender') Gender Identity?
+								.col-sm-1(style='margin-top: 9px')
+										input#gender-m(type="radio", name='gender', value='male')
+										label(for="gender-m") Male
+								.col-sm-1.col-sm-offset-1(style='margin-top: 9px')
+										input#gender-f(type="radio", name='gender', value='female')
+										label(for="gender-f") Female
+								.col-sm-1.col-sm-offset-1(style='margin-top: 9px')
+										input#gender-o(type="radio", name='gender', value='other')
+										label(for="gender-o") Other
+							.form-group
+								label.control-label.col-sm-3(for='bday') Birthdate?
+								.col-sm-9
+									input.form-control#bday(type='text', name='bday', placeholder="mm/dd/yyyy")
+							
+											
+							//- if !appData.hasDiet
+							.TEST(style='margin-top: 100px')
+								.hidden-container(style='display: block')
+									p.text-medium(style='display: inline')
+										| We apologize if you have already given us this information, but there was a bug in our code and we lost most of these answers from the applications. 
+									p.text-medium.hidden-text(style='display: inline')
+										| Our application page may or may not have been built in a 12-hour all-nighter, and we may or may not have said f*ck it ship it.
+								.form-group
+									label.control-label.col-sm-3(for='diet') Dietary restrictions?
+									.col-sm-9
+										input.form-control#diet(type='text', name='diet', placeholder='Vegan, vegetarian, etc.')
+						
+								.form-group
+									label.control-label.col-sm-3(for='comments') Comments?
+									.col-sm-9
+										input.form-control#comments(type='text', name='comments', placeholder="We're all ears!")
+
+							.form-group(style='margin-top: 100px')
+								.col-sm-9.col-sm-offset-2
+									p
+										input#agreement(type="checkbox", name='agreement', value='Yes')
+										label(for="agreement") I have read and agree to the 
+											a.link-text(target='_blank', href='http://static.mlh.io/docs/mlh-code-of-conduct.pdf') MLH Code of Conduct
+											|  and the 
+											a.link-text(target='_blank', href='https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xpa1/t31.0-8/10551506_10206337886865541_9057499635849250575_o.jpg') Medical Waiver
+											| .
+						br
+					br
+					.form-group
+						.form-error-msg.col-sm-offset-1.col-sm-6.pull-left
+						.col-sm-3.pull-right
+							button.btn#submit(type='submit') Submit
+					
+
+block localJavascript
+	script(src='/js/public/public-confirm.js')

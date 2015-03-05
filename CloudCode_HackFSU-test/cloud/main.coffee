@@ -71,3 +71,81 @@ Parse.Cloud.define "getAppSimpleByConfirmationId", (req,res)->
 			res.error error
 			return
 	return
+
+
+###
+	Grabs just enough data from the app with the objectId to send an email
+	if valid, result = 
+		firstName: (string)
+		lastName: (string)
+		email: (string)
+	else result = null
+		
+###
+Parse.Cloud.define "getAppSimpleByObjectId", (req,res)->
+	Parse.Cloud.useMasterKey()
+	
+	# Applications = new Parse.Object.extend 'Applications'
+	query = new Parse.Query 'Applications'
+	query.equalTo 'objectId', req.params.objectId
+	query.limit 1
+	query.find
+		success: (results)->
+			if results.length == 0
+				res.success null
+			else
+				res.success 
+					firstName: results[0].get 'firstName'
+					lastName: results[0].get 'lastName'
+					email: results[0].get 'email'
+					status: results[0].get 'status'
+			return
+		error: (error)->
+			res.error error
+			return
+	return
+
+
+###
+	Creates multiple AnonStats objects in one call
+	data =
+		birthdate: string
+		gender: string
+###
+Parse.Cloud.define 'createAnonStats', (req,res)->
+	Parse.Cloud.useMasterKey()
+	
+	msg = ''
+	errorMsg = ''
+	
+	saveStat = (statName, statValue)->
+		prom = new Parse.Promise()
+		if statValue?
+			#make a new birthdate
+			AnonStats = Parse.Object.extend 'AnonStats'
+			as = new AnonStats()
+			as.set 'statName', statName
+			as.set 'statValue', statValue
+			as.save null,
+				success: (aStat)->
+					msg += 'added ' + statName + ';'
+					prom.resolve()
+					return
+				error: (error)->
+					errorMsg += 'ERROR CREATING ' + statName + ';'
+					prom.resolve()
+					return
+		else
+			prom.resolve()
+		return prom
+	
+	saveStat 'birthdate', req.params.birthdate
+	.then ()->
+		saveStat 'gender', req.params.gender
+		.then ()->
+			if errorMsg
+				res.error errorMsg
+			else
+				res.success msg
+	
+	return

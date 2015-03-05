@@ -77,3 +77,85 @@ Parse.Cloud.define("getAppSimpleByConfirmationId", function(req, res) {
     }
   });
 });
+
+
+/*
+	Grabs just enough data from the app with the objectId to send an email
+	if valid, result = 
+		firstName: (string)
+		lastName: (string)
+		email: (string)
+	else result = null
+ */
+
+Parse.Cloud.define("getAppSimpleByObjectId", function(req, res) {
+  var query;
+  Parse.Cloud.useMasterKey();
+  query = new Parse.Query('Applications');
+  query.equalTo('objectId', req.params.objectId);
+  query.limit(1);
+  query.find({
+    success: function(results) {
+      if (results.length === 0) {
+        res.success(null);
+      } else {
+        res.success({
+          firstName: results[0].get('firstName'),
+          lastName: results[0].get('lastName'),
+          email: results[0].get('email'),
+          status: results[0].get('status')
+        });
+      }
+    },
+    error: function(error) {
+      res.error(error);
+    }
+  });
+});
+
+
+/*
+	Creates multiple AnonStats objects in one call
+	data =
+		birthdate: string
+		gender: string
+ */
+
+Parse.Cloud.define('createAnonStats', function(req, res) {
+  var errorMsg, msg, saveStat;
+  Parse.Cloud.useMasterKey();
+  msg = '';
+  errorMsg = '';
+  saveStat = function(statName, statValue) {
+    var AnonStats, as, prom;
+    prom = new Parse.Promise();
+    if (statValue != null) {
+      AnonStats = Parse.Object.extend('AnonStats');
+      as = new AnonStats();
+      as.set('statName', statName);
+      as.set('statValue', statValue);
+      as.save(null, {
+        success: function(aStat) {
+          msg += 'added ' + statName + ';';
+          prom.resolve();
+        },
+        error: function(error) {
+          errorMsg += 'ERROR CREATING ' + statName + ';';
+          prom.resolve();
+        }
+      });
+    } else {
+      prom.resolve();
+    }
+    return prom;
+  };
+  saveStat('birthdate', req.params.birthdate).then(function() {
+    return saveStat('gender', req.params.gender).then(function() {
+      if (errorMsg) {
+        return res.error(errorMsg);
+      } else {
+        return res.success(msg);
+      }
+    });
+  });
+});
