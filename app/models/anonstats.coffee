@@ -38,7 +38,7 @@ module.exports = (app) ->
 							console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
 							deferred.reject()
 						else
-							console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
+							# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
 							deferred.resolve(true)
 			else
 				deferred.resolve(false)

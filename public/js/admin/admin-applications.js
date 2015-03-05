@@ -21,12 +21,7 @@ For: /admin/applications
     aLengthMenu: [[50, 100, 200, 300, -1], [50, 100, 200, 300, "All"]],
     iDisplayLength: 50,
     autoWidth: true,
-    columnDefs: [
-      {
-        width: '50px',
-        targets: 6
-      }
-    ]
+    order: [[8, 'desc']]
   };
 
   dtSettings_QAs = [

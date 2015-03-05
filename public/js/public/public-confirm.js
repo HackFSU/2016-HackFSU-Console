@@ -145,7 +145,7 @@ For application confirmation page /confirm/:cid
       if (formData.going) {
         return displayEnd("See you soon!", "If you need a group, go check out our facebook <a class='link-text' href='http://www.facebook.com/groups/622705054530502/'>attendees page</a>!");
       } else {
-        return displayEnd("Sorry to hear that you are not going!", "Your spot will be opened up for another hacker.");
+        return displayEnd("Thanks for your interest in HackFSU, we hope to see you next year!", "Your spot will be opened up for another hacker.");
       }
     });
   };

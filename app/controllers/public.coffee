@@ -331,7 +331,7 @@ module.exports = (app) ->
 
 				p = app.models.Applications.getAppSimpleByConfirmationId(cId)
 				p.then (appl)-> #resolve
-					console.log 'appl= ' + JSON.stringify appl, undefined, 2
+					# console.log 'appl= ' + JSON.stringify appl, undefined, 2
 					
 					if appl.valid
 						console.log 'Valid confirmation id "' + cId + '" for ' + 

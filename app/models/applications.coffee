@@ -104,7 +104,7 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"+
+						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"+
 										" Got " + body.result.length
 						
 						#generate new key
@@ -147,7 +147,7 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
+						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
 						
 						deferred.resolve(body.result)
 			
@@ -180,7 +180,7 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
+						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
 						
 						deferred.resolve(body.result)
 			
@@ -200,7 +200,7 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
+						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
 						
 						deferred.resolve(body.result)
 			
@@ -228,7 +228,7 @@ module.exports = (app) ->
 							console.log "PARSE: '"+CLASS_NAME+"' approve failure!"
 							deferred.reject()
 						else
-							console.log "PARSE: '"+CLASS_NAME+"' approve success!"							
+							# console.log "PARSE: '"+CLASS_NAME+"' approve success!"							
 							
 							deferred.resolve(confirmationId)
 				
@@ -253,7 +253,7 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLASS_NAME+"' approve failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLASS_NAME+"' approve success!"							
+						# console.log "PARSE: '"+CLASS_NAME+"' approve success!"							
 						
 						deferred.resolve()
 				
@@ -278,12 +278,12 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLASS_NAME+"' getObjects failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLASS_NAME+"' getObjects success!"							
+						# console.log "PARSE: '"+CLASS_NAME+"' getObjects success!"							
 						
 						# update with new data
 						data = 
-							status:				if confirmData.going? then 'going' else 'not going'
-							phoneNumber:		confirmData.phoneNumber
+							status:				if confirmData.going then 'going' else 'not going'
+							phoneNumber:		parseInt("" + confirmData.phoneNumber)
 							tshirt: 				confirmData.tshirt
 							confirmQAs:
 								agreement: 		confirmData.agreement
@@ -292,7 +292,8 @@ module.exports = (app) ->
 								comments: 		confirmData.comments
 								under18:			confirmData.under18
 						
-						console.log 'Confirming... ' + JSON.stringify data, undefined, 2
+						# console.log 'Confirming... ' + JSON.stringify data, undefined, 2
+						console.log 'Confirming... ' + body[0].email + ' with ' + data.status
 							
 						app.kaiseki.updateObject CLASS_NAME, body[0].objectId, data,
 							(err,res,body2,success)->
@@ -301,13 +302,14 @@ module.exports = (app) ->
 									deferred.reject(err)
 								else if !success
 									console.log "PARSE: '"+CLASS_NAME+"' confirmSave failure! " + 
+										JSON.stringify body2, undefined, 2
 									deferred.reject()
 								else if !body2.updatedAt?
 									console.log "PARSE: '"+CLASS_NAME+"' confirmSave none updated!"
 									deferred.reject()
 								else
-									console.log "PARSE: '"+CLASS_NAME+"' confirmSave success! "+
-										"Object: " + body[0].objectId + "UpdatedAt: " + body2.updatedAt							
+									# console.log "PARSE: '"+CLASS_NAME+"' confirmSave success! "+
+									# 	"Object: " + body[0].objectId + "UpdatedAt: " + body2.updatedAt							
 									
 									
 									#save anon stats

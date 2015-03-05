@@ -147,7 +147,7 @@ endInSuccess = () ->
 		if formData.going
 			displayEnd("See you soon!", "If you need a group, go check out our facebook <a class='link-text' href='http://www.facebook.com/groups/622705054530502/'>attendees page</a>!")
 		else
-			displayEnd("Sorry to hear that you are not going!", "Your spot will be opened up for another hacker.")
+			displayEnd("Thanks for your interest in HackFSU, we hope to see you next year!", "Your spot will be opened up for another hacker.")
 
 	return
 
