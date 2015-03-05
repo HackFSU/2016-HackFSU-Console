@@ -25,9 +25,9 @@ block content
 			else if appData.status == 'going'
 				p.text-medium Applcation Status: <b>#{appData.status}</b>
 				p
-					| You have already confirmed as going, see you soon! If you need a group, go check out our facebook 
-					a(href='http://www.facebook.com/groups/622705054530502/') attendees page
-					| !
+					| You have already confirmed as going, see you soon! Join our 
+					a(href='http://www.facebook.com/groups/622705054530502/') Attendee’s Group
+					|  on Facebook to stay up to date, meet other hackers, and ask any questions you may have!
 				.footer-spacer
 			else if appData.status == 'not going'
 				p.text-medium Applcation Status: <b>#{appData.status}</b>
@@ -56,9 +56,13 @@ block content
 								label.control-label.col-sm-3(for='phoneNumber') Phone Number? *
 								.col-sm-9
 									input.form-control#phoneNumber(type='text', placeholder='123-456-7890')
+							.form-group
+								label.control-label.col-sm-3(for='emergencyContact') Emergency Contact? *
+								.col-sm-9
+									input.form-control#emergencyContact(type='text', placeholder='123-456-7890')
 
 							.form-group
-								label.control-label.col-sm-3(for='tshirt') T-Shirt size? *
+								label.control-label.col-sm-3(for='tshirt') T-Shirt Size? *
 								.col-sm-9
 									select.form-control#tshirt(name='tshirt')
 										option(selected='true', disabled='true') Pick your size
@@ -95,7 +99,7 @@ block content
 							
 							
 							p.text-medium(style='margin-top: 100px').
-								Anonymous, voluntary statistics
+								Anonymous, Voluntary Statistics
 							.form-group
 								label.control-label.col-sm-3(for='gender') Gender Identity?
 								.col-sm-1(style='margin-top: 9px')

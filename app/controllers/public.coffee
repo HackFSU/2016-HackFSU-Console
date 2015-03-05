@@ -372,6 +372,7 @@ module.exports = (app) ->
 				confirmationId: 	if req.body.confirmationId?	then req.body.confirmationId else null
 				going: 				if req.body.going?				then req.body.going else null
 				phoneNumber: 		if req.body.phoneNumber?		then req.body.phoneNumber else null
+				emergencyContact: if req.body.emergencyContact?	then req.body.emergencyContact else null
 				tshirt: 				if req.body.tshirt?				then req.body.tshirt else null
 				specialNeeds: 		if req.body.specialNeeds?		then req.body.specialNeeds else null
 				# resume: 				null # do after

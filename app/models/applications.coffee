@@ -286,6 +286,7 @@ module.exports = (app) ->
 							phoneNumber:		parseInt("" + confirmData.phoneNumber)
 							tshirt: 				confirmData.tshirt
 							confirmQAs:
+								emergencyContact: parseInt("" + confirmData.emergencyContact)
 								agreement: 		confirmData.agreement
 								specialNeeds: 	confirmData.specialNeeds
 								diet: 			confirmData.diet

@@ -48,6 +48,7 @@ $('#confirmForm').submit (event) ->
 		confirmationId: 	$('#confirmationId').val()
 		going: 				$('input[type=radio][name=going]:checked').val()
 		phoneNumber: 		$('#phoneNumber').val()
+		emergencyContact: $('#emergencyContact').val()
 		tshirt: 				$('#tshirt').val()
 		specialNeeds: 		$('#specialNeeds').val()
 		resume: 				null # do after
@@ -145,7 +146,7 @@ endInSuccess = () ->
 		sub.fadeIn(500, ()->)
 		
 		if formData.going
-			displayEnd("See you soon!", "If you need a group, go check out our facebook <a class='link-text' href='http://www.facebook.com/groups/622705054530502/'>attendees page</a>!")
+			displayEnd("See you soon!", "Join our <a class='link-text' href='http://www.facebook.com/groups/622705054530502/'>Attendee’s Group</a> on Facebook to stay up to date, meet other hackers, and ask any questions you may have!")
 		else
 			displayEnd("Thanks for your interest in HackFSU, we hope to see you next year!", "Your spot will be opened up for another hacker.")
 
@@ -165,12 +166,14 @@ displayEnd = (header, subtext) ->
 		return
 	return
 
+
 #checks values for correct input, returns true or an error string
 validateForm = (obj) ->
 	#regex validation phone
 	regP = /\d/g # only take in the digits
 	regB = '^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d$'
 	pn = obj.phoneNumber.match(regP)
+	pnE = obj.emergencyContact.match(regP)
 	
 	#required
 	if obj.going == null						then return	{for: 'going', 		msg: 'You must decide if you are going!'}
@@ -178,6 +181,9 @@ validateForm = (obj) ->
 		if !obj.phoneNumber || !obj.phoneNumber.trim() 		then return {for: 'phoneNumber', msg: 'Missing phone number!'}
 		else if !pn?							then return {for: 'phoneNumber', msg: 'Full 10-digit phone number required!'}
 		else if pn.length != 10 			then return {for: 'phoneNumber', msg: 'Full 10-digit phone number required!'}
+		else if !obj.emergencyContact || !obj.emergencyContact.trim() 		then return {for: 'emergencyContact', msg: 'Missing phone number!'}
+		else if !pnE?							then return {for: 'emergencyContact', msg: 'Full 10-digit emergency contact phone number required!'}
+		else if pnE.length != 10 			then return {for: 'emergencyContact', msg: 'Full 10-digit emergency contact phone number required!'}	
 		else if !obj.tshirt 					then return {for: 'tshirt', 		msg: 'You must chose a t-shirt size!'}
 		else if !obj.under18?				then return {for: 'under18', 		msg: 'Are you under 18 years old?'}
 		else if !obj.agreement				then return {for: 'agreement', 	msg: 'You must read and agree to the MLH Code of Conduct and the Liability Waiver!'}
@@ -203,6 +209,11 @@ validateForm = (obj) ->
 		for i in pn
 			obj.phoneNumber += i
 		obj.phoneNumber = parseInt obj.phoneNumber
+		
+		obj.emergencyContact = ""
+		for i in pnE
+			obj.emergencyContact += i
+		obj.emergencyContact = parseInt obj.emergencyContact
 		
 	#nothing wrong
 	return true

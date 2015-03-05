@@ -58,6 +58,7 @@ For application confirmation page /confirm/:cid
       confirmationId: $('#confirmationId').val(),
       going: $('input[type=radio][name=going]:checked').val(),
       phoneNumber: $('#phoneNumber').val(),
+      emergencyContact: $('#emergencyContact').val(),
       tshirt: $('#tshirt').val(),
       specialNeeds: $('#specialNeeds').val(),
       resume: null,
@@ -143,7 +144,7 @@ For application confirmation page /confirm/:cid
       sub.attr('disabled', 'true');
       sub.fadeIn(500, function() {});
       if (formData.going) {
-        return displayEnd("See you soon!", "If you need a group, go check out our facebook <a class='link-text' href='http://www.facebook.com/groups/622705054530502/'>attendees page</a>!");
+        return displayEnd("See you soon!", "Join our <a class='link-text' href='http://www.facebook.com/groups/622705054530502/'>Attendee’s Group</a> on Facebook to stay up to date, meet other hackers, and ask any questions you may have!");
       } else {
         return displayEnd("Thanks for your interest in HackFSU, we hope to see you next year!", "Your spot will be opened up for another hacker.");
       }
@@ -166,10 +167,11 @@ For application confirmation page /confirm/:cid
   };
 
   validateForm = function(obj) {
-    var bd, i, pn, regB, regP, _i, _len;
+    var bd, i, pn, pnE, regB, regP, _i, _j, _len, _len1;
     regP = /\d/g;
     regB = '^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d$';
     pn = obj.phoneNumber.match(regP);
+    pnE = obj.emergencyContact.match(regP);
     if (obj.going === null) {
       return {
         "for": 'going',
@@ -190,6 +192,21 @@ For application confirmation page /confirm/:cid
         return {
           "for": 'phoneNumber',
           msg: 'Full 10-digit phone number required!'
+        };
+      } else if (!obj.emergencyContact || !obj.emergencyContact.trim()) {
+        return {
+          "for": 'emergencyContact',
+          msg: 'Missing phone number!'
+        };
+      } else if (pnE == null) {
+        return {
+          "for": 'emergencyContact',
+          msg: 'Full 10-digit emergency contact phone number required!'
+        };
+      } else if (pnE.length !== 10) {
+        return {
+          "for": 'emergencyContact',
+          msg: 'Full 10-digit emergency contact phone number required!'
         };
       } else if (!obj.tshirt) {
         return {
@@ -238,6 +255,12 @@ For application confirmation page /confirm/:cid
         obj.phoneNumber += i;
       }
       obj.phoneNumber = parseInt(obj.phoneNumber);
+      obj.emergencyContact = "";
+      for (_j = 0, _len1 = pnE.length; _j < _len1; _j++) {
+        i = pnE[_j];
+        obj.emergencyContact += i;
+      }
+      obj.emergencyContact = parseInt(obj.emergencyContact);
     }
     return true;
   };
