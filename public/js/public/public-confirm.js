@@ -58,7 +58,7 @@ For application confirmation page /confirm/:cid
       confirmationId: $('#confirmationId').val(),
       going: $('input[type=radio][name=going]:checked').val(),
       phoneNumber: $('#phoneNumber').val(),
-      tshirt: $('input[type=radio][name=tshirt]:checked').val(),
+      tshirt: $('#tshirt').val(),
       specialNeeds: $('#specialNeeds').val(),
       resume: null,
       gender: $('input[type=radio][name=gender]:checked').val(),
@@ -191,7 +191,7 @@ For application confirmation page /confirm/:cid
           "for": 'phoneNumber',
           msg: 'Full 10-digit phone number required!'
         };
-      } else if (obj.tshirt == null) {
+      } else if (!obj.tshirt) {
         return {
           "for": 'tshirt',
           msg: 'You must chose a t-shirt size!'
@@ -204,7 +204,7 @@ For application confirmation page /confirm/:cid
       } else if (!obj.agreement) {
         return {
           "for": 'agreement',
-          msg: 'You must read and agree to the MLH Code of Conduct and the Medical Waiver!'
+          msg: 'You must read and agree to the MLH Code of Conduct and the Liability Waiver!'
         };
       }
       console.log("BDAY:'" + obj.bday + "'");

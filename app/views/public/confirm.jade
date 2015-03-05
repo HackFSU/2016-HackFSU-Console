@@ -59,40 +59,20 @@ block content
 
 							.form-group
 								label.control-label.col-sm-3(for='tshirt') T-Shirt size? *
-								.col-sm-2(style='margin-top: 9px')
-									p.text-medium Mens
-									p
-										input#tshirt-m-xs(type="radio", name='tshirt', value='m-xs')
-										label(for="tshirt-m-xs") Extra Small
-									p
-										input#tshirt-m-s(type="radio", name='tshirt', value='m-s')
-										label(for="tshirt-m-s") Small
-									p
-										input#tshirt-m-m(type="radio", name='tshirt', value='m-m')
-										label(for="tshirt-m-m") Medium
-									p
-										input#tshirt-m-l(type="radio", name='tshirt', value='m-l')
-										label(for="tshirt-m-l") Large
-									p
-										input#tshirt-m-xl(type="radio", name='tshirt', value='m-xl')
-										label(for="tshirt-m-xl") Extra Large
-								.col-sm-2.col-sm-offset-1(style='margin-top: 9px')
-									p.text-medium Womens
-									p
-										input#tshirt-w-xs(type="radio", name='tshirt', value='w-xs')
-										label(for="tshirt-w-xs") Extra Small
-									p
-										input#tshirt-w-s(type="radio", name='tshirt', value='w-s')
-										label(for="tshirt-w-s") Small
-									p
-										input#tshirt-w-m(type="radio", name='tshirt', value='w-m')
-										label(for="tshirt-w-m") Medium
-									p
-										input#tshirt-w-l(type="radio", name='tshirt', value='w-l')
-										label(for="tshirt-w-l") Large
-									p
-										input#tshirt-w-xl(type="radio", name='tshirt', value='w-xl')
-										label(for="tshirt-w-xl") Extra Large
+								.col-sm-9
+									select.form-control#tshirt(name='tshirt')
+										option(selected='true', disabled='true') Pick your size
+										option(value='m-xs') Mens Extra Small
+										option(value='m-s') Mens Small
+										option(value='m-m') Mens Medium
+										option(value='m-l') Mens Large
+										option(value='m-xl') Mens Extra Large
+										option(value='w-xs') Womens Extra Small
+										option(value='w-s') Womens Small
+										option(value='w-m') Womens Medium
+										option(value='w-l') Womens Large
+										option(value='w-xl') Womens Extra Large
+
 							.form-group
 								label.control-label.col-sm-3(for='under18') Under 18? *
 								.col-sm-1(style='margin-top: 9px')
@@ -102,7 +82,7 @@ block content
 										input#under18-n(type="radio", name='under18', value='No')
 										label(for="under18-n") No
 							.form-group
-								label.control-label.col-sm-3(for='specialNeeds') Special Needs?
+								label.control-label.col-sm-3(for='specialNeeds') Special Accommodations?
 								.col-sm-9
 									input.form-control#specialNeeds(type='text', name='specialNeeds', placeholder="Wheelchair access etc.")
 							
@@ -156,7 +136,7 @@ block content
 										label(for="agreement") I have read and agree to the 
 											a.link-text(target='_blank', href='http://static.mlh.io/docs/mlh-code-of-conduct.pdf') MLH Code of Conduct
 											|  and the 
-											a.link-text(target='_blank', href='https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xpa1/t31.0-8/10551506_10206337886865541_9057499635849250575_o.jpg') Medical Waiver
+											a.link-text(target='_blank', href='/res/HackFSU-RELEASE-OF-LIABILITY.pdf') Liability Waiver
 											| .
 						br
 					br

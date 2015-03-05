@@ -48,7 +48,7 @@ $('#confirmForm').submit (event) ->
 		confirmationId: 	$('#confirmationId').val()
 		going: 				$('input[type=radio][name=going]:checked').val()
 		phoneNumber: 		$('#phoneNumber').val()
-		tshirt: 				$('input[type=radio][name=tshirt]:checked').val()
+		tshirt: 				$('#tshirt').val()
 		specialNeeds: 		$('#specialNeeds').val()
 		resume: 				null # do after
 		gender: 				$('input[type=radio][name=gender]:checked').val()
@@ -178,9 +178,9 @@ validateForm = (obj) ->
 		if !obj.phoneNumber || !obj.phoneNumber.trim() 		then return {for: 'phoneNumber', msg: 'Missing phone number!'}
 		else if !pn?							then return {for: 'phoneNumber', msg: 'Full 10-digit phone number required!'}
 		else if pn.length != 10 			then return {for: 'phoneNumber', msg: 'Full 10-digit phone number required!'}
-		else if !obj.tshirt? 				then return {for: 'tshirt', 		msg: 'You must chose a t-shirt size!'}
+		else if !obj.tshirt 					then return {for: 'tshirt', 		msg: 'You must chose a t-shirt size!'}
 		else if !obj.under18?				then return {for: 'under18', 		msg: 'Are you under 18 years old?'}
-		else if !obj.agreement				then return {for: 'agreement', 	msg: 'You must read and agree to the MLH Code of Conduct and the Medical Waiver!'}
+		else if !obj.agreement				then return {for: 'agreement', 	msg: 'You must read and agree to the MLH Code of Conduct and the Liability Waiver!'}
 		
 		
 		#optional checks
