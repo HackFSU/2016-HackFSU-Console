@@ -845,13 +845,19 @@ p {
  * MISC
  */
 
+/*to keep footer at bottom in short pages*/
 .footer-spacer {
   display:block;
   height:500px;
   
 }
 
-
+/*loading gif*/
+#loading img {
+  height: 30px;
+  width: 30px;
+  opacity: 0;
+}
 
 
 

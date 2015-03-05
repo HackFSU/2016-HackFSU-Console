@@ -159,3 +159,83 @@ Parse.Cloud.define('createAnonStats', function(req, res) {
     });
   });
 });
+
+
+/*
+	Sets all application statuses to 'pending'
+ */
+
+Parse.Cloud.define('resetApplications', function(req, res) {
+  var query;
+  Parse.Cloud.useMasterKey();
+  query = new Parse.Query('Applications');
+  query.limit(1000);
+  query.find({
+    success: function(results) {
+      var app, _i, _len;
+      if (results.length === 0) {
+        res.success(0);
+      } else {
+        for (_i = 0, _len = results.length; _i < _len; _i++) {
+          app = results[_i];
+          app.set('status', 'pending');
+        }
+        Parse.Object.saveAll(results).then(function(objs) {
+          return res.success('Complete.');
+        }, function(err) {
+          return res.error('Error.');
+        });
+      }
+    },
+    error: function(error) {
+      res.error(error);
+    }
+  });
+});
+
+
+/*
+	Returns counts of each app status type
+ */
+
+Parse.Cloud.define('getAppStatusCounts', function(req, res) {
+  var query;
+  Parse.Cloud.useMasterKey();
+  query = new Parse.Query('Applications');
+  query.limit(1000);
+  return query.find({
+    success: function(results) {
+      var app, counts, _i, _len;
+      counts = {
+        pending: 0,
+        waitlisted: 0,
+        accepted: 0,
+        going: 0,
+        notGoing: 0
+      };
+      for (_i = 0, _len = results.length; _i < _len; _i++) {
+        app = results[_i];
+        switch (app.get('status')) {
+          case 'pending':
+            ++counts.pending;
+            break;
+          case 'waitlisted':
+            ++counts.waitlisted;
+            break;
+          case 'accepted':
+            ++counts.accepted;
+            break;
+          case 'going':
+            ++counts.going;
+            break;
+          case 'notGoing':
+            ++counts.notGoing;
+        }
+      }
+      res.success(counts);
+    },
+    error: function(error) {
+      res.error(error);
+    }
+  });
+});

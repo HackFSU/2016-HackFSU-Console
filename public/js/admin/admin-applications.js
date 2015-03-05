@@ -5,7 +5,9 @@ For: /admin/applications
  */
 
 (function() {
-  var dtSettings_QAs, dtSettings_all, dtSettings_schools;
+  var FADE_TIME, REFRESH_SPEED, STATUS_ACCEPTED, STATUS_GOING, STATUS_NOT_GOING, STATUS_PENDING, STATUS_WAITLISTED, accept, dtSettings_QAs, dtSettings_all, dtSettings_schools, refreshStatusCounts, waitlist;
+
+  FADE_TIME = 100;
 
   dtSettings_schools = {
     order: [[2, 'desc']],
@@ -18,7 +20,13 @@ For: /admin/applications
     order: [[0, 'asc']],
     aLengthMenu: [[50, 100, 200, 300, -1], [50, 100, 200, 300, "All"]],
     iDisplayLength: 50,
-    autoWidth: true
+    autoWidth: true,
+    columnDefs: [
+      {
+        width: '50px',
+        targets: 6
+      }
+    ]
   };
 
   dtSettings_QAs = [
@@ -70,6 +78,12 @@ For: /admin/applications
             if (currTab[0] !== 1) {
               $('#tabContainer0').empty();
               $('#tabContainer0').append(tabHtml.all);
+              $('button[name="accept"]').click(function() {
+                accept($(this), $(this).attr('data-objectId'), $(this).attr('data-status'));
+              });
+              $('button[name="waitlist"]').click(function() {
+                waitlist($(this), $(this).attr('data-objectId'), $(this).attr('data-status'));
+              });
               $('#DT-all').DataTable(dtSettings_all);
               return currTab[0] = 1;
             }
@@ -126,5 +140,153 @@ For: /admin/applications
     };
     return refreshTabs();
   });
+
+  STATUS_PENDING = 'pending';
+
+  STATUS_WAITLISTED = 'waitlisted';
+
+  STATUS_ACCEPTED = 'accepted';
+
+  STATUS_GOING = 'going';
+
+  STATUS_NOT_GOING = 'not going';
+
+  accept = function($btn, objectId, status) {
+    var good;
+    $('button[data-objectId="' + objectId + '"]').attr('disabled', 'disabled');
+    $btn.text('...');
+    $('#loading img').fadeTo(FADE_TIME, 1);
+    status = status === void 0 ? '' : status;
+    good = false;
+    if (status === STATUS_WAITLISTED) {
+      if (confirm('This app was waitlisted, are you sure you want to accept them?')) {
+        good = true;
+      } else {
+        $btn.text('accept');
+        $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
+        $('#loading img').fadeTo(FADE_TIME, 0);
+        return;
+      }
+    } else if (status === STATUS_PENDING) {
+      good = true;
+    }
+    if (good) {
+      console.log('Accepting ' + objectId);
+      return $.ajax({
+        type: 'POST',
+        url: '/admin/applications_action',
+        data: JSON.stringify({
+          action: 'accept',
+          objectId: objectId
+        }),
+        contentType: 'application/json',
+        success: function(res) {
+          console.log(JSON.stringify(res, void 0, 2));
+          if (res.success) {
+            return $btn.text('Done!');
+          } else {
+            $btn.text('Error!');
+            $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
+            $('#loading img').fadeTo(FADE_TIME, 0);
+          }
+        },
+        error: function() {
+          $btn.text('Error!');
+          $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
+          $('#loading img').fadeTo(FADE_TIME, 0);
+        }
+      });
+    } else {
+      console.log('Error! cannot accept ' + objectId + 'with status ' + status);
+      $btn.text('Error!');
+      return $('#loading img').fadeTo(FADE_TIME, 0);
+    }
+  };
+
+  waitlist = function($btn, objectId, status) {
+    $('button[data-objectId="' + objectId + '"]').attr('disabled', 'disabled');
+    $btn.text('...');
+    $('#loading img').fadeTo(FADE_TIME, 1);
+    status = status === void 0 ? '' : status;
+    if (status === STATUS_PENDING) {
+      if (confirm('Are you sure you want to waitlist this person?')) {
+        console.log('Waitlisting ' + objectId);
+        return $.ajax({
+          type: 'POST',
+          url: '/admin/applications_action',
+          data: JSON.stringify({
+            action: 'waitlist',
+            objectId: objectId
+          }),
+          contentType: 'application/json',
+          success: function(res) {
+            console.log(JSON.stringify(res, void 0, 2));
+            if (res.success) {
+              $btn.text('Done!');
+            } else {
+              $btn.text('Error!');
+              $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
+              return;
+            }
+            return $('#loading img').fadeTo(FADE_TIME, 0);
+          },
+          error: function() {
+            $btn.text('Error!');
+            $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
+            $('#loading img').fadeTo(FADE_TIME, 0);
+          }
+        });
+      } else {
+        $btn.text('waitlist');
+        $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
+        return $('#loading img').fadeTo(FADE_TIME, 0);
+      }
+    } else {
+      console.log('Error! cannot waitlist ' + objectId + 'with status ' + status);
+      return $('#loading img').fadeTo(FADE_TIME, 0);
+    }
+  };
+
+  REFRESH_SPEED = 60000;
+
+  refreshStatusCounts = function() {
+    console.log('Refreshing status counts...');
+    $('#loading img').fadeTo(FADE_TIME, 1);
+    return $.ajax({
+      type: 'POST',
+      url: '/admin/applications_getStatusCounts',
+      data: JSON.stringify({}),
+      contentType: 'application/json',
+      success: function(res) {
+        if (res.success) {
+          $('#pending').text('PENDING ' + res.counts.pending);
+          $('#waitlisted').text('WAITLISTED ' + res.counts.waitlisted);
+          $('#accepted').text('ACCEPTED ' + res.counts.accepted);
+          $('#going').text('GOING ' + res.counts.going);
+          $('#notGoing').text('NOT GOING ' + res.counts.notGoing);
+        } else {
+          console.log('Error counting status counts!');
+          $('#pending').text('PENDING ERR!');
+          $('#waitlisted').text('WAITLISTED ERR!');
+          $('#accepted').text('ACCEPTED ERR!');
+          $('#going').text('GOING ERR!');
+          $('#notGoing').text('NOT GOING ERR!');
+          return;
+        }
+        return $('#loading img').fadeTo(FADE_TIME, 0);
+      },
+      error: function() {
+        console.log('Error retrieving status counts!');
+        $('#pending').text('PENDING ERR!');
+        $('#waitlisted').text('WAITLISTED ERR!');
+        $('#accepted').text('ACCEPTED ERR!');
+        $('#going').text('GOING ERR!');
+        $('#notGoing').text('NOT GOING ERR!');
+        $('#loading img').fadeTo(FADE_TIME, 0);
+      }
+    });
+  };
+
+  setInterval(refreshStatusCounts(), REFRESH_SPEED);
 
 }).call(this);

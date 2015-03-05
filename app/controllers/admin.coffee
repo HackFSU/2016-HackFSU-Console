@@ -159,6 +159,7 @@ module.exports = (app) ->
 				email = ''
 				QA2Counts = [0,0,0,0,0,0,0]
 				for appl in apps
+					appl.createdAt = @app.moment(appl.createdAt).format('M/D/YYYY HH:mm:ss A')
 					appl.school = appl.school.trim()
 					# console.log appl.firstName
 					added = false
@@ -247,7 +248,7 @@ module.exports = (app) ->
 								p.then (cId)->
 									
 									#App accepted, now send email notification
-									
+									console.log 'ACCEPTED ' + appData.firstName + ' ' + appData.lastName
 									
 									res.send
 										success: true
@@ -262,7 +263,7 @@ module.exports = (app) ->
 								p.then (cId)->
 									
 									#App waitlisted, now send email notification
-									
+									console.log 'WAITLISTED ' + appData.firstName + ' ' + appData.lastName
 									
 									res.send
 										success: true
@@ -310,6 +311,18 @@ module.exports = (app) ->
 					msg: 'Missing params'
 					
 			return 
+		
+		# Returns counts
+		@applications_getStatusCounts = (req, res)->
+			#Just call the function and return the result
+			p = @app.models.Applications.getAppStatusCounts()
+			p.then (counts)->
+				res.send
+					success: true
+					counts: counts
+			, ()->
+				res.send
+					success: false
 
 		@users = (req, res) ->
 			res.render 'admin/users',

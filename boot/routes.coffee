@@ -26,6 +26,7 @@ module.exports = (app) ->
 	# applications
 	app.get '/admin/applications', app.AdminController.applications
 	app.post '/admin/applications_action', jsonParser, app.AdminController.applications_action
+	app.post '/admin/applications_getStatusCounts', jsonParser, app.AdminController.applications_getStatusCounts
 	
 	# users
 	app.get '/admin/users', app.AdminController.users

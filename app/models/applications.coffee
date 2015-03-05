@@ -147,7 +147,7 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"+
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
 						
 						deferred.resolve(body.result)
 			
@@ -180,7 +180,27 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"+
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
+						
+						deferred.resolve(body.result)
+			
+			return deferred.promise
+		
+		#Simply counts all status typs and returns them (See Parse CC Funct)
+		@getAppStatusCounts: () ->
+			deferred = app.Q.defer()			
+			
+			CLOUD_FUNCTION = 'getAppStatusCounts'
+			app.kaiseki.cloudRun CLOUD_FUNCTION, null,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
 						
 						deferred.resolve(body.result)
 			
@@ -235,7 +255,7 @@ module.exports = (app) ->
 					else
 						console.log "PARSE: '"+CLASS_NAME+"' approve success!"							
 						
-						deferred.resolve(confirmationId)
+						deferred.resolve()
 				
 			return deferred.promise
 			

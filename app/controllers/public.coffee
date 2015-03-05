@@ -274,6 +274,7 @@ module.exports = (app) ->
 					major: req.body.major
 					year: req.body.year
 					github: req.body.github
+					status: 'pending'
 					# resume: req.body.resume DO IN SIGNUP INSTEAD
 					QAs: QAs
 				

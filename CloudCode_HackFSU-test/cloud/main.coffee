@@ -149,3 +149,65 @@ Parse.Cloud.define 'createAnonStats', (req,res)->
 				res.success msg
 	
 	return
+
+
+###
+	Sets all application statuses to 'pending'
+###
+Parse.Cloud.define 'resetApplications', (req,res) ->
+	Parse.Cloud.useMasterKey()
+	query = new Parse.Query 'Applications'
+	query.limit 1000
+	query.find
+		success: (results)->
+			if results.length == 0
+				res.success 0
+			else
+				
+				for app in results
+					app.set 'status','pending'
+					
+				Parse.Object.saveAll(results)
+				.then (objs)->
+					res.success 'Complete.'
+				, (err)->
+					res.error 'Error.'
+				
+			return
+		error: (error)->
+			res.error error
+			return
+	
+	return
+
+###
+	Returns counts of each app status type
+###
+Parse.Cloud.define 'getAppStatusCounts', (req,res) ->
+	Parse.Cloud.useMasterKey()
+	query = new Parse.Query 'Applications'
+	query.limit 1000
+	query.find
+		success: (results)->
+			counts = 
+				pending: 0
+				waitlisted: 0
+				accepted: 0
+				going: 0
+				notGoing: 0
+				
+			for app in results
+				switch app.get 'status'
+					when 'pending' then ++counts.pending
+					when 'waitlisted' then ++counts.waitlisted
+					when 'accepted' then ++counts.accepted
+					when 'going' then ++counts.going
+					when 'notGoing' then ++counts.notGoing
+			
+			res.success counts
+				
+				
+			return
+		error: (error)->
+			res.error error
+			return

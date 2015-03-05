@@ -14,7 +14,12 @@ block content
 				br
 				p.text-medium Applcation Status: <b>#{appData.status}</b>
 			br
-			if appData.status == 'going'
+				
+			if appData.status == 'pending'
+				p.text-medium Applcation Status: <b>#{appData.status}</b>
+			else if appData.status == 'waitlisted'
+				p.text-medium Applcation Status: <b>#{appData.status}</b>
+			else if appData.status == 'going'
 				p.
 					See you there! If for some reason you end up not being able to come, 
 					please tell us so that we can open up your spot to someone else!
@@ -118,9 +123,8 @@ block content
 									input.form-control#bday(type='text', name='bday', placeholder="mm/dd/yyyy")
 							
 											
-							//- if !appData.hasDiet
-							.TEST(style='margin-top: 100px')
-								.hidden-container(style='display: block')
+							if !appData.hasDiet
+								.hidden-container(style='display: block; margin-top: 100px')
 									p.text-medium(style='display: inline')
 										| We apologize if you have already given us this information, but there was a bug in our code and we lost most of these answers from the applications. 
 									p.text-medium.hidden-text(style='display: inline')

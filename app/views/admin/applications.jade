@@ -2,8 +2,18 @@ extend ../layout
 block content
 	.containerbody
 		h1.singleLineText Application Managment
-	
+		
 	.container
+		.row.text-medium.text-center
+			ul.list-inline
+				li.col-xs-2#pending PENDING ?
+				li.col-xs-2#waitlisted WAITLISTED ?
+				li.col-xs-2#accepted ACCEPTED ?
+				li.col-xs-2#going GOING ?
+				li.col-xs-2#notGoing NOT GOING ?
+				li.col-xs-2#loading
+					img(src='/img/loading.gif')
+		br
 		#tabs(role='tabpanel')
 			//- Nav tabs
 			ul.nav.nav-tabs(roles='tablist')
@@ -56,6 +66,7 @@ block content
 								th Year
 								th GitHub
 								th First?
+								th Applied
 								th Status
 								th Functions
 						tbody
@@ -69,12 +80,18 @@ block content
 									td #{app.year}
 									td #{app.github}
 									td #{app.QAs[0]}
+									td #{app.createdAt}
 									td #{app.status}
 									td
-										form(name='appActionForm', action='#', role='form')
-											input(name='objectId', value='#{app.objectId}' hidden)
-											button.btn(name='accept', type='submit') Accept
-											button.btn(name='waitlist', type='submit') Waitlist
+										if !app.status || app.status == 'pending' || app.status == 'waitlisted'
+												button.btn(name='accept', data-objectId='#{app.objectId}', data-status='#{app.status}') Accept
+												if app.status != 'waitlisted'
+													button.btn(name='waitlist', data-objectId='#{app.objectId}', data-status='#{app.status}') Waitlist
+												else
+													p N/A
+										else
+											p N/A
+											p N/A
 
 						tfoot
 							tr
@@ -86,6 +103,7 @@ block content
 								th Year
 								th GitHub
 								th First?
+								th Applied
 								th Status
 								th Functions
 				
@@ -211,5 +229,4 @@ block localCSS
 block localJavascript
 	script(src='//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js')
 	script(src='/js/admin/admin-applications.js')
-	script(src='/js/admin/admin-accept.js')
 

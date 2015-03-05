@@ -2,6 +2,10 @@
 For: /admin/applications
 
 ###
+
+FADE_TIME = 100
+
+
 #initial dataTables
 dtSettings_schools =
 	order: [[2,'desc']]
@@ -13,6 +17,9 @@ dtSettings_all =
 	aLengthMenu: [[50,100,200,300,-1], [50,100,200,300,"All"]]
 	iDisplayLength: 50
 	autoWidth: true
+	columnDefs: [
+		{ width: '50px', targets: 6 }
+	]
 
 #0 = default
 dtSettings_QAs = [
@@ -93,8 +100,23 @@ $(document).ready ()->
 						# console.log 'tab changed to ' + href
 						$('#tabContainer0').empty()
 						$('#tabContainer0').append(tabHtml.all)
+						
+						#setup buttons
+						$('button[name="accept"]').click ()->
+							accept $(this), 
+								($(this).attr 'data-objectId'),
+								($(this).attr 'data-status')
+							return
+						$('button[name="waitlist"]').click ()->
+							waitlist $(this), 
+								($(this).attr 'data-objectId'),
+								($(this).attr 'data-status')
+							return
+							
 						$('#DT-all').DataTable dtSettings_all
 						currTab[0] = 1
+						
+						
 				when '#QAs'
 					if currTab[0] != 2
 						# console.log 'tab changed to ' + href
@@ -146,3 +168,136 @@ $(document).ready ()->
 		$(this).tab 'show'
 	
 	refreshTabs()
+	
+#accept an app
+STATUS_PENDING = 'pending'
+STATUS_WAITLISTED = 'waitlisted'
+STATUS_ACCEPTED = 'accepted'
+STATUS_GOING = 'going'
+STATUS_NOT_GOING = 'not going'
+accept = ($btn, objectId, status)->
+	$('button[data-objectId="'+objectId+'"]').attr 'disabled', 'disabled'
+	$btn.text '...'
+	$('#loading img').fadeTo FADE_TIME, 1
+	status = if status == undefined then '' else status
+	good = false
+	
+	if status == STATUS_WAITLISTED
+		if confirm 'This app was waitlisted, are you sure you want to accept them?'
+			good = true
+		else
+			$btn.text 'accept'
+			$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
+			$('#loading img').fadeTo FADE_TIME, 0
+			return
+			
+	else if status == STATUS_PENDING
+		good = true
+	
+	if good
+		console.log 'Accepting ' + objectId
+		
+		$.ajax
+			type: 'POST'
+			url: '/admin/applications_action'
+			data: JSON.stringify 
+				action: 'accept'
+				objectId: objectId
+			contentType: 'application/json'
+			success: (res) ->
+				console.log JSON.stringify res, undefined, 2
+				if res.success
+					$btn.text 'Done!'
+				else
+					$btn.text 'Error!'
+					$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
+					$('#loading img').fadeTo FADE_TIME, 0
+					return
+			error: () ->
+				$btn.text 'Error!'
+				$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
+				$('#loading img').fadeTo FADE_TIME, 0
+				return
+		
+	else
+		console.log 'Error! cannot accept ' + objectId + 'with status ' + status
+		$btn.text 'Error!'
+		$('#loading img').fadeTo FADE_TIME, 0
+
+#put them on waitlist
+waitlist = ($btn, objectId, status)->
+	$('button[data-objectId="'+objectId+'"]').attr 'disabled', 'disabled'
+	$btn.text '...'
+	$('#loading img').fadeTo FADE_TIME, 1
+	status = if status == undefined then '' else status
+	if status == STATUS_PENDING
+		if confirm 'Are you sure you want to waitlist this person?'
+			console.log 'Waitlisting ' + objectId
+			
+			$.ajax
+				type: 'POST'
+				url: '/admin/applications_action'
+				data: JSON.stringify 
+					action: 'waitlist'
+					objectId: objectId
+				contentType: 'application/json'
+				success: (res) ->
+					console.log JSON.stringify res, undefined, 2
+					if res.success
+						$btn.text 'Done!'
+					else
+						$btn.text 'Error!'
+						$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
+						return
+					$('#loading img').fadeTo FADE_TIME, 0
+				error: () ->
+					$btn.text 'Error!'
+					$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
+					$('#loading img').fadeTo FADE_TIME, 0
+					return
+		else 
+			$btn.text 'waitlist'
+			$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
+			$('#loading img').fadeTo FADE_TIME, 0
+	else
+		console.log 'Error! cannot waitlist ' + objectId + 'with status ' + status
+		$('#loading img').fadeTo FADE_TIME, 0
+
+#Handle counts
+REFRESH_SPEED = 60000
+refreshStatusCounts = ()->
+	console.log 'Refreshing status counts...'
+	$('#loading img').fadeTo FADE_TIME, 1 
+	$.ajax
+		type: 'POST'
+		url: '/admin/applications_getStatusCounts'
+		data: JSON.stringify {}
+		contentType: 'application/json'
+		success: (res) ->
+			if res.success
+				$('#pending').text 'PENDING ' + res.counts.pending
+				$('#waitlisted').text 'WAITLISTED ' + res.counts.waitlisted
+				$('#accepted').text 'ACCEPTED ' + res.counts.accepted
+				$('#going').text 'GOING ' + res.counts.going
+				$('#notGoing').text 'NOT GOING ' + res.counts.notGoing
+				
+			else
+				console.log 'Error counting status counts!'
+				$('#pending').text 'PENDING ERR!'
+				$('#waitlisted').text 'WAITLISTED ERR!'
+				$('#accepted').text 'ACCEPTED ERR!'
+				$('#going').text 'GOING ERR!'
+				$('#notGoing').text 'NOT GOING ERR!'
+				return
+			$('#loading img').fadeTo FADE_TIME, 0
+		error: () ->
+			console.log 'Error retrieving status counts!'
+			$('#pending').text 'PENDING ERR!'
+			$('#waitlisted').text 'WAITLISTED ERR!'
+			$('#accepted').text 'ACCEPTED ERR!'
+			$('#going').text 'GOING ERR!'
+			$('#notGoing').text 'NOT GOING ERR!'
+			$('#loading img').fadeTo FADE_TIME, 0
+			return
+#
+setInterval refreshStatusCounts(), REFRESH_SPEED
