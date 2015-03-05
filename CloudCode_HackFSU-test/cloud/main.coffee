@@ -202,7 +202,7 @@ Parse.Cloud.define 'getAppStatusCounts', (req,res) ->
 					when 'waitlisted' then ++counts.waitlisted
 					when 'accepted' then ++counts.accepted
 					when 'going' then ++counts.going
-					when 'notGoing' then ++counts.notGoing
+					when 'not going' then ++counts.notGoing
 			
 			res.success counts
 				

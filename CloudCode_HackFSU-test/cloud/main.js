@@ -228,7 +228,7 @@ Parse.Cloud.define('getAppStatusCounts', function(req, res) {
           case 'going':
             ++counts.going;
             break;
-          case 'notGoing':
+          case 'not going':
             ++counts.notGoing;
         }
       }
