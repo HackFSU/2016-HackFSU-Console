@@ -241,7 +241,7 @@ module.exports = (app) ->
 			if req.body.objectId? && req.body.action?
 				p = @app.models.Applications.getAppSimpleByObjectId(req.body.objectId)
 				p.then (appData)->
-					if appData? && appData.status == 'pending' || appData.status == 'waitlist'
+					if appData? && appData.status == 'pending' || appData.status == 'waitlisted'
 						switch req.body.action
 							when 'accept'		#accept this app
 								p = @app.models.Applications.accept(req.body.objectId)
@@ -249,6 +249,16 @@ module.exports = (app) ->
 									
 									#App accepted, now send email notification
 									console.log 'ACCEPTED ' + appData.firstName + ' ' + appData.lastName
+									
+									app.emailTemplate 'appAccepted', 
+										to_email: appData.email
+										from_email: 'register@hackfsu.com'
+										from_name: 'HackFSU'
+										subject: "It's time! Are you ready?"
+										locals:
+											firstName: appData.firstName
+											lastName: appData.lastName
+											confirmationId: cId
 									
 									res.send
 										success: true
@@ -264,6 +274,14 @@ module.exports = (app) ->
 									
 									#App waitlisted, now send email notification
 									console.log 'WAITLISTED ' + appData.firstName + ' ' + appData.lastName
+									app.emailTemplate 'appWaitlisted', 
+										to_email: appData.email
+										from_email: 'register@hackfsu.com'
+										from_name: 'HackFSU'
+										subject: "HackFSU Waitlist"
+										locals:
+											firstName: appData.firstName
+											lastName: appData.lastName
 									
 									res.send
 										success: true
@@ -278,33 +296,6 @@ module.exports = (app) ->
 						success: false
 						msg: 'Error retrieving application'
 				
-				
-				
-				.then (success) ->
-					console.log "Application acception success"
-					
-					#send confirmation email
-					#app.emailTemplate 'applyConfirm', 
-					#	to_email: appl.email
-					#	from_email: 'info@hackfsu.com'
-					#	from_name: 'HackFSU'
-					#	subject: 'Inspire the Future'
-					#	locals:
-					#		firstName: obj.firstName
-					#		lastName: obj.lastName
-					
-					#return response
-					res.send
-						success: true,
-						msg: ""
-						
-						
-				, (err) ->
-					console.log "Application Approve failure"
-					res.send
-						success: false,
-						msg: err
-			
 			else
 				res.send
 					success: false

@@ -63,9 +63,10 @@ For application confirmation page /confirm/:cid
       resume: null,
       gender: $('input[type=radio][name=gender]:checked').val(),
       bday: $('#bday').val(),
-      diet: $('#diet').val().trim(),
-      comments: $('#comments').val().trim(),
-      agreement: $('input[type=checkbox][name=agreement]').is(':checked')
+      diet: $('#diet').val(),
+      comments: $('#comments').val(),
+      agreement: $('input[type=checkbox][name=agreement]').is(':checked'),
+      under18: $('input[type=radio][name=under18]:checked').val()
     };
     if (formData.going === 'Yes') {
       formData.going = true;
@@ -73,6 +74,13 @@ For application confirmation page /confirm/:cid
       formData.going = false;
     } else {
       formData.going = null;
+    }
+    if (formData.under18 === 'Yes') {
+      formData.under18 = true;
+    } else if (formData.under18 === 'No') {
+      formData.under18 = false;
+    } else {
+      formData.under18 = null;
     }
     console.log('PRE-CHECK: ' + JSON.stringify(formData));
     formValid = validateForm(formData);
@@ -135,7 +143,7 @@ For application confirmation page /confirm/:cid
       sub.attr('disabled', 'true');
       sub.fadeIn(500, function() {});
       if (formData.going) {
-        return displayEnd("See you soon!", "");
+        return displayEnd("See you soon!", "If you need a group, go check out our facebook <a class='link-text' href='http://www.facebook.com/groups/622705054530502/'>attendees page</a>!");
       } else {
         return displayEnd("Sorry to hear that you are not going!", "Your spot will be opened up for another hacker.");
       }
@@ -168,7 +176,7 @@ For application confirmation page /confirm/:cid
         msg: 'You must decide if you are going!'
       };
     } else if (obj.going) {
-      if (!obj.phoneNumber.trim()) {
+      if (!obj.phoneNumber || !obj.phoneNumber.trim()) {
         return {
           "for": 'phoneNumber',
           msg: 'Missing phone number!'
@@ -188,15 +196,20 @@ For application confirmation page /confirm/:cid
           "for": 'tshirt',
           msg: 'You must chose a t-shirt size!'
         };
+      } else if (obj.under18 == null) {
+        return {
+          "for": 'under18',
+          msg: 'Are you under 18 years old?'
+        };
       } else if (!obj.agreement) {
         return {
           "for": 'agreement',
           msg: 'You must read and agree to the MLH Code of Conduct and the Medical Waiver!'
         };
       }
-      obj.bday = obj.bday.trim();
       console.log("BDAY:'" + obj.bday + "'");
       if (obj.bday) {
+        obj.bday = obj.bday.trim();
         bd = obj.bday.match(regB);
         if (bd == null) {
           return {
@@ -207,16 +220,16 @@ For application confirmation page /confirm/:cid
       } else {
         obj.bday = null;
       }
-      if (!obj.specialNeeds.trim()) {
+      if (!obj.specialNeeds) {
         obj.specialNeeds = null;
       }
       if (!(obj.gender === 'male' | obj.gender === 'female' | obj.gender === 'other')) {
         obj.gender = null;
       }
-      if (!obj.diet.trim()) {
+      if (!obj.diet) {
         obj.diet = null;
       }
-      if (!obj.comments.trim()) {
+      if (!obj.comments) {
         obj.comments = null;
       }
       obj.phoneNumber = "";

@@ -380,6 +380,7 @@ module.exports = (app) ->
 				agreement: 			if req.body.agreement?			then req.body.agreement else null
 				gender: 				if req.body.gender?				then req.body.gender else null
 				bday: 				if req.body.bday?					then req.body.bday else null
+				under18:				if req.body.under18?				then req.body.under18 else null
 				
 			if confirmData.confirmationId?
 				#run it all

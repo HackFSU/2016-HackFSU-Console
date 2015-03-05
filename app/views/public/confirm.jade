@@ -6,6 +6,7 @@ block content
 		if !foundApp
 			h2 Error!
 			p #{msg}
+			.footer-spacer
 		else
 			//- Application found, check status
 			
@@ -17,20 +18,22 @@ block content
 				
 			if appData.status == 'pending'
 				p.text-medium Applcation Status: <b>#{appData.status}</b>
+				.footer-spacer
 			else if appData.status == 'waitlisted'
 				p.text-medium Applcation Status: <b>#{appData.status}</b>
+				.footer-spacer
 			else if appData.status == 'going'
-				p.
-					See you there! If for some reason you end up not being able to come, 
-					please tell us so that we can open up your spot to someone else!
-				button.btn.btn-large I cannot go, sadly
-				
+				p.text-medium Applcation Status: <b>#{appData.status}</b>
+				p
+					| You have already confirmed as going, see you soon! If you need a group, go check out our facebook 
+					a(href='http://www.facebook.com/groups/622705054530502/') attendees page
+					| !
+				.footer-spacer
 			else if appData.status == 'not going'
+				p.text-medium Applcation Status: <b>#{appData.status}</b>
 				p.
-					We have already opened up your spot for someone else, but if you have 
-					changed your mind, you can choose to get put on the waitlist!
-				button.btn.btn-large I actually want to go...
-				
+					You have already confirmed as not going. Thanks for your interest in HackFSU, we hope to see you next year!
+				.footer-spacer
 			else if appData.status == 'accepted'
 				.formResult
 				form.form-horizontal#confirmForm(method='post', action='#', role='form')
@@ -90,7 +93,14 @@ block content
 									p
 										input#tshirt-w-xl(type="radio", name='tshirt', value='w-xl')
 										label(for="tshirt-w-xl") Extra Large
-							
+							.form-group
+								label.control-label.col-sm-3(for='under18') Under 18? *
+								.col-sm-1(style='margin-top: 9px')
+										input#under18-y(type="radio", name='under18', value='Yes')
+										label(for="under18-y") Yes
+								.col-sm-1.col-sm-offset-1(style='margin-top: 9px')
+										input#under18-n(type="radio", name='under18', value='No')
+										label(for="under18-n") No
 							.form-group
 								label.control-label.col-sm-3(for='specialNeeds') Special Needs?
 								.col-sm-9

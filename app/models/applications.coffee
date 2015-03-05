@@ -290,6 +290,7 @@ module.exports = (app) ->
 								specialNeeds: 	confirmData.specialNeeds
 								diet: 			confirmData.diet
 								comments: 		confirmData.comments
+								under18:			confirmData.under18
 						
 						console.log 'Confirming... ' + JSON.stringify data, undefined, 2
 							

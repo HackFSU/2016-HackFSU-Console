@@ -211,8 +211,8 @@ accept = ($btn, objectId, status)->
 				else
 					$btn.text 'Error!'
 					$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
-					$('#loading img').fadeTo FADE_TIME, 0
-					return
+				$('#loading img').fadeTo FADE_TIME, 0
+				return
 			error: () ->
 				$btn.text 'Error!'
 				$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
@@ -275,28 +275,28 @@ refreshStatusCounts = ()->
 		contentType: 'application/json'
 		success: (res) ->
 			if res.success
-				$('#pending').text 'PENDING ' + res.counts.pending
-				$('#waitlisted').text 'WAITLISTED ' + res.counts.waitlisted
-				$('#accepted').text 'ACCEPTED ' + res.counts.accepted
-				$('#going').text 'GOING ' + res.counts.going
-				$('#notGoing').text 'NOT GOING ' + res.counts.notGoing
+				$('#pending').text 'PENDING  ' + res.counts.pending
+				$('#waitlisted').text 'WAITLISTED  ' + res.counts.waitlisted
+				$('#accepted').text 'ACCEPTED  ' + res.counts.accepted
+				$('#going').text 'GOING  ' + res.counts.going
+				$('#notGoing').text 'NOT GOING  ' + res.counts.notGoing
 				
 			else
 				console.log 'Error counting status counts!'
-				$('#pending').text 'PENDING ERR!'
-				$('#waitlisted').text 'WAITLISTED ERR!'
-				$('#accepted').text 'ACCEPTED ERR!'
-				$('#going').text 'GOING ERR!'
+				$('#pending').text 'PENDING  ERR!'
+				$('#waitlisted').text 'WAITLISTED  ERR!'
+				$('#accepted').text 'ACCEPTED  ERR!'
+				$('#going').text 'GOING  ERR!'
 				$('#notGoing').text 'NOT GOING ERR!'
 				return
 			$('#loading img').fadeTo FADE_TIME, 0
 		error: () ->
 			console.log 'Error retrieving status counts!'
-			$('#pending').text 'PENDING ERR!'
-			$('#waitlisted').text 'WAITLISTED ERR!'
-			$('#accepted').text 'ACCEPTED ERR!'
-			$('#going').text 'GOING ERR!'
-			$('#notGoing').text 'NOT GOING ERR!'
+			$('#pending').text 'PENDING  ERR!'
+			$('#waitlisted').text 'WAITLISTED  ERR!'
+			$('#accepted').text 'ACCEPTED  ERR!'
+			$('#going').text 'GOING  ERR!'
+			$('#notGoing').text 'NOT  GOING ERR!'
 			$('#loading img').fadeTo FADE_TIME, 0
 			return
 #
