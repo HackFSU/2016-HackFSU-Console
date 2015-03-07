@@ -24,9 +24,39 @@ module.exports = (app) ->
 			res.render 'public/updates',
 				title: 'Updates'
 		
+		# Displays the schedule from Parse
 		@schedule = (req, res) ->
-			res.render 'public/schedule',
-				title: 'Schedule'
+			pageTitle = 'Schedule'
+			p = app.models.Schedule.getAll()
+			p.then (body)->
+				schedItems = []
+				
+				for item in body
+					schedItems.push
+						title: item.title
+						subtitle: item.subtitle
+						timestamp: parseInt @app.moment(item.startTime.iso).format 'X'
+						startDay: @app.moment(item.startTime.iso).utcOffset('05:00').format 'dd'
+						startTime: @app.moment(item.startTime.iso).utcOffset('05:00').format 'h:mm A'
+						
+				# Sort times (decending). It prints in this order
+				schedItems.sort (a,b)->
+					if a.timestamp < b.timestamp
+						return -1;
+					else if a.timestamp > b.timestamp
+						return 1;
+					else
+						return 0;
+				
+				console.log 'SCHED= ' + JSON.stringify schedItems, undefined, 2
+				
+				res.render 'public/schedule',
+					title: pageTitle
+					schedItems: schedItems
+			, ()->
+				res.render 'public/schedule',
+					title: pageTitle
+					schedItems: null
 				
 		@sponsor = (req,res) ->
 			res.render 'public/sponsor',

@@ -1,72 +1,38 @@
 extend ../layout
 block content
 	.containerbody
-		//- lol
 		h1.singleLineText Schedule
-
-		h2 <b>FRIDAY</b>
-		.row.text-center
-			.col-md-6  9:00 PM
-			.col-md-6 CHECK-IN
-		hr
-		.row.text-center
-			.col-md-6 11:00 PM
-			.col-md-6 OPENING CEREMONY
-
-		h2 <b>SATURDAY</b>
-		.row.text-center
-			.col-md-6 12:00 AM
-			.col-md-6 HACKING STARTS
-		hr
-		.row.text-center
-			.col-md-6 4:00 AM
-			.col-md-6 SNACK BREAK
-		hr
-		.row.text-center
-			.col-md-6 8:00 AM
-			.col-md-6 BREAKFAST
-		hr
-		.row.text-center
-			.col-md-6 1:00 PM
-			.col-md-6 LUNCH
-		hr
-		.row.text-center
-			.col-md-6 5:00 PM
-			.col-md-6 SNACK BREAK
-		hr
-		.row.text-center
-			.col-md-6 7:30 PM
-			.col-md-6 DINNER
-
-		h2 <b>SUNDAY</b>
-		.row.text-center
-			.col-md-6 12:00 AM
-			.col-md-6 MIDNIGHT THING
-		hr
-		.row.text-center
-			.col-md-6 3:00 AM
-			.col-md-6 SNACK BREAK
-		hr
-		.row.text-center
-			.col-md-6 6:00 AM
-			.col-md-6 HACKING ENDS
-		hr
-		.row.text-center
-			.col-md-6 6:30 AM
-			.col-md-6 BREAKFAST
-		hr
-		.row.text-center
-			.col-md-6 8:00 AM
-			.col-md-6 EXPO 1
-		hr
-		.row.text-center
-			.col-md-6 8:50 AM
-			.col-md-6 EXPO 2
-		hr
-		.row.text-center
-			.col-md-6 10:00 AM
-			.col-md-6 CLOSING CEREMONY
-
+		
+		if schedItems != null
+			h2 <b>FRIDAY</b>
+				for item in schedItems
+					if item.startDay == 'Fr'
+						.row.text-center
+							.col-md-3 #{item.startTime}
+							.col-md-4 #{item.title}
+							.col-md-5 #{item.subtitle}
+						hr
+			
+			h2 <b>SATURDAY</b>
+				for item in schedItems
+					if item.startDay == 'Sa'
+						.row.text-center
+							.col-md-3 #{item.startTime}
+							.col-md-4 #{item.title}
+							.col-md-5 #{item.subtitle}
+						hr
+			
+			h2 <b>SUNDAY</b>
+				for item in schedItems
+					if item.startDay == 'Su'
+						.row.text-center
+							.col-md-3 #{item.startTime}
+							.col-md-4 #{item.title}
+							.col-md-5 #{item.subtitle}
+						hr
+		else
+			h2 Error!
+			h3 There was a problem grabbing the schedule. Try refreshing this page.
 
 
 

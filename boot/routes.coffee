@@ -105,7 +105,7 @@ module.exports = (app) ->
 	# Schedule page
 	app.get '/schedule', app.PublicController.schedule
 
-	# Maps page
+	# Maps page - TEMPORARY PAGE
 	app.get '/maps', app.PublicController.maps
 	
 	# OTHER ###################################################
