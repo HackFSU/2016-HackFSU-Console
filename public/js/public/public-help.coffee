@@ -8,34 +8,41 @@ Dependencies:
 
 ###
 
-$('#helpForm').submit (event) ->
-    event.preventDefault()
+$('#helpForm').submit (event)->
+	event.preventDefault()
 
-    # Get the values
-    obj =
-        name:        $('#name').val()
-        location:    $('#location').val()
-        description: $('#description').val()
+	#get values
+	obj =
+		name:	    	$('#name').val()
+		location:		$('#location').val()
+		description:	$('#description').val()
 
-    val = validate obj
 
-    # Remove prev errors
-    $('label').removeClass 'hasInputError'
-    $('.form-error-msg').text ''
-    $('#submit').shakeIt()
+	#validate input
+	val = validate obj
+
+	console.log 'FORM: ' + JSON.stringify obj, undefined, 2
+
+	#remove prev errors
+	$('label').removeClass 'hasInputError'
+	$('.form-error-msg').text ''
+
 
 	if val != true
-		# Add new errors
-        $('label[for="' + val.for + '"]').addClass 'hasInputError'
-        $('.form-error-msg').text val.msg
-        $('#submit').shakeIt()
-    else
+		#add new errors
+		$('label[for="' + val.for + '"]').addClass 'hasInputError'
+		$('.form-error-msg').text val.msg
+		$('#submit').shakeIt()
+	else
+		# console.log JSON.stringify obj, undefined, 2
 		#preform submission
 		$('#submit').text 'Submitting...'
+
 		$.ajax
 			type: 'post'
 			url: '/help_submit'
-			data: obj
+			data: JSON.stringify obj
+			contentType: 'application/json'
 			success: (res) ->
 				if res.success == true
 					endInSuccess()
@@ -46,17 +53,16 @@ $('#helpForm').submit (event) ->
 
 	return
 
-# Check values for valid input
 #checks values for correct input, returns true or an error string
 validate = (obj) ->
-	if !obj.name.trim() 				    then return	{for: 'name', 	msg: 'Missing name!'}
+	if !obj.name.trim() 				then return	{for: 'name', 	msg: 'Missing name!'}
 	else if !obj.location.trim() 			then return {for: 'location', 	msg: 'Missing location!'}
-	else if !obj.description.trim() 		then return	{for: 'description', msg: 'Missing description!'}
+	else if !obj.description.trim() 				then return	{for: 'description', 		msg: 'Missing description!'}
 
 	#nothing wrong
 	return true
 
-# Handle ending
+#Handle ending
 endInError = () ->
 	sub = $('#submit')
 	sub.fadeOut 500, ()->
@@ -71,7 +77,7 @@ endInSuccess = () ->
 		sub.text('Success!')
 		sub.attr('disabled', 'true')
 		sub.fadeIn(500, ()->)
-		displayEnd("Thanks!", "A mentor should be out shortly to assist you!")
+		displayEnd("Thanks!", "A mentor should be coming your way shortly.")
 
 displayEnd = (header, subtext) ->
 	$('input').attr('disabled','disabled');

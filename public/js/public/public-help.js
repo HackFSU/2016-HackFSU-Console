@@ -21,38 +21,33 @@ Dependencies:
       description: $('#description').val()
     };
     val = validate(obj);
+    console.log('FORM: ' + JSON.stringify(obj, void 0, 2));
     $('label').removeClass('hasInputError');
     $('.form-error-msg').text('');
-    return $('#submit').shakeIt();
-  });
-
-  if (val !== true) {
-    $('label[for="' + val["for"] + '"]').addClass('hasInputError');
-    $('.form-error-msg').text(val.msg);
-    $('#submit').shakeIt();
-  } else {
-
-  }
-
-  $('#submit').text('Submitting...');
-
-  $.ajax({
-    type: 'post',
-    url: '/help_submit',
-    data: obj,
-    success: function(res) {
-      if (res.success === true) {
-        return endInSuccess();
-      } else {
-        return endInError();
-      }
-    },
-    error: function() {
-      return endInError();
+    if (val !== true) {
+      $('label[for="' + val["for"] + '"]').addClass('hasInputError');
+      $('.form-error-msg').text(val.msg);
+      $('#submit').shakeIt();
+    } else {
+      $('#submit').text('Submitting...');
+      $.ajax({
+        type: 'post',
+        url: '/help_submit',
+        data: JSON.stringify(obj),
+        contentType: 'application/json',
+        success: function(res) {
+          if (res.success === true) {
+            return endInSuccess();
+          } else {
+            return endInError();
+          }
+        },
+        error: function() {
+          return endInError();
+        }
+      });
     }
   });
-
-  return;
 
   validate = function(obj) {
     if (!obj.name.trim()) {
@@ -92,7 +87,7 @@ Dependencies:
       sub.text('Success!');
       sub.attr('disabled', 'true');
       sub.fadeIn(500, function() {});
-      return displayEnd("Thanks!", "A mentor should be out shortly to assist you!");
+      return displayEnd("Thanks!", "A mentor should be coming your way shortly.");
     });
   };
 
