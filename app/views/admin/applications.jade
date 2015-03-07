@@ -141,6 +141,10 @@ block content
 									a(href='#specialNeeds', aria-controls='specialNeeds', role='tab' data-toggle='tab') Special Needs?
 								li(role='presentation')
 									a(href='#tshirt', aria-controls='tshirt', role='tab' data-toggle='tab') T-Shirt Size?
+								li(role='presentation')
+									a(href='#gender', aria-controls='gender', role='tab' data-toggle='tab') Gender? (anon)
+								li(role='presentation')
+									a(href='#bday', aria-controls='bday', role='tab' data-toggle='tab') Birthdate? (anon)
 							.tab-content#tabContainer1
 								//- Hate
 								.tap-pane#QA1(role='tabpanel')
@@ -356,6 +360,46 @@ block content
 												th Size
 												th Men's
 												th Women's
+								//- gender
+								.tap-pane#gender(role='tabpanel')
+									table.display#DT-gender
+										thead
+											tr
+												th Gender
+												th Count
+												
+										tbody
+											tr
+												td Male
+												td #{aStats.gender.male}
+											tr
+												td Female
+												td #{aStats.gender.female}
+											tr
+												td Other
+												td #{aStats.gender.other}
+											
+										tfoot
+											tr
+												th Gender
+												th Count
+								//- Birthdate
+								.tap-pane#bday(role='tabpanel')
+									table.display#DT-bday
+										thead
+											tr
+												th Birthdate
+												th Age
+												
+										tbody
+											for bday in aStats.birthdates
+												tr
+													td #{bday.date}
+													td #{bday.age}
+										tfoot
+											tr
+												th Birthdate
+												th Age
 												
 			
 		

@@ -5,7 +5,7 @@ For: /admin/applications
  */
 
 (function() {
-  var FADE_TIME, REFRESH_SPEED, STATUS_ACCEPTED, STATUS_GOING, STATUS_NOT_GOING, STATUS_PENDING, STATUS_WAITLISTED, accept, dtSettings_QAs, dtSettings_all, dtSettings_schools, refreshStatusCounts, waitlist;
+  var FADE_TIME, REFRESH_SPEED, STATUS_ACCEPTED, STATUS_GOING, STATUS_NOT_GOING, STATUS_PENDING, STATUS_WAITLISTED, accept, dtSettings_QAs, dtSettings_all, dtSettings_bday, dtSettings_schools, refreshStatusCounts, waitlist;
 
   FADE_TIME = 100;
 
@@ -22,6 +22,13 @@ For: /admin/applications
     iDisplayLength: 50,
     autoWidth: true,
     order: [[8, 'desc']]
+  };
+
+  dtSettings_bday = {
+    order: [[1, 'desc']],
+    aLengthMenu: [[50, 100, 200, 300, -1], [50, 100, 200, 300, "All"]],
+    iDisplayLength: 50,
+    autoWidth: true
   };
 
   dtSettings_QAs = [
@@ -51,7 +58,9 @@ For: /admin/applications
       under18: $('#under18').wrap('<p/>').parent().html(),
       phoneNumbers: $('#phoneNumbers').wrap('<p/>').parent().html(),
       specialNeeds: $('#specialNeeds').wrap('<p/>').parent().html(),
-      tshirt: $('#tshirt').wrap('<p/>').parent().html()
+      tshirt: $('#tshirt').wrap('<p/>').parent().html(),
+      gender: $('#gender').wrap('<p/>').parent().html(),
+      bday: $('#bday').wrap('<p/>').parent().html()
     };
     $('#tabContainer1').empty();
     tabHtml.QAs[0] = $('#QAs').wrap('<p/>').parent().html();
@@ -161,6 +170,22 @@ For: /admin/applications
               $('#tabContainer1').append(tabHtml.tshirt);
               $('#DT-tshirt').DataTable(dtSettings_QAs[4]);
               return currTab[1] = 7;
+            }
+            break;
+          case '#gender':
+            if (currTab[1] !== 8) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.gender);
+              $('#DT-gender').DataTable(dtSettings_QAs[4]);
+              return currTab[1] = 8;
+            }
+            break;
+          case '#bday':
+            if (currTab[1] !== 9) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.bday);
+              $('#DT-bday').DataTable(dtSettings_bday);
+              return currTab[1] = 9;
             }
             break;
           default:

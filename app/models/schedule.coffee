@@ -30,8 +30,8 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLASS_NAME+"' getAll failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLASS_NAME+"' getAll success!"+
-										" Got " + body.length
+						# console.log "PARSE: '"+CLASS_NAME+"' getAll success!"+
+						# 				" Got " + body.length
 						
 						if body.length > 0
 							deferred.resolve(body)

@@ -19,6 +19,13 @@ dtSettings_all =
 	autoWidth: true
 	order: [[8,'desc']]
 
+dtSettings_bday =
+	order: [[1,'desc']]
+	aLengthMenu: [[50,100,200,300,-1], [50,100,200,300,"All"]]
+	iDisplayLength: 50
+	autoWidth: true
+
+
 #0 = default
 dtSettings_QAs = [
 	{
@@ -64,6 +71,8 @@ $(document).ready ()->
 		phoneNumbers: $('#phoneNumbers').wrap('<p/>').parent().html()
 		specialNeeds: $('#specialNeeds').wrap('<p/>').parent().html()
 		tshirt: $('#tshirt').wrap('<p/>').parent().html()
+		gender: $('#gender').wrap('<p/>').parent().html()
+		bday: $('#bday').wrap('<p/>').parent().html()
 		
 	#cleanup
 	$('#tabContainer1').empty()
@@ -193,6 +202,20 @@ $(document).ready ()->
 						$('#tabContainer1').append(tabHtml.tshirt)
 						$('#DT-tshirt').DataTable dtSettings_QAs[4]
 						currTab[1] = 7
+				when '#gender'
+					if currTab[1] != 8
+						# console.log 'tab changed to ' + href
+						$('#tabContainer1').empty()
+						$('#tabContainer1').append(tabHtml.gender)
+						$('#DT-gender').DataTable dtSettings_QAs[4]
+						currTab[1] = 8
+				when '#bday'
+					if currTab[1] != 9
+						# console.log 'tab changed to ' + href
+						$('#tabContainer1').empty()
+						$('#tabContainer1').append(tabHtml.bday)
+						$('#DT-bday').DataTable dtSettings_bday
+						currTab[1] = 9
 				else
 					console.log 'Invalid tab id'
 					

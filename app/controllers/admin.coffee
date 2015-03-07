@@ -212,6 +212,14 @@ module.exports = (app) ->
 					"womens_xl": 0
 				}
 				
+				aStats = {
+					gender:
+						male: 0
+						female: 0
+						other: 0
+					birthdates: []
+				}
+				
 				
 				added = false
 				email = ''
@@ -316,14 +324,41 @@ module.exports = (app) ->
 				
 				# get counts for Q3
 				
-				
-				
-				res.render 'admin/applications',
-					title: 'Admin - Application Management'
-					apps: apps
-					schools: schools
-					QA2Counts: QA2Counts
-					tshirtCounts: tshirtCounts
+				# Get anonstats
+				p = app.models.AnonStats.getAll()
+				p.then (anonStats)->
+					bday = null
+					for stat in anonStats
+						switch stat.statName
+							when 'gender'
+								switch stat.statValue
+									when 'male' then ++aStats.gender.male
+									when 'female' then ++aStats.gender.female
+									when 'other' then ++aStats.gender.other
+							when 'birthdate'
+								bday = @app.moment(stat.statValue)
+								if bday.isValid()
+									aStats.birthdates.push 
+										date: bday.format 'MMMM Do, YYYY'
+										age: parseInt bday.fromNow 'y', true		
+								
+					
+					res.render 'admin/applications',
+						title: 'Admin - Application Management'
+						apps: apps
+						schools: schools
+						QA2Counts: QA2Counts
+						tshirtCounts: tshirtCounts
+						aStats: aStats
+				, ()->
+					res.render 'admin/applications',
+						title: 'Admin - Application Management'
+						apps: apps
+						schools: schools
+						QA2Counts: QA2Counts
+						tshirtCounts: tshirtCounts
+						aStats: aStats
+						
 			, (err)-> #reject
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
