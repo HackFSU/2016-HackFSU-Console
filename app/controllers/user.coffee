@@ -8,12 +8,29 @@ module.exports = (app) ->
 			res.redirect '/'
 		
 		@profile = (req, res) ->
-			res.render 'user/profile',
-				title: 'Profile'
-				pageData:
-					parseSessionToken: req.session.parseSessionToken
-					firstName: req.session.firstName
-					lastName: req.session.lastName
+			
+			# Get any mentor info
+			p = app.models.Mentors.getByEmail req.session.email
+			p.then (mentorData)->
+				res.render 'user/profile',
+					title: 'Profile'
+					userData:
+						firstName: req.session.firstName
+						lastName: req.session.lastName
+						email: req.session.email
+					mentorData: mentorData
+			, ()->
+				res.render 'user/profile',
+					title: 'Profile'
+					userData:
+						firstName: req.session.firstName
+						lastName: req.session.lastName
+						email: req.session.email
+					mentorData: null
+			
+			
+			
+					
 
 			
 

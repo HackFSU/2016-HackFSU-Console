@@ -72,6 +72,16 @@ module.exports = (app) ->
 						firstName: obj.firstName
 						lastName: obj.lastName
 				
+				
+				# Also create them an account (non-admin)
+				# Is only created if email is not taken
+				usr = new app.models.User
+					firstName: obj.firstName
+					lastName: obj.lastName
+					email: obj.email
+					password: "" + obj.phoneNumber
+				usr.createNew()
+				
 				#return response
 				res.send
 					success: true,

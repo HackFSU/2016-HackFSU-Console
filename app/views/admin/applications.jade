@@ -34,6 +34,11 @@ block content
 								th School
 								th Email
 								th Count
+								th P
+								th W
+								th A
+								th G
+								th N
 						tbody
 							for school in schools
 								tr
@@ -47,11 +52,21 @@ block content
 											| #{email}; 
 									//- count of all for the school
 									td #{school.count}
+									td #{school.pending}
+									td #{school.waitlisted}
+									td #{school.accepted}
+									td #{school.going}
+									td #{school.notGoing}
 						tfoot
 							tr
 								th School
 								th Email
 								th Count
+								th P
+								th W
+								th A
+								th G
+								th N
 				
 				.tap-pane#all(role='tabpanel')
 					//- | ALL APPS (Michelle)

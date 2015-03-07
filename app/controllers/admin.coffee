@@ -111,46 +111,91 @@ module.exports = (app) ->
 						names: ['FSU', 'Florida State University', 'Florida State']
 						emails: ['fsu.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['GT', 'Georgia Institute of Technology', 'Georgia Tech']
 						emails: ['gatech.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['UM', 'University of Miami']
 						emails: ['umiami.edu', 'miami.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['VT', 'Virginia tech']
 						emails: ['vt.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['Stetson University']
 						emails: ['stetson.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['UCF', 'University of Central Florida']
 						emails: ['ucf.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['UNC', 'University of North Carolina']
 						emails: ['unc.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['UNT', 'University of North Texas']
 						emails: ['unt.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['Duke University']
 						emails: ['duke.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 				]
 				
@@ -158,6 +203,16 @@ module.exports = (app) ->
 				added = false
 				email = ''
 				QA2Counts = [0,0,0,0,0,0,0]
+				
+				addSchoolCount = (status, school)->
+					switch status
+						when 'pending' 	then ++school.pending
+						when 'waitlisted' then ++school.waitlisted
+						when 'accepted' 	then ++school.accepted
+						when 'going' 		then ++school.going
+						when 'not going' 	then ++school.notGoing
+				
+				
 				for appl in apps
 					appl.createdAt = @app.moment(appl.createdAt).format('M/D/YYYY HH:mm:ss A')
 					appl.school = appl.school.trim()
@@ -198,14 +253,25 @@ module.exports = (app) ->
 						if added
 							# console.log '+1 TO ' + school.names[0]
 							++school.count
+							addSchoolCount appl.status, school
 							
 					if !added
 						# console.log 'NEW SCHOOL: ' + appl.school
 						#add new school
-						schools.push
+						
+						newSchool =
 							names: [appl.school]
 							emails: if isEdu then [email] else new Array()
 							count: 1
+							pending: 0
+							waitlisted: 0
+							accepted: 0
+							going: 0
+							notGoing: 0
+							
+						addSchoolCount appl.status, newSchool
+						schools.push newSchool
+				
 					
 					# get counts for Q3
 					for i in [0..7]
