@@ -44,3 +44,26 @@ module.exports = (app) ->
 				deferred.resolve(false)
 				
 			return deferred.promise
+		
+		# Pulls all records
+		@getAll: ()->
+			deferred = app.Q.defer()			
+			
+			params =
+				limit: 1000
+			
+			app.kaiseki.getObjects CLASS_NAME, params,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLASS_NAME+"' getAll error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLASS_NAME+"' getAll failure!"
+						deferred.reject()
+					else
+						# console.log "PARSE: '"+CLASS_NAME+"' getAll success!"+
+						# 				" Got " + body.length
+						
+						deferred.resolve(body)
+			
+			return deferred.promise 

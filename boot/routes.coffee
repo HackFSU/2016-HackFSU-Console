@@ -97,7 +97,7 @@ module.exports = (app) ->
 	# Mentor form
 	app.get '/mentor', app.PublicController.mentor
 	app.get '/mentors', app.PublicController.mentor
-	app.post '/mentor_submit',urlencodedParser, app.PublicController.mentor_submit
+	app.post '/mentor_submit',jsonParser, app.PublicController.mentor_submit
 
 	# Help request form
 	app.get '/help', app.PublicController.help
@@ -105,6 +105,15 @@ module.exports = (app) ->
 
 	# Sponsor page (includes sponsor of the month at the top)
 	app.get '/sponsor', app.PublicController.sponsor
+
+	# Schedule page
+	# app.get '/schedule', app.PublicController.schedule
+
+	# Maps page - TEMPORARY PAGE
+	# app.get '/maps', app.PublicController.maps
+
+	# Stats page
+	app.get '/stats', app.PublicController.stats
 
 	# OTHER ###################################################
 

@@ -1,8 +1,87 @@
 extend ../layout
 block content
-	.container
-		if pageData
-			h1 #{pageData.firstName} #{pageData.lastName}
-			p ParseSessionToken #{pageData.parseSessionToken}
+	.containerbody
+		if userData
+			h1.singleLineText Profile
+			dl.dl-horizontal
+				dt Name
+				dd #{userData.firstName} #{userData.lastName}
+				br
+					
+				dt Email
+				dd #{userData.email}
+				br
+					
+				dt Type
+				if session.isAdmin == true && mentorData != null
+					dd Admin + Mentor
+				else if session.isAdmin == true
+					dd Admin
+				else if mentorData != null
+					dd Mentor
+				else
+					dd Basic
+				
+				if mentorData != null
+					//- Add mentor information (if available)
+					
+					br
+					dt Phone Number
+					dd #{mentorData.phoneNumber}
+					br
+						
+					dt Affiliation
+					dd #{mentorData.affiliation}
+					br
+						
+					dt Skills
+					dd #{mentorData.skills}
+					br
+						
+					dt Availability
+					dd
+						.col-sm-4
+							h3 Sat
+							p
+								if mentorData.times[0]
+									input(type="checkbox", disabled, checked)
+								else
+									input(type="checkbox", disabled)
+								label(for="sat-midnight-morning") Midnight - Morning
+
+							p
+								if mentorData.times[1]
+									input(type="checkbox", disabled, checked)
+								else
+									input(type="checkbox", disabled)
+								label(for="sat-morning-midday") Morning - Midday
+								
+							p
+								if mentorData.times[2]
+									input(type="checkbox", disabled, checked)
+								else
+									input(type="checkbox", disabled)
+								label(for="sat-midday-evening") Midday - Evening
+								
+							p
+								if mentorData.times[3]
+									input(type="checkbox", disabled, checked)
+								else
+									input(type="checkbox", disabled)
+								label(for="sat-evening-midnight") Evening - Midnight
+						.col-sm-3
+							h3 Sun
+							p
+								if mentorData.times[4]
+									input(type="checkbox", disabled, checked)
+								else
+									input(type="checkbox", disabled)
+								label(for="sun-midnight-morning") Midnight - Morning
+
 		else
-			h1 Error: No data found
+			h1.singleLineText Error: No data found
+		br
+		br
+		br
+		br
+		.footer-spacer

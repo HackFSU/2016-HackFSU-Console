@@ -111,53 +111,129 @@ module.exports = (app) ->
 						names: ['FSU', 'Florida State University', 'Florida State']
 						emails: ['fsu.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['GT', 'Georgia Institute of Technology', 'Georgia Tech']
 						emails: ['gatech.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['UM', 'University of Miami']
 						emails: ['umiami.edu', 'miami.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['VT', 'Virginia tech']
 						emails: ['vt.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['Stetson University']
 						emails: ['stetson.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['UCF', 'University of Central Florida']
 						emails: ['ucf.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['UNC', 'University of North Carolina']
 						emails: ['unc.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['UNT', 'University of North Texas']
 						emails: ['unt.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 					{
 						names: ['Duke University']
 						emails: ['duke.edu']
 						count: 0
+						pending: 0
+						waitlisted: 0
+						accepted: 0
+						going: 0
+						notGoing: 0
 					}
 				]
 				
-		
+				tshirtCounts = {
+					"mens_xs": 0
+					"mens_s": 0
+					"mens_m": 0
+					"mens_l": 0
+					"mens_xl": 0
+					"womens_xs": 0
+					"womens_s": 0
+					"womens_m": 0
+					"womens_l": 0
+					"womens_xl": 0
+				}
+				
+				aStats = {
+					gender:
+						male: 0
+						female: 0
+						other: 0
+					birthdates: []
+				}
+				
+				
 				added = false
 				email = ''
 				QA2Counts = [0,0,0,0,0,0,0]
+				
+				addSchoolCount = (status, school)->
+					switch status
+						when 'pending' 	then ++school.pending
+						when 'waitlisted' then ++school.waitlisted
+						when 'accepted' 	then ++school.accepted
+						when 'going' 		then ++school.going
+						when 'not going' 	then ++school.notGoing
+				
+				
 				for appl in apps
 					appl.createdAt = @app.moment(appl.createdAt).format('M/D/YYYY HH:mm:ss A')
 					appl.school = appl.school.trim()
@@ -198,19 +274,44 @@ module.exports = (app) ->
 						if added
 							# console.log '+1 TO ' + school.names[0]
 							++school.count
+							addSchoolCount appl.status, school
 							
 					if !added
 						# console.log 'NEW SCHOOL: ' + appl.school
 						#add new school
-						schools.push
+						
+						newSchool =
 							names: [appl.school]
 							emails: if isEdu then [email] else new Array()
 							count: 1
+							pending: 0
+							waitlisted: 0
+							accepted: 0
+							going: 0
+							notGoing: 0
+							
+						addSchoolCount appl.status, newSchool
+						schools.push newSchool
+				
 					
 					# get counts for Q3
 					for i in [0..7]
 						if appl.QAs[2][i] == true
 							++QA2Counts[i]
+							
+					# get t-shirt counts
+					if appl.status == 'going'
+						switch appl.tshirt
+							when 'm-xs' then ++tshirtCounts.mens_xs
+							when 'm-s' then ++tshirtCounts.mens_s
+							when 'm-m' then ++tshirtCounts.mens_m
+							when 'm-l' then ++tshirtCounts.mens_l
+							when 'm-xl' then ++tshirtCounts.womens_xl
+							when 'w-xs' then ++tshirtCounts.womens_xs
+							when 'w-s' then ++tshirtCounts.womens_s
+							when 'w-m' then ++tshirtCounts.womens_m
+							when 'w-l' then ++tshirtCounts.womens_l
+							when 'w-xl' then ++tshirtCounts.womens_xl
 				
 				# Sort schools (done locally now)
 				# schools.sort (a,b)->
@@ -223,13 +324,41 @@ module.exports = (app) ->
 				
 				# get counts for Q3
 				
-				
-				
-				res.render 'admin/applications',
-					title: 'Admin - Application Management'
-					apps: apps
-					schools: schools
-					QA2Counts: QA2Counts
+				# Get anonstats
+				p = app.models.AnonStats.getAll()
+				p.then (anonStats)->
+					bday = null
+					for stat in anonStats
+						switch stat.statName
+							when 'gender'
+								switch stat.statValue
+									when 'male' then ++aStats.gender.male
+									when 'female' then ++aStats.gender.female
+									when 'other' then ++aStats.gender.other
+							when 'birthdate'
+								bday = @app.moment(stat.statValue)
+								if bday.isValid()
+									aStats.birthdates.push 
+										date: bday.format 'MMMM Do, YYYY'
+										age: parseInt bday.fromNow 'y', true		
+								
+					
+					res.render 'admin/applications',
+						title: 'Admin - Application Management'
+						apps: apps
+						schools: schools
+						QA2Counts: QA2Counts
+						tshirtCounts: tshirtCounts
+						aStats: aStats
+				, ()->
+					res.render 'admin/applications',
+						title: 'Admin - Application Management'
+						apps: apps
+						schools: schools
+						QA2Counts: QA2Counts
+						tshirtCounts: tshirtCounts
+						aStats: aStats
+						
 			, (err)-> #reject
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
@@ -237,6 +366,7 @@ module.exports = (app) ->
 					schools: new Array()
 					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'
 					QA2Counts: [0,0,0,0,0,0,0]
+					tshirtCounts: tshirtCounts
 		@applications_action = (req, res) ->
 			if req.body.objectId? && req.body.action?
 				p = @app.models.Applications.getAppSimpleByObjectId(req.body.objectId)

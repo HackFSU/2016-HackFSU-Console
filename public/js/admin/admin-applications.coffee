@@ -19,6 +19,13 @@ dtSettings_all =
 	autoWidth: true
 	order: [[8,'desc']]
 
+dtSettings_bday =
+	order: [[1,'desc']]
+	aLengthMenu: [[50,100,200,300,-1], [50,100,200,300,"All"]]
+	iDisplayLength: 50
+	autoWidth: true
+
+
 #0 = default
 dtSettings_QAs = [
 	{
@@ -58,8 +65,14 @@ $(document).ready ()->
 			$('#QA1').wrap('<p/>').parent().html()
 			$('#QA2').wrap('<p/>').parent().html()
 			$('#QA3').wrap('<p/>').parent().html()
-			$('#QA4').wrap('<p/>').parent().html()	
+			$('#QA4').wrap('<p/>').parent().html()
 		]
+		under18: $('#under18').wrap('<p/>').parent().html()
+		phoneNumbers: $('#phoneNumbers').wrap('<p/>').parent().html()
+		specialNeeds: $('#specialNeeds').wrap('<p/>').parent().html()
+		tshirt: $('#tshirt').wrap('<p/>').parent().html()
+		gender: $('#gender').wrap('<p/>').parent().html()
+		bday: $('#bday').wrap('<p/>').parent().html()
 		
 	#cleanup
 	$('#tabContainer1').empty()
@@ -160,12 +173,60 @@ $(document).ready ()->
 						$('#tabContainer1').append(tabHtml.QAs[4])
 						$('#DT-QA4').DataTable dtSettings_QAs[4]
 						currTab[1] = 3
+				
+				when '#under18'
+					if currTab[1] != 4
+						# console.log 'tab changed to ' + href
+						$('#tabContainer1').empty()
+						$('#tabContainer1').append(tabHtml.under18)
+						$('#DT-under18').DataTable dtSettings_QAs[4]
+						currTab[1] = 4
+				when '#phoneNumbers'
+					if currTab[1] != 5
+						# console.log 'tab changed to ' + href
+						$('#tabContainer1').empty()
+						$('#tabContainer1').append(tabHtml.phoneNumbers)
+						$('#DT-phoneNumbers').DataTable dtSettings_QAs[4]
+						currTab[1] = 5
+				when '#specialNeeds'
+					if currTab[1] != 6
+						# console.log 'tab changed to ' + href
+						$('#tabContainer1').empty()
+						$('#tabContainer1').append(tabHtml.specialNeeds)
+						$('#DT-specialNeeds').DataTable dtSettings_QAs[4]
+						currTab[1] = 6
+				when '#tshirt'
+					if currTab[1] != 7
+						# console.log 'tab changed to ' + href
+						$('#tabContainer1').empty()
+						$('#tabContainer1').append(tabHtml.tshirt)
+						$('#DT-tshirt').DataTable dtSettings_QAs[4]
+						currTab[1] = 7
+				when '#gender'
+					if currTab[1] != 8
+						# console.log 'tab changed to ' + href
+						$('#tabContainer1').empty()
+						$('#tabContainer1').append(tabHtml.gender)
+						$('#DT-gender').DataTable dtSettings_QAs[4]
+						currTab[1] = 8
+				when '#bday'
+					if currTab[1] != 9
+						# console.log 'tab changed to ' + href
+						$('#tabContainer1').empty()
+						$('#tabContainer1').append(tabHtml.bday)
+						$('#DT-bday').DataTable dtSettings_bday
+						currTab[1] = 9
 				else
 					console.log 'Invalid tab id'
 					
 		$(this).tab 'show'
 	
 	refreshTabs()
+	refreshStatusCounts()
+	setInterval ()->
+		refreshStatusCounts()
+	, REFRESH_SPEED
+
 	
 #accept an app
 STATUS_PENDING = 'pending'
@@ -298,4 +359,3 @@ refreshStatusCounts = ()->
 			$('#loading img').fadeTo FADE_TIME, 0
 			return
 #
-setInterval refreshStatusCounts(), REFRESH_SPEED

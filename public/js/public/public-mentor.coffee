@@ -30,6 +30,8 @@ $('#mentorForm').submit (event)->
 	#validate input
 	val = validate obj
 	
+	console.log 'FORM: ' + JSON.stringify obj, undefined, 2
+	
 	#remove prev errors
 	$('label').removeClass 'hasInputError'
 	$('.form-error-msg').text ''
@@ -44,10 +46,12 @@ $('#mentorForm').submit (event)->
 		# console.log JSON.stringify obj, undefined, 2
 		#preform submission
 		$('#submit').text 'Submitting...'
+		
 		$.ajax
 			type: 'post'
 			url: '/mentor_submit'
-			data: obj
+			data: JSON.stringify obj
+			contentType: 'application/json'
 			success: (res) ->
 				if res.success == true
 					endInSuccess()

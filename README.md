@@ -58,9 +58,11 @@ This will be the final landing page + background management website for HackFSU,
 * `/help` -- mentor help request form for hackers
 * `/spreadtheword` -- shareables + contest page
 * `/sponsor` -- Sponsor of the month page
-* ~~`/signup/$confirmationEmailCode` -- create acc. (code req.)~~
+* `/signup` -- create account. Access key required for success
 * ~~`/updates` -- view updates~~
-* ~~`/schedule` -- schedule information~~
+* `/schedule` -- schedule information
+* `/confirm/:cId` -- app acceptance confirmation, requiring a confirmationId
+* `/stats` -- Application statistics page
 * ~~`/contact` -- HacFSU contact info~~
 * ~~`/signin/passwordreset` -- reset password via email~~
 * ~~`/error` -- misc error thrown~~

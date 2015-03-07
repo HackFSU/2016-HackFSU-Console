@@ -1,0 +1,53 @@
+extend ../layout
+block content
+	.containerbody
+		h1.singleLineText Application Statistics
+		
+		if date != null
+			h2
+				i As of #{date}
+			br
+			
+			.text-medium
+				b.col-sm-4.text-right Applications Recieved
+				.col-sm-1 #{counts.app}
+				br
+					
+				b.col-sm-4.text-right Schools
+				.col-sm-1 #{counts.school}
+				br
+				br
+					
+				b.col-sm-4.text-right First Timers
+				.col-sm-1 #{(counts.first / counts.app * 100).toFixed(2)}%
+				br
+				br
+					
+				b.col-sm-4.text-right High Schoolers
+				.col-sm-1 #{(counts.highSchool / counts.app * 100).toFixed(2)}%
+				br
+				
+				b.col-sm-4.text-right Freshmen
+				.col-sm-1 #{(counts.freshmen / counts.app * 100).toFixed(2)}%
+				br
+				
+				b.col-sm-4.text-right Sophomores
+				.col-sm-1 #{(counts.sophomore / counts.app * 100).toFixed(2)}%
+				br
+				
+				b.col-sm-4.text-right Juniors
+				.col-sm-1 #{(counts.junior / counts.app * 100).toFixed(2)}%
+				br
+				
+				b.col-sm-4.text-right Seniors
+				.col-sm-1 #{(counts.senior / counts.app * 100).toFixed(2)}%
+				br
+				
+				b.col-sm-4.text-right Graduate Students
+				.col-sm-1 #{(counts.grad / counts.app * 100).toFixed(2)}%
+				br
+		else
+			h2 Error!
+			h4 There was a problem grabbing the statistics. Try refreshing this page.
+		
+		.footer-spacer

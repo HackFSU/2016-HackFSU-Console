@@ -24,9 +24,40 @@ module.exports = (app) ->
 			res.render 'public/updates',
 				title: 'Updates'
 
+		# Displays the schedule from Parse
 		@schedule = (req, res) ->
-			res.render 'public/schedule',
-				title: 'Schedule'
+			pageTitle = 'Schedule'
+			pageView = 'public/schedule'
+			p = app.models.Schedule.getAll()
+			p.then (body)->
+				schedItems = []
+
+				for item in body
+					schedItems.push
+						title: item.title
+						subtitle: item.subtitle
+						timestamp: parseInt @app.moment(item.startTime.iso).format 'X'
+						startDay: @app.moment(item.startTime.iso).utcOffset('05:00').format 'dd'
+						startTime: @app.moment(item.startTime.iso).utcOffset('05:00').format 'h:mm A'
+
+				# Sort times (decending). It prints in this order
+				schedItems.sort (a,b)->
+					if a.timestamp < b.timestamp
+						return -1;
+					else if a.timestamp > b.timestamp
+						return 1;
+					else
+						return 0;
+
+				console.log 'SCHED= ' + JSON.stringify schedItems, undefined, 2
+
+				res.render pageView,
+					title: pageTitle
+					schedItems: schedItems
+			, ()->
+				res.render pageView,
+					title: pageTitle
+					schedItems: null
 
 		@sponsor = (req,res) ->
 			res.render 'public/sponsor',
@@ -35,6 +66,52 @@ module.exports = (app) ->
 		@shareables = (req, res) ->
 			res.render 'public/shareables',
 				title: 'Shareables'
+
+		@maps = (req, res) ->
+			res.render 'public/maps',
+				title: 'Maps'
+
+
+		@stats = (req, res)->
+			pageTitle = 'Application Statistics'
+			pageView = 'public/stats'
+			counts =
+				app: 0
+				first: 0
+				school: 126 # STATIC
+				highSchool: 0
+				freshmen: 0
+				sophomore: 0
+				junior: 0
+				senior: 0
+				grad: 0
+
+
+			#calc stats
+			p = app.models.Applications.getAllApps()
+			p.then (apps)->
+				for appl in apps
+					++counts.app
+					if appl.QAs[0] then ++counts.first
+					switch appl.year
+						when 'High School Student' then ++counts.highSchool
+						when 'Freshman' then ++counts.freshmen
+						when 'Sophomore' then ++counts.sophomore
+						when 'Junior' then ++counts.junior
+						when 'Senior' then ++counts.senior
+						when 'Graduate Student' then ++counts.grad
+
+
+				res.render pageView,
+					title: pageTitle
+					date: @app.moment().format 'h:mm a dddd, MMMM D'
+					counts: counts
+			, ()->
+				res.render pageView,
+					title: pageTitle
+					date: null
+					counts: counts
+
 
 		########################################################################
 		# Mentor
@@ -71,6 +148,15 @@ module.exports = (app) ->
 					locals:
 						firstName: obj.firstName
 						lastName: obj.lastName
+
+				# Also create them an account (non-admin)
+				# Is only created if email is not taken
+				usr = new app.models.User
+					firstName: obj.firstName
+					lastName: obj.lastName
+					email: obj.email
+					password: "" + obj.phoneNumber
+				usr.createNew()
 
 				#return response
 				res.send

@@ -34,6 +34,11 @@ block content
 								th School
 								th Email
 								th Count
+								th P
+								th W
+								th A
+								th G
+								th N
 						tbody
 							for school in schools
 								tr
@@ -47,14 +52,23 @@ block content
 											| #{email}; 
 									//- count of all for the school
 									td #{school.count}
+									td #{school.pending}
+									td #{school.waitlisted}
+									td #{school.accepted}
+									td #{school.going}
+									td #{school.notGoing}
 						tfoot
 							tr
 								th School
 								th Email
 								th Count
+								th P
+								th W
+								th A
+								th G
+								th N
 				
 				.tap-pane#all(role='tabpanel')
-					//- | ALL APPS (Michelle)
 					table.display#DT-all
 						thead
 							tr
@@ -119,7 +133,20 @@ block content
 									a(href='#QA3', aria-controls='QA3', role='tab' data-toggle='tab') Dietary restriction?
 								li(role='presentation')
 									a(href='#QA4', aria-controls='QA4', role='tab' data-toggle='tab') Comments?
+								li(role='presentation')
+									a(href='#under18', aria-controls='under18', role='tab' data-toggle='tab') Under 18?
+								li(role='presentation')
+									a(href='#phoneNumbers', aria-controls='phoneNumbers', role='tab' data-toggle='tab') Phone Numbers?
+								li(role='presentation')
+									a(href='#specialNeeds', aria-controls='specialNeeds', role='tab' data-toggle='tab') Special Needs?
+								li(role='presentation')
+									a(href='#tshirt', aria-controls='tshirt', role='tab' data-toggle='tab') T-Shirt Size?
+								li(role='presentation')
+									a(href='#gender', aria-controls='gender', role='tab' data-toggle='tab') Gender? (anon)
+								li(role='presentation')
+									a(href='#bday', aria-controls='bday', role='tab' data-toggle='tab') Birthdate? (anon)
 							.tab-content#tabContainer1
+								//- Hate
 								.tap-pane#QA1(role='tabpanel')
 									table.display#DT-QA1
 										thead
@@ -141,6 +168,7 @@ block content
 												th First Name
 												th Last Name
 												th Answer
+								//- Want to learn
 								.tap-pane#QA2(role='tabpanel')
 									table.display#DT-QA2
 										thead
@@ -175,7 +203,8 @@ block content
 											tr
 												th Option
 												th Count
-												
+								
+								//- Diet
 								.tap-pane#QA3(role='tabpanel')
 									table.display#DT-QA3
 										thead
@@ -191,14 +220,19 @@ block content
 														td #{app.firstName}
 														td #{app.lastName}
 														td #{app.QAs[3]}
+												if app.status == 'going' && app.confirmQAs.diet != null && app.confirmQAs.diet.trim()
+													tr
+														td #{app.firstName}
+														td #{app.lastName}
+														td #{app.confirmQAs.diet}
 													
 										tfoot
 											tr
 												th First Name
 												th Last Name
 												th Answer
+								//- Comments
 								.tap-pane#QA4(role='tabpanel')
-									//- | ALL APPS (Michelle)
 									table.display#DT-QA4
 										thead
 											tr
@@ -213,12 +247,159 @@ block content
 														td #{app.firstName}
 														td #{app.lastName}
 														td #{app.QAs[4]}
+												if app.status == 'going' && app.confirmQAs.comments != null && app.confirmQAs.comments.trim()
+													tr
+														td #{app.firstName}
+														td #{app.lastName}
+														td #{app.confirmQAs.comments}
 													
 										tfoot
 											tr
 												th First Name
 												th Last Name
 												th Answer
+								
+								//- Under 18
+								.tap-pane#under18(role='tabpanel')
+									table.display#DT-under18
+										thead
+											tr
+												th First Name
+												th Last Name
+												
+										tbody
+											for app in apps
+												if app.status == 'going' && app.confirmQAs.under18
+													tr
+														td #{app.firstName}
+														td #{app.lastName}
+													
+										tfoot
+											tr
+												th First Name
+												th Last Name
+								
+								//- Phone #s
+								.tap-pane#phoneNumbers(role='tabpanel')
+									table.display#DT-phoneNumbers
+										thead
+											tr
+												th First Name
+												th Last Name
+												th Phone Number
+												th Emergency Contact Phone Number
+										tbody
+											for app in apps
+												if app.status == 'going'
+													tr
+														td #{app.firstName}
+														td #{app.lastName}
+														td #{app.phoneNumber}
+														td #{app.confirmQAs.emergencyContact}
+													
+										tfoot
+											tr
+												th First Name
+												th Last Name
+												th Phone Number
+												th Emergency Contact Phone Number
+								
+								//- Special Needs 
+								.tap-pane#specialNeeds(role='tabpanel')
+									table.display#DT-specialNeeds
+										thead
+											tr
+												th First Name
+												th Last Name
+												th Special Accomodations Requested
+												
+										tbody
+											for app in apps
+												if app.status == 'going' && app.confirmQAs.specialNeeds != null && app.confirmQAs.specialNeeds.trim()
+													tr
+														td #{app.firstName}
+														td #{app.lastName}
+														td #{app.confirmQAs.specialNeeds}
+										tfoot
+											tr
+												th First Name
+												th Last Name
+												th Answer
+								
+								//- tshirt stats
+								.tap-pane#tshirt(role='tabpanel')
+									table.display#DT-tshirt
+										thead
+											tr
+												th Size
+												th Men's
+												th Women's
+										tbody
+											tr
+												td Extra Small
+												td #{tshirtCounts.mens_xs}
+												td #{tshirtCounts.womens_xs}
+											tr
+												td Small
+												td #{tshirtCounts.mens_s}
+												td #{tshirtCounts.womens_s}
+											tr
+												td Medium
+												td #{tshirtCounts.mens_m}
+												td #{tshirtCounts.womens_m}
+											tr
+												td Large
+												td #{tshirtCounts.mens_l}
+												td #{tshirtCounts.womens_l}
+											tr
+												td Extra Large
+												td #{tshirtCounts.mens_xl}
+												td #{tshirtCounts.womens_xl}
+										tfoot
+											tr
+												th Size
+												th Men's
+												th Women's
+								//- gender
+								.tap-pane#gender(role='tabpanel')
+									table.display#DT-gender
+										thead
+											tr
+												th Gender
+												th Count
+												
+										tbody
+											tr
+												td Male
+												td #{aStats.gender.male}
+											tr
+												td Female
+												td #{aStats.gender.female}
+											tr
+												td Other
+												td #{aStats.gender.other}
+											
+										tfoot
+											tr
+												th Gender
+												th Count
+								//- Birthdate
+								.tap-pane#bday(role='tabpanel')
+									table.display#DT-bday
+										thead
+											tr
+												th Birthdate
+												th Age
+												
+										tbody
+											for bday in aStats.birthdates
+												tr
+													td #{bday.date}
+													td #{bday.age}
+										tfoot
+											tr
+												th Birthdate
+												th Age
 												
 			
 		

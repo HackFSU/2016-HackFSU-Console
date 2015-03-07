@@ -1,4 +1,38 @@
 extend ../layout
 block content
-	.container
-		h1 #{title}
+	.containerbody
+		h1.singleLineText Schedule
+		
+		if schedItems != null
+			h2 <b>FRIDAY</b>
+				for item in schedItems
+					if item.startDay == 'Fr'
+						.row.text-center
+							.col-md-3 #{item.startTime}
+							.col-md-4 #{item.title}
+							.col-md-5 #{item.subtitle}
+						hr
+			
+			h2 <b>SATURDAY</b>
+				for item in schedItems
+					if item.startDay == 'Sa'
+						.row.text-center
+							.col-md-3 #{item.startTime}
+							.col-md-4 #{item.title}
+							.col-md-5 #{item.subtitle}
+						hr
+			
+			h2 <b>SUNDAY</b>
+				for item in schedItems
+					if item.startDay == 'Su'
+						.row.text-center
+							.col-md-3 #{item.startTime}
+							.col-md-4 #{item.title}
+							.col-md-5 #{item.subtitle}
+						hr
+		else
+			h2 Error!
+			h3 There was a problem grabbing the schedule. Try refreshing this page.
+
+
+

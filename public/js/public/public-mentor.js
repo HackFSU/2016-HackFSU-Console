@@ -25,6 +25,7 @@ Dependencies:
       times: [$('#sat-midnight-morning').is(':checked'), $('#sat-morning-midday').is(':checked'), $('#sat-midday-evening').is(':checked'), $('#sat-evening-midnight').is(':checked'), $('#sun-midnight-morning').is(':checked')]
     };
     val = validate(obj);
+    console.log('FORM: ' + JSON.stringify(obj, void 0, 2));
     $('label').removeClass('hasInputError');
     $('.form-error-msg').text('');
     if (val !== true) {
@@ -36,7 +37,8 @@ Dependencies:
       $.ajax({
         type: 'post',
         url: '/mentor_submit',
-        data: obj,
+        data: JSON.stringify(obj),
+        contentType: 'application/json',
         success: function(res) {
           if (res.success === true) {
             return endInSuccess();
