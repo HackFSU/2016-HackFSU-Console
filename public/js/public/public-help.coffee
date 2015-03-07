@@ -20,16 +20,16 @@ $('#helpForm').submit (event) ->
     val = validate obj
 
     # Remove prev errors
-	$('label').removeClass 'hasInputError'
-	$('.form-error-msg').text ''
-
+    $('label').removeClass 'hasInputError'
+    $('.form-error-msg').text ''
+    $('#submit').shakeIt()
 
 	if val != true
 		# Add new errors
-		$('label[for="' + val.for + '"]').addClass 'hasInputError'
-		$('.form-error-msg').text val.msg
-		$('#submit').shakeIt()
-	else
+        $('label[for="' + val.for + '"]').addClass 'hasInputError'
+        $('.form-error-msg').text val.msg
+        $('#submit').shakeIt()
+    else
 		#preform submission
 		$('#submit').text 'Submitting...'
 		$.ajax

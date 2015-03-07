@@ -20,35 +20,37 @@ Dependencies:
       location: $('#location').val(),
       description: $('#description').val()
     };
-    return val = validate(obj);
+    val = validate(obj);
+    $('label').removeClass('hasInputError');
+    $('.form-error-msg').text('');
+    return $('#submit').shakeIt();
   });
-
-  $('label').removeClass('hasInputError');
-
-  $('.form-error-msg').text('');
 
   if (val !== true) {
     $('label[for="' + val["for"] + '"]').addClass('hasInputError');
     $('.form-error-msg').text(val.msg);
     $('#submit').shakeIt();
   } else {
-    $('#submit').text('Submitting...');
-    $.ajax({
-      type: 'post',
-      url: '/help_submit',
-      data: obj,
-      success: function(res) {
-        if (res.success === true) {
-          return endInSuccess();
-        } else {
-          return endInError();
-        }
-      },
-      error: function() {
+
+  }
+
+  $('#submit').text('Submitting...');
+
+  $.ajax({
+    type: 'post',
+    url: '/help_submit',
+    data: obj,
+    success: function(res) {
+      if (res.success === true) {
+        return endInSuccess();
+      } else {
         return endInError();
       }
-    });
-  }
+    },
+    error: function() {
+      return endInError();
+    }
+  });
 
   return;
 
