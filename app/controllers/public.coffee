@@ -35,6 +35,10 @@ module.exports = (app) ->
 		@shareables = (req, res) ->
 			res.render 'public/shareables',
 				title: 'Shareables'
+
+		@maps = (req, res) ->
+			res.render 'public/maps',
+				title: 'Maps'
 		
 		########################################################################
 		# Mentor

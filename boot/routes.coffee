@@ -101,6 +101,12 @@ module.exports = (app) ->
 	
 	# Sponsor page (includes sponsor of the month at the top)
 	app.get '/sponsor', app.PublicController.sponsor
+
+	# Schedule page
+	app.get '/schedule', app.PublicController.schedule
+
+	# Maps page
+	app.get '/maps', app.PublicController.maps
 	
 	# OTHER ###################################################
 	
