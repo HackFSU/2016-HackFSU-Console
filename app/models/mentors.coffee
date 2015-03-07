@@ -33,14 +33,15 @@ module.exports = (app) ->
 				phoneNumber:	if obj.phoneNumber? then parseInt obj.phoneNumber else null
 				times:			if obj.times? then obj.times else new Array()
 			
+			console.log 'OBJ= ' + JSON.stringify @obj, undefined, 2
 			#make sure times has 5
 			if @obj.times.length != 5
 				@obj.times = [
-					if @obj.times[0]? then @obj.times[0] == 'true' else false,
-					if @obj.times[1]? then @obj.times[1] == 'true' else false,
-					if @obj.times[2]? then @obj.times[2] == 'true' else false,
-					if @obj.times[3]? then @obj.times[3] == 'true' else false,
-					if @obj.times[4]? then @obj.times[4] == 'true' else false,
+					if @obj.times[0]? then @obj.times[0] else false,
+					if @obj.times[1]? then @obj.times[1] else false,
+					if @obj.times[2]? then @obj.times[2] else false,
+					if @obj.times[3]? then @obj.times[3] else false,
+					if @obj.times[4]? then @obj.times[4] else false
 				]
 			
 		# Creates a new parse object from this instance
@@ -60,7 +61,4 @@ module.exports = (app) ->
 						deferred.resolve()
 			
 			deferred.promise 
-		
-		@test: ()->
-			console.log 'fuck'
 		

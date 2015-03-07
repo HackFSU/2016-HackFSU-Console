@@ -97,7 +97,7 @@ module.exports = (app) ->
 	# Mentor form
 	app.get '/mentor', app.PublicController.mentor
 	app.get '/mentors', app.PublicController.mentor
-	app.post '/mentor_submit',urlencodedParser, app.PublicController.mentor_submit
+	app.post '/mentor_submit', jsonParser, app.PublicController.mentor_submit
 	
 	# Sponsor page (includes sponsor of the month at the top)
 	app.get '/sponsor', app.PublicController.sponsor
