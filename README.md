@@ -61,6 +61,7 @@ This will be the final landing page + background management website for HackFSU,
 * ~~`/updates` -- view updates~~
 * `/schedule` -- schedule information
 * `/confirm/:cId` -- app acceptance confirmation, requiring a confirmationId
+* `/stats` -- Application statistics page
 * ~~`/contact` -- HacFSU contact info~~
 * ~~`/signin/passwordreset` -- reset password via email~~
 * ~~`/error` -- misc error thrown~~

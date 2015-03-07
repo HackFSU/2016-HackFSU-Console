@@ -108,6 +108,9 @@ module.exports = (app) ->
 	# Maps page - TEMPORARY PAGE
 	app.get '/maps', app.PublicController.maps
 	
+	# Stats page
+	app.get '/stats', app.PublicController.stats
+	
 	# OTHER ###################################################
 	
 	# Error page. errorMsg is outputed

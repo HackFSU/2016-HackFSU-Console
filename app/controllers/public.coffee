@@ -27,6 +27,7 @@ module.exports = (app) ->
 		# Displays the schedule from Parse
 		@schedule = (req, res) ->
 			pageTitle = 'Schedule'
+			pageView = 'public/schedule'
 			p = app.models.Schedule.getAll()
 			p.then (body)->
 				schedItems = []
@@ -50,11 +51,11 @@ module.exports = (app) ->
 				
 				console.log 'SCHED= ' + JSON.stringify schedItems, undefined, 2
 				
-				res.render 'public/schedule',
+				res.render pageView,
 					title: pageTitle
 					schedItems: schedItems
 			, ()->
-				res.render 'public/schedule',
+				res.render pageView,
 					title: pageTitle
 					schedItems: null
 				
@@ -69,6 +70,48 @@ module.exports = (app) ->
 		@maps = (req, res) ->
 			res.render 'public/maps',
 				title: 'Maps'
+		
+		
+		@stats = (req, res)->
+			pageTitle = 'Application Statistics'
+			pageView = 'public/stats'
+			counts = 
+				app: 0
+				first: 0
+				school: 126 # STATIC
+				highSchool: 0
+				freshmen: 0
+				sophomore: 0
+				junior: 0
+				senior: 0
+				grad: 0
+			
+			
+			#calc stats
+			p = app.models.Applications.getAllApps()
+			p.then (apps)->
+				for appl in apps
+					++counts.app
+					if appl.QAs[0] then ++counts.first
+					switch appl.year
+						when 'High School Student' then ++counts.highSchool
+						when 'Freshman' then ++counts.freshmen
+						when 'Sophomore' then ++counts.sophomore
+						when 'Junior' then ++counts.junior
+						when 'Senior' then ++counts.senior
+						when 'Graduate Student' then ++counts.grad 
+			
+			
+				res.render pageView,
+					title: pageTitle
+					date: @app.moment().format 'h:mm a dddd, MMMM D, YYYY'
+					counts: counts
+			, ()->
+				res.render pageView,
+					title: pageTitle
+					date: null
+					counts: counts
+		
 		
 		########################################################################
 		# Mentor
