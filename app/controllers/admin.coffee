@@ -199,7 +199,20 @@ module.exports = (app) ->
 					}
 				]
 				
-		
+				tshirtCounts = {
+					"mens_xs": 0
+					"mens_s": 0
+					"mens_m": 0
+					"mens_l": 0
+					"mens_xl": 0
+					"womens_xs": 0
+					"womens_s": 0
+					"womens_m": 0
+					"womens_l": 0
+					"womens_xl": 0
+				}
+				
+				
 				added = false
 				email = ''
 				QA2Counts = [0,0,0,0,0,0,0]
@@ -277,6 +290,20 @@ module.exports = (app) ->
 					for i in [0..7]
 						if appl.QAs[2][i] == true
 							++QA2Counts[i]
+							
+					# get t-shirt counts
+					if appl.status == 'going'
+						switch appl.tshirt
+							when 'm-xs' then ++tshirtCounts.mens_xs
+							when 'm-s' then ++tshirtCounts.mens_s
+							when 'm-m' then ++tshirtCounts.mens_m
+							when 'm-l' then ++tshirtCounts.mens_l
+							when 'm-xl' then ++tshirtCounts.womens_xl
+							when 'w-xs' then ++tshirtCounts.womens_xs
+							when 'w-s' then ++tshirtCounts.womens_s
+							when 'w-m' then ++tshirtCounts.womens_m
+							when 'w-l' then ++tshirtCounts.womens_l
+							when 'w-xl' then ++tshirtCounts.womens_xl
 				
 				# Sort schools (done locally now)
 				# schools.sort (a,b)->
@@ -296,6 +323,7 @@ module.exports = (app) ->
 					apps: apps
 					schools: schools
 					QA2Counts: QA2Counts
+					tshirtCounts: tshirtCounts
 			, (err)-> #reject
 				res.render 'admin/applications',
 					title: 'Admin - Application Management'
@@ -303,6 +331,7 @@ module.exports = (app) ->
 					schools: new Array()
 					msg: 'Error grabbing app data from Parse. Try Refreshing the page.'
 					QA2Counts: [0,0,0,0,0,0,0]
+					tshirtCounts: tshirtCounts
 		@applications_action = (req, res) ->
 			if req.body.objectId? && req.body.action?
 				p = @app.models.Applications.getAppSimpleByObjectId(req.body.objectId)

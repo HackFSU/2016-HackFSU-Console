@@ -47,7 +47,11 @@ For: /admin/applications
     tabHtml = {
       schools: $('#schools').wrap('<p/>').parent().html(),
       all: $('#all').wrap('<p/>').parent().html(),
-      QAs: [void 0, $('#QA1').wrap('<p/>').parent().html(), $('#QA2').wrap('<p/>').parent().html(), $('#QA3').wrap('<p/>').parent().html(), $('#QA4').wrap('<p/>').parent().html()]
+      QAs: [void 0, $('#QA1').wrap('<p/>').parent().html(), $('#QA2').wrap('<p/>').parent().html(), $('#QA3').wrap('<p/>').parent().html(), $('#QA4').wrap('<p/>').parent().html()],
+      under18: $('#under18').wrap('<p/>').parent().html(),
+      phoneNumbers: $('#phoneNumbers').wrap('<p/>').parent().html(),
+      specialNeeds: $('#specialNeeds').wrap('<p/>').parent().html(),
+      tshirt: $('#tshirt').wrap('<p/>').parent().html()
     };
     $('#tabContainer1').empty();
     tabHtml.QAs[0] = $('#QAs').wrap('<p/>').parent().html();
@@ -127,13 +131,49 @@ For: /admin/applications
               return currTab[1] = 3;
             }
             break;
+          case '#under18':
+            if (currTab[1] !== 4) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.under18);
+              $('#DT-under18').DataTable(dtSettings_QAs[4]);
+              return currTab[1] = 4;
+            }
+            break;
+          case '#phoneNumbers':
+            if (currTab[1] !== 5) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.phoneNumbers);
+              $('#DT-phoneNumbers').DataTable(dtSettings_QAs[4]);
+              return currTab[1] = 5;
+            }
+            break;
+          case '#specialNeeds':
+            if (currTab[1] !== 6) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.specialNeeds);
+              $('#DT-specialNeeds').DataTable(dtSettings_QAs[4]);
+              return currTab[1] = 6;
+            }
+            break;
+          case '#tshirt':
+            if (currTab[1] !== 7) {
+              $('#tabContainer1').empty();
+              $('#tabContainer1').append(tabHtml.tshirt);
+              $('#DT-tshirt').DataTable(dtSettings_QAs[4]);
+              return currTab[1] = 7;
+            }
+            break;
           default:
             return console.log('Invalid tab id');
         }
       });
       return $(this).tab('show');
     };
-    return refreshTabs();
+    refreshTabs();
+    refreshStatusCounts();
+    return setInterval(function() {
+      return refreshStatusCounts();
+    }, REFRESH_SPEED);
   });
 
   STATUS_PENDING = 'pending';
@@ -281,7 +321,5 @@ For: /admin/applications
       }
     });
   };
-
-  setInterval(refreshStatusCounts(), REFRESH_SPEED);
 
 }).call(this);
