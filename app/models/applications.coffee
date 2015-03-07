@@ -48,7 +48,7 @@ module.exports = (app) ->
 				year:				if obj.year? then obj.year else null
 				github:			if obj.github? then obj.github else null
 				QAs:				if obj.QAs? then obj.QAs else new Array()
-				status:			'Pending'
+				status:			'pending'
 			
 			#fill in QAs
 			if @obj.QAs.length != 5

@@ -11,7 +11,7 @@ module.exports = (app) ->
 	urlencodedParser = bodyParser.urlencoded {extended: false}
 	
 	# Enforce ACL
-	# app.use acl
+	app.use acl
 	
 	
 	# ADMINISTRATION ###########################################
@@ -103,10 +103,10 @@ module.exports = (app) ->
 	app.get '/sponsor', app.PublicController.sponsor
 
 	# Schedule page
-	app.get '/schedule', app.PublicController.schedule
+	# app.get '/schedule', app.PublicController.schedule
 
 	# Maps page - TEMPORARY PAGE
-	app.get '/maps', app.PublicController.maps
+	# app.get '/maps', app.PublicController.maps
 	
 	# Stats page
 	app.get '/stats', app.PublicController.stats

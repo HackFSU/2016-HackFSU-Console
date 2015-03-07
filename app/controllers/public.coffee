@@ -104,7 +104,7 @@ module.exports = (app) ->
 			
 				res.render pageView,
 					title: pageTitle
-					date: @app.moment().format 'h:mm a dddd, MMMM D, YYYY'
+					date: @app.moment().format 'h:mm a dddd, MMMM D'
 					counts: counts
 			, ()->
 				res.render pageView,
