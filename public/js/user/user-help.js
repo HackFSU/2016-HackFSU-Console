@@ -5,7 +5,9 @@ For: /user/help
  */
 
 (function() {
-  var dtSettings_hidden, dtSettings_requests;
+  var FADE_TIME, dtSettings_hidden, dtSettings_requests, hide;
+
+  FADE_TIME = 100;
 
   dtSettings_requests = {
     order: [[0, 'desc']],
@@ -31,6 +33,10 @@ For: /user/help
     $('#tabContainer1').empty();
     $('#tabContainer0').empty();
     $('#tabContainer0').append(tabHtml.requests);
+    $('button[name="hide"]').click(function() {
+      console.log("clicked");
+      hide($(this), $(this).attr('data-objectId'));
+    });
     $('#DT-requests').DataTable(dtSettings_requests);
     refreshTabs = function() {
       $('a[role="tab"]').click(function(e) {
@@ -42,6 +48,10 @@ For: /user/help
             if (currTab[0] !== 0) {
               $('#tabContainer0').empty();
               $('#tabContainer0').append(tabHtml.requests);
+              $('button[name="hide"]').click(function() {
+                console.log("clicked");
+                hide($(this), $(this).attr('data-objectId'));
+              });
               $('#DT-requests').DataTable(dtSettings_requests);
               return currTab[0] = 0;
             }
@@ -50,12 +60,6 @@ For: /user/help
             if (currTab[0] !== 1) {
               $('#tabContainer0').empty();
               $('#tabContainer0').append(tabHtml.hidden);
-              $('button[name="accept"]').click(function() {
-                accept($(this), $(this).attr('data-objectId'), $(this).attr('data-status'));
-              });
-              $('button[name="waitlist"]').click(function() {
-                waitlist($(this), $(this).attr('data-objectId'), $(this).attr('data-status'));
-              });
               $('#DT-hidden').DataTable(dtSettings_hidden);
               return currTab[0] = 1;
             }
@@ -68,5 +72,38 @@ For: /user/help
     };
     return refreshTabs();
   });
+
+  console.log("test");
+
+  hide = function($btn, objectId) {
+    console.log("hide btn clicked");
+    $('button[data-objectId="' + objectId + '"]').attr('disabled', 'disabled');
+    $btn.text('...');
+    $('#loading img').fadeTo(FADE_TIME, 1);
+    console.log('Hiding ' + objectId);
+    return $.ajax({
+      type: 'POST',
+      url: '/user/help_hide',
+      data: JSON.stringify({
+        objectId: objectId
+      }),
+      contentType: 'application/json',
+      success: function(res) {
+        console.log(JSON.stringify(res, void 0, 2));
+        if (res.success) {
+          $btn.text('Done!');
+        } else {
+          $btn.text('Error!');
+          $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
+        }
+        $('#loading img').fadeTo(FADE_TIME, 0);
+      },
+      error: function() {
+        $btn.text('Error!');
+        $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
+        $('#loading img').fadeTo(FADE_TIME, 0);
+      }
+    });
+  };
 
 }).call(this);

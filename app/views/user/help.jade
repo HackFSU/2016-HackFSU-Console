@@ -18,13 +18,17 @@ block content
 								th Name
 								th Location
 								th Description
+								th Functions
 						tbody
 				
 							for help in helpData
-								tr
-									td #{help.name}
-									td #{help.location}
-									td #{help.description}
+								if !help.hidden
+									tr
+										td #{help.name}
+										td #{help.location}
+										td #{help.description}
+										td 
+											button.btn(name='hide', data-objectId='#{help.objectId}') Hide
 							
 				.tap-pane#hidden(role='tabpanel')
 					table.display#DT-hidden
@@ -36,11 +40,12 @@ block content
 								th Hidden By
 						tbody
 							for help in helpData
-								tr
-									td #{help.name}
-									td #{help.location}
-									td #{help.description}
-									td #{help.hiddenBy}
+								if help.hidden
+									tr
+										td #{help.name}
+										td #{help.location}
+										td #{help.description}
+										td #{help.hiddenBy}
 							
 
 block localCSS

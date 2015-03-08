@@ -38,3 +38,6 @@ module.exports = (app) ->
 				res.render 'user/help',
 					title: 'Help Requests'
 					helpData: null
+
+		@help_hide = (req, res) ->
+			p = app.models.HelpRequests.hide(req.body.objectId)

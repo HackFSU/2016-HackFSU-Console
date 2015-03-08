@@ -66,3 +66,28 @@ module.exports = (app) ->
 						deferred.resolve(body)
 
 			return deferred.promise
+
+		@hide: (objId) ->
+			deferred = app.Q.defer()
+
+			data =
+				hidden: true
+
+			app.kaiseki.updateObject CLASS_NAME, objId, data,
+				(err, res, body, result) ->
+				if err
+					console.log "PARSE: '"+CLASS_NAME+"' hide error!"
+					deferred.reject(err)
+				else if !success
+					console.log "PARSE: '"+CLASS_NAME+"' hide failure!"
+					deferred.reject()
+				else
+					console.log "PARSE: '"+CLASS_NAME+"' hide success!"
+
+					deferred.resolve()
+
+			, (err)-> #reject
+				console.log 'PARSE: hide failed.'
+				deferred.reject(err)
+
+			return deferred.promise
