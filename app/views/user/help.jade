@@ -1,0 +1,51 @@
+extend ../layout
+block content
+	.containerbody
+		h1.singleLineText Help Requests
+		
+		#tabs(role='tabpanel')
+			ul.nav.nav-tabs(roles='tablist')
+				li.active(role='presentation')
+					a(href='#requests', aria-controls='requests', role='tab' data-toggle='tab') Requests
+				li(role='presentation')
+					a(href='#hidden', aria-controls='hidden', role='tab' data-toggle='tab') Hidden
+			
+			.tab-content#tabContainer0
+				.tap-pane.active#requests(role='tabpanel')
+					table.display#DT-requests
+						thead
+							tr
+								th Name
+								th Location
+								th Description
+						tbody
+				
+							for help in helpData
+								tr
+									td #{help.name}
+									td #{help.location}
+									td #{help.description}
+							
+				.tap-pane#hidden(role='tabpanel')
+					table.display#DT-hidden
+						thead
+							tr
+								th Name
+								th Location
+								th Description
+								th Hidden By
+						tbody
+							for help in helpData
+								tr
+									td #{help.name}
+									td #{help.location}
+									td #{help.description}
+									td #{help.hiddenBy}
+							
+
+block localCSS
+	link(rel='stylesheet', href='//cdn.datatables.net/1.10.5/css/jquery.dataTables.min.css')
+	
+block localJavascript
+	script(src='//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js')
+	script(src='/js/user/user-help.js')

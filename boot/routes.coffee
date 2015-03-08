@@ -49,6 +49,9 @@ module.exports = (app) ->
 	app.get '/user/profile', app.UserController.profile
 	# app.get '/users/profile', app.UsersController.profile
 
+	# Help requests
+	app.get '/user/help', app.UserController.help
+
 
 	# PUBLIC ###################################################
 
