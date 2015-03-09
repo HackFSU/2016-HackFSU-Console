@@ -664,17 +664,17 @@ module.exports = (app) ->
 						# SEND EMAILS! (WORKS!)
 						ids = []
 						for appl in apps
-							if appl.firstName == 'TEST' && appl.email == 'jrdbnntt@gmail.com'
-								if !appl.sentEmails? || !appl.sentEmails[templateName]
-									app.emailTemplate templateName,
-										to_email: appl.email
-										from_email: 'register@hackfsu.com'
-										from_name: 'HackFSU'
-										subject: 'Time Running Out to confirm!'
-										locals:
-											firstName: appl.firstName
-											lastName: appl.lastName
-									ids.push appl.objectId
+							if !appl.sentEmails? || !appl.sentEmails[templateName]
+								app.emailTemplate templateName,
+									to_email: appl.email
+									from_email: 'register@hackfsu.com'
+									from_name: 'HackFSU'
+									subject: 'HackFSU: Need to Confirm!'
+									locals:
+										firstName: appl.firstName
+										lastName: appl.lastName
+										confirmationId: appl.confirmationId
+								ids.push appl.objectId
 						console.log 'Sent ' + ids.length + ' '+templateName+' emails'
 						
 						# Update sentEmails

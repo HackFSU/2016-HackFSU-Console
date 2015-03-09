@@ -229,6 +229,7 @@ Parse.Cloud.define 'getAppEmailByStatus', (req,res)->
 					email: app.get 'email'
 					objectId: app.id
 					sentEmails: app.get 'sentEmails'
+					confirmationId: app.get 'confirmationId'
 				if !d.sentEmails?
 					d.sentEmails = null
 				data.push d

@@ -257,7 +257,8 @@ Parse.Cloud.define('getAppEmailByStatus', function(req, res) {
           lastName: app.get('lastName'),
           email: app.get('email'),
           objectId: app.id,
-          sentEmails: app.get('sentEmails')
+          sentEmails: app.get('sentEmails'),
+          confirmationId: app.get('confirmationId')
         };
         if (d.sentEmails == null) {
           d.sentEmails = null;

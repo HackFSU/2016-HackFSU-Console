@@ -1,20 +1,21 @@
 extend ../layout
 block content
 	p.message
-		//- | Status: Accepted
-		//- br
-		
-		| Hello CS department!<br>
+		| #{firstName},<br>
 		br
 		br
 		
 		
-		b TODO
+		| Today is the last day we can guarantee your spot! We will be sending out acceptances to other students after Monday night. The sooner you 
+		a(target='_blank', href='http://hackfsu.com/confirm/#{confirmationId}') confirm
+		|  your spot, the better chance you have at being able to attend!<br>
+		br
+		| We hope to see you here!<br>
 		
 		
 		br
 		br
-		| Hurr Durr<br>
+		| Cheers,<br>
 		br
 		b
 			| The HackFSU Crew<br>
