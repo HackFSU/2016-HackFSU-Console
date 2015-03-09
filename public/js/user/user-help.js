@@ -49,7 +49,6 @@ For: /user/help
               $('#tabContainer0').empty();
               $('#tabContainer0').append(tabHtml.requests);
               $('button[name="hide"]').click(function() {
-                console.log("clicked");
                 hide($(this), $(this).attr('data-objectId'));
               });
               $('#DT-requests').DataTable(dtSettings_requests);
@@ -73,10 +72,7 @@ For: /user/help
     return refreshTabs();
   });
 
-  console.log("test");
-
   hide = function($btn, objectId) {
-    console.log("hide btn clicked");
     $('button[data-objectId="' + objectId + '"]').attr('disabled', 'disabled');
     $btn.text('...');
     $('#loading img').fadeTo(FADE_TIME, 1);
@@ -97,11 +93,13 @@ For: /user/help
           $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
         }
         $('#loading img').fadeTo(FADE_TIME, 0);
+        location.reload();
       },
       error: function() {
-        $btn.text('Error!');
+        $btn.text('e!');
         $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
         $('#loading img').fadeTo(FADE_TIME, 0);
+        location.reload();
       }
     });
   };

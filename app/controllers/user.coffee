@@ -40,4 +40,14 @@ module.exports = (app) ->
 					helpData: null
 
 		@help_hide = (req, res) ->
-			p = app.models.HelpRequests.hide(req.body.objectId)
+			console.log "Hide req submitted"
+			hiddenBy = req.session.firstName + " " + req.session.lastName
+			p = app.models.HelpRequests.hide(req.body.objectId, hiddenBy)
+			p.then(success) ->
+				res.send
+					success: true
+					msg: ""
+			, (err) ->
+				res.send
+					success: false
+					msg: "Error hiding help request"

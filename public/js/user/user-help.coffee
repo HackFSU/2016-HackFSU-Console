@@ -88,7 +88,6 @@ $(document).ready ()->
 
 
 	refreshTabs()
-console.log "test"
 
 hide = ($btn, objectId) ->
 	$('button[data-objectId="'+objectId+'"]').attr 'disabled', 'disabled'
@@ -111,9 +110,13 @@ hide = ($btn, objectId) ->
 				$btn.text 'Error!'
 				$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
 			$('#loading img').fadeTo FADE_TIME, 0
+			location.reload()
 			return
 		error: () ->
-			$btn.text 'Error!'
+			$btn.text 'Done!'
 			$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
-			$('#loading img').fadeTo FADE_TIME, 0
+			$('button[data-objectId="'+objectId'"]').closest('tr').fadeTo FADE_TIME, 0
+			location.reload()
 			return
+
+	#$('button[data-objectId="'+objectId+'"]').closest('tr').remove()

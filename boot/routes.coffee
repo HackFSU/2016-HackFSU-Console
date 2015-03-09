@@ -51,7 +51,7 @@ module.exports = (app) ->
 
 	# Help requests
 	app.get '/user/help', app.UserController.help
-	app.post '/user/help_hide', app.UserController.help_hide
+	app.post '/user/help_hide', jsonParser, app.UserController.help_hide
 
 
 	# PUBLIC ###################################################
