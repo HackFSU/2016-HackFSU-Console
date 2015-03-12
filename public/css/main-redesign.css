@@ -754,19 +754,19 @@ p {
   display: inline-block;
   margin: 10px;
   max-width: 200px;
-  max-height: 100px;
+  max-height: 120px;
 }
 .sponsor-logo-2-dbl {
   display: inline-block;
   margin: 10px;
   max-width: 400px;
-  max-height: 100px;
+  max-height: 120px;
 }
 .sponsor-logo-1 {
   display: inline-block;
   margin: 10px;
-  max-width: 120px;
-  max-height: 50px;
+  max-width: 150px;
+  max-height: 80px;
 }
 .vcenter {
   display: inline-block;
