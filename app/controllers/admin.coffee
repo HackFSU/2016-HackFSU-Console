@@ -696,18 +696,17 @@ module.exports = (app) ->
 						# SEND EMAILS! (WORKS!)
 						ids = []
 						for appl in apps
-							if appl.email == 'jrdbnntt@gmail.com'
-								if !appl.sentEmails? || !appl.sentEmails[templateName]
-									app.emailTemplate templateName,
-										to_email: appl.email
-										from_email: 'register@hackfsu.com'
-										from_name: 'HackFSU'
-										subject: 'March 20th Right Around the Corner!'
-										locals:
-											firstName: appl.firstName
-											lastName: appl.lastName
-											confirmationId: appl.confirmationId
-									ids.push appl.objectId
+							if !appl.sentEmails? || !appl.sentEmails[templateName]
+								app.emailTemplate templateName,
+									to_email: appl.email
+									from_email: 'register@hackfsu.com'
+									from_name: 'HackFSU'
+									subject: 'March 20th Right Around the Corner!'
+									locals:
+										firstName: appl.firstName
+										lastName: appl.lastName
+										confirmationId: appl.confirmationId
+								ids.push appl.objectId
 						console.log 'Sent ' + ids.length + ' '+templateName+' emails'
 						
 						# Update sentEmails
