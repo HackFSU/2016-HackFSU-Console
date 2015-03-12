@@ -744,9 +744,34 @@ p {
  * SPONSOR OF THE MONTH PAGE
  */
 
-.sponsor-logo {
+.sponsor-logo-3 {
+  display: inline-block;
+  margin: 10px;
   width: 100%;
   height: auto;
+}
+.sponsor-logo-2 {
+  display: inline-block;
+  margin: 10px;
+  max-width: 200px;
+  max-height: 100px;
+}
+.sponsor-logo-2-dbl {
+  display: inline-block;
+  margin: 10px;
+  max-width: 400px;
+  max-height: 100px;
+}
+.sponsor-logo-1 {
+  display: inline-block;
+  margin: 10px;
+  max-width: 120px;
+  max-height: 50px;
+}
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
 }
 
 
