@@ -688,7 +688,38 @@ module.exports = (app) ->
 					, ()->
 						console.log 'Error getting '+templateName+' emails'
 				
-				
+				when 'confirmWarning2'
+					# Get all accepted
+					p = app.models.Applications.getAppEmailByStatus 'accepted'
+					p.then (apps)->
+						console.log 'Found ' + apps.length + ' '+templateName+' emails'
+						# SEND EMAILS! (WORKS!)
+						ids = []
+						for appl in apps
+							if appl.email == 'jrdbnntt@gmail.com'
+								if !appl.sentEmails? || !appl.sentEmails[templateName]
+									app.emailTemplate templateName,
+										to_email: appl.email
+										from_email: 'register@hackfsu.com'
+										from_name: 'HackFSU'
+										subject: 'March 20th Right Around the Corner!'
+										locals:
+											firstName: appl.firstName
+											lastName: appl.lastName
+											confirmationId: appl.confirmationId
+									ids.push appl.objectId
+						console.log 'Sent ' + ids.length + ' '+templateName+' emails'
+						
+						# Update sentEmails
+						pp = app.models.Applications.updateSentEmails templateName, ids
+						pp.then (msg)->
+							console.log 'sentEmails for '+templateName+': ' + msg 
+						, (err)->
+							console.log 'Error during sentEmails update ' + err
+						
+								
+					, ()->
+						console.log 'Error getting '+templateName+' emails'
 				else
 					console.log "Invlaid email template"
 								
