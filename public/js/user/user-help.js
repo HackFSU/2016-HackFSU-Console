@@ -35,7 +35,6 @@ For: /user/help
     $('#tabContainer1').empty();
     $('#tabContainer0').empty();
     $('#tabContainer0').append(tabHtml.requests);
-    socket.emit('test', 'klksjfkjslfjdf');
     $('button[name="hide"]').click(function() {
       console.log("clicked");
       hide($(this), $(this).attr('data-objectId'));
@@ -91,7 +90,7 @@ For: /user/help
         console.log(JSON.stringify(res, void 0, 2));
         if (res.success) {
           $btn.text('Done!');
-          $('button[data-objectId="' + objectId + '"]').closest('tr').remove();
+          $('#requests').closest('table').closest('tbody').append('<div>test</div>');
           socket.emit('help hide', objectId);
         } else {
           $btn.text('Error!');

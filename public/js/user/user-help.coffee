@@ -69,6 +69,7 @@ $(document).ready ()->
 						$('button[name="hide"]').click ()->
 							hide $(this),
 								($(this).attr 'data-objectId')
+
 							return
 
 						$('#DT-requests').DataTable dtSettings_requests
@@ -108,8 +109,11 @@ hide = ($btn, objectId) ->
 			console.log JSON.stringify res, undefined, 2
 			if res.success
 				$btn.text 'Done!'
-				$('button[data-objectId="'+objectId+'"]').closest('tr').remove()
+				$('#requests').closest('table').closest('tbody').append('<div>test</div>')
+
+				#$('button[data-objectId="'+objectId+'"]').closest('tr').remove()
 				socket.emit 'help hide', objectId
+
 			else
 				$btn.text 'Error!'
 				$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
