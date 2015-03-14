@@ -211,3 +211,63 @@ Parse.Cloud.define 'getAppStatusCounts', (req,res) ->
 		error: (error)->
 			res.error error
 			return
+
+#
+Parse.Cloud.define 'getAppEmailByStatus', (req,res)->
+	Parse.Cloud.useMasterKey()
+	query = new Parse.Query 'Applications'
+	query.limit 1000
+	query.equalTo 'status', req.params.status
+	query.find
+		success: (results)->
+			data = []
+			
+			for app in results
+				d = 
+					firstName: app.get 'firstName'
+					lastName: app.get 'lastName'
+					email: app.get 'email'
+					objectId: app.id
+					sentEmails: app.get 'sentEmails'
+					confirmationId: app.get 'confirmationId'
+				if !d.sentEmails?
+					d.sentEmails = null
+				data.push d
+			
+			res.success data
+			return
+		error: (error)->
+			res.error error
+			return
+	return
+
+#
+Parse.Cloud.define 'updateSentEmails', (req, res)=>
+	Parse.Cloud.useMasterKey()
+	emailName = req.params.emailName
+	
+	# Get apps with those ids
+	query = new Parse.Query 'Applications'
+	query.limit 1000
+	query.containedIn 'objectId', req.params.ids
+	query.find
+		success: (results)->			
+			for app in results
+				sentEmails = app.get 'sentEmails'
+				if !sentEmails?
+					sentEmails = {}
+				sentEmails[emailName] = true
+				app.set 'sentEmails', sentEmails
+			
+			# Save them all
+			Parse.Object.saveAll(results)
+			.then (objs)->
+				res.success 'Updated ' + objs.length
+			, (err)->
+				res.error err
+				
+			return
+		error: (error)->
+			res.error error
+			return
+	return

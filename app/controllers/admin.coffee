@@ -640,8 +640,85 @@ module.exports = (app) ->
 														
 													console.log totalSent + " Emails sent."
 							
+						
 						else
 							console.log 'Invalid Email Button' 
+				
+				when 'csBlast'
+					# Just send to Jared to fwd
+					app.emailTemplate templateName,
+						to_email: 'jab13f@my.fsu.edu'
+						from_email: 'info@hackfsu.com'
+						from_name: 'HackFSU'
+						subject: 'HackFSU Starts on March 20th!'
+						locals:
+							firstName: 'Jared'
+							lastName: 'Bennett'
+					
+				# Can use the same format for sending emails to any status type
+				when 'confirmWarning'
+					# Get all accepted
+					p = app.models.Applications.getAppEmailByStatus 'accepted'
+					p.then (apps)->
+						console.log 'Found ' + apps.length + ' '+templateName+' emails'
+						# SEND EMAILS! (WORKS!)
+						ids = []
+						for appl in apps
+							if !appl.sentEmails? || !appl.sentEmails[templateName]
+								app.emailTemplate templateName,
+									to_email: appl.email
+									from_email: 'register@hackfsu.com'
+									from_name: 'HackFSU'
+									subject: 'HackFSU: Need to Confirm!'
+									locals:
+										firstName: appl.firstName
+										lastName: appl.lastName
+										confirmationId: appl.confirmationId
+								ids.push appl.objectId
+						console.log 'Sent ' + ids.length + ' '+templateName+' emails'
+						
+						# Update sentEmails
+						pp = app.models.Applications.updateSentEmails templateName, ids
+						pp.then (msg)->
+							console.log 'sentEmails for '+templateName+': ' + msg 
+						, (err)->
+							console.log 'Error during sentEmails update ' + err
+						
+								
+					, ()->
+						console.log 'Error getting '+templateName+' emails'
+				
+				when 'confirmWarning2'
+					# Get all accepted
+					p = app.models.Applications.getAppEmailByStatus 'accepted'
+					p.then (apps)->
+						console.log 'Found ' + apps.length + ' '+templateName+' emails'
+						# SEND EMAILS! (WORKS!)
+						ids = []
+						for appl in apps
+							if !appl.sentEmails? || !appl.sentEmails[templateName]
+								app.emailTemplate templateName,
+									to_email: appl.email
+									from_email: 'register@hackfsu.com'
+									from_name: 'HackFSU'
+									subject: 'March 20th Right Around the Corner!'
+									locals:
+										firstName: appl.firstName
+										lastName: appl.lastName
+										confirmationId: appl.confirmationId
+								ids.push appl.objectId
+						console.log 'Sent ' + ids.length + ' '+templateName+' emails'
+						
+						# Update sentEmails
+						pp = app.models.Applications.updateSentEmails templateName, ids
+						pp.then (msg)->
+							console.log 'sentEmails for '+templateName+': ' + msg 
+						, (err)->
+							console.log 'Error during sentEmails update ' + err
+						
+								
+					, ()->
+						console.log 'Error getting '+templateName+' emails'
 				else
 					console.log "Invlaid email template"
 								

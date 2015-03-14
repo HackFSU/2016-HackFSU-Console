@@ -239,3 +239,69 @@ Parse.Cloud.define('getAppStatusCounts', function(req, res) {
     }
   });
 });
+
+Parse.Cloud.define('getAppEmailByStatus', function(req, res) {
+  var query;
+  Parse.Cloud.useMasterKey();
+  query = new Parse.Query('Applications');
+  query.limit(1000);
+  query.equalTo('status', req.params.status);
+  query.find({
+    success: function(results) {
+      var app, d, data, _i, _len;
+      data = [];
+      for (_i = 0, _len = results.length; _i < _len; _i++) {
+        app = results[_i];
+        d = {
+          firstName: app.get('firstName'),
+          lastName: app.get('lastName'),
+          email: app.get('email'),
+          objectId: app.id,
+          sentEmails: app.get('sentEmails'),
+          confirmationId: app.get('confirmationId')
+        };
+        if (d.sentEmails == null) {
+          d.sentEmails = null;
+        }
+        data.push(d);
+      }
+      res.success(data);
+    },
+    error: function(error) {
+      res.error(error);
+    }
+  });
+});
+
+Parse.Cloud.define('updateSentEmails', (function(_this) {
+  return function(req, res) {
+    var emailName, query;
+    Parse.Cloud.useMasterKey();
+    emailName = req.params.emailName;
+    query = new Parse.Query('Applications');
+    query.limit(1000);
+    query.containedIn('objectId', req.params.ids);
+    query.find({
+      success: function(results) {
+        var app, sentEmails, _i, _len;
+        for (_i = 0, _len = results.length; _i < _len; _i++) {
+          app = results[_i];
+          sentEmails = app.get('sentEmails');
+          if (sentEmails == null) {
+            sentEmails = {};
+          }
+          sentEmails[emailName] = true;
+          app.set('sentEmails', sentEmails);
+        }
+        Parse.Object.saveAll(results).then(function(objs) {
+          return res.success('Updated ' + objs.length);
+        }, function(err) {
+          return res.error(err);
+        });
+      },
+      error: function(error) {
+        res.error(error);
+      }
+    });
+  };
+})(this));

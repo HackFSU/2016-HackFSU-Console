@@ -66,7 +66,7 @@ module.exports = (app, http) ->
 		name: 'connect.sid'
 		secret: app.env.SECRET + ' '
 		cookie:
-			maxAge: 864000		#10 days
+			maxAge: 172800000		#2 days
 		saveUninitialized: false
 		resave: false
 	app.use (req,res,next) ->

@@ -28,8 +28,8 @@ module.exports = acl = (req,res,next) ->
 		next()
 	else
 		# Does not have access to this page
-		req.flash('error', "Access Denied.")
-		res.redirect '/'
+		# req.flash('error', "Access Denied.")
+		res.redirect '/signin'
 		
 		# res.render 'public/error',
 		# 	title: "Error!"

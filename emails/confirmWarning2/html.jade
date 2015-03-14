@@ -1,0 +1,25 @@
+extend ../layout
+block content
+	//- Subject: March 20th Right Around the Corner!
+	p.message
+		| Hey #{firstName},<br>
+		br
+		br
+		
+		
+		| We noticed you haven't gone to 
+		a(target='_blank', href='http://hackfsu.com/confirm/#{confirmationId}') confirm
+		|  your attendance for HackFSU yet. With March 20th quickly approaching, we have released our second round of acceptances. Act fast to save your spot!<br>
+		br
+		| Can't wait to see you there!<br>
+		br
+		a(target='_blank', href='http://hackfsu.com/confirm/#{confirmationId}') Your personal confirmation page.
+		br
+		
+		br
+		br
+		| Cheers,<br>
+		br
+		b The HackFSU Crew<br>
+
+//- Subject: It's time! Are you ready?

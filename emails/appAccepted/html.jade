@@ -1,35 +1,24 @@
 extend ../layout
 block content
 	p.message
-		//- | Status: Accepted
-		//- br
-		
 		| Congrats #{firstName}, you have been accepted to HackFSU!<br>
 		br
 		br
 		
-		b
-			| You have until the end of March 9th to go 
-			a(target='_blank', href='http://hackfsu.com/confirm/#{confirmationId}') here
-			|  and confirm your attendance. 
-		| Unfortunately, we cannot house everyone that has applied and so we will need to be able to pull people off of the waitlist if you cannot come.<br>
+		b Below is a link to 
+			a(target='_blank', href='http://hackfsu.com/confirm/#{confirmationId}') confirm
+			|  your attendance. Act fast to snag your spot! 
+		| We cannot house everyone that has applied so confirmations will only be open until we reach capactiy.<br>
 		br
 		
 		| We have been hard at work to make sure that you all have the best experience possible. Don’t forget to participate in our contest over at 
 		a(target='_blank', href='http://hackfsu.com/spreadtheword') hackfsu.com/spreadtheword
-		|  which now ends March 19th!<br>
+		|  which now ends March 19th! The winner will be announced at the opening ceremony.<br>
 		br
-		
-		| The winner will be announced at the opening ceremony.<br>
-		br
-		
+
 		a(target='_blank', href='http://hackfsu.com/confirm/#{confirmationId}') Your personal confirmation page.
 		br
 		br
-		
-		| <br>
-		br
-		
 		
 		br
 		br

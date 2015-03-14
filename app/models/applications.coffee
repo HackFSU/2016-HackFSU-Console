@@ -186,6 +186,65 @@ module.exports = (app) ->
 			
 			return deferred.promise
 		
+		### Parse CC function
+			Get all applications with given status
+			result[] = 
+				firstName: (string)
+				lastName: (string)
+				email: (string)
+				objectId: (string)
+				sentEmails: (obj)		
+		### 
+		@getAppEmailByStatus: (status) ->
+			deferred = app.Q.defer()			
+			
+			data = 
+				status: status
+			
+			CLOUD_FUNCTION = 'getAppEmailByStatus'
+			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
+						deferred.reject()
+					else
+						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
+						
+						deferred.resolve(body.result)
+			
+			return deferred.promise
+			
+		### Parse CC function
+			Get all applications with given status
+			emailName = name to check
+			ids[] = array of objectIds to update			
+		### 
+		@updateSentEmails: (emailName, ids) ->
+			deferred = app.Q.defer()			
+			
+			data = 
+				emailName: emailName
+				ids: ids
+			
+			CLOUD_FUNCTION = 'updateSentEmails'
+			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
+						deferred.reject()
+					else
+						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
+						
+						deferred.resolve(body.result)
+			
+			return deferred.promise
+		
 		#Simply counts all status typs and returns them (See Parse CC Funct)
 		@getAppStatusCounts: () ->
 			deferred = app.Q.defer()			
