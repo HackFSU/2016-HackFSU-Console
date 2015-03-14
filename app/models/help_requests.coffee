@@ -87,4 +87,4 @@ module.exports = (app) ->
 
 						deferred.resolve()
 
-			deferred.promise
+			return deferred.promise

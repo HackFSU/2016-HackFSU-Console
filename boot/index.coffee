@@ -6,13 +6,14 @@
 
 # Create express app
 app = require('express')()
+http = require('http').Server(app)
 
 # Configure app
-require('./config')(app)
+require('./config')(app, http)
 
 # Set up routes
 require('./routes')(app)
 
 # Boot server
-app.listen app.get('port'), ->
+http.listen app.get('port'), ->
 	console.log 'Listening on port ' + app.get('port')

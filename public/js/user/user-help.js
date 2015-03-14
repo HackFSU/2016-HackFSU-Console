@@ -5,7 +5,7 @@ For: /user/help
  */
 
 (function() {
-  var FADE_TIME, dtSettings_hidden, dtSettings_requests, hide;
+  var FADE_TIME, dtSettings_hidden, dtSettings_requests, hide, socket;
 
   FADE_TIME = 100;
 
@@ -23,6 +23,8 @@ For: /user/help
     autoWidth: true
   };
 
+  socket = io('/user/help');
+
   $(document).ready(function() {
     var currTab, refreshTabs, tabHtml;
     currTab = [0, 0];
@@ -33,6 +35,7 @@ For: /user/help
     $('#tabContainer1').empty();
     $('#tabContainer0').empty();
     $('#tabContainer0').append(tabHtml.requests);
+    socket.emit('test', 'klksjfkjslfjdf');
     $('button[name="hide"]').click(function() {
       console.log("clicked");
       hide($(this), $(this).attr('data-objectId'));
@@ -88,18 +91,17 @@ For: /user/help
         console.log(JSON.stringify(res, void 0, 2));
         if (res.success) {
           $btn.text('Done!');
+          $('button[data-objectId="' + objectId + '"]').closest('tr').remove();
+          socket.emit('help hide', objectId);
         } else {
           $btn.text('Error!');
           $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
         }
         $('#loading img').fadeTo(FADE_TIME, 0);
-        location.reload();
       },
       error: function() {
-        $btn.text('e!');
+        $btn.text('Error!');
         $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
-        $('#loading img').fadeTo(FADE_TIME, 0);
-        location.reload();
       }
     });
   };

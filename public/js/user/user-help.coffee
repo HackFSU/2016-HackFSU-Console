@@ -16,10 +16,12 @@ dtSettings_hidden =
 	iDisplayLength: 25
 	autoWidth: true
 
+socket = io('/user/help')
 
 ####################################################################
 #setup tabs
 $(document).ready ()->
+
 	#tab number [L0,L1]
 	currTab = [0,0]
 
@@ -106,17 +108,14 @@ hide = ($btn, objectId) ->
 			console.log JSON.stringify res, undefined, 2
 			if res.success
 				$btn.text 'Done!'
+				$('button[data-objectId="'+objectId+'"]').closest('tr').remove()
+				socket.emit 'help hide', objectId
 			else
 				$btn.text 'Error!'
 				$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
 			$('#loading img').fadeTo FADE_TIME, 0
-			location.reload()
 			return
 		error: () ->
-			$btn.text 'Done!'
+			$btn.text 'Error!'
 			$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
-			$('button[data-objectId="'+objectId'"]').closest('tr').fadeTo FADE_TIME, 0
-			location.reload()
 			return
-
-	#$('button[data-objectId="'+objectId+'"]').closest('tr').remove()
