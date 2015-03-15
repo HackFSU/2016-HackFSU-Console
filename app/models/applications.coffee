@@ -20,7 +20,7 @@ Class Specific vars:
 						String => Dietary restriction
 						String => Comments
 					]
-	String 		status = 'denied' 'waitlisted' 'accepted' 'going' 'not going' 'pending'
+	String 		status = 'denied' 'waitlisted' 'accepted' 'going' 'not going' 'pending' 'checked in' 'no show'
 Use:
 	1. Import model
 	2. Create new object (if isNew, creates object in parse)
@@ -293,7 +293,7 @@ module.exports = (app) ->
 			deferred = app.Q.defer()
 
 			data =
-				status = 'checked in'
+				status: 'checked in'
 
 			app.kaiseki.updateObject CLASS_NAME, objectId, data,
 				(err,res,body,success) ->

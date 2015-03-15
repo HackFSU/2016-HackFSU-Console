@@ -5,7 +5,7 @@ For: /user/help
  */
 
 (function() {
-  var FADE_TIME, REFRESH_SPEED, dtSettings_checkIns, refreshStatusCounts, socket;
+  var FADE_TIME, REFRESH_SPEED, checkIn, dtSettings_checkIns, refreshStatusCounts, socket;
 
   FADE_TIME = 100;
 
@@ -19,11 +19,21 @@ For: /user/help
   socket = io('/admin/checkins');
 
   $(document).ready(function() {
-    $('#DT-checkins').DataTable(dtSettings_checkIns);
+    var table;
+    $('button[name="checkin"]').click(function() {
+      console.log("Check In Clicked!");
+      checkIn($(this), $(this).attr('data-objectId'));
+    });
+    table = $('#DT-checkins').DataTable(dtSettings_checkIns);
     refreshStatusCounts();
-    return setInterval(function() {
+    setInterval(function() {
       return refreshStatusCounts();
     }, REFRESH_SPEED);
+    socket.on('checked in', function(msg) {
+      console.log('Checked in: ' + msg);
+      table.cell('#' + msg, '#status').data('<img src="/img/checkedIn.png"></img>').draw();
+      return table.cell('#' + msg, '#functions').data('N/A').draw();
+    });
   });
 
   REFRESH_SPEED = 60000;
@@ -39,11 +49,13 @@ For: /user/help
       success: function(res) {
         if (res.success) {
           console.log('Success counting status counts!');
+          $('#total').text('TOTAL  ' + res.counts.total);
           $('#expected').text('EXPECTED  ' + res.counts.expected);
           $('#checkedin').text('CHECKED IN  ' + res.counts.checkedIn);
           $('#noshow').text('NO SHOW  ' + res.counts.noShow);
         } else {
           console.log('Error counting status counts!');
+          $('#total').text('TOTAL  ERR');
           $('#expected').text('EXPECTED  ERR!');
           $('#checkedin').text('CHECKED IN  ERR!');
           $('#noshow').text('NO SHOW  ERR!');
@@ -52,10 +64,42 @@ For: /user/help
       },
       error: function() {
         console.log('Error retrieving status counts!');
+        $('#total').text('TOTAL  ERR');
         $('#expected').text('EXPECTED  ERR!');
         $('#checkedin').text('CHECKED IN  ERR!');
         $('#noshow').text('NO SHOW  ERR!');
         $('#loading img').fadeTo(FADE_TIME, 0);
+      }
+    });
+  };
+
+  checkIn = function($btn, objectId) {
+    $('button[data-objectId="' + objectId + '"]').attr('disabled', 'disabled');
+    $btn.text('...');
+    $('#loading img').fadeTo(FADE_TIME, 1);
+    console.log('Checking in ' + objectId);
+    return $.ajax({
+      type: 'POST',
+      url: '/admin/checkins_checkin',
+      data: JSON.stringify({
+        objectId: objectId
+      }),
+      contentType: 'application/json',
+      success: function(res) {
+        console.log(JSON.stringify(res, void 0, 2));
+        if (res.success) {
+          $btn.text('Done!');
+          refreshStatusCounts();
+          socket.emit('check in', objectId);
+        } else {
+          $btn.text('Error!');
+          $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
+        }
+        $('#loading img').fadeTo(FADE_TIME, 0);
+      },
+      error: function() {
+        $btn.text('Error!');
+        $('button[data-objectId="' + objectId + '"]').removeAttr('disabled', 'disabled');
       }
     });
   };

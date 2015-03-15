@@ -6,6 +6,7 @@ block content
 	.container
 		.row.text-medium.text-center
 			ul.list-inline
+				li.col-xs-2#total TOTAL&#32;&#32;?
 				li.col-xs-2#expected EXPECTED&#32;&#32;?
 				li.col-xs-2#checkedin CHECKED IN&#32;&#32;?
 				li.col-xs-2#noshow NO-SHOW&#32;&#32;?
@@ -15,16 +16,16 @@ block content
 		table.display#DT-checkins
 			thead
 				tr
-					th First Name
-					th Last Name
-					th Email
-					th School
-					th First?
-					th Status
-					th Functions
+					th#firstName First Name
+					th#lastName Last Name
+					th#email Email
+					th#school School
+					th#first First?
+					th#status Status
+					th#functions Functions
 			tbody
 				for hacker in hackers
-					tr
+					tr(id='#{hacker.objectId}')
 						td #{hacker.firstName}
 						td #{hacker.lastName}
 						td #{hacker.email}
@@ -41,8 +42,8 @@ block content
 								img(src='/img/checkedIn.png')
 						td
 							if hacker.status != 'checked in'
-								button.btn(name='checkIn', data-objectId='#{app.objectId}', data-status='#{app.status}') Check In
-								button.btn(name='noShow', data-objectId='#{app.objectId}', data-status='#{app.status}') No Show
+								button.btn(name='checkin', data-objectId='#{hacker.objectId}', data-status='#{hacker.status}') Check In
+								button.btn(name='noshow', data-objectId='#{hacker.objectId}', data-status='#{hacker.status}') No Show
 							else
 								p N/A
 								

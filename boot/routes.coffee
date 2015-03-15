@@ -38,7 +38,7 @@ module.exports = (app) ->
 	# checkins
 	app.get '/admin/checkins', app.AdminController.checkins
 	app.post '/admin/checkins_getStatusCounts', app.AdminController.checkins_getStatusCounts
-	app.post '/admin/checkins_checkin', app.AdminController.checkins_checkin
+	app.post '/admin/checkins_checkin', jsonParser, app.AdminController.checkins_checkin
 
 	# all users
 	# app.get '/admin/allUsers', app.AdminController.allUsers

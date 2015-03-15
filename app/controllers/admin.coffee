@@ -463,6 +463,8 @@ module.exports = (app) ->
 
 				socket.on 'check in', (objectId) ->
 					console.log '*** Socket.io "Check In" :: ' + objectId + ' ***'
+					socket.emit 'checked in', objectId
+					socket.broadcast.emit 'checked in', objectId
 
 			p = @app.models.Applications.getAllApps()
 			p.then (hackers) ->
@@ -477,7 +479,7 @@ module.exports = (app) ->
 			p.then () ->
 				res.send
 					success: true
-			, () ->
+			, (err) ->
 				res.send
 					success: false
 
