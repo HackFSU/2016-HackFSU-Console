@@ -35,6 +35,11 @@ module.exports = (app) ->
 	app.get '/admin/emails', app.AdminController.emails
 	app.post '/admin/emails_submit', urlencodedParser, app.AdminController.emails_submit
 
+	# checkins
+	app.get '/admin/checkins', app.AdminController.checkins
+	app.post '/admin/checkins_getStatusCounts', app.AdminController.checkins_getStatusCounts
+	app.post '/admin/checkins_checkin', app.AdminController.checkins_checkin
+
 	# all users
 	# app.get '/admin/allUsers', app.AdminController.allUsers
 

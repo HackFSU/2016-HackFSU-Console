@@ -9,14 +9,14 @@ Class Specific vars:
 	String 		major
 	String		year = ['Freshman', 'Sophomore','High School Student', 'Junior', 'Senior', 'Graduate Student']
 	String		github
-	Array			QAs = 
+	Array			QAs =
 					[
 						Boolean 	=> First hackathon?
 						String 	=>	One thing you hate about hackthons?
 						Boolean Array => Things you want to learn?
 						[
 								iOS, Android, Web, Front-end, Back-End,  off the shelf hardware, micros
-						]	
+						]
 						String => Dietary restriction
 						String => Comments
 					]
@@ -24,7 +24,7 @@ Class Specific vars:
 Use:
 	1. Import model
 	2. Create new object (if isNew, creates object in parse)
-	
+
 
 ###
 
@@ -39,7 +39,7 @@ module.exports = (app) ->
 			obj = if obj? then obj else {}
 
 			#Store object correctly
-			@obj = 
+			@obj =
 				firstName: 		if obj.firstName? then obj.firstName else null
 				lastName: 		if obj.lastName? then obj.lastName else null
 				email: 			if obj.email? then obj.email else null
@@ -49,7 +49,7 @@ module.exports = (app) ->
 				github:			if obj.github? then obj.github else null
 				QAs:				if obj.QAs? then obj.QAs else new Array()
 				status:			'pending'
-			
+
 			#fill in QAs
 			if @obj.QAs.length != 5
 				@obj.QAs = [
@@ -62,14 +62,14 @@ module.exports = (app) ->
 			if @obj.QAs[2].length != 7
 				for i in [0..7]
 					if !@obj.QAs[2][i]? then @obj.QAs[2][i] = false
-					
+
 		# Pulls all records
 		@getAllApps: ()->
-			deferred = app.Q.defer()			
-			
+			deferred = app.Q.defer()
+
 			params =
 				limit: 1000
-			
+
 			app.kaiseki.getObjects CLASS_NAME, params,
 				(err,res,body,success)->
 					if err
@@ -81,18 +81,42 @@ module.exports = (app) ->
 					else
 						console.log "PARSE: '"+CLASS_NAME+"' Object getAll success!"+
 										" Got " + body.length
-						
+
 						deferred.resolve(body)
-			
-			return deferred.promise 
+
+			return deferred.promise
+
+		@getAllGoing: () ->
+			deferred = app.Q.defer()
+
+			params =
+				limit: 500
+				where:
+					status: 'going'
+
+			app.kaiseki.getObjects CLASS_NAME, params,
+				(err,res,body,success) ->
+					if err
+						console.log "PARSE: '"+CLASS_NAME+"' Object getAllGoing error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLASS_NAME+"' Object getAllGoing failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLASS_NAME+"' Object getAllGoing success!"+
+										" Got " + body.length
+
+						deferred.resolve(body)
+
+			return deferred.promise
 
 		# Generates and returns a 60 unique charcter randomized string (checks it)
 		@generateNewConfirmationId: ()->
 			deferred = app.Q.defer()
 			data =
 				limit: 1000
-			
-			
+
+
 			#get all current ids
 			CLOUD_FUNCTION = 'getAllConfirmationIds'
 			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
@@ -106,7 +130,7 @@ module.exports = (app) ->
 					else
 						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"+
 										" Got " + body.result.length
-						
+
 						#generate new key
 						unique = false
 						key = ''
@@ -116,27 +140,27 @@ module.exports = (app) ->
 							for k in body.result when unique
 								if k == key
 									unique = false
-						
+
 						deferred.resolve(key)
-			
+
 			return deferred.promise
-		
+
 		### Parse CC function
 			Grabs just enough data from the app with the objectId to send an email
-			if valid, result = 
+			if valid, result =
 				firstName: (string)
 				lastName: (string)
 				email: (string)
 				status: (string)
 			else result = null
-				
+
 		###
 		@getAppSimpleByObjectId: (objectId)->
-			deferred = app.Q.defer()			
-			
-			data = 
+			deferred = app.Q.defer()
+
+			data =
 				objectId: objectId
-			
+
 			CLOUD_FUNCTION = 'getAppSimpleByObjectId'
 			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
 				(err,res,body,success)->
@@ -148,14 +172,14 @@ module.exports = (app) ->
 						deferred.reject()
 					else
 						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
-						
+
 						deferred.resolve(body.result)
-			
+
 			return deferred.promise
-		
+
 		### Parse CC function
 			Checks if a confirmation id is valid.
-			if it is, result = 
+			if it is, result =
 				valid: true
 				objectId: (string)
 				firstName: (string)
@@ -163,13 +187,13 @@ module.exports = (app) ->
 				hasDiet: (boolean)		#if we have data on their diet question
 			if it isnt, result =
 				valid: false
-		### 
+		###
 		@getAppSimpleByConfirmationId: (confirmationId) ->
-			deferred = app.Q.defer()			
-			
-			data = 
+			deferred = app.Q.defer()
+
+			data =
 				confirmationId: confirmationId
-			
+
 			CLOUD_FUNCTION = 'getAppSimpleByConfirmationId'
 			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
 				(err,res,body,success)->
@@ -181,26 +205,26 @@ module.exports = (app) ->
 						deferred.reject()
 					else
 						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
-						
+
 						deferred.resolve(body.result)
-			
+
 			return deferred.promise
-		
+
 		### Parse CC function
 			Get all applications with given status
-			result[] = 
+			result[] =
 				firstName: (string)
 				lastName: (string)
 				email: (string)
 				objectId: (string)
-				sentEmails: (obj)		
-		### 
+				sentEmails: (obj)
+		###
 		@getAppEmailByStatus: (status) ->
-			deferred = app.Q.defer()			
-			
-			data = 
+			deferred = app.Q.defer()
+
+			data =
 				status: status
-			
+
 			CLOUD_FUNCTION = 'getAppEmailByStatus'
 			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
 				(err,res,body,success)->
@@ -212,23 +236,23 @@ module.exports = (app) ->
 						deferred.reject()
 					else
 						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
-						
+
 						deferred.resolve(body.result)
-			
+
 			return deferred.promise
-			
+
 		### Parse CC function
 			Get all applications with given status
 			emailName = name to check
-			ids[] = array of objectIds to update			
-		### 
+			ids[] = array of objectIds to update
+		###
 		@updateSentEmails: (emailName, ids) ->
-			deferred = app.Q.defer()			
-			
-			data = 
+			deferred = app.Q.defer()
+
+			data =
 				emailName: emailName
 				ids: ids
-			
+
 			CLOUD_FUNCTION = 'updateSentEmails'
 			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
 				(err,res,body,success)->
@@ -240,15 +264,15 @@ module.exports = (app) ->
 						deferred.reject()
 					else
 						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
-						
+
 						deferred.resolve(body.result)
-			
+
 			return deferred.promise
-		
+
 		#Simply counts all status typs and returns them (See Parse CC Funct)
 		@getAppStatusCounts: () ->
-			deferred = app.Q.defer()			
-			
+			deferred = app.Q.defer()
+
 			CLOUD_FUNCTION = 'getAppStatusCounts'
 			app.kaiseki.cloudRun CLOUD_FUNCTION, null,
 				(err,res,body,success)->
@@ -260,24 +284,63 @@ module.exports = (app) ->
 						deferred.reject()
 					else
 						# console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
-						
+
 						deferred.resolve(body.result)
-			
+
 			return deferred.promise
-		
+
+		@checkIn: (objectId) ->
+			deferred = app.Q.defer()
+
+			data =
+				status = 'checked in'
+
+			app.kaiseki.updateObject CLASS_NAME, objectId, data,
+				(err,res,body,success) ->
+					if err
+						console.log "PARSE: '"+CLASS_NAME+"' check in error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLASS_NAME+"' check in failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLASS_NAME+"' check in success!"
+						deferred.resolve()
+
+			return deferred.promise
+
+		@getCheckinStatusCounts: () ->
+			deferred = app.Q.defer()
+
+			CLOUD_FUNCTION = 'getCheckinStatusCounts'
+			app.kaiseki.cloudRun CLOUD_FUNCTION, null,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
+
+						deferred.resolve(body.result)
+
+			return deferred.promise
+
 		# Sets the application as approved and assigns it a confirmationId.
 		# Returns confirmationId
 		@accept: (objectId) ->
-			deferred = app.Q.defer()			
-			
+			deferred = app.Q.defer()
+
 			p = app.models.Applications.generateNewConfirmationId()
 			p.then (confirmationId)-> #resolve
 				console.log 'PARSE: confirmationId ' + confirmationId + ' created'
-				
+
 				data =
 					status: 'accepted'
 					confirmationId: confirmationId
-				
+
 				app.kaiseki.updateObject CLASS_NAME, objectId, data,
 					(err,res,body,success)->
 						if err
@@ -287,22 +350,22 @@ module.exports = (app) ->
 							console.log "PARSE: '"+CLASS_NAME+"' approve failure!"
 							deferred.reject()
 						else
-							# console.log "PARSE: '"+CLASS_NAME+"' approve success!"							
-							
+							# console.log "PARSE: '"+CLASS_NAME+"' approve success!"
+
 							deferred.resolve(confirmationId)
-				
+
 			, (err)-> #reject
 				console.log 'PARSE: confirmationId creation failed.'
 				deferred.reject(err)
 
 			return deferred.promise
-		
+
 		@waitlist: (objectId) ->
-			deferred = app.Q.defer()			
-			
+			deferred = app.Q.defer()
+
 			data =
 				status: 'waitlisted'
-			
+
 			app.kaiseki.updateObject CLASS_NAME, objectId, data,
 				(err,res,body,success)->
 					if err
@@ -312,21 +375,21 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLASS_NAME+"' approve failure!"
 						deferred.reject()
 					else
-						# console.log "PARSE: '"+CLASS_NAME+"' approve success!"							
-						
+						# console.log "PARSE: '"+CLASS_NAME+"' approve success!"
+
 						deferred.resolve()
-				
+
 			return deferred.promise
-			
-		
+
+
 		@confirmSave: (confirmData)->
 			deferred = app.Q.defer()
-			
-			params = 
+
+			params =
 				limit: 1
 				where:
 					confirmationId: confirmData.confirmationId
-			
+
 			#get application
 			app.kaiseki.getObjects CLASS_NAME, params,
 				(err,res,body,success)->
@@ -337,10 +400,10 @@ module.exports = (app) ->
 						console.log "PARSE: '"+CLASS_NAME+"' getObjects failure!"
 						deferred.reject()
 					else
-						# console.log "PARSE: '"+CLASS_NAME+"' getObjects success!"							
-						
+						# console.log "PARSE: '"+CLASS_NAME+"' getObjects success!"
+
 						# update with new data
-						data = 
+						data =
 							status:				if confirmData.going then 'going' else 'not going'
 							phoneNumber:		parseInt("" + confirmData.phoneNumber)
 							tshirt: 				confirmData.tshirt
@@ -351,17 +414,17 @@ module.exports = (app) ->
 								diet: 			confirmData.diet
 								comments: 		confirmData.comments
 								under18:			confirmData.under18
-						
+
 						# console.log 'Confirming... ' + JSON.stringify data, undefined, 2
 						console.log 'Confirming... ' + body[0].email + ' with ' + data.status
-							
+
 						app.kaiseki.updateObject CLASS_NAME, body[0].objectId, data,
 							(err,res,body2,success)->
 								if err
 									console.log "PARSE: '"+CLASS_NAME+"' confirmSave error!"
 									deferred.reject(err)
 								else if !success
-									console.log "PARSE: '"+CLASS_NAME+"' confirmSave failure! " + 
+									console.log "PARSE: '"+CLASS_NAME+"' confirmSave failure! " +
 										JSON.stringify body2, undefined, 2
 									deferred.reject()
 								else if !body2.updatedAt?
@@ -369,9 +432,9 @@ module.exports = (app) ->
 									deferred.reject()
 								else
 									# console.log "PARSE: '"+CLASS_NAME+"' confirmSave success! "+
-									# 	"Object: " + body[0].objectId + "UpdatedAt: " + body2.updatedAt							
-									
-									
+									# 	"Object: " + body[0].objectId + "UpdatedAt: " + body2.updatedAt
+
+
 									#save anon stats
 									as = new app.models.AnonStats
 										bday: confirmData.bday
@@ -381,5 +444,5 @@ module.exports = (app) ->
 										deferred.resolve()
 									, ()-> #reject
 										deferred.reject()
-			
+
 			return deferred.promise

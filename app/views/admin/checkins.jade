@@ -1,0 +1,66 @@
+extend ../layout
+block content
+	.containerbody
+		h1.singleLineText Check-in Management
+		
+	.container
+		.row.text-medium.text-center
+			ul.list-inline
+				li.col-xs-2#expected EXPECTED&#32;&#32;?
+				li.col-xs-2#checkedin CHECKED IN&#32;&#32;?
+				li.col-xs-2#noshow NO-SHOW&#32;&#32;?
+				li.col-xs-2#loading
+					img(src='/img/loading.gif')
+		br
+		table.display#DT-checkins
+			thead
+				tr
+					th First Name
+					th Last Name
+					th Email
+					th School
+					th First?
+					th Status
+					th Functions
+			tbody
+				for hacker in hackers
+					tr
+						td #{hacker.firstName}
+						td #{hacker.lastName}
+						td #{hacker.email}
+						td #{hacker.school}
+						td
+							if hacker.QAs[0] == true
+								p Yes
+							else
+								p No
+						if hacker.status != 'checked in'
+							td(style="color: red") Not Checked In
+						else
+							td
+								img(src='/img/checkedIn.png')
+						td
+							if hacker.status != 'checked in'
+								button.btn(name='checkIn', data-objectId='#{app.objectId}', data-status='#{app.status}') Check In
+								button.btn(name='noShow', data-objectId='#{app.objectId}', data-status='#{app.status}') No Show
+							else
+								p N/A
+								
+			tfoot
+				tr
+					th First Name
+					th Last Name
+					th Email
+					th School
+					th First?
+					th Status
+					th Functions
+			
+		
+block localCSS
+	link(rel='stylesheet', href='//cdn.datatables.net/1.10.5/css/jquery.dataTables.min.css')
+	
+block localJavascript
+	script(src='https://cdn.socket.io/socket.io-1.2.0.js')
+	script(src='//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js')
+	script(src='/js/admin/admin-checkins.js')
