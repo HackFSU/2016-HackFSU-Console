@@ -222,11 +222,12 @@ Parse.Cloud.define 'getCheckinStatusCounts', (req, res) ->
 	query.find
 		success: (results)->
 			counts =
+				total: 0
 				expected: 0
 				checkedIn: 0
-				noShow: 0
 
 			for app in results
+				++counts.total
 				switch app.get 'status'
 					when 'going' then ++counts.expected
 					when 'checked in' then ++counts.checkedIn
@@ -237,7 +238,7 @@ Parse.Cloud.define 'getCheckinStatusCounts', (req, res) ->
 			return
 		error: (error)->
 			res.error error
-			return 
+			return
 #
 Parse.Cloud.define 'getAppEmailByStatus', (req,res)->
 	Parse.Cloud.useMasterKey()

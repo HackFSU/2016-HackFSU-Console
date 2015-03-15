@@ -55,14 +55,12 @@ refreshStatusCounts = ()->
 				$('#total').text 'TOTAL  ' + res.counts.total
 				$('#expected').text 'EXPECTED  ' + res.counts.expected
 				$('#checkedin').text 'CHECKED IN  ' + res.counts.checkedIn
-				$('#noshow').text 'NO SHOW  ' + res.counts.noShow
 
 			else
 				console.log 'Error counting status counts!'
 				$('#total').text 'TOTAL  ERR'
 				$('#expected').text 'EXPECTED  ERR!'
 				$('#checkedin').text 'CHECKED IN  ERR!'
-				$('#noshow').text 'NO SHOW  ERR!'
 
 			$('#loading img').fadeTo FADE_TIME, 0
 			return
@@ -71,7 +69,6 @@ refreshStatusCounts = ()->
 			$('#total').text 'TOTAL  ERR'
 			$('#expected').text 'EXPECTED  ERR!'
 			$('#checkedin').text 'CHECKED IN  ERR!'
-			$('#noshow').text 'NO SHOW  ERR!'
 			$('#loading img').fadeTo FADE_TIME, 0
 			return
 

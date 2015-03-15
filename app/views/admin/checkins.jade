@@ -9,7 +9,6 @@ block content
 				li.col-xs-2#total TOTAL&#32;&#32;?
 				li.col-xs-2#expected EXPECTED&#32;&#32;?
 				li.col-xs-2#checkedin CHECKED IN&#32;&#32;?
-				li.col-xs-2#noshow NO-SHOW&#32;&#32;?
 				li.col-xs-2#loading
 					img(src='/img/loading.gif')
 		br
@@ -43,7 +42,6 @@ block content
 						td
 							if hacker.status != 'checked in'
 								button.btn(name='checkin', data-objectId='#{hacker.objectId}', data-status='#{hacker.status}') Check In
-								button.btn(name='noshow', data-objectId='#{hacker.objectId}', data-status='#{hacker.status}') No Show
 							else
 								p N/A
 								

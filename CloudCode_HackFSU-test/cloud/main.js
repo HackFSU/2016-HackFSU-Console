@@ -251,8 +251,7 @@ Parse.Cloud.define('getCheckinStatusCounts', function(req, res) {
       counts = {
         total: 0,
         expected: 0,
-        checkedIn: 0,
-        noShow: 0
+        checkedIn: 0
       };
       for (_i = 0, _len = results.length; _i < _len; _i++) {
         app = results[_i];
