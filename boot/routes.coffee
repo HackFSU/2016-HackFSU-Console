@@ -92,7 +92,7 @@ module.exports = (app) ->
 	#app.get '/contact', app.PublicController.contact
 	
 	# Hackathon Schedule
-	#app.get '/schedule', app.PublicController.schedule
+	app.get '/schedule', app.PublicController.schedule
 	
 	# Mentor form
 	app.get '/mentor', app.PublicController.mentor

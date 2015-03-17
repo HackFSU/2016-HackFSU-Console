@@ -49,7 +49,7 @@ module.exports = (app) ->
 					else
 						return 0;
 				
-				console.log 'SCHED= ' + JSON.stringify schedItems, undefined, 2
+				# console.log 'SCHED= ' + JSON.stringify schedItems, undefined, 2
 				
 				res.render pageView,
 					title: pageTitle
