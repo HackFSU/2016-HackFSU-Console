@@ -37,8 +37,11 @@ module.exports = (app) ->
 						title: item.title
 						subtitle: item.subtitle
 						timestamp: parseInt @app.moment(item.startTime.iso).format 'X'
-						startDay: @app.moment(item.startTime.iso).utcOffset('05:00').format 'dd'
-						startTime: @app.moment(item.startTime.iso).utcOffset('05:00').format 'h:mm A'
+						startDay: @app.moment(item.startTime.iso).format 'dd'
+						startTime: @app.moment(item.startTime.iso).format 'h:mm A'
+						
+						# startDay: @app.moment(item.startTime.iso).utcOffset('05:00').format 'dd'
+						# startTime: @app.moment(item.startTime.iso).utcOffset('05:00').format 'h:mm A'
 						
 				# Sort times (decending). It prints in this order
 				schedItems.sort (a,b)->
