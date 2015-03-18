@@ -93,4 +93,34 @@ module.exports = (app) ->
 								skills: body[0].skills
 								times: body[0].times
 									
-			return deferred.promise 
+			return deferred.promise
+		
+		
+		# Gets all mentor data needed for sending emails
+		@getAllSimple: ()->
+			deferred = app.Q.defer()			
+			
+			params =
+				limit: 1000
+			
+			app.kaiseki.getObjects CLASS_NAME, params,
+				(err,res,body,success)->
+					if err
+						console.log "PARSE: '"+CLASS_NAME+"' getAll error!"
+						deferred.reject(err)
+					else if !success
+						console.log "PARSE: '"+CLASS_NAME+"' getAll failure!"
+						deferred.reject()
+					else
+						console.log "PARSE: '"+CLASS_NAME+"' getAll success!"+
+										" Got " + body.length
+						
+						all = []
+						for mentor in body
+							all.push
+								email: mentor.email
+								firstName: mentor.firstName
+								lastName: mentor.lastName
+						deferred.resolve(all);
+									
+			return deferred.promise

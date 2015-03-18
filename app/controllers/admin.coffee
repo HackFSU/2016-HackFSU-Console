@@ -719,6 +719,23 @@ module.exports = (app) ->
 								
 					, ()->
 						console.log 'Error getting '+templateName+' emails'
+				
+				when 'mentorBlast'
+					p = app.models.Mentors.getAllSimple()
+					p.then (mentors)->
+						for m in mentors
+							app.emailTemplate templateName,
+								to_email: m.email
+								from_email: 'info@hackfsu.com'
+								from_name: 'HackFSU'
+								subject: 'Mentors!'
+								locals:
+									firstName: m.firstName
+									lastName: m.lastName
+									confirmationId: m.confirmationId
+					(err)->
+						console.log 'Failed retrieving sponsors'
+				
 				else
 					console.log "Invlaid email template"
 								
