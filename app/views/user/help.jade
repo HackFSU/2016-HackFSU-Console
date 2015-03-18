@@ -2,7 +2,7 @@ extend ../layout
 block content
 	.containerbody
 		h1.singleLineText Help Requests
-		
+		p(id='sessionUser', style='display: none') #{user}
 		#tabs(role='tabpanel')
 			ul.nav.nav-tabs(roles='tablist')
 				li.active(role='presentation')
@@ -23,29 +23,29 @@ block content
 				
 							for help in helpData
 								if !help.hidden
-									tr
+									tr(id='#{help.objectId}')
 										td #{help.name}
 										td #{help.location}
 										td #{help.description}
 										td 
 											button.btn(name='hide', data-objectId='#{help.objectId}') Hide
 							
-				.tap-pane#hidden(role='tabpanel')
+				.tap-pane#hidden(role='tabpanel', style='display: none')
 					table.display#DT-hidden
 						thead
 							tr
 								th Name
 								th Location
 								th Description
-								th Hidden By
+								th(id='hiddenBy') Hidden By
 						tbody
 							for help in helpData
 								if help.hidden
-									tr
+									tr(id='#{help.objectId}')
 										td #{help.name}
 										td #{help.location}
 										td #{help.description}
-										td #{help.hiddenBy}
+										td(id='') #{help.hiddenBy}
 							
 
 block localCSS

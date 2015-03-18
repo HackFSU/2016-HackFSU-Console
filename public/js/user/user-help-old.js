@@ -26,22 +26,20 @@ For: /user/help
   socket = io('/user/help');
 
   $(document).ready(function() {
-    var currTab, dtHidden, dtRequests, hiddenBy, refreshTabs;
+    var currTab, refreshTabs, tabHtml;
     currTab = [0, 0];
-    dtHidden = $('#DT-hidden').DataTable(dtSettings_hidden);
-    dtRequests = $('#DT-requests').DataTable(dtSettings_requests);
-    hiddenBy = '';
+    tabHtml = {
+      requests: $('#requests').wrap('<p/>').parent().html(),
+      hidden: $('#hidden').wrap('<p/>').parent().html()
+    };
+    $('#tabContainer1').empty();
+    $('#tabContainer0').empty();
+    $('#tabContainer0').append(tabHtml.requests);
     $('button[name="hide"]').click(function() {
       console.log("clicked");
       hide($(this), $(this).attr('data-objectId'));
     });
-    socket.on('request hidden', function(msg) {
-      var data;
-      data = dtRequests.row('#' + msg).data();
-      data[3] = $('#sessionUser').text();
-      dtHidden.row.add(data).draw();
-      return dtRequests.row('#' + msg).remove().draw();
-    });
+    $('#DT-requests').DataTable(dtSettings_requests);
     refreshTabs = function() {
       $('a[role="tab"]').click(function(e) {
         var href;
@@ -50,15 +48,20 @@ For: /user/help
         switch (href) {
           case '#requests':
             if (currTab[0] !== 0) {
-              $('#hidden').hide();
-              $('#requests').show();
+              $('#tabContainer0').empty();
+              $('#tabContainer0').append(tabHtml.requests);
+              $('button[name="hide"]').click(function() {
+                hide($(this), $(this).attr('data-objectId'));
+              });
+              $('#DT-requests').DataTable(dtSettings_requests);
               return currTab[0] = 0;
             }
             break;
           case '#hidden':
             if (currTab[0] !== 1) {
-              $('#requests').hide();
-              $('#hidden').show();
+              $('#tabContainer0').empty();
+              $('#tabContainer0').append(tabHtml.hidden);
+              $('#DT-hidden').DataTable(dtSettings_hidden);
               return currTab[0] = 1;
             }
             break;
@@ -87,6 +90,7 @@ For: /user/help
         console.log(JSON.stringify(res, void 0, 2));
         if (res.success) {
           $btn.text('Done!');
+          $('#requests').closest('table').closest('tbody').append('<div>test</div>');
           socket.emit('help hide', objectId);
         } else {
           $btn.text('Error!');

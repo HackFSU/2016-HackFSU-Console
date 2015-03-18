@@ -37,6 +37,8 @@ module.exports = (app) ->
 
 				socket.on 'help hide', (msg) ->
 					console.log 'Hiding: ' + msg
+					socket.emit 'request hidden', msg
+					socket.broadcast.emit 'request hidden', msg
 
 
 			hrs = app.models.HelpRequests.getAll()
@@ -44,6 +46,7 @@ module.exports = (app) ->
 				res.render 'user/help',
 					title: 'Help Requests'
 					helpData: helpData
+					user: req.session.firstName + ' ' + req.session.lastName
 			, () ->
 				res.render 'user/help',
 					title: 'Help Requests'

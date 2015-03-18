@@ -25,26 +25,29 @@ $(document).ready ()->
 	#tab number [L0,L1]
 	currTab = [0,0]
 
-	dtHidden = $('#DT-hidden').DataTable dtSettings_hidden
-	dtRequests = $('#DT-requests').DataTable dtSettings_requests
+	#get raw tab data
+	tabHtml =
+		requests: $('#requests').wrap('<p/>').parent().html()
+		hidden: $('#hidden').wrap('<p/>').parent().html()
 
-	hiddenBy = ''
+	#cleanup
+	$('#tabContainer1').empty()
 
+	$('#tabContainer0').empty()
+
+	#initials
+	$('#tabContainer0').append(tabHtml.requests)
 
 	#setup buttons
 	$('button[name="hide"]').click ()->
 		console.log "clicked"
-
 		hide $(this),
 			($(this).attr 'data-objectId')
 		return
 
-	socket.on 'request hidden', (msg) ->
-		data = dtRequests.row('#' + msg).data()
-		data[3] = $('#sessionUser').text()
-		dtHidden.row.add(data).draw()
-	#	dtHidden.cell(0, '#hiddenBy').data($('#sessionUser').text()).draw()
-		dtRequests.row('#' + msg).remove().draw()
+	$('#DT-requests').DataTable dtSettings_requests
+
+
 
 	# 	$(this).tab 'show'
 	refreshTabs = ()->
@@ -59,25 +62,26 @@ $(document).ready ()->
 				when '#requests'
 					if currTab[0] != 0
 						# console.log 'tab changed to ' + href
-						$('#hidden').hide()
-						$('#requests').show()
+						$('#tabContainer0').empty()
+						$('#tabContainer0').append(tabHtml.requests)
 
-						# #setup buttons
-						# $('button[name="hide"]').click ()->
-						# 	hide $(this),
-						# 		($(this).attr 'data-objectId')
-						#
-						# 	return
+						#setup buttons
+						$('button[name="hide"]').click ()->
+							hide $(this),
+								($(this).attr 'data-objectId')
 
-						# $('#DT-requests').DataTable dtSettings_requests
+							return
+
+						$('#DT-requests').DataTable dtSettings_requests
 						currTab[0] = 0
 
 				when '#hidden'
 					if currTab[0] != 1
-						$('#requests').hide()
-						$('#hidden').show()
+						# console.log 'tab changed to ' + href
+						$('#tabContainer0').empty()
+						$('#tabContainer0').append(tabHtml.hidden)
 
-						#$('#DT-hidden').DataTable dtSettings_hidden
+						$('#DT-hidden').DataTable dtSettings_hidden
 						currTab[0] = 1
 
 				else
@@ -105,7 +109,11 @@ hide = ($btn, objectId) ->
 			console.log JSON.stringify res, undefined, 2
 			if res.success
 				$btn.text 'Done!'
+				$('#requests').closest('table').closest('tbody').append('<div>test</div>')
+
+				#$('button[data-objectId="'+objectId+'"]').closest('tr').remove()
 				socket.emit 'help hide', objectId
+
 			else
 				$btn.text 'Error!'
 				$('button[data-objectId="'+objectId+'"]').removeAttr 'disabled', 'disabled'
