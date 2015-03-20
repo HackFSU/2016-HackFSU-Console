@@ -240,11 +240,16 @@ Parse.Cloud.define('getAppStatusCounts', function(req, res) {
   });
 });
 
+
+/*
+	Returns Checkin Status counts
+ */
+
 Parse.Cloud.define('getCheckinStatusCounts', function(req, res) {
   var query;
   Parse.Cloud.useMasterKey();
   query = new Parse.Query('Applications');
-  query.limit(1000);
+  query.limit(500);
   return query.find({
     success: function(results) {
       var app, counts, _i, _len;
@@ -255,7 +260,7 @@ Parse.Cloud.define('getCheckinStatusCounts', function(req, res) {
       };
       for (_i = 0, _len = results.length; _i < _len; _i++) {
         app = results[_i];
-        ++counts.total
+        ++counts.total;
         switch (app.get('status')) {
           case 'going':
             ++counts.expected;
@@ -265,7 +270,6 @@ Parse.Cloud.define('getCheckinStatusCounts', function(req, res) {
             break;
           case 'no show':
             ++counts.noShow;
-            break;
         }
       }
       res.success(counts);
@@ -341,3 +345,41 @@ Parse.Cloud.define('updateSentEmails', (function(_this) {
     });
   };
 })(this));
+
+
+/*
+	Stores new wifi credentials into parse. Sets used to false.
+ */
+
+Parse.Cloud.define('addWifiCreds', (function(_this) {
+  return function(req, res) {
+    var WifiCreds, cred, obj, objs, _i, _len, _ref;
+    Parse.Cloud.useMasterKey();
+    WifiCreds = Parse.Object.extend('WifiCreds');
+    if (req.params.creds) {
+      objs = [];
+      _ref = req.params.creds;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        cred = _ref[_i];
+        obj = new WifiCreds();
+        obj.set('username', cred.username);
+        obj.set('password', cred.password);
+        obj.set('used', false);
+        objs.push(obj);
+      }
+      return Parse.Object.saveAll(objs).then(function(objs) {
+        return res.success('Complete. ' + objs.length);
+      }, function(err) {
+        return res.error('Error. ' + err);
+      });
+    } else {
+      return res.error("No creds found");
+    }
+  };
+})(this));
+
+
+/* 
+	Prevents adding wifi duplicates (Removed because it was taking too long)
+ *
+ */

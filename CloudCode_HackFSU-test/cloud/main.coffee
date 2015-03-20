@@ -298,3 +298,49 @@ Parse.Cloud.define 'updateSentEmails', (req, res)=>
 			res.error error
 			return
 	return
+
+###
+	Stores new wifi credentials into parse. Sets used to false.
+###
+Parse.Cloud.define 'addWifiCreds', (req, res)=>
+	Parse.Cloud.useMasterKey()
+	WifiCreds = Parse.Object.extend 'WifiCreds'
+	
+	if req.params.creds
+		objs = []
+		# Create objects
+		for cred in req.params.creds
+			obj = new WifiCreds()
+			obj.set 'username', cred.username
+			obj.set 'password', cred.password
+			obj.set 'used', false
+			objs.push obj
+		
+		Parse.Object.saveAll(objs)
+		.then (objs)->
+			res.success 'Complete. ' + objs.length
+		, (err)->
+			res.error 'Error. ' + err
+			
+	else
+		res.error "No creds found"
+
+
+### 
+	Prevents adding wifi duplicates (Removed because it was taking too long)
+# ###
+# Parse.Cloud.beforeSave 'WifiCreds', (req, res)=>
+# 	# Check if username is already in use
+# 	query = new Parse.Query 'WifiCreds'
+# 	query.equalTo 'username', req.object.get 'username'
+# 	query.first
+# 		success: (obj)->
+# 			if obj
+# 				res.error 'Already exists!'
+# 			else
+# 				res.success()
+# 			return
+# 		error: (obj)->
+# 			res.error 'Error checking for uniquness'
+# 			return
+# 	return
