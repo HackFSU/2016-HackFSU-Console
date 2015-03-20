@@ -3,6 +3,7 @@ block content
 	.containerbody
 		h1.singleLineText Help Requests
 		p(id='sessionUser', style='display: none') #{user}
+	.container
 		#tabs(role='tabpanel')
 			ul.nav.nav-tabs(roles='tablist')
 				li.active(role='presentation')
@@ -46,6 +47,7 @@ block content
 										td #{help.location}
 										td #{help.description}
 										td(id='') #{help.hiddenBy}
+	.footer-spacer
 							
 
 block localCSS

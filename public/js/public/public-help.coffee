@@ -77,7 +77,7 @@ endInSuccess = () ->
 		sub.text('Success!')
 		sub.attr('disabled', 'true')
 		sub.fadeIn(500, ()->)
-		displayEnd("Thanks!", "A mentor should be coming your way shortly.")
+		displayEnd("A mentor should be coming your way shortly!", "If you don't hear from anyone in the next ten minutes, just head over to the mentor area or ask an organizer.")
 
 displayEnd = (header, subtext) ->
 	$('input').attr('disabled','disabled');
@@ -86,6 +86,6 @@ displayEnd = (header, subtext) ->
 	$('#helpForm').fadeTo 1000, 0, ()->
 		#create message
 		$newMsg = $("<div id='endDisplay'><h3>"+header+ "</h3><h4>"+subtext+"</h4>")
-		$newMsg.appendTo($('.sponsor-blurb')).fadeIn 1000, ()->
+		$newMsg.appendTo($('.form-result')).fadeIn 1000, ()->
 			$("html, body").animate({ scrollTop: 0 }, 500)
 		return

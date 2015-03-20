@@ -21,7 +21,7 @@ block content
 					th#school School
 					th#first First?
 					th#status Status
-					th#functions Functions
+					th#functions Check In
 			tbody
 				for hacker in hackers
 					tr(id='#{hacker.objectId}')
@@ -34,16 +34,24 @@ block content
 								p Yes
 							else
 								p No
-						if hacker.status != 'checked in'
-							td(style="color: red") Not Checked In
-						else
+						
+						if hacker.status == 'checked in'
 							td
 								img(src='/img/checkedIn.png')
+						else if hacker.status == 'going'
+							td #{hacker.status}
+						else
+							td(style="color: red") #{hacker.status}
+						
 						td
-							if hacker.status != 'checked in'
+							if hacker.status == 'going'
 								button.btn(name='checkin', data-objectId='#{hacker.objectId}', data-status='#{hacker.status}') Check In
-							else
-								p N/A
+							else if hacker.status == 'checked in'
+								p Done!
+							else if hacker.status == 'not going'
+								p (See Jared)
+							else if	hacker.status == 'accepted'
+								p Must confirm!
 								
 			tfoot
 				tr
@@ -54,7 +62,7 @@ block content
 					th First?
 					th Status
 					th Functions
-			
+			.footer-spacer
 		
 block localCSS
 	link(rel='stylesheet', href='//cdn.datatables.net/1.10.5/css/jquery.dataTables.min.css')

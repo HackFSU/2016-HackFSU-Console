@@ -4,30 +4,30 @@ block localCSS
 
 block content
     .containerbody
-        h1.singleLineText Request for Help!
+        h1.singleLineText MENTOR HELP REQUEST
         
-        .sponsor-blurb
-        
+        br
+            
+        .form-result
         form.form-horizontal#helpForm(method='post', action='#', role='form')
             .form-group
-                label.col-lg-3.control-label(for='name') Name
-                .col-lg-8
+                label.col-sm-2.control-label(for='name') Name
+                .col-sm-8
                     input.form-control(type='text', placeholder='Whatcha called?', id='name', value=name)
             
             .form-group
-                label.col-lg-3.control-label(for='location') Location
-                .col-lg-8
+                label.col-sm-2.control-label(for='location') Location
+                .col-sm-8
                     input.form-control(type='text', placeholder='Where you at?', id='location', value=location)
 
             .form-group
-                label.col-lg-3.control-label(for='description') Description
-                .col-lg-8
-                    input.form-control(type='text', placeholder='What do you need?', id='description', value=description)
-
+                label.col-sm-2.control-label(for='description') Description
+                .col-sm-8
+                    textarea#description.form-control(rows='4', name='description', placeholder='What do you need?', value=description)
             .form-group
-                .form-error-msg.col-lg-offset-1.col-lg-6.pull-left
-                .col-lg-3.pull-right
+                .form-error-msg.col-sm-offset-2.col-sm-5
+                .col-sm-4.pull-right
                     button.btn#submit(type='submit') Submit
-
+    .footer-spacer
 block localJavascript
     script(type="text/javascript", src='/js/public/public-help.js')
