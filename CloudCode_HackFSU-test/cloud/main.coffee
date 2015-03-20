@@ -1,6 +1,6 @@
-### 
+###
 	Parse Cloud code for HackFSU-test
-	
+
 	To update, follow this: https://www.parse.com/docs/cloud_code_guide#started
 	Must be manually converted into .js
 	global.json is required (gitignored, see Jared)
@@ -15,18 +15,18 @@ Parse.Cloud.define "hello", (req, res)->
 #returns an array of all confirmation ids
 Parse.Cloud.define "getAllConfirmationIds", (req,res)->
 	Parse.Cloud.useMasterKey()
-	
+
 	# Applications = new Parse.Object.extend 'Applications'
 	query = new Parse.Query 'Applications'
 	query.limit 1000
 	query.find
 		success: (results)->
 			ids = []
-			
+
 			for app in results
 				if (app.get 'confirmationId')?
 					ids.push app.get 'confirmationId'
-			
+
 			res.success ids
 			return
 		error: (error)->
@@ -36,7 +36,7 @@ Parse.Cloud.define "getAllConfirmationIds", (req,res)->
 
 ###
 	Checks if a confirmation id is valid.
-	if it is, result = 
+	if it is, result =
 		valid: true
 		objectId: (string)
 		firstName: (string)
@@ -45,10 +45,10 @@ Parse.Cloud.define "getAllConfirmationIds", (req,res)->
 		status: (string)
 	if it isnt, result =
 		valid: false
-### 
+###
 Parse.Cloud.define "getAppSimpleByConfirmationId", (req,res)->
 	Parse.Cloud.useMasterKey()
-	
+
 	# Applications = new Parse.Object.extend 'Applications'
 	query = new Parse.Query 'Applications'
 	query.equalTo 'confirmationId', req.params.confirmationId
@@ -56,10 +56,10 @@ Parse.Cloud.define "getAppSimpleByConfirmationId", (req,res)->
 	query.find
 		success: (results)->
 			if results.length == 0
-				res.success 
+				res.success
 					valid: false
 			else
-				res.success 
+				res.success
 					valid: true
 					objectId: results[0].get 'objectId'
 					firstName: results[0].get 'firstName'
@@ -75,16 +75,16 @@ Parse.Cloud.define "getAppSimpleByConfirmationId", (req,res)->
 
 ###
 	Grabs just enough data from the app with the objectId to send an email
-	if valid, result = 
+	if valid, result =
 		firstName: (string)
 		lastName: (string)
 		email: (string)
 	else result = null
-		
+
 ###
 Parse.Cloud.define "getAppSimpleByObjectId", (req,res)->
 	Parse.Cloud.useMasterKey()
-	
+
 	# Applications = new Parse.Object.extend 'Applications'
 	query = new Parse.Query 'Applications'
 	query.equalTo 'objectId', req.params.objectId
@@ -94,7 +94,7 @@ Parse.Cloud.define "getAppSimpleByObjectId", (req,res)->
 			if results.length == 0
 				res.success null
 			else
-				res.success 
+				res.success
 					firstName: results[0].get 'firstName'
 					lastName: results[0].get 'lastName'
 					email: results[0].get 'email'
@@ -114,10 +114,10 @@ Parse.Cloud.define "getAppSimpleByObjectId", (req,res)->
 ###
 Parse.Cloud.define 'createAnonStats', (req,res)->
 	Parse.Cloud.useMasterKey()
-	
+
 	msg = ''
 	errorMsg = ''
-	
+
 	saveStat = (statName, statValue)->
 		prom = new Parse.Promise()
 		if statValue?
@@ -138,7 +138,7 @@ Parse.Cloud.define 'createAnonStats', (req,res)->
 		else
 			prom.resolve()
 		return prom
-	
+
 	saveStat 'birthdate', req.params.birthdate
 	.then ()->
 		saveStat 'gender', req.params.gender
@@ -147,7 +147,7 @@ Parse.Cloud.define 'createAnonStats', (req,res)->
 				res.error errorMsg
 			else
 				res.success msg
-	
+
 	return
 
 
@@ -163,21 +163,21 @@ Parse.Cloud.define 'resetApplications', (req,res) ->
 			if results.length == 0
 				res.success 0
 			else
-				
+
 				for app in results
 					app.set 'status','pending'
-					
+
 				Parse.Object.saveAll(results)
 				.then (objs)->
 					res.success 'Complete.'
 				, (err)->
 					res.error 'Error.'
-				
+
 			return
 		error: (error)->
 			res.error error
 			return
-	
+
 	return
 
 ###
@@ -189,13 +189,13 @@ Parse.Cloud.define 'getAppStatusCounts', (req,res) ->
 	query.limit 1000
 	query.find
 		success: (results)->
-			counts = 
+			counts =
 				pending: 0
 				waitlisted: 0
 				accepted: 0
 				going: 0
 				notGoing: 0
-				
+
 			for app in results
 				switch app.get 'status'
 					when 'pending' then ++counts.pending
@@ -203,15 +203,42 @@ Parse.Cloud.define 'getAppStatusCounts', (req,res) ->
 					when 'accepted' then ++counts.accepted
 					when 'going' then ++counts.going
 					when 'not going' then ++counts.notGoing
-			
+
 			res.success counts
-				
-				
+
+
 			return
 		error: (error)->
 			res.error error
 			return
 
+###
+	Returns Checkin Status counts
+###
+Parse.Cloud.define 'getCheckinStatusCounts', (req, res) ->
+	Parse.Cloud.useMasterKey()
+	query = new Parse.Query 'Applications'
+	query.limit 500
+	query.find
+		success: (results)->
+			counts =
+				total: 0
+				expected: 0
+				checkedIn: 0
+
+			for app in results
+				++counts.total
+				switch app.get 'status'
+					when 'going' then ++counts.expected
+					when 'checked in' then ++counts.checkedIn
+					when 'no show' then ++counts.noShow
+
+			res.success counts
+
+			return
+		error: (error)->
+			res.error error
+			return
 #
 Parse.Cloud.define 'getAppEmailByStatus', (req,res)->
 	Parse.Cloud.useMasterKey()
@@ -221,9 +248,9 @@ Parse.Cloud.define 'getAppEmailByStatus', (req,res)->
 	query.find
 		success: (results)->
 			data = []
-			
+
 			for app in results
-				d = 
+				d =
 					firstName: app.get 'firstName'
 					lastName: app.get 'lastName'
 					email: app.get 'email'
@@ -233,7 +260,7 @@ Parse.Cloud.define 'getAppEmailByStatus', (req,res)->
 				if !d.sentEmails?
 					d.sentEmails = null
 				data.push d
-			
+
 			res.success data
 			return
 		error: (error)->
@@ -245,27 +272,27 @@ Parse.Cloud.define 'getAppEmailByStatus', (req,res)->
 Parse.Cloud.define 'updateSentEmails', (req, res)=>
 	Parse.Cloud.useMasterKey()
 	emailName = req.params.emailName
-	
+
 	# Get apps with those ids
 	query = new Parse.Query 'Applications'
 	query.limit 1000
 	query.containedIn 'objectId', req.params.ids
 	query.find
-		success: (results)->			
+		success: (results)->
 			for app in results
 				sentEmails = app.get 'sentEmails'
 				if !sentEmails?
 					sentEmails = {}
 				sentEmails[emailName] = true
 				app.set 'sentEmails', sentEmails
-			
+
 			# Save them all
 			Parse.Object.saveAll(results)
 			.then (objs)->
 				res.success 'Updated ' + objs.length
 			, (err)->
 				res.error err
-				
+
 			return
 		error: (error)->
 			res.error error

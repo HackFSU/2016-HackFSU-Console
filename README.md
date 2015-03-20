@@ -55,6 +55,7 @@ This will be the final landing page + background management website for HackFSU,
 * `/apply` -- apply for HackFSU
 * `/signin` -- signin to account
 * `/mentor` `/mentors` -- mentor application/information page
+* `/help` -- mentor help request form for hackers
 * `/spreadtheword` -- shareables + contest page
 * `/sponsor` -- Sponsor of the month page
 * `/signup` -- create account. Access key required for success

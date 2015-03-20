@@ -4,3 +4,4 @@ desktop.ini
 public/bower_components
 .env
 CloudCode_HackFSU-test/config/*
+.DS_Store
