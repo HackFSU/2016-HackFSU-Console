@@ -476,7 +476,21 @@ module.exports = (app) ->
 
 		@checkins_checkin = (req, res) ->
 			p = @app.models.Applications.checkIn(req.body.objectId)
-			p.then () ->
+			p.then (appData) ->
+				
+				# Send email
+				app.emailTemplate 'checkIn',
+					to_email: appData.email
+					from_email: 'register@hackfsu.com'
+					from_name: 'HackFSU'
+					subject: 'Welcome!'
+					locals:
+						firstName: appData.firstName
+						lastName: appData.lastName
+						isFSU: appData.isFSU
+						username: appData.username
+						password: appData.password
+				
 				res.send
 					success: true
 			, (err) ->

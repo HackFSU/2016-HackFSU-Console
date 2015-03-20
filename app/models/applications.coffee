@@ -288,27 +288,61 @@ module.exports = (app) ->
 						deferred.resolve(body.result)
 
 			return deferred.promise
+			
+		# @checkIn: (objectId) ->
+		# 	deferred = app.Q.defer()
 
+		# 	data =
+		# 		status: 'checked in'
+
+		# 	app.kaiseki.updateObject CLASS_NAME, objectId, data,
+		# 		(err,res,body,success) ->
+		# 			if err
+		# 				console.log "PARSE: '"+CLASS_NAME+"' check in error!"
+		# 				deferred.reject(err)
+		# 			else if !success
+		# 				console.log "PARSE: '"+CLASS_NAME+"' check in failure!"
+		# 				deferred.reject()
+		# 			else
+		# 				console.log "PARSE: '"+CLASS_NAME+"' check in success!"
+		# 				deferred.resolve()
+
+		# 	return deferred.promise
+			
+		###
+			Parse CC funct: checkIn
+			 - Changes user status to 'checked in'
+			 - Assigns wifi creds if non-fsu student
+			 - Returns 
+			 		email
+			 		firstName
+			 		lastName
+			 		isFSU
+			 		username		(wifi)
+			 		password		(wifi)
+		###
 		@checkIn: (objectId) ->
 			deferred = app.Q.defer()
-
+			
 			data =
-				status: 'checked in'
+				objectId: objectId
 
-			app.kaiseki.updateObject CLASS_NAME, objectId, data,
-				(err,res,body,success) ->
+			CLOUD_FUNCTION = 'checkIn'
+			app.kaiseki.cloudRun CLOUD_FUNCTION, data,
+				(err,res,body,success)->
 					if err
-						console.log "PARSE: '"+CLASS_NAME+"' check in error!"
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun error!"
 						deferred.reject(err)
 					else if !success
-						console.log "PARSE: '"+CLASS_NAME+"' check in failure!"
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun failure!"
 						deferred.reject()
 					else
-						console.log "PARSE: '"+CLASS_NAME+"' check in success!"
-						deferred.resolve()
+						console.log "PARSE: '"+CLOUD_FUNCTION+"' CloudRun success!"
+
+						deferred.resolve(body.result)
 
 			return deferred.promise
-
+		
 		@getCheckinStatusCounts: () ->
 			deferred = app.Q.defer()
 

@@ -383,3 +383,88 @@ Parse.Cloud.define('addWifiCreds', (function(_this) {
 	Prevents adding wifi duplicates (Removed because it was taking too long)
  *
  */
+
+
+/*
+ - Changes user status to 'checked in'
+ - Assigns wifi creds if non-fsu student
+ - Returns 
+ 		email
+ 		firstName
+ 		lastName
+ 		isFSU
+ 		username		(wifi)
+ 		password		(wifi)
+ */
+
+Parse.Cloud.define('checkIn', function(req, res) {
+  var query;
+  Parse.Cloud.useMasterKey();
+  query = new Parse.Query('Applications');
+  query.equalTo('objectId', req.params.objectId);
+  return query.first({
+    success: function(app) {
+      var query2, result;
+      if (app) {
+        app.set('status', 'checked in');
+        result = {
+          email: app.get('email'),
+          firstName: app.get('firstName'),
+          lastName: app.get('lastName'),
+          username: null,
+          password: null
+        };
+        result.isFSU = result.email.indexOf('fsu.edu') > -1;
+        if (result.isFSU) {
+          return app.save(null, {
+            success: function(app) {
+              return res.success(result);
+            },
+            error: function(err) {
+              return res.success('Error saving app: ' + err);
+            }
+          });
+        } else {
+          query2 = new Parse.Query('WifiCreds');
+          query2.equalTo('used', false);
+          return query2.first({
+            success: function(cred) {
+              if (cred) {
+                result.username = cred.get('username');
+                result.password = cred.get('password');
+                cred.set('used', true);
+                app.set('wifiUsername', result.username);
+                cred.save(null, {
+                  success: function(crede) {
+                    return console.log('Credentials updated!');
+                  },
+                  error: function(err) {
+                    return console.log('Error saving cred: ' + err);
+                  }
+                });
+                return app.save(null, {
+                  success: function(app) {
+                    return res.success(result);
+                  },
+                  error: function(err) {
+                    return res.success('Error saving app: ' + err);
+                  }
+                });
+              } else {
+                return res.error('No credentials found.');
+              }
+            },
+            error: function(err) {
+              return res.error('Problem finding credentials: ' + err);
+            }
+          });
+        }
+      } else {
+        return res.error('User not found.');
+      }
+    },
+    error: function(err) {
+      return res.error('Problem finding user. ' + err);
+    }
+  });
+});

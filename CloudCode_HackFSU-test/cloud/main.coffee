@@ -344,3 +344,80 @@ Parse.Cloud.define 'addWifiCreds', (req, res)=>
 # 			res.error 'Error checking for uniquness'
 # 			return
 # 	return
+
+###
+ - Changes user status to 'checked in'
+ - Assigns wifi creds if non-fsu student
+ - Returns 
+ 		email
+ 		firstName
+ 		lastName
+ 		isFSU
+ 		username		(wifi)
+ 		password		(wifi)
+###
+Parse.Cloud.define 'checkIn', (req, res)->
+	Parse.Cloud.useMasterKey()
+	
+	# Get user info
+	query = new Parse.Query 'Applications'
+	query.equalTo 'objectId', req.params.objectId
+	query.first
+		success: (app)->
+			if app
+				app.set 'status', 'checked in'
+				result = 
+					email: app.get 'email'
+					firstName: app.get 'firstName'
+					lastName: app.get 'lastName'
+					username: null
+					password: null
+				
+				# Check if is fsu student
+				result.isFSU = result.email.indexOf('fsu.edu') > -1
+				
+				if result.isFSU
+					app.save null,
+						success: (app)->
+							res.success result
+						error: (err)->
+							res.success 'Error saving app: ' + err
+							
+				else
+					# Need WifiCreds
+					query2 = new Parse.Query 'WifiCreds'
+					query2.equalTo 'used', false
+					query2.first
+						success: (cred)->
+							if cred
+								result.username = cred.get 'username'
+								result.password = cred.get 'password'
+								
+								cred.set 'used', true
+								app.set 'wifiUsername', result.username
+								
+								# Save cred (no need to wait)
+								cred.save null,
+									success: (crede)->
+										console.log 'Credentials updated!'
+									error: (err)->
+										console.log 'Error saving cred: ' + err
+								
+								# Save user
+								app.save null,
+									success: (app)->
+										res.success result
+									error: (err)->
+										res.success 'Error saving app: ' + err
+								
+								
+							else
+								res.error 'No credentials found.'
+						error: (err)->
+							res.error 'Problem finding credentials: ' + err
+								
+			else
+				res.error 'User not found.'
+		error: (err)->
+			res.error 'Problem finding user. ' + err
+	
