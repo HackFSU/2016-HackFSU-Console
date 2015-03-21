@@ -3,6 +3,7 @@ For: /user/help
 ###
 
 FADE_TIME = 100
+REFRESH_TIME = 30000
 
 #initial dataTables
 dtSettings_requests =
@@ -87,6 +88,9 @@ $(document).ready ()->
 
 
 	refreshTabs()
+	setInterval () ->
+		location.reload(true)
+	, REFRESH_TIME
 
 hide = ($btn, objectId) ->
 	$('button[data-objectId="'+objectId+'"]').attr 'disabled', 'disabled'
