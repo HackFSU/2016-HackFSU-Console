@@ -9,17 +9,17 @@ For: /user/help
 
   FADE_TIME = 100;
 
-  REFRESH_TIME = 10000;
+  REFRESH_TIME = 30000;
 
   dtSettings_requests = {
-    order: [[0, 'desc']],
+    order: [[3, 'desc']],
     aLengthMenu: [[25, 50, 75, -1], [25, 50, 75, "All"]],
     iDisplayLength: 25,
     autoWidth: true
   };
 
   dtSettings_hidden = {
-    order: [[0, 'desc']],
+    order: [[3, 'desc']],
     aLengthMenu: [[25, 50, 75, -1], [25, 50, 75, "All"]],
     iDisplayLength: 25,
     autoWidth: true
@@ -42,6 +42,7 @@ For: /user/help
       data = dtRequests.row('#' + msg).data();
       data[3] = $('#sessionUser').text();
       dtHidden.row.add(data).draw();
+      dtHidden.cell(0, '#hiddenBy').data($('#sessionUser').text()).draw();
       return dtRequests.row('#' + msg).remove().draw();
     });
     refreshTabs = function() {

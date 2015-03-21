@@ -31,9 +31,9 @@ module.exports = (app) ->
 		@help = (req, res) ->
 			hio = app.io.of '/user/help'
 			hio.on 'connection', (socket) ->
-				console.log '*** Socket.io Connection for /user/help ***'
+				#console.log '*** Socket.io Connection for /user/help ***'
 				socket.on 'disconnect', () ->
-					console.log '--- Socket.io Disconnect for /user/help ---'
+				#	console.log '--- Socket.io Disconnect for /user/help ---'
 
 				socket.on 'help hide', (msg) ->
 					console.log 'Hiding: ' + msg
