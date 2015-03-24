@@ -19,6 +19,7 @@ block content
 								th Name
 								th Location
 								th Description
+								th Created At
 								th Functions
 						tbody
 				
@@ -28,6 +29,7 @@ block content
 										td #{help.name}
 										td #{help.location}
 										td #{help.description}
+										td #{help.createdAt}
 										td 
 											button.btn(name='hide', data-objectId='#{help.objectId}') Hide
 							
@@ -38,6 +40,7 @@ block content
 								th Name
 								th Location
 								th Description
+								th Created At
 								th(id='hiddenBy') Hidden By
 						tbody
 							for help in helpData
@@ -46,6 +49,7 @@ block content
 										td #{help.name}
 										td #{help.location}
 										td #{help.description}
+										td #{help.createdAt}
 										td(id='') #{help.hiddenBy}
 	.footer-spacer
 							

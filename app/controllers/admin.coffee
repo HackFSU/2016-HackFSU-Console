@@ -456,13 +456,13 @@ module.exports = (app) ->
 		@checkins = (req, res) ->
 			io = app.io.of '/admin/checkins'
 			io.on 'connection', (socket) ->
-				console.log '*** Socket.io Connection :: /admin/checkins ***'
+				#console.log '*** Socket.io Connection :: /admin/checkins ***'
 
 				socket.on 'disconnect', () ->
-					console.log '*** Socket.io Disconnect :: /admin/checkins ***'
+					#console.log '*** Socket.io Disconnect :: /admin/checkins ***'
 
 				socket.on 'check in', (objectId) ->
-					console.log '*** Socket.io "Check In" :: ' + objectId + ' ***'
+					#console.log '*** Socket.io "Check In" :: ' + objectId + ' ***'
 					socket.emit 'checked in', objectId
 					socket.broadcast.emit 'checked in', objectId
 
@@ -477,7 +477,7 @@ module.exports = (app) ->
 		@checkins_checkin = (req, res) ->
 			p = @app.models.Applications.checkIn(req.body.objectId)
 			p.then (appData) ->
-				
+
 				# Send email
 				app.emailTemplate 'checkIn',
 					to_email: appData.email
@@ -490,7 +490,7 @@ module.exports = (app) ->
 						isFSU: appData.isFSU
 						username: appData.username
 						password: appData.password
-				
+
 				res.send
 					success: true
 			, (err) ->
@@ -777,7 +777,7 @@ module.exports = (app) ->
 
 					, ()->
 						console.log 'Error getting '+templateName+' emails'
-				
+
 				when 'mentorBlast'
 					p = app.models.Mentors.getAllSimple()
 					p.then (mentors)->
@@ -793,7 +793,7 @@ module.exports = (app) ->
 									confirmationId: m.confirmationId
 					(err)->
 						console.log 'Failed retrieving sponsors'
-				
+
 				else
 					console.log "Invlaid email template"
 

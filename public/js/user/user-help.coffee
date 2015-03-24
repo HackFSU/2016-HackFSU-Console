@@ -3,15 +3,16 @@ For: /user/help
 ###
 
 FADE_TIME = 100
+REFRESH_TIME = 30000
 
 #initial dataTables
 dtSettings_requests =
-	order: [[0,'desc']]
+	order: [[3,'desc']]
 	aLengthMenu: [[25, 50, 75, -1], [25, 50, 75, "All"]]
 	iDisplayLength: 25
 	autoWidth: true
 dtSettings_hidden =
-	order: [[0,'desc']]
+	order: [[3,'desc']]
 	aLengthMenu: [[25,50,75,-1], [25,50,75,"All"]]
 	iDisplayLength: 25
 	autoWidth: true
@@ -43,7 +44,7 @@ $(document).ready ()->
 		data = dtRequests.row('#' + msg).data()
 		data[3] = $('#sessionUser').text()
 		dtHidden.row.add(data).draw()
-	#	dtHidden.cell(0, '#hiddenBy').data($('#sessionUser').text()).draw()
+		dtHidden.cell(0, '#hiddenBy').data($('#sessionUser').text()).draw()
 		dtRequests.row('#' + msg).remove().draw()
 
 	# 	$(this).tab 'show'
@@ -87,6 +88,9 @@ $(document).ready ()->
 
 
 	refreshTabs()
+	setInterval () ->
+		location.reload(true)
+	, REFRESH_TIME
 
 hide = ($btn, objectId) ->
 	$('button[data-objectId="'+objectId+'"]').attr 'disabled', 'disabled'
