@@ -18,7 +18,7 @@ block content
 					a.cleanLink(target='_blank' href='http://youtu.be/vimZj8HW0Kg?t=10s') "Don't call it a comeback"
 				
 				a.cleanLink(href='/apply')
-					.btn.btn-header#applyBtn Apply
+					.btn.btn-header(disabled)#applyBtn Apply
 				.btn.btn-header#sponsorBtn Sponsor
 				a.cleanLink(href='https://www.facebook.com/video.php?v=10205206646859364&set=o.400602133450423&type=2&theater')
 					.btn.btn-header#hypeBtn GET HYPED
@@ -29,28 +29,38 @@ block content
 				March 20th - 22nd
 				<br>Tallahassee FL &#8226; 30 Hours
 		.containerbody
+			//- 
+				.sect
+					h1.singleLineText The time has come
+					p
+						h2 HackFSU check in starts tonight at 9pm in 
+							a.link-text(target='_blank', href="http://www.google.com/maps/place/Dirac+Science+Library/@30.445006,-84.299961,15z/data=!4m2!3m1!1s0x0:0x68e88c654fcf10f8") Dirac
+							| !
+						| If you need a place to park your car, drive to 
+						a.link-text(target='_blank', href='https://goo.gl/maps/kybT3') Lot 418
+						|  in the red spaces, which is very close to the library. You can view the full schedule 
+						a(target='_blank', href='/schedule') here
+						| . Be sure to join the 
+						a(target='_blank', href='http://www.facebook.com/groups/622705054530502/') attendees page
+						|  on Facebook if you have not already!
+					br
+					.row.text-center
+						.col-sm-offset-1.col-sm-5
+							a(target='_blank', href='https://appsto.re/us/PrYIY.i')
+								img.app-badge(src='/img/badge-ios.png')
+						.col-sm-5
+							a(target='_blank', href='https://play.google.com/store/apps/details?id=com.hackfsu15.hackfsu15&hl=en')
+								img.app-badge(src='/img/badge-android.png')
 			.sect
-				h1.singleLineText The time has come
+				h1.singleLineText THE TIME HAS PASSED
 				p
-					h2 HackFSU check in starts tonight at 9pm in 
-						a.link-text(target='_blank', href="http://www.google.com/maps/place/Dirac+Science+Library/@30.445006,-84.299961,15z/data=!4m2!3m1!1s0x0:0x68e88c654fcf10f8") Dirac
-						| !
-					| If you need a place to park your car, drive to 
-					a.link-text(target='_blank', href='https://goo.gl/maps/kybT3') Lot 418
-					|  in the red spaces, which is very close to the library. You can view the full schedule 
-					a(target='_blank', href='/schedule') here
-					| . Be sure to join the 
-					a(target='_blank', href='http://www.facebook.com/groups/622705054530502/') attendees page
-					|  on Facebook if you have not already!
-				br
-				.row.text-center
-					.col-sm-offset-1.col-sm-5
-						a(target='_blank', href='https://appsto.re/us/PrYIY.i')
-							img.app-badge(src='/img/badge-ios.png')
-					.col-sm-5
-						a(target='_blank', href='https://play.google.com/store/apps/details?id=com.hackfsu15.hackfsu15&hl=en')
-							img.app-badge(src='/img/badge-android.png')
-			
+					| We had an amazing time hacking with all of you over the weekend. Congratulations to all our winners and thank you to everyone that stayed for the entire event! We will adding pictures taken at the event soon. HackFSU is over for now, but we will be back next year better than ever! For now, check us out on 
+					a.link-text(target='_blank', href='http://hackfsu15.challengepost.com/') ChallengePost
+					| , 
+					a.link-text(target='_blank', href='http://twitter.com/hackfsu') Twitter
+					| , and 
+					a.link-text(target='_blank', href='http://www.facebook.com/hackfsu') Facebook
+					| !
 			
 			.sect
 				h1.singleLineText The Hacking Culture
@@ -195,3 +205,12 @@ block content
 				//- 	h3 Past Sponsors
 					
 				//- 	img(src='/img/sponsors/sponsors_2014.png', width="100%", height="auto")
+			.sect
+				h1.singleLineText Get the app
+				.row.text-center
+					.col-sm-offset-1.col-sm-5
+						a(target='_blank', href='https://appsto.re/us/PrYIY.i')
+							img.app-badge(src='/img/badge-ios.png')
+					.col-sm-5
+						a(target='_blank', href='https://play.google.com/store/apps/details?id=com.hackfsu15.hackfsu15&hl=en')
+							img.app-badge(src='/img/badge-android.png')
