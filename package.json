@@ -1,7 +1,8 @@
 {
   "name": "hackfsu-console",
   "version": "0.1.0",
-  "description": "Web app for hackfsu administration",
+  "description": "HackFSU website",
+  "repository": "https://github.com/HackFSU/hackfsu-console",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -19,6 +20,7 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.9.2",
     "express-validator": "^2.1.1",
+    "gulp": "^3.9.0",
     "jade": "^1.7.0",
     "kaiseki": "^0.5.6",
     "mandrill-api": "^1.0.41",

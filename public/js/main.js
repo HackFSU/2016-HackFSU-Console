@@ -87,4 +87,6 @@ Sizes are in pixels
 
   $('.singleLineText').fixTextToSingleLine(68.8, 35.2);
 
+  console.log('rawr');
+
 }).call(this);

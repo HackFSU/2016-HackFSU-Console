@@ -1,7 +1,6 @@
 ###
 # Autoloader for controllers, helpers, and libraries
 #
-# Author: Trevor Helms
 ###
 
 fs = require 'fs'

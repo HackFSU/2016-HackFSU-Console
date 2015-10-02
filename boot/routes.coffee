@@ -67,15 +67,15 @@ module.exports = (app) ->
 	app.get '/home', app.PublicController.index
 
 	# Signin
-	app.get '/signin', app.PublicController.signin
-	app.post '/signin_submit', urlencodedParser, app.PublicController.signin_submit
+	# app.get '/signin', app.PublicController.signin
+	# app.post '/signin_submit', urlencodedParser, app.PublicController.signin_submit
 
 	# Shareables
-	app.get '/spreadtheword', app.PublicController.shareables
+	# app.get '/spreadtheword', app.PublicController.shareables
 
 	# Signup
-	app.get '/signup', app.PublicController.signup
-	app.post '/signup_submit', urlencodedParser, app.PublicController.signup_submit
+	# app.get '/signup', app.PublicController.signup
+	# app.post '/signup_submit', urlencodedParser, app.PublicController.signup_submit
 
 	# View updates
 	#app.get '/updates', app.PublicController.updates
@@ -90,30 +90,30 @@ module.exports = (app) ->
 	# app.get '/email', app.EmailController.new
 
 	# Apply to HackFSU
-	app.get '/apply', app.PublicController.apply
-	app.post '/apply_submit', jsonParser, app.PublicController.apply_submit
+	# app.get '/apply', app.PublicController.apply
+	# app.post '/apply_submit', jsonParser, app.PublicController.apply_submit
 
 	# Confirm Attendance page
-	app.get '/confirm/:confirmationId', app.PublicController.confirm
-	app.post '/confirm_submit', jsonParser, app.PublicController.confirm_submit
+	# app.get '/confirm/:confirmationId', app.PublicController.confirm
+	# app.post '/confirm_submit', jsonParser, app.PublicController.confirm_submit
 
 	# Contact HackFSU
 	#app.get '/contact', app.PublicController.contact
 
 	# Hackathon Schedule
-	app.get '/schedule', app.PublicController.schedule
+	# app.get '/schedule', app.PublicController.schedule
 
 	# Mentor form
-	app.get '/mentor', app.PublicController.mentor
-	app.get '/mentors', app.PublicController.mentor
-	app.post '/mentor_submit',jsonParser, app.PublicController.mentor_submit
+	# app.get '/mentor', app.PublicController.mentor
+	# app.get '/mentors', app.PublicController.mentor
+	# app.post '/mentor_submit',jsonParser, app.PublicController.mentor_submit
 
 	# Help request form
-	app.get '/help', app.PublicController.help
-	app.post '/help_submit', jsonParser, app.PublicController.help_submit
+	# app.get '/help', app.PublicController.help
+	# app.post '/help_submit', jsonParser, app.PublicController.help_submit
 
 	# Sponsor page (includes sponsor of the month at the top)
-	app.get '/sponsor', app.PublicController.sponsor
+	# app.get '/sponsor', app.PublicController.sponsor
 
 	# Schedule page
 	# app.get '/schedule', app.PublicController.schedule
@@ -122,7 +122,7 @@ module.exports = (app) ->
 	# app.get '/maps', app.PublicController.maps
 
 	# Stats page
-	app.get '/stats', app.PublicController.stats
+	# app.get '/stats', app.PublicController.stats
 
 	# OTHER ###################################################
 

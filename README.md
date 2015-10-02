@@ -9,7 +9,7 @@ This will be the final landing page + background management website for HackFSU,
 ###### Prerequisites: 
 
 1.  node.js & npm ([link](https://nodejs.org/en/download/))
-2. Install *command line* git
+2. Install *command line* git ([link](https://git-scm.com/downloads))
 3. `.env` is needed to connect to Parse (gitignored for security, ask Jared)
 
 
@@ -37,7 +37,11 @@ $ npm install
 $ bower install
 
 # Start the server (while in repo directory)
+$ coffee -o public/js -cw public/coffee &
 $ nodemon server.js
+
+# [Linux] You can also just use the makefile to start the server
+$ make
 
 ```
 

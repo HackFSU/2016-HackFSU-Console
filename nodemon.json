@@ -8,14 +8,14 @@
   "verbose": false,
   "quiet": true,
   "events": {
-    "restart": "./restart.sh"
+    "start": "coffee -o public/js -c public/coffee",
+    "restart": "echo -e \"\\n\\033[0;32m*********************************************\\n\\033[1;34m'${FILENAME}' has been changed\\n\\033[0;32m************* RESTARTING NODE ***************\\n\\033[0m\""
   },
   "watch": [
     "app/*",
     "boot/*",
     "emails/*",
-    "lib/*",
-    "public/js/*"
+    "lib/*"
   ],
   "env": {
     "NODE_ENV": "development"
