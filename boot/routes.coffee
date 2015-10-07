@@ -1,12 +1,12 @@
-###
-	Specify all routes here.
+##
+# Specify all routes here.
+##
 
-###
 acl = require '../lib/acl'
 bodyParser = require 'body-parser'
 
 module.exports = (app) ->
-	#Body parsers
+	# Body parsers
 	jsonParser = bodyParser.json()
 	urlencodedParser = bodyParser.urlencoded {extended: false}
 
@@ -14,52 +14,11 @@ module.exports = (app) ->
 	app.use acl
 
 
-	# ADMINISTRATION ###########################################
-
-	# Home
-	app.get '/admin', app.AdminController.home
-
-	# updates
-	app.get '/admin/updates', app.AdminController.updates
-	app.post '/admin/updates_create', urlencodedParser, app.AdminController.updates_create
-
-	# applications
-	app.get '/admin/applications', app.AdminController.applications
-	app.post '/admin/applications_action', jsonParser, app.AdminController.applications_action
-	app.post '/admin/applications_getStatusCounts', jsonParser, app.AdminController.applications_getStatusCounts
-
-	# users
-	app.get '/admin/users', app.AdminController.users
-
-	# emails
-	app.get '/admin/emails', app.AdminController.emails
-	app.post '/admin/emails_submit', urlencodedParser, app.AdminController.emails_submit
-
-	# checkins
-	app.get '/admin/checkins', app.AdminController.checkins
-	app.post '/admin/checkins_getStatusCounts', app.AdminController.checkins_getStatusCounts
-	app.post '/admin/checkins_checkin', jsonParser, app.AdminController.checkins_checkin
-
-	# all users
-	# app.get '/admin/allUsers', app.AdminController.allUsers
 
 
-	# USER #####################################################
-
-	# Signout
-	app.get '/user/signout', app.UserController.signout
-	# app.get '/users/signout', app.UsersController.signout
-
-	# Profile
-	app.get '/user/profile', app.UserController.profile
-	# app.get '/users/profile', app.UsersController.profile
-
-	# Help requests
-	app.get '/user/help', app.UserController.help
-	app.post '/user/help_hide', jsonParser, app.UserController.help_hide
-
-
-	# PUBLIC ###################################################
+	############################################################
+	# PUBLIC /*
+	############################################################
 
 	# Index
 	app.get '/', app.PublicController.index
@@ -78,7 +37,7 @@ module.exports = (app) ->
 	# app.post '/signup_submit', urlencodedParser, app.PublicController.signup_submit
 
 	# View updates
-	#app.get '/updates', app.PublicController.updates
+	# app.get '/updates', app.PublicController.updates
 
 	# Create update
 	# app.get '/updates/new', app.UpdatesController.new
@@ -124,10 +83,77 @@ module.exports = (app) ->
 	# Stats page
 	# app.get '/stats', app.PublicController.stats
 
-	# OTHER ###################################################
+
+
+
+
+
+	############################################################
+	# USER /user/*
+	############################################################
+
+	# Signout
+	app.get '/user/signout', app.UserController.signout
+	# app.get '/users/signout', app.UsersController.signout
+
+	# Profile
+	app.get '/user/profile', app.UserController.profile
+	# app.get '/users/profile', app.UsersController.profile
+
+	# Help requests
+	app.get '/user/help', app.UserController.help
+	app.post '/user/help_hide', jsonParser, app.UserController.help_hide
+
+
+
+
+
+
+
+	############################################################
+	# ADMINISTRATION	/admin/*
+	############################################################
+
+	# Home
+	app.get '/admin', app.AdminController.home
+
+	# updates
+	app.get '/admin/updates', app.AdminController.updates
+	app.post '/admin/updates_create', urlencodedParser, app.AdminController.updates_create
+
+	# applications
+	app.get '/admin/applications', app.AdminController.applications
+	app.post '/admin/applications_action', jsonParser, app.AdminController.applications_action
+	app.post '/admin/applications_getStatusCounts', jsonParser, app.AdminController.applications_getStatusCounts
+
+	# users
+	app.get '/admin/users', app.AdminController.users
+
+	# emails
+	app.get '/admin/emails', app.AdminController.emails
+	app.post '/admin/emails_submit', urlencodedParser, app.AdminController.emails_submit
+
+	# checkins
+	app.get '/admin/checkins', app.AdminController.checkins
+	app.post '/admin/checkins_getStatusCounts', app.AdminController.checkins_getStatusCounts
+	app.post '/admin/checkins_checkin', jsonParser, app.AdminController.checkins_checkin
+
+	# all users
+	# app.get '/admin/allUsers', app.AdminController.allUsers
+	
+	
+	
+
+
+
+
+
+	############################################################
+	# SPECIAL
+	############################################################
 
 	# Error page. errorMsg is outputed
-	#app.get '/error', app.PublicController.error
+	# app.get '/error', app.PublicController.error
 
 	# Page not found (404)
 	# This should always be the LAST route specified

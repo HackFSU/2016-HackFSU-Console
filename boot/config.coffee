@@ -1,90 +1,90 @@
 ###
 # Loads module dependencies and configures app.
-#
 ###
 
 # Module dependencies
-Kaiseki = require 'kaiseki'						#parse db access
-validator = require 'express-validator'		#req validation
-Mandrill = require 'mandrill-api/mandrill'	#email sending
-autoload = require '../lib/autoload'			#autoloading files
-session = require 'express-session'				#handling user sessions
-cookieParser = require 'cookie-parser'			#handling cookies
-dotenv = require 'dotenv'							#env variable handling
-flash = require 'express-flash'					#flash bar
-emailTemplates = require 'email-templates'	#email creation
-Q = require 'q'										#async handling
-moment = require 'moment'							#Date parsing
-uuid = require 'node-uuid'							#random string generation
-io = require 'socket.io'
+Kaiseki = require 'kaiseki'						# parse db access
+validator = require 'express-validator'		# req validation
+Mandrill = require 'mandrill-api/mandrill'	# email sending
+autoload = require '../lib/autoload'			# autoloading files
+session = require 'express-session'				# handling user sessions
+cookieParser = require 'cookie-parser'			# handling cookies
+dotenv = require 'dotenv'							# env variable handling
+emailTemplates = require 'email-templates'	# email creation
+Q = require 'q'										# async handling
+moment = require 'moment'							# Date parsing
+uuid = require 'node-uuid'							# random string generation
+io = require 'socket.io'							# http socket managment
+morgan = require 'morgan'							# http logging
 
-# Configuration
+
 module.exports = (app, http) ->
+	# Save module references for later use
+	app.moment = moment
+	app.Q = Q
+	app.uuid = uuid
+	app.io = io(http)
+	
 	# Load helper functions
 	app.locals.helpers = require __dirname + '/../app/helpers'
-	app.moment = moment
 
-
-	# Autoload controllers
-	autoload 'app/controllers', app
-
-	# Load env
+	
+	# Load environment
 	dotenv.load()
 	app.env = process.env
+		
+	if !app.env.RUN_LEVEL
+		app.env.RUN_LEVEL = 'DEV'
 
-	# Configure app settings
-	env = app.env.NODE_ENV || 'development'
+	switch app.env.RUN_LEVEL
+		when 'DEV'
+			app.locals.pretty = true
+			app.use morgan 'dev'
+			
+		when 'PROD'
+			app.locals.pretty = false
+				
+	
+	# Configure express
 	app.set 'port', app.env.PORT || 5003
 	app.set 'views', __dirname + '/../app/views'
 	app.set 'view engine', 'jade'
 	app.use require('express').static __dirname + '/../public'
 	app.use validator()
 
-	# Moved to routes setup
-	# app.use bodyParser.json()
-	# app.use bodyParser.urlencoded {extended: true}
 
-	# Create a Parse (Kaiseki) object
+	# Configure database - Parse (Kaiseki) object
 	app.kaiseki = new Kaiseki app.env.PARSE_APP_ID_TEST,
 	app.env.PARSE_REST_KEY_TEST
 	app.kaiseki.masterKey = app.env.PARSE_MASTER_KEY_TEST
 
-	#setup models (must setup db first)
-	app.Q = Q
+
+	# Autoload controllers & models
+	app.controllers = {}
 	app.models = {}
+	autoload 'app/controllers', app
 	autoload 'app/models', app
 
-	# Socket.io setup
-	app.io = io(http)
 
-	# Development settings
-	if (env == 'development')
-		app.locals.pretty = true
 
-	#Session settings
+	# Session settings
 	app.use session
 		name: 'connect.sid'
 		secret: app.env.SECRET + ' '
 		cookie:
-			maxAge: 172800000		#2 days
+			maxAge: 172800000		# 2 days
 		saveUninitialized: false
 		resave: false
 	app.use (req,res,next) ->
 		res.locals.session = req.session;
 		next();
 
-	# Handle Flash messages
-	app.use cookieParser(app.env.SECRET + ' ')
-	app.use flash()
 
 	# Create Mandrill object
 	app.mandrill = new Mandrill.Mandrill app.env.MANDRILL_KEY
 	# Load email template function
 	app.emailTemplates = emailTemplates
 
-
-	#Utility storage
-	app.uuid = uuid
 
 	###
 	# Sends email using the email-templates and mandrill libraries
@@ -165,16 +165,3 @@ module.exports = (app, http) ->
 		# 	console.log
 		# 	return null
 		return
-
-
-
-
-
-
-	#debug crap
-	console.log 'ENV VARS ->'
-	console.log ("> PARSE_APP_ID_TEST=" + app.env.PARSE_APP_ID_TEST)
-	console.log ("> PARSE_REST_KEY_TEST=" + app.env.PARSE_REST_KEY_TEST)
-	console.log ("> PARSE_MASTER_KEY_TEST=" + app.env.PARSE_MASTER_KEY_TEST)
-	console.log ("> SECRET=" + app.env.SECRET)
-	console.log '-------------------------------'

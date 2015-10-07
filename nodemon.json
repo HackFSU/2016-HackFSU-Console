@@ -18,7 +18,7 @@
     "lib/*"
   ],
   "env": {
-    "NODE_ENV": "development"
+    "RUN_LEVEL": "DEV"
   },
   "ext": "js json jade coffee",
   "delay": "2"
