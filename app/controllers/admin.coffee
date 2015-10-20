@@ -380,15 +380,13 @@ module.exports = (app) ->
 									#App accepted, now send email notification
 									console.log 'ACCEPTED ' + appData.firstName + ' ' + appData.lastName
 
-									app.emailTemplate 'appAccepted',
-										to_email: appData.email
-										from_email: 'register@hackfsu.com'
-										from_name: 'HackFSU'
-										subject: "It's time! Are you ready?"
-										locals:
-											firstName: appData.firstName
-											lastName: appData.lastName
-											confirmationId: cId
+									app.emailManager.send 'appAccepted',
+										subject: 'It\'s time! Are you ready?'
+										fromEmail: app.data.email.FROM_EMAIL_REGISTER
+										toEmail: appData.email
+										toFirstName: appData.firstName
+										toLastName: appData.lastName
+										confirmationId: cId
 
 									res.send
 										success: true
@@ -404,14 +402,12 @@ module.exports = (app) ->
 
 									#App waitlisted, now send email notification
 									console.log 'WAITLISTED ' + appData.firstName + ' ' + appData.lastName
-									app.emailTemplate 'appWaitlisted',
-										to_email: appData.email
-										from_email: 'register@hackfsu.com'
-										from_name: 'HackFSU'
-										subject: "HackFSU Waitlist"
-										locals:
-											firstName: appData.firstName
-											lastName: appData.lastName
+									app.emailManager.send 'appWaitlisted',
+										subject: 'HackFSU Waitlist'
+										fromEmail: app.data.email.FROM_EMAIL_REGISTER
+										toEmail: appData.email
+										toFirstName: appData.firstName
+										toLastName: appData.lastName
 
 									res.send
 										success: true
@@ -479,17 +475,15 @@ module.exports = (app) ->
 			p.then (appData) ->
 
 				# Send email
-				app.emailTemplate 'checkIn',
-					to_email: appData.email
-					from_email: 'register@hackfsu.com'
-					from_name: 'HackFSU'
+				app.emailManager.send 'checkIn',
 					subject: 'Welcome!'
-					locals:
-						firstName: appData.firstName
-						lastName: appData.lastName
-						isFSU: appData.isFSU
-						username: appData.username
-						password: appData.password
+					fromEmail: app.data.email.FROM_EMAIL_REGISTER
+					toEmail: appData.email
+					toFirstName: appData.firstName
+					toLastName: appData.lastName
+					isFSU: appData.isFSU
+					username: appData.username
+					password: appData.password
 
 				res.send
 					success: true
@@ -543,12 +537,10 @@ module.exports = (app) ->
 										if !obj.emailSent
 											++totalSent
 											#send email
-											app.emailTemplate templateName,
-												to_email: obj.email
-												from_email: 'register@hackfsu.com'
-												from_name: 'HackFSU'
-												subject: 'Registration is open!'
-												locals: {}
+											app.emailManager.send templateName,
+												subject: 'Registration is open!'												
+												fromEmail: app.data.email.FROM_EMAIL_REGISTER
+												toEmail: obj.email
 
 
 											#update object
@@ -583,8 +575,6 @@ module.exports = (app) ->
 
 							totalSent = 0;
 							e =
-								from_email: 'info@hackfsu.com'
-								from_name: 'HackFSU'
 								subject: 'Spread the Word!'
 
 							kaisekiOld = new Kaiseki app.env.PARSE_APP_ID,
@@ -624,14 +614,11 @@ module.exports = (app) ->
 													++totalSent
 
 
-													app.emailTemplate templateName,
-														to_email: obj.email
-														from_email: e.from_email
-														from_name: e.from_name
+													app.emailManager.send templateName,
 														subject: e.subject
-														locals:
-															firstName: obj.firstName
-															lastName: obj.lastName
+														toEmail: obj.email
+														toFirstName: obj.firstName
+														toLastName: obj.lastName
 
 												#update object
 												obj.sentEmails.spreadTheWord = true
@@ -676,14 +663,11 @@ module.exports = (app) ->
 																#send email
 																++totalSent
 
-																app.emailTemplate templateName,
-																	to_email: obj.email
-																	from_email: e.from_email
-																	from_name: e.from_name
+																app.emailManager.send templateName,
 																	subject: e.subject
-																	locals:
-																		firstName: obj.name
-																		lastName: ""
+																	toEmail: obj.email
+																	toFirstName: obj.name
+																	toLastName: ""
 
 															#update object
 															obj.sentEmails.spreadTheWord = true
@@ -704,14 +688,11 @@ module.exports = (app) ->
 
 				when 'csBlast'
 					# Just send to Jared to fwd
-					app.emailTemplate templateName,
-						to_email: 'jab13f@my.fsu.edu'
-						from_email: 'info@hackfsu.com'
-						from_name: 'HackFSU'
+					app.emailManager.send templateName,
 						subject: 'HackFSU Starts on March 20th!'
-						locals:
-							firstName: 'Jared'
-							lastName: 'Bennett'
+						toEmail: 'jab13f@my.fsu.edu'
+						toFirstName: 'Jared'
+						toLastName: 'Bennett'
 
 				# Can use the same format for sending emails to any status type
 				when 'confirmWarning'
@@ -723,15 +704,14 @@ module.exports = (app) ->
 						ids = []
 						for appl in apps
 							if !appl.sentEmails? || !appl.sentEmails[templateName]
-								app.emailTemplate templateName,
-									to_email: appl.email
-									from_email: 'register@hackfsu.com'
-									from_name: 'HackFSU'
+								app.emailManager.send templateName,
 									subject: 'HackFSU: Need to Confirm!'
-									locals:
-										firstName: appl.firstName
-										lastName: appl.lastName
-										confirmationId: appl.confirmationId
+									fromEmail: app.data.email.FROM_EMAIL_REGISTER
+									toEmail: appl.email
+									toFirstName: appl.firstName
+									toLastName: appl.lastName
+									confirmationId: appl.confirmationId
+									
 								ids.push appl.objectId
 						console.log 'Sent ' + ids.length + ' '+templateName+' emails'
 
@@ -755,15 +735,13 @@ module.exports = (app) ->
 						ids = []
 						for appl in apps
 							if !appl.sentEmails? || !appl.sentEmails[templateName]
-								app.emailTemplate templateName,
-									to_email: appl.email
-									from_email: 'register@hackfsu.com'
-									from_name: 'HackFSU'
+								app.emailManager.send templateName,
 									subject: 'March 20th Right Around the Corner!'
-									locals:
-										firstName: appl.firstName
-										lastName: appl.lastName
-										confirmationId: appl.confirmationId
+									fromEmail: app.data.email.FROM_EMAIL_REGISTER
+									toEmail: appl.email
+									toFirstName: appl.firstName
+									toLastName: appl.lastName
+									confirmationId: appl.confirmationId
 								ids.push appl.objectId
 						console.log 'Sent ' + ids.length + ' '+templateName+' emails'
 
@@ -782,15 +760,12 @@ module.exports = (app) ->
 					p = app.models.Mentors.getAllSimple()
 					p.then (mentors)->
 						for m in mentors
-							app.emailTemplate templateName,
-								to_email: m.email
-								from_email: 'info@hackfsu.com'
-								from_name: 'HackFSU'
+							app.emailManager.send templateName,
+								toEmail: m.email
 								subject: 'Mentors!'
-								locals:
-									firstName: m.firstName
-									lastName: m.lastName
-									confirmationId: m.confirmationId
+								toFirstName: m.firstName
+								toLastName: m.lastName
+								confirmationId: m.confirmationId
 					(err)->
 						console.log 'Failed retrieving sponsors'
 
