@@ -3,7 +3,6 @@
 ###
 
 # Module dependencies
-Kaiseki = require 'kaiseki'						# parse db access
 validator = require 'express-validator'		# req validation
 autoload = require '../lib/autoload'			# autoloading files
 session = require 'express-session'				# handling user sessions
@@ -14,6 +13,7 @@ moment = require 'moment'							# Date parsing
 uuid = require 'node-uuid'							# random string generation
 io = require 'socket.io'							# http socket managment
 morgan = require 'morgan'							# http logging
+Parse = require 'parse/node'						# parse javascript api
 
 util = require 'util'								# nodejs utilites
 path = require 'path'								# path
@@ -58,9 +58,10 @@ module.exports = (app, http) ->
 
 
 	# Configure database - Parse (Kaiseki) object
-	app.kaiseki = new Kaiseki app.env.PARSE_APP_ID_TEST,
-	app.env.PARSE_REST_KEY_TEST
-	app.kaiseki.masterKey = app.env.PARSE_MASTER_KEY_TEST
+	app.Parse = Parse
+	app.Parse.initialize app.env.PARSE_APP_ID
+	, app.env.PARSE_JS_KEY, app.env.PARSE_MASTER_KEY
+	app.Parse.Cloud.useMasterKey()
 
 
 	# Autoload controllers & models
@@ -85,4 +86,14 @@ module.exports = (app, http) ->
 	# Email setup
 	app.emailManager = require('../lib/emailManager') app
 	
+	
+	
+	hackathon = new app.models.Hackathon
+		name: 'test'
+	hackathon.save()
+	.then (obj)->
+		console.log 'saved' 
+		console.log obj
+	, (err)->
+		console.log err
 	

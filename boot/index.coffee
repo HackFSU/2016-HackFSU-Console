@@ -16,9 +16,9 @@ require('./routes')(app)
 # Print Start
 console.log 'ENV VARS ->'
 console.log '> RUN_LEVEL=' + app.env.RUN_LEVEL
-console.log "> PARSE_APP_ID_TEST=" + app.env.PARSE_APP_ID_TEST
-console.log "> PARSE_REST_KEY_TEST=" + app.env.PARSE_REST_KEY_TEST
-console.log "> PARSE_MASTER_KEY_TEST=" + app.env.PARSE_MASTER_KEY_TEST
+console.log "> PARSE_APP_ID=" + app.env.PARSE_APP_ID
+console.log "> PARSE_JAVASCRIPT_KEY=" + app.env.PARSE_JS_KEY
+console.log "> PARSE_MASTER_KEY=" + app.env.PARSE_MASTER_KEY
 console.log "> SECRET=" + app.env.SECRET
 console.log '-------------------------------'
 
