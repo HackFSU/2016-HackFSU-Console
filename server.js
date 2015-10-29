@@ -1,6 +1,15 @@
 /**
-* Loads the CoffeScript module and boot scripts.
-*/
+ * Setup environment and launch
+ */
 
-require('coffee-script').register();
+'use strict';
+
+var dotenv = require('dotenv');
+
+dotenv.load();
+if(!process.env.RUN_LEVEL) {
+	process.env.RUN_LEVEL = 'DEV';
+}
+
+require('babel/register');
 require('./boot');

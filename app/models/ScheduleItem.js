@@ -1,0 +1,8 @@
+/**
+ * ScheduleItem model
+ *
+ * 
+ */
+'use strict';
+
+

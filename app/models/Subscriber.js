@@ -1,0 +1,8 @@
+/**
+ * Subscriber model
+ *
+ * 
+ */
+'use strict';
+
+
