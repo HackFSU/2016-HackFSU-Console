@@ -27,11 +27,11 @@ import * as customLoader from '../lib/customLoader';
 import * as helpers from '../app/helpers';
 import store from '../lib/data';
 import EmailManager from '../lib/EmailManager';
-import * as validate from '../lib/validate';
+import { default as validate } from '../lib/validate';
 
 export default function configureApp() {
 	const app = {};
-	
+
 	// Save utility references
 	app.Q = Q;
 	app.moment = moment;
@@ -72,7 +72,7 @@ export default function configureApp() {
 	e.use(function(req, res, next) {
 		res.locals.session = req.session;
 		next();
-	});	
+	});
 
 	// Initialize db (Parse)
 	app.Parse = Parse;
@@ -98,7 +98,7 @@ export default function configureApp() {
 	app.controller = {}; // Should all be functions
 	customLoader.loadAllExports(app, __dirname + '/../app/controllers');
 
-	
+
 
 	return app;
 }
