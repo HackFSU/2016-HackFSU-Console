@@ -67,7 +67,6 @@ export default function configureApp() {
 		e.locals.pretty = false;
 	}
 
-
 	// Setup session
 	e.use(session({
 		name: 'connect.sid',
@@ -78,8 +77,12 @@ export default function configureApp() {
 		saveUninitialized: false,
 		resave: false
 	}));
+	
+
+	// Pass locals to jade
 	e.use(function(req, res, next) {
 		res.locals.session = req.session;
+		res.locals.store = app.store;
 		next();
 	});
 

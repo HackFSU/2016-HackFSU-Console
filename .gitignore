@@ -9,3 +9,4 @@ wifi/creds.*
 npm-debug.log
 typings
 tmp
+public/js/views

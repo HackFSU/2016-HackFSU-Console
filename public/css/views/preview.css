@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Uni Sans';
   font-weight: 700;
-  src: url('../fonts/unisansfree/Uni Sans Heavy.otf');
+  src: url('/fonts/unisansfree/Uni Sans Heavy.otf');
 }
 
 #video-bg {
