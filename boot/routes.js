@@ -10,12 +10,13 @@ import bodyParser from 'body-parser';
 
 export default function setRoutes(app) {
 	const e = app.e;
+	const c = app.controller;
 
 	// Parsers
 	const jsonParser = bodyParser.json();
-	const urlencodeParser = bodyParser.urlencoded({
-		extended: false
-	});
+	// const urlencodeParser = bodyParser.urlencoded({
+	// 	extended: false
+	// });
 
 
 	// // Setup ACL
@@ -69,9 +70,10 @@ export default function setRoutes(app) {
 	 * - ignores ACL
 	 */
 
-	e.get('/', app.controller.Preview.home);
+	e.get('/', c.Preview.index);
 
-    e.post('/subscribe', jsonParser, app.controller.Preview.subscribe);
+	e.post('/subscribe', jsonParser, c.Preview.subscribe);
+
 	/**************************************************************************
 	 * User
 	 */

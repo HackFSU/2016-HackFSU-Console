@@ -1,0 +1,40 @@
+doctype html
+html
+	head
+		// Latest compiled and minified CSS
+		link(rel='stylesheet' type='text/css' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+		link(rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800')
+		link(rel='stylesheet' type='text/css' href='/css/preview.css')
+	body
+		.container
+			.video-cont
+				.image-bg
+					#video-bg
+						.video-color
+						.video-overlay
+								.logo-header
+										h1 HACKFSU '16
+										img(style='width: 52%; height:auto; padding-top:1em;' src='img/white_feather.png')
+								.content
+										#preview-content
+												p#description-text
+													| To be a hacker comes with an attitude of building to learn,
+													| creating to build, and learning to create. Our Florida State
+													| University organizing team is hard at work and we cannot wait
+													| to see what you all bring to the table this Spring. Hack on.
+												#vidForm
+													form#previewEmailSubscribe.video-form(action='', role='form', method="post")
+														input#email.video-input(spellcheck='off' type='text' name='email' autocomplete='off' placeholder='student@uni.edu')
+														button#submit.video-btn(type='submit') SUBMIT
+												p#be-the-first Be the first to find out when registration opens!
+										#submit-successful
+												p#description-text
+														| Thanks! We will let you know when registration opens and 
+														| we cannot wait to see you this Spring! In the meantime, 
+														| check us out on Twitter for other updates.
+						video(src='/res/hackfsu15-loop.webm' loop='true' autoplay='true')
+						.mobileBG
+								
+		script(src='/bower_components/jquery/dist/jquery.min.js')
+		script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+		script(src='/js/views/preview/preview.js')
