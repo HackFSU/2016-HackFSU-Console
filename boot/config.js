@@ -40,13 +40,22 @@ export default function configureApp() {
 	app.validate = validate;
 	app.path = path;
 
+	app.dirs = {
+		public: path.resolve(__dirname + '/../public'),
+		app: path.resolve(__dirname + '/../app'),
+		lib: path.resolve(__dirname + '/../lib')
+	};
+
+
 	// Configure Express core
 	const e = app.e = express();
 	const server = app.server = http.createServer(e);
 	e.set('port', process.env.PORT || 5003);
-	e.set('views', __dirname + '/../app/views');
+	e.set('views', app.dirs.app + '/views');
 	e.set('view engine', 'jade');
-	e.use(express.static(__dirname + '/../public'));
+	e.use(express.static(app.dirs.public, {
+		maxAge: 3600000 // 1hr
+	}));
 	e.use(validator());
 	app.io = io(server);
 
@@ -93,10 +102,10 @@ export default function configureApp() {
 	e.locals.helpers = helpers;
 
 	app.model = {}; // Should all be classes
-	customLoader.loadAllExports(app, __dirname + '/../app/models');
+	customLoader.loadAllExports(app, app.dirs.app + '/models');
 
 	app.controller = {}; // Should all be functions
-	customLoader.loadAllExports(app, __dirname + '/../app/controllers');
+	customLoader.loadAllExports(app, app.dirs.app + '/controllers');
 
 
 

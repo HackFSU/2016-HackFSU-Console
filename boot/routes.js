@@ -11,6 +11,7 @@ import bodyParser from 'body-parser';
 export default function setRoutes(app) {
 	const e = app.e;
 	const c = app.controller;
+	// const dirs = app.dirs;
 
 	// Parsers
 	const jsonParser = bodyParser.json();
@@ -105,8 +106,10 @@ export default function setRoutes(app) {
 
 	e.get('*', function(req, res) {
 		res.status(404);
-		res.render('public/404', {
-			title: 'Error 404'
+		res.render('public/error', {
+			title: 404,
+			code: 404,
+			message: 'Page "'+req.originalUrl+'" not found'
 		});
 	});
 }
