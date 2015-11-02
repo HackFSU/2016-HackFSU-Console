@@ -4,6 +4,7 @@
  * TODO: 
  * 	- multiple validators like: max[10]|email
  * 	- filters like : toUpper|toLower|trim
+ * 	- fadeOut/in for end()
  */
 
 (function($) {
@@ -77,8 +78,8 @@
 			}
 
 			// Update UI
-			this.label.toggleClass('hackField-error', !valid);
-			e.toggleClass('hackField-error', !valid);
+			this.label.toggleClass('hackfield-error', !valid);
+			e.toggleClass('hackfield-error', !valid);
 
 			if(this.invalid && valid) {
 				// Validity fixed
@@ -105,8 +106,14 @@
 	$.widget('hackForm.hackForm', {
 		options: {
 			fields: [],
-			successHtml: '<h2>Submission Success!</h2>',
-			failureHtml: '<h2>An unexpected error has occured!</h2><p>Refresh this window and try resubmitting.</p>',
+			successMessage: {
+				title: 'Success!',
+				subtitle: undefined
+			},
+			failureMessage: {
+				title: 'An unexpected error has occured!',
+				subtitle: 'Refresh this window and try resubmitting.'
+			},
 			fadeTime: 500
 		},
 
@@ -170,7 +177,6 @@
 			});
 			this.valid = valid;
 
-			console.log('validating');
 			return valid;
 		},
 
@@ -198,17 +204,30 @@
 		end: function(err) {
 			const e = this.element;
 			const o = this.options;
-			let html = err? o.successHtml : o.failureHtml;
+			let message = err? o.failureMessage : o.successMessage;
+			let html;
 
-			// Clean out form
-			// e.children().fadeOut
-			e.children().remove();
+			// Get predefined message
+			
 
-			e.append('<div class="form-complete">'+html+'</div>');
+			// Clean out form of non-end messages
+			html = e.find('.hackform-' + (err? 'failure' : 'success'));
+			e.children().not(html).remove();
+			html.show();
 
-			if(err && err.message) {
-				e.append('<p>'+this.err.message+'</p>');
+			console.log(html);
+
+			if(html.length === 0) {
+				if(err) {
+					message.subtitle = err;
+				}
+
+				e.append('<div class="form-complete">' +
+					(message.title? `<h2>${message.title}</h2>` : '') +
+					(message.subtitle? `<p>${message.subtitle}</p>` : '') +
+				'</div>');
 			}
+			
 
 		}
 	});

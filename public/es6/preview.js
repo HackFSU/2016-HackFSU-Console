@@ -25,7 +25,7 @@
 
 	form.on('submit', function(ev) {
 		ev.preventDefault();
-		console.log('submiting');
+
 		if(submitting) {
 			return;
 		}
@@ -39,10 +39,12 @@
 				contentType: 'application/json',
 				success: function(res) {
 					form.hackForm('end', res.err);
+					$('#be-the-first').remove();
 					submitting = false;
 				},
 				error: function(err) {
-					form.hackForm('end', {message: err});
+					form.hackForm('end', err);
+					$('#be-the-first').remove();
 					submitting = false;
 				}
 			});
@@ -50,6 +52,7 @@
 			submitBtn.shakeIt();
 			submitting = false;
 		}
+
 	});
 
 	submitBtn.on('click', function() {

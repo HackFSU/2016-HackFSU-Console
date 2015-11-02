@@ -17,8 +17,14 @@ export default function(app) {
 				email: req.body.email
 			});
 			
-			subscriber.save().then(function() {
-				res.send({ success: true });
+			subscriber.save()
+			.then(function(obj) {
+				console.log('New subscriber: ' + obj.email);
+				res.json({});
+			}, function(err) {
+				res.json({
+					err: 'Parse error: ' + err
+				});
 			});
 		}
 

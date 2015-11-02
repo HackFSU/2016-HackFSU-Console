@@ -25,14 +25,18 @@ html
 												placeholder='student@uni.edu'
 												autocorrect='off' autocomplete='off')
 											button.video-btn(type='submit' form='previewEmailSubscribe') SUBSCRIBE
+											.hackform-success(style='display: none')
+												h2 Thanks! 
+												p 
+													| We will let you know when registration opens and 
+													| we cannot wait to see you this Spring! In the meantime, 
+													| check us out on 
+													a(href='#{store.links.twitter}' target='_blank') twitter
+													|  for other updates.
+
 									p#be-the-first Be the first to find out when registration opens!
-							#submit-successful(style='display: none')
-									p#description-text
-											| Thanks! We will let you know when registration opens and 
-											| we cannot wait to see you this Spring! In the meantime, 
-											| check us out on 
-											a(href='#{store.links.twitter}' target='_blank') Twitter
-											|  for other updates.
+	
+											
 			video(src='/res/hackfsu15-loop.webm' loop='true' autoplay='true')
 			.mobileBG
 					
