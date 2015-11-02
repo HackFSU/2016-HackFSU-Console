@@ -14,6 +14,14 @@ var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var fs = require('fs');
 
+var argv = require('yargs')
+
+	.boolean('p')
+	.alias('p', 'production')
+	.describe('p', 'RUN_LEVEL = PROD')
+
+	.argv;
+
 var dirs = {
 	es6: __dirname + '/public/es6',
 	views:  __dirname + '/public/js/views',
@@ -71,7 +79,13 @@ gulp.task('default', ['jshint-backend', 'transpile-frontend'], function() {
 
 	gulp.watch([dirs.es6 + '/**/*.js'], ['transpile-frontend']);
 
+
+	if(argv.production) {
+		process.env.RUN_LEVEL = 'PROD';
+	}
+
 	// Initiate boot
 	require('./server');
 	
 });
+
