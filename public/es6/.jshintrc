@@ -48,7 +48,7 @@
 	"validthis"     : false,
 
 
-	"browser"       : false,
+	"browser"       : true,
 	"browserify"    : false,
 	"couch"         : false,
 	"devel"         : true,
@@ -69,5 +69,7 @@
 	"wsh"           : false,
 	"yui"           : false,
 
-	"globals"       : {}
+	"globals"       : {
+		"Parsley": true
+	}
 }

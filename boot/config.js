@@ -31,6 +31,7 @@ import { default as validate } from '../lib/validate';
 
 export default function configureApp() {
 	const app = {};
+	let maxAge;
 
 	// Save utility references
 	app.Q = Q;
@@ -50,6 +51,17 @@ export default function configureApp() {
 	// Configure Express core
 	const e = app.e = express();
 	const server = app.server = http.createServer(e);
+
+	// Handle run level settings
+	if(process.env.RUN_LEVEL === 'DEV') {
+		e.locals.pretty = true;
+		e.use(morgan('dev'));
+		maxAge = 0;
+	} else if(process.env.RUN_LEVEL === 'PROD') {
+		e.locals.pretty = false;
+		maxAge = 3600000;
+	}
+
 	e.set('port', process.env.PORT || 5003);
 	e.set('views', app.dirs.app + '/views');
 	e.set('view engine', 'jade');
@@ -59,13 +71,7 @@ export default function configureApp() {
 	e.use(validator());
 	app.io = io(server);
 
-	// Handle run level settings
-	if(process.env.RUN_LEVEL === 'DEV') {
-		e.locals.pretty = true;
-		e.use(morgan('dev'));
-	} else if(process.env.RUN_LEVEL === 'PROD') {
-		e.locals.pretty = false;
-	}
+	
 
 	// Setup session
 	e.use(session({

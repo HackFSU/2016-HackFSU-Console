@@ -72,8 +72,10 @@ export default function setRoutes(app) {
 	 */
 
 	e.get('/', c.Preview.index);
+	e.get('/index', c.Preview.index);
+	e.get('/home', c.Preview.index);
 
-	e.post('/subscribe', jsonParser, c.Preview.subscribe);
+	e.post('/preview/subscribe', jsonParser, c.Preview.subscribe);
 
 	/**************************************************************************
 	 * User

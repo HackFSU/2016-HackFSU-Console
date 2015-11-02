@@ -9,7 +9,7 @@
 var gulp = require('gulp');
 var del = require('del');
 var jshint = require('gulp-jshint');
-var uglify = require('gulp-uglify');
+// var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var fs = require('fs');
@@ -51,15 +51,16 @@ gulp.task('jshint-backend', function() {
 gulp.task('jshint-frontend', function() {
 	return gulp.src([dirs.es6 + '/**/*.js'])
 		.pipe(jshint())
-		.pipe(jshint.reporter('default'))
-		.pipe(jshint.reporter('fail'));
+		.pipe(jshint.reporter('default'));
 });
 
 gulp.task('transpile-frontend', ['clean', 'jshint-frontend'], function() {
 	return gulp.src(['public/es6' + '/**/*.js'])
 		.pipe(sourcemaps.init())
-			.pipe(babel())
-			.pipe(uglify())
+			.pipe(babel({
+				presets: ['es2015']
+			}))
+			// .pipe(uglify())
 		.pipe(sourcemaps.write('./', {
 			sourceRoot: '/es6',
 		}))
