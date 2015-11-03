@@ -272,7 +272,7 @@ p#be-the-first {
 	  z-index: 1004;
 	  background-color: #303030;
 
-	  background-color: rgba(19, 19, 19, 0.85);
+	  background-color: rgba(19, 19, 19, 0.7);
 	}
     .video-overlay {
       position: absolute;
@@ -313,7 +313,7 @@ p#be-the-first {
       transition: 200ms all;
     }
 }
-@media all and (max-width: 450px){
+@media all and (min-width: 450) and (max-width: 351px){
     body {
       font-size: 8px;
     }
@@ -335,7 +335,7 @@ p#be-the-first {
 	  z-index: 1004;
 	  background-color: #303030;
 
-	  background-color: rgba(19, 19, 19, 0.85);
+	  background-color: rgba(19, 19, 19, 0.7);
 	}
 
 	.mobileBG {
@@ -356,6 +356,83 @@ p#be-the-first {
       text-align: center;
       z-index:1005;
       width: 300px;
+      top: 50%;
+	  bottom: -40%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+    }
+    .video-input {
+      padding: 0.5em;
+      padding-bottom: 0.5em;
+      margin-bottom: 3em;
+      background-color: rgba(0, 0, 0, 0);
+      width: 100%;
+      font-weight: 300;
+      border: none;
+      border-bottom: 0.15em solid rgba(255, 255, 255, 0.9);
+	  border-radius: 0;
+      outline: 0;
+      color: rgba(255, 255, 255, 0.9);;
+    }
+
+    .video-btn {
+        margin-left: 0;
+        width: 100%;
+        height: 3.5em;
+      background-color: rgba(0, 0, 0, 0);
+      border-radius: 4px;
+      border: 0.15em solid rgba(255, 255, 255, 0.9);
+      padding: 0;
+      margin-bottom: 2em;
+      outline: 0;
+      font-weight: 600;
+      transition: 200ms all;
+    }
+}
+@media all and (min-width: 350) and (max-width: 251px){
+    body {
+      font-size: 8px;
+    }
+    .content {
+        font-size: 14px;
+    }
+	.image-bg {
+		background: url('../../res/mobilebg.jpg') no-repeat center center;
+		background-size: cover;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		right: 0;
+	}
+	.video-color {
+		position: absolute;
+	  width: 100%;
+	  height: 200%;
+	  z-index: 1004;
+	  background-color: #303030;
+
+	  background-color: rgba(19, 19, 19, 0.7);
+	}
+
+	.mobileBG {
+		display: block !important;
+	}
+    video {
+      display: none;
+    }
+	#video-bg {
+	    position: absolute;
+	    top: 0; right: 0; bottom: 0; left: 0;
+	    overflow: auto;
+	    clear: both;
+	    width: 100%;
+	}
+    .video-overlay {
+      position: absolute;
+      text-align: center;
+      z-index:1005;
+      width: 250px;
       top: 50%;
 	  bottom: -40%;
       left: 50%;
