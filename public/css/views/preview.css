@@ -324,6 +324,11 @@ p#be-the-first {
     .content {
         font-size: 36px;
     }
+
+    .video-form {
+        padding-top: 2em;
+        font-size: 1em;
+    }
     .video-overlay {
       position: absolute;
       text-align: center;
@@ -337,7 +342,7 @@ p#be-the-first {
     .video-input {
       padding: 0.5em;
       padding-bottom: 0.5em;
-      margin-bottom: 3em;
+      margin-bottom: 2em;
       background-color: rgba(0, 0, 0, 0);
       width: 100%;
       font-weight: 300;
@@ -355,7 +360,7 @@ p#be-the-first {
       border-radius: 4px;
       border: 0.15em solid rgba(255, 255, 255, 0.9);
       padding: 0;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
       outline: 0;
       font-weight: 600;
       transition: 200ms all;
