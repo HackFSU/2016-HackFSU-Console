@@ -193,6 +193,9 @@ p#be-the-first {
     body {
       font-size: 12px;
     }
+    .content {
+        font-size: 14px;
+    }
     .video-overlay {
       position: absolute;
       text-align: center;
@@ -207,6 +210,9 @@ p#be-the-first {
 @media all and (max-width: 650px) and (min-width: 551px){
     body {
       font-size: 12px;
+    }
+    .content {
+        font-size: 14px;
     }
     .video-overlay {
       position: absolute;
@@ -225,7 +231,7 @@ p#be-the-first {
     }
 
     .content {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .video-overlay {
@@ -270,7 +276,7 @@ p#be-the-first {
       font-size: 8px;
     }
     .content {
-        font-size: 10px;
+        font-size: 14px;
     }
     .video-overlay {
       position: absolute;
