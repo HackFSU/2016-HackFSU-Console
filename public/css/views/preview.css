@@ -217,7 +217,7 @@ p#be-the-first {
               transform: translate(-50%, -50%);
     }
 }
-@media all and (max-device-width: 650px) and (min-device-width: 551px){
+@media all and (max-width: 650px) and (min-width: 551px){
     body {
       font-size: 12px;
     }
@@ -235,7 +235,7 @@ p#be-the-first {
               transform: translate(-50%, -50%);
     }
 }
-@media all and (max-device-width: 550px) and (min-device-width: 451px){
+@media all and (max-width: 550px) and (min-width: 451px){
     body {
       font-size: 10px;
     }
@@ -313,7 +313,7 @@ p#be-the-first {
       transition: 200ms all;
     }
 }
-@media all and (min-width: 450px) and (max-width: 351px){
+@media all and (max-width: 450px) and (min-width: 351px){
     body {
       font-size: 8px;
     }
