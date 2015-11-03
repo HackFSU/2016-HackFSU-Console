@@ -313,7 +313,7 @@ p#be-the-first {
       transition: 200ms all;
     }
 }
-@media all and (min-width: 450) and (max-width: 351px){
+@media all and (min-width: 450px) and (max-width: 351px){
     body {
       font-size: 8px;
     }
