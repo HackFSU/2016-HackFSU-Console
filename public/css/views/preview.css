@@ -238,23 +238,23 @@ p#be-the-first {
     body {
       font-size: 10px;
     }
-	#video-bg {
-	    position: absolute;
-	    top: 0; right: 0; bottom: 0; left: 0;
-	    overflow: scroll;
-	    clear: both;
-	    width: 100%;
-	}
     .content {
         font-size: 16px;
     }
-
+	#video-bg {
+	    position: absolute;
+	    top: 0; right: 0; bottom: 0; left: 0;
+	    overflow: auto;
+	    clear: both;
+	    width: 100%;
+	}
     .video-overlay {
       position: absolute;
       text-align: center;
       z-index:1005;
       width: 400px;
       top: 50%;
+	  bottom: -40%;
       left: 50%;
       -webkit-transform: translate(-50%, -50%);
               transform: translate(-50%, -50%);
@@ -297,7 +297,7 @@ p#be-the-first {
 	#video-bg {
 	    position: absolute;
 	    top: 0; right: 0; bottom: 0; left: 0;
-	    overflow: scroll;
+	    overflow: auto;
 	    clear: both;
 	    width: 100%;
 	}
@@ -307,6 +307,7 @@ p#be-the-first {
       z-index:1005;
       width: 300px;
       top: 50%;
+	  bottom: -40%;
       left: 50%;
       -webkit-transform: translate(-50%, -50%);
               transform: translate(-50%, -50%);
