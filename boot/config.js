@@ -59,17 +59,25 @@ export default function configureApp() {
 		maxAge = 0;
 	} else if(process.env.RUN_LEVEL === 'PROD') {
 		e.locals.pretty = false;
-		maxAge = 3600000;
+		maxAge = 86400000; // 1day
 	}
 
 	e.set('port', process.env.PORT || 5003);
 	e.set('views', app.dirs.app + '/views');
 	e.set('view engine', 'jade');
 	e.use(express.static(app.dirs.public, {
-		maxAge: 3600000 // 1hr
+		maxAge: maxAge 
 	}));
 	e.use(validator());
 	app.io = io(server);
+
+	// Handle caching
+	e.use(function(req, res, next) {
+		if(req.url.match(/(\.(img|font|mp4))+$/)) {
+			res.setHeader('Cache-Control', 'public, max-age=' + maxAge);
+		}
+		next();
+	});
 
 	
 
