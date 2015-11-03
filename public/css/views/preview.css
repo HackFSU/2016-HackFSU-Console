@@ -319,7 +319,7 @@ p#be-the-first {
 
 @media screen {
     body {
-      font-size: 10px;
+      font-size: 14px;
     }
     .content {
         font-size: 16px;
@@ -328,7 +328,7 @@ p#be-the-first {
       position: absolute;
       text-align: center;
       z-index:1005;
-      width: 300px;
+      width: 100%;
       top: 50%;
       left: 50%;
       -webkit-transform: translate(-50%, -50%);
