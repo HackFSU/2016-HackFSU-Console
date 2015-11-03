@@ -238,7 +238,13 @@ p#be-the-first {
     body {
       font-size: 10px;
     }
-
+	#video-bg {
+	    position: absolute;
+	    top: 0; right: 0; bottom: 0; left: 0;
+	    overflow: scroll;
+	    clear: both;
+	    width: 100%;
+	}
     .content {
         font-size: 16px;
     }
@@ -288,6 +294,13 @@ p#be-the-first {
     .content {
         font-size: 14px;
     }
+	#video-bg {
+	    position: absolute;
+	    top: 0; right: 0; bottom: 0; left: 0;
+	    overflow: scroll;
+	    clear: both;
+	    width: 100%;
+	}
     .video-overlay {
       position: absolute;
       text-align: center;
