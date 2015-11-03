@@ -317,56 +317,6 @@ p#be-the-first {
     }
 }
 
-@media screen {
-    body {
-      font-size: 22px;
-    }
-    .content {
-        font-size: 36px;
-    }
-
-    .video-form {
-        padding-top: 2em;
-        font-size: 1em;
-    }
-    .video-overlay {
-      position: absolute;
-      text-align: center;
-      z-index:1005;
-      width: 80%;
-      top: 50%;
-      left: 50%;
-      -webkit-transform: translate(-50%, -50%);
-              transform: translate(-50%, -50%);
-    }
-    .video-input {
-      padding: 0.5em;
-      padding-bottom: 0.5em;
-      margin-bottom: 2em;
-      background-color: rgba(0, 0, 0, 0);
-      width: 100%;
-      font-weight: 300;
-      border: none;
-      border-bottom: 0.15em solid rgba(255, 255, 255, 0.9);
-      outline: 0;
-      color: rgba(255, 255, 255, 0.9);;
-    }
-
-    .video-btn {
-        margin-left: 0;
-        width: 100%;
-        height: 3.5em;
-      background-color: rgba(0, 0, 0, 0);
-      border-radius: 4px;
-      border: 0.15em solid rgba(255, 255, 255, 0.9);
-      padding: 0;
-      margin-bottom: 1em;
-      outline: 0;
-      font-weight: 600;
-      transition: 200ms all;
-    }
-}
-
 
 
 .foot {
