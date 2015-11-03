@@ -1,10 +1,10 @@
 /**
  * Preview page
- * 
+ *
  * Dependencies:
  * 	- jQuery
  * 	- hackform
- * 	
+ *
  * Handles form submission for email subscribing
  */
 
@@ -15,7 +15,7 @@
 	let form = $('form[name="previewEmailSubscribe"]');
 	let submitBtn = form.find('button[type="submit"]');
 	let submitting = false;
-	
+
 	form.hackForm({
 		fields: [{
 			element: form.find('input[name="email"]'),
@@ -38,8 +38,16 @@
 				data: JSON.stringify(form.hackForm('get')),
 				contentType: 'application/json',
 				success: function(res) {
-					form.hackForm('end', res.err);
-					$('#be-the-first').remove();
+					$('#preview-content').fadeTo(1000, 0, function() {
+						$('#preview-content').remove();
+						//form.hackForm('end', res.err);
+						$('.hackform-success').fadeIn(1000, function() {
+							return $("html, body").animate({
+									scrollTop: 0
+							}, 500);
+						});
+					});
+
 					submitting = false;
 				},
 				error: function(err) {

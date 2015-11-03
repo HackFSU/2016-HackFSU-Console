@@ -1,7 +1,7 @@
 /**
  * hackForm - Custom form validator
  *
- * TODO: 
+ * TODO:
  * 	- multiple validators like: max[10]|email
  * 	- filters like : toUpper|toLower|trim
  * 	- fadeOut/in for end()
@@ -20,20 +20,20 @@
 
 
 	// let filters = $.hackForm.filters = {
-	// 	toUpper: 
-	// 	max: 
+	// 	toUpper:
+	// 	max:
 	// };
-	
+
 	$.widget('hackForm.hackField', {
 		options: {
 			validator: undefined, // name or function(val) { return isValid }
 			required: false
-		}, 
+		},
 
 		_create: function() {
 			const o = this.options;
 			const e = this.element;
-			
+
 			if(!o.validator || !$.isFunction(o.validator) && !$.isFunction(validators[o.validator])) {
 				throw new Error('Invalid or missing type/validator: ' + o.validator);
 			}
@@ -63,7 +63,7 @@
 			const e = this.element;
 			const o = this.options;
 			let val, valid;
-			
+
 
 			// Get value
 			val = this.get();
@@ -160,7 +160,7 @@
 						this.trigger('correction');
 					}
 				}
-				
+
 			});
 
 
@@ -168,7 +168,7 @@
 
 		validate: function() {
 			let valid = true;
-			
+
 			this.fields.forEach((field) => {
 				if(!field.hackField('validate')) {
 					valid = false;
@@ -208,7 +208,7 @@
 			let html;
 
 			// Get predefined message
-			
+
 
 			// Clean out form of non-end messages
 			html = e.find('.hackform-' + (err? 'failure' : 'success'));
@@ -227,7 +227,7 @@
 					(message.subtitle? `<p>${message.subtitle}</p>` : '') +
 				'</div>');
 			}
-			
+
 
 		}
 	});

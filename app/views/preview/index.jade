@@ -16,28 +16,27 @@ html
 							img(style='width: 52%; height:auto; padding-top:1em;' src='img/white_feather.png')
 					.content
 							#preview-content
-									p#description-text
-										| To be a hacker comes with an attitude of building to learn,
-										| creating to build, and learning to create. Our Florida State
-										| University organizing team is hard at work and we cannot wait
-										| to see what you all bring to the table this Spring. Hack on.
-									#vidForm
-										form.video-form(role='form' method='post' name='previewEmailSubscribe')
-											input.video-input(type='text' name='email'
-												placeholder='student@uni.edu'
-												autocorrect='off' autocomplete='off')
-											button.video-btn(type='submit' form='previewEmailSubscribe') SUBSCRIBE
-											.hackform-success(style='display: none')
-												h2 Thanks! 
-												p 
-													| We will let you know when registration opens and 
-													| we cannot wait to see you this Spring! In the meantime, 
-													| check us out on 
-													a(href='#{store.links.twitter}' target='_blank') twitter
-													|  for other updates.
+								p#description-text
+									| To be a hacker comes with an attitude of building to learn,
+									| creating to build, and learning to create. Our Florida State
+									| University organizing team is hard at work and we cannot wait
+									| to see what you all bring to the table this Spring. Hack on.
+								#vidForm
+									form.video-form(role='form' method='post' name='previewEmailSubscribe')
+										input.video-input(type='text' name='email'
+											placeholder='student@uni.edu'
+											autocorrect='off' autocomplete='off')
+										button.video-btn(type='submit' form='previewEmailSubscribe') SUBSCRIBE
 
-									p#be-the-first Be the first to find out when registration opens!
-	
+								p#be-the-first Be the first to find out when registration opens!
+							.hackform-success(style='display: none')
+								h2 Thanks! 
+								p 
+									| We will let you know when registration opens and 
+									| we cannot wait to see you this Spring! In the meantime, 
+									| check us out on 
+									a(href='#{store.links.twitter}' target='_blank') twitter
+									|  for other updates.
 											
 			video(src='/res/hackfsu15-loop.mp4' loop='true' autoplay='true')
 			.mobileBG
