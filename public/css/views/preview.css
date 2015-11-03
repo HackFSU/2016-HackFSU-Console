@@ -390,7 +390,7 @@ p#be-the-first {
       transition: 200ms all;
     }
 }
-@media all and (min-width: 350px) and (max-width: 251px){
+@media all and (max-width: 250px) {
     body {
       font-size: 8px;
     }
