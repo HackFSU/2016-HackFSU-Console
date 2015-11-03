@@ -41,10 +41,11 @@
 					$('#preview-content').fadeTo(1000, 0, function() {
 						$('#preview-content').remove();
 						//form.hackForm('end', res.err);
+						$("html, body").animate({
+								scrollTop: 0
+						}, 500);
 						$('.hackform-success').fadeIn(1000, function() {
-							return $("html, body").animate({
-									scrollTop: 0
-							}, 500);
+							//return
 						});
 					});
 
