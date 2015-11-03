@@ -42,9 +42,9 @@
 						$('#preview-content').remove();
 						//form.hackForm('end', res.err);
 						$('.hackform-success').fadeIn(1000, function() {
-							// return $("html, body").animate({
-							// 		scrollTop: 0
-							// }, 500);
+							return $("html, body").animate({
+									scrollTop: 0
+							}, 500);
 						});
 					});
 
