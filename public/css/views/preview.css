@@ -39,8 +39,9 @@ a:visited {
 }
 
 a:link {
-  text-decoration: none;
-   color: rgba(255, 255, 255, 0.75);
+  text-decoration: underline;
+  font-weight: 600;
+   color: rgba(255, 255, 255, 1);
 }
 
 a:active {
