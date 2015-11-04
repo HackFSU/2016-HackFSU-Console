@@ -1,0 +1,26 @@
+html
+	body
+		table.tableOuter
+			tr
+				td
+					table.tableInner
+						tr
+							td#header(align='center', valign='top')
+								img(src='http://hackfsu.com/img/emails/email-header-unnamed.png', alt='logo')
+								
+						tr
+							td#content
+								block content
+						tr
+							td#footer(align='center', valign='top')
+								a(target='_blank', href='http://www.facebook.com/hackfsu') Facebook
+								| &#32;&#8226;&#32;
+								a(target='_blank', href='http://twitter.com/hackfsu') Twitter
+								| &#32;&#8226;&#32;
+								a(target='_blank', href='http://instagram.com/hackfsu/') Instagram
+								| <br/><br/><br/>
+								
+								.unsubscribe
+									| If you'd like to unsubscribe and stop receiving emails from HackFSU, 
+									a(href='*|UNSUB:http://hackfsu.com/unsubscribe|*') click here
+									| .<br/>But why would you do that?<br/>

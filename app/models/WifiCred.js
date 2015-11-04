@@ -1,0 +1,8 @@
+/**
+ * WifiCred model
+ *
+ * 
+ */
+'use strict';
+
+

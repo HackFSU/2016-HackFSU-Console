@@ -1,0 +1,8 @@
+/**
+ * HelpRequest model
+ *
+ * 
+ */
+'use strict';
+
+

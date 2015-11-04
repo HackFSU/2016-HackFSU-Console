@@ -1,12 +1,8 @@
-//- Throw to this page when an error is found somewhere not handled by js
-//- You MUST pass a pageData.errorMsg and pageData.backLocation
-//- This can also be used for debug purposes
-
 extend ../layout
 block content
-	.container
-		h1 #[strong #{errorData.msg}]
-		if errorData
-			if errorData.returnLocation
-				h4 
-					a(href="#{errorData.returnLocation}") #{errorData.returnMsg}
+	.containerbody
+		h1.singleLineText #{code}
+		if message
+			h2 #{message}
+		h2 [x] rekt [] not rekt
+	.filler(height='100%', width='100%', style='padding-bottom: 73em;')

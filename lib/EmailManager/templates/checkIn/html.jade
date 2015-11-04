@@ -1,0 +1,66 @@
+extend ../layout
+block content
+	//- Subject: Welcome!
+	p.message
+		| Welcome to HackFSU #{toFirstName}!<br>
+		br
+		br
+		
+		| <u>Now that you have checked in, here are a few tips:</u><br>
+		
+		ul
+			//- Wifi info when needed
+			if isFSU
+				li Since you are an FSU student, you can just log into the wifi like normal. If for some odd reason you cannot, we can provide you with temporary wifi credentials upon request.
+			else
+				li You can log into our 'FSUWIN' wifi with these personal credentials:<br>
+					| &#32;&#32;<b>Username:</b> #{username}<br>
+					| &#32;&#32;<b>Password:</b> #{password}<br>
+			br
+				
+			//- Website info
+			li Check out 
+				a(target='_blank', href='http://hackfsu.com/') hackfsu.com
+				|  for the event schedule and other information!
+			br
+		
+			//- App info
+			li Download our app to keep up-to-date with what is going on! We will send you push notifications when something is happening.<br>
+				| &#32;&#32;
+				a(target='_blank', href='https://appsto.re/us/PrYIY.i') iOS version
+				|  (<b>Note:</b> You must have at least iOS 8. Previous app versions will not work)<br>
+				| &#32;&#32;
+				a(target='_blank', href='https://play.google.com/store/apps/details?id=com.hackfsu15.hackfsu15&hl=en') Android version
+				|  (<b>Note:</b> If you have the one from last year, uninstall it and get this one)<br>
+				br
+		
+			//- Other pointers
+			li If you have not already, try to form a group of at least 3 (max 4) hackers. Don't be shy! You'll be amazed at what you can develop with people you have never met before!
+			br
+			li Choosing what to make may take a while. Brainstorming is key! If you still have yet to pick a project after a few hours, pick your best idea and just roll with it! If you have an idea of what you want to hack with but can't figure out how to actually do it, ask a mentor!
+			br
+			li The basement level of Dirac will be a quite zone for sleeping if you need it. Please respect sleeping hackers!
+			br
+		
+			li If you ever get stuck during you hacking and need some help, head on over to 
+				a(target='_blank', href='http://hackfsu.com/help') hackfsu.com/help
+				|  and ask the mentors! You can also walk on over to the Mentor Lounge and ask around.
+			br
+		
+			li Need hardware? MLH has brought a whole assortment of tech to mess around with. We will be checking out Oculus Rifts, Leap Motions, Myos, Arduinos, Pebble Watches, and Spark Cores!
+			br
+		
+			li Need resources? Check out 
+				a(target='_blank', href='http://www.technolegy.org/resources.html') this
+				|  page full of 'em!
+			br
+		
+		
+		br		
+		| We will go over everything in detail at the opening ceremony. If you have any questions afterwards, feel free to ask one of our organizers.<br>
+		
+		br
+		br
+		| Happy Hacking,<br>
+		br
+		b The HackFSU Crew<br>
