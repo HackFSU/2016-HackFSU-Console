@@ -16,6 +16,14 @@
 	let submitBtn = form.find('button[type="submit"]');
 	let submitting = false;
 
+
+	let video = $('#video');
+
+	if(video.is(':visible')) {
+		// Non-mobile, add video
+		video.after('<video src="/res/hackfsu15-loop.mp4" loop="true" autoplay="true"></video>');
+	}
+
 	form.hackForm({
 		fields: [{
 			element: form.find('input[name="email"]'),
@@ -67,5 +75,7 @@
 	submitBtn.on('click', function() {
 		form.submit();
 	});
+
+
 
 })(jQuery);

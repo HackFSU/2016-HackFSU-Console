@@ -1,6 +1,15 @@
 doctype html
 html
 	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible' content='IE=edge')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		meta(name='description', content='')
+		meta(name='author', content='')
+		meta(property='og:image', content='img/hackfsu-post.jpg')
+		meta(property='og:title', content="HackFSU '16")
+		meta(name='google-site-verification', content='suuzMNcGGtUdtvQ1Te8M3HxORys7IlGjkDLvOGOkpA8')
+		
 		meta(name='viewport' content='width=device-width')
 			
 		// Latest compiled and minified CSS
@@ -35,12 +44,24 @@ html
 									| We will let you know when registration opens and 
 									| we cannot wait to see you this Spring! In the meantime, 
 									| check us out on 
-									a(href='#{store.links.twitter}' target='_blank') Twitter
+									a(href='#{store.links.twitter}' target='_blank') twitter
 									|  for other updates.
 											
-			video(src='/res/hackfsu15-loop.mp4.mp4' loop='true' autoplay='true')
+			#video
 			.mobileBG
-					
+			
+
+
+		script(type='text/javascript').
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			
+			ga('create', 'UA-59773856-1', 'auto');
+			ga('send', 'pageview');
+
+
 		script(src='/bower_components/jquery/dist/jquery.min.js')
 		script(src='/bower_components/jquery-ui/ui/minified/widget.min.js')
 		script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
