@@ -6,3 +6,7 @@ public/bower_components
 CloudCode_HackFSU-test/config/*
 .DS_Store
 wifi/creds.*
+npm-debug.log
+typings
+tmp
+public/js/views

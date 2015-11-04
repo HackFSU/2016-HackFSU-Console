@@ -8,25 +8,55 @@ This will be the final landing page + background management website for HackFSU,
 
 ###### Prerequisites: 
 
-1. Install node.js, npm
-2. `.env` is needed to connect to Parse (gitignored for security, ask Jared)
+1.  node.js & npm ([link](https://nodejs.org/en/download/))
+2. Install *command line* git ([link](https://git-scm.com/downloads))
+3. `.env` is needed to connect to Parse (gitignored for security, ask Jared)
 
 
 #### Setup Documentation
-1. git clone this repo via command line git (branch + checkout if needed)
-2. install nodejs and npm via whatever package manager/installer
-3. install nodemon with `npm install nodemon -g`
-4. install bower with `npm install bower -g`
-5. install coffeescript with 'npm install coffee-script -g'
-5. In the root folder, run `npm install` to install the backend dependencies
-6. In the `public/` folder, run `bower install` to install the frontend dependencies
-7. In the root directory, run `nodemon` to start the server. If an error occurs, try to fix it and then run `rs` inside of the nodemon session to restart without force closing. If you are running on linux you can just use the makefile ('make')
-8. Access your test server by going to `http://localhost:PORT/` or `http://LOCAL_IP:PORT/` when you are sharing the network.
+Below are commands to run to setup the development environment on a given OS. If you are on Windows, use PowerShell and remove the `sudo` prefix from these 
+commands.
+
+```bash
+# [Linux only] Update your node
+$ sudo npm install -g n
+$ sudo n latest
+
+# Install global node modules
+$ sudo npm install -g nodemon bower forever coffee-script
+
+# [Optional] Create a git folder
+$ cd ~
+$ mkdir git
+$ cd ~/git
+
+# Setup repo (from your git folder)
+$ git clone https://YOUR_GITHUB_USERNAME@github.com/HackFSU/hackfsu-console.git
+$ cd hackfsu-console
+$ npm install
+$ bower install
+
+# Start the server (while in repo directory)
+$ coffee -o public/js -cw public/coffee &
+$ nodemon server.js
+
+# [Linux] You can also just use the makefile to start the server
+$ make
+
+```
+
+I also recommend adding password caching to git if you haven't already. See [this](http://stackoverflow.com/questions/5343068/is-there-a-way-to-skip-password-typing-when-using-https-github).
+```bash
+$ git config --global credential.helper "cache --timeout=7200"
+```
+
+Now open a browser and go to `http://localhost:5003` to see your local server, changing the port number if necessary. 
 
 ##### USE SUBLIME TEXT 3 WITH THESE PACKAGES:
 - Package manager (of course)
 - BetterCoffeeScript
 - Jade
+- Jade Build
 
 #### Project Structure
 

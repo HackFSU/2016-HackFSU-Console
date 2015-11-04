@@ -1,0 +1,8 @@
+/**
+ * Hacker model
+ *
+ * 
+ */
+'use strict';
+
+

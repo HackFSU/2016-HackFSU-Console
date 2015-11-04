@@ -1,8 +1,15 @@
 /**
-* Loads the CoffeScript module and boot scripts.
-*
-* Author: Trevor Helms
-*/
+ * Setup environment and launch
+ */
 
-require('coffee-script/register')
-require('./boot')
+'use strict';
+
+var dotenv = require('dotenv');
+
+dotenv.load();
+if(!process.env.RUN_LEVEL) {
+	process.env.RUN_LEVEL = 'DEV';
+}
+
+require('babel/register');
+require('./boot');

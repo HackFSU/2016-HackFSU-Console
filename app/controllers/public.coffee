@@ -141,14 +141,11 @@ module.exports = (app) ->
 				console.log "Mentor Submit success"
 
 				#send confirmation email
-				app.emailTemplate 'mentorConfirm',
-					to_email: obj.email
-					from_email: 'info@hackfsu.com'
-					from_name: 'HackFSU'
+				app.emailManager.send 'mentorConfirm',
 					subject: 'Inspire the Future'
-					locals:
-						firstName: obj.firstName
-						lastName: obj.lastName
+					toEmail: obj.email
+					toFirstName: obj.firstName
+					toLastName: obj.lastName
 
 				# Also create them an account (non-admin)
 				# Is only created if email is not taken
@@ -403,14 +400,12 @@ module.exports = (app) ->
 					if success
 						console.log " > Parse - App submit success"
 
-						app.emailTemplate 'applyConfirm',
-							to_email: appData.email
-							from_email: 'register@hackfsu.com'
-							from_name: 'HackFSU'
+						app.emailManager.send 'applyConfirm',
 							subject: 'Rad Submission, Man'
-							locals:
-								firstName: appData.firstName
-								lastName: appData.lastName
+							fromEmail: app.data.email.FROM_EMAIL_REGISTER
+							toEmail: appData.email
+							toFirstName: appData.firstName
+							toLastName: appData.lastName
 
 						#reply with result
 						res.send
