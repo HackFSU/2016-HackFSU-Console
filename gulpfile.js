@@ -1,6 +1,6 @@
 /**
- * Gulp config. 
- * 
+ * Gulp config.
+ *
  * Used to run checks + transpile front end and then boot the server.
  */
 
@@ -28,7 +28,11 @@ var dirs = {
 	js: __dirname + '/public/js',
 	app: __dirname + '/app',
 	lib: __dirname + '/lib',
-	boot: __dirname + '/boot'
+	boot: __dirname + '/boot',
+	scripts: {
+		src: __dirname + '/scripts/src',
+		dest: __dirname + '/scripts'
+	}
 };
 
 gulp.task('clean', function(done) {
@@ -38,6 +42,16 @@ gulp.task('clean', function(done) {
 		fs.mkdirSync(dirs.views);
 	} finally {
 		del([dirs.views + '/**']).then(function() {
+			done();
+		});
+	}
+
+	try {
+		fs.statSync(dirs.scripts.dest);
+	} catch (e) {
+		fs.mkdirSync(dirs.scripts.dest);
+	} finally {
+		del([dirs.scripts.dest + '/*.js']).then(function() {
 			done();
 		});
 	}
@@ -75,6 +89,19 @@ gulp.task('transpile-frontend', ['clean', 'jshint-frontend'], function() {
 		.pipe(gulp.dest(dirs.views));
 });
 
+gulp.task('transpile-scripts', function() {
+	return gulp.src([dirs.scripts.src + '/*.js'])
+		.pipe(sourcemaps.init())
+			.pipe(babel({
+				presets: ['es2015']
+			}))
+			// .pipe(uglify())
+		.pipe(sourcemaps.write('./', {
+			sourceRoot: '/src',
+		}))
+		.pipe(gulp.dest(dirs.scripts.dest));
+});
+
 gulp.task('default', ['jshint-backend', 'transpile-frontend'], function() {
 
 	gulp.watch([dirs.es6 + '/**/*.js'], ['transpile-frontend']);
@@ -86,6 +113,5 @@ gulp.task('default', ['jshint-backend', 'transpile-frontend'], function() {
 
 	// Initiate boot
 	require('./server');
-	
-});
 
+});
