@@ -6,6 +6,13 @@
 * nice start.
 *
 * Hand crafted with <3 by Trevor.
+*
+* TODO: I think it would be bad ass if these could be set up in such a way as to
+* allow us to create a schema.js file that we can load instead of generating them
+* from the command line. That way, we have a common place to view the database schema,
+* we can write custom validators and implement them into the generated model code,
+* and any time a model is generated from the command line, we can add it/update it
+* in the schema.js file.
 */
 
 'use strict';
@@ -43,12 +50,16 @@ export default function (app) {
 			o = validate(o, _.isObject);
 `;
 
+// This will be an array containing code to add to model that sets the attributes
+// in the Parse database.
+let sets = [];
+
 // Parse each attribute. Type (i.e. what we will validate the attribute with) comes after a colon,
 // like so: name:type(!). Optional ! at the end of type forces the attribute to be non-empty and
 // non-null before it can be validated.
 // TODO: For non-typed attributes (aka user might add custom validation methods), allow ! to be
 // appended directly to the name. Example, 'modelify Update title! subtitle!'
-_.each(attrs, function(attr) {
+_.each(attrs, attr => {
 	attr = attr.split(':');
 	let name = attr[0];
 	let type = attr[1];
@@ -63,14 +74,20 @@ _.each(attrs, function(attr) {
 		type = _.trimRight(type, '!');
 	}
 
+	// NOTE: The formatting of these template strings may make your eyes bleed, but it
+	// helps with spacing in the generated file!
+	// First, the easy part. Generate the this.set methods for each attribute.
+	let set =
+`			this.set('${name}', this.${name});
+`;
+	sets.push(set);
+
 	// Generate a validation for each attribute.
 	// Options are:
 	//     (1) No type (custom validation method) AND forced (non-falsey).
 	//     (2) No type AND not forced
 	//     (3) Typed (lodash function) AND forced
 	//     (4) Typed AND not forced
-	// NOTE: The formatting will make your eyes bleed, but it helps with spacing in the
-	// generated file!
 	if (_.isEmpty(type)) {
 		// Option 1
 		if (force) {
@@ -106,6 +123,10 @@ _.each(attrs, function(attr) {
 		}
 	}
 });
+
+// Insert a newline for spacing, and add this.set methods for each attribute.
+model += '\n';
+_.each(sets, set => model += set);
 
 // Finish up our model
 model +=
