@@ -5,7 +5,7 @@
 * validations! You still have to add some custom things though... but it's a
 * nice start.
 *
-* Hand crafted with love by Trevor.
+* Hand crafted with <3 by Trevor.
 */
 
 'use strict';
