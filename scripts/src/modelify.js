@@ -26,13 +26,11 @@ let attrs = _.drop(process.argv, 3);
 // Default class extension to Parse.Object, but some built-in objects need to be
 // specifically subclassed
 let parseObject = 'Object';
-if (klass == 'User') {
+if (klass === 'User') {
 	parseObject = 'User';
 }
 
 // Start off our model with some nice code.
-// NOTE: Don't use this for User model right now! User model (and other built-in
-// Parse classes) are set up slightly differently and aren't supported yet.
 let model =
 `/**
 * ${klass} model
