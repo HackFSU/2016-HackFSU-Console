@@ -23,6 +23,13 @@ import fs from 'fs';
 let klass = process.argv[2];
 let attrs = _.drop(process.argv, 3);
 
+// Default class extension to Parse.Object, but some built-in objects need to be
+// specifically subclassed
+let parseObject = 'Object';
+if (klass == 'User') {
+	parseObject = 'User';
+}
+
 // Start off our model with some nice code.
 // NOTE: Don't use this for User model right now! User model (and other built-in
 // Parse classes) are set up slightly differently and aren't supported yet.
@@ -43,7 +50,7 @@ export default function (app) {
 	const _ = app._;
 	const validate = app.validate;
 
-	class ${klass} extends Parse.Object {
+	class ${klass} extends Parse.${parseObject} {
 		constructor(o) {
 			super(PARSE_CLASSNAME);
 
