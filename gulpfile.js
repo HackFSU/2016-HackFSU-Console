@@ -46,15 +46,15 @@ gulp.task('clean', function(done) {
 		});
 	}
 
-	try {
-		fs.statSync(dirs.scripts.dest);
-	} catch (e) {
-		fs.mkdirSync(dirs.scripts.dest);
-	} finally {
-		del([dirs.scripts.dest + '/*.js']).then(function() {
-			done();
-		});
-	}
+	// try {
+	// 	fs.statSync(dirs.scripts.dest);
+	// } catch (e) {
+	// 	fs.mkdirSync(dirs.scripts.dest);
+	// } finally {
+	// 	del([dirs.scripts.dest + '/*.js']).then(function() {
+	// 		done();
+	// 	});
+	// }
 });
 
 gulp.task('jshint-backend', function() {
