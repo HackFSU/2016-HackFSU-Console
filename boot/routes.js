@@ -11,6 +11,7 @@ import bodyParser from 'body-parser';
 export default function setRoutes(app) {
 	const e = app.e;
 	const c = app.controller;
+	const a = app.controller.admin;
 	// const dirs = app.dirs;
 
 	// Parsers
@@ -95,7 +96,8 @@ export default function setRoutes(app) {
 	/**************************************************************************
 	 * Admin
 	 */
-
+	 e.get('/admin/emails', a.Emails.index);
+	 //e.get('/admin/emails/new', c.admin.Emails.new);
 
 	/**************************************************************************
 	 * SuperAdmin (dangerous/secret stuff)

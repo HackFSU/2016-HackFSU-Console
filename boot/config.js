@@ -66,7 +66,7 @@ export default function configureApp() {
 	e.set('views', app.dirs.app + '/views');
 	e.set('view engine', 'jade');
 	e.use(express.static(app.dirs.public, {
-		maxAge: maxAge 
+		maxAge: maxAge
 	}));
 	e.use(validator());
 	app.io = io(server);
@@ -79,7 +79,7 @@ export default function configureApp() {
 		next();
 	});
 
-	
+
 
 	// Setup session
 	e.use(session({
@@ -91,7 +91,7 @@ export default function configureApp() {
 		saveUninitialized: false,
 		resave: false
 	}));
-	
+
 
 	// Pass locals to jade
 	e.use(function(req, res, next) {
@@ -122,6 +122,7 @@ export default function configureApp() {
 	customLoader.loadAllExports(app, app.dirs.app + '/models');
 
 	app.controller = {}; // Should all be functions
+	app.controller.admin = {};
 	customLoader.loadAllExports(app, app.dirs.app + '/controllers');
 
 
