@@ -26,12 +26,6 @@ export default function (app) {
 			this.message = validate(o.message, message => {
 				return !!message && _.isObject(message);
 			});
-			this.async = validate(o.async, async => {
-				return !!async && _.isBoolean(async);
-			});
-			this.ip_pool = validate(o.ip_pool, ip_pool => {
-				return !!ip_pool && _.isString(ip_pool);
-			});
 			this.description = validate(o.description, description => {
 				return !!description && _.isString(description);
 			});
@@ -39,13 +33,17 @@ export default function (app) {
 				return !!sendto && _.isString(sendto);
 			});
 
+			// These two are defaults and likely won't need to be changed.
+			this.async = false;
+			this.ip_pool = 'Main Pool';
+
 			this.set('name', this.name);
 			this.set('content', this.content);
 			this.set('message', this.message);
-			this.set('async', this.async);
-			this.set('ip_pool', this.ip_pool);
 			this.set('description', this.description);
 			this.set('sendto', this.sendto);
+			this.set('async', this.async);
+			this.set('ip_pool', this.ip_pool);
 		}
 	}
 

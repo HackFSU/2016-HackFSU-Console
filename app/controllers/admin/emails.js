@@ -16,8 +16,7 @@ export default function(app) {
 	app.controller.admin.Emails = {
 
 		index: function(req, res) {
-			let Email = app.model.Email;
-			let query = new app.Parse.Query(Email);
+			let query = new app.Parse.Query(app.model.Email);
 			query.find().then(function(emails) {
 				console.log(emails.length);
 				res.render('admin/emails/index', {
@@ -25,6 +24,17 @@ export default function(app) {
 					emails: emails
 				});
 			});
+		},
+
+		new: function(req, res) {
+			res.render('admin/emails/new', {
+				title: 'Add New Email Template'
+			});
+		},
+
+		create: function(req, res) {
+			let email = new app.model.Email(req.body);
+			email.save().then();
 		}
 
 		// example: function(req, res) {
