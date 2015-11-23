@@ -1,2 +1,9 @@
 extend ../layout
 block content
+	form.form-horizontal(role='form')
+		.form-group
+			label.control-label.col-sm-2(for='name') Template Name
+			.col-sm-10
+				input#name.form-control(type='text' placeholder='Enter the name of the MailChimp template')
+		.form-group
+			label.control-label.col-sm-2(for='')

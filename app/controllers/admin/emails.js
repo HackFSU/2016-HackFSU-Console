@@ -34,7 +34,13 @@ export default function(app) {
 
 		create: function(req, res) {
 			let email = new app.model.Email(req.body);
-			email.save().then();
+			email.save().then(function(obj) {
+				console.log(`New email template added: ${obj.name}`);
+			}, function(err) {
+				res.json({
+					err: `There was a Parse Error: ${err}`
+				});
+			});
 		}
 
 		// example: function(req, res) {

@@ -1,5 +1,6 @@
-* {
-	-webkit-border-radius: 0 !important;
-	-moz-border-radius: 0 !important;
-	border-radius: 0 !important;
+#application input {
+	border: none;
+	border-bottom: 3px solid rgba(255, 255, 255, 0.9);
+	background-color: rgba(0, 0, 0, 0);
+	outline: 0;
 }

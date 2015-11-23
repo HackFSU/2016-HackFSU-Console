@@ -77,6 +77,8 @@ export default function setRoutes(app) {
 
 	e.post('/preview/subscribe', jsonParser, c.Preview.subscribe);
 
+	e.get('/register', c.Registration.form);
+
 	/**************************************************************************
 	 * User
 	 */

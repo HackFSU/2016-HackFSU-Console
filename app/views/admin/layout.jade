@@ -18,6 +18,8 @@ html(lang='en')
 		link(rel='stylesheet' type='text/css' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
 		link(rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800')
 		link(rel='stylesheet', href='/css/navbar-fixed.css')
+		block localCSS
+			
 	body
 		nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
 			.container
@@ -44,3 +46,4 @@ html(lang='en')
 		script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
 		script(src='/js/navbar-active.js')
 			
+		block localJS

@@ -8,141 +8,44 @@ html(lang='en')
 		meta(http-equiv='X-UA-Compatible' content='IE=edge')
 		meta(name='viewport', content='width=device-width, initial-scale=1')
 		meta(name='description', content="Tallahassee, FL. 30 hours.")
-		meta(name='author', content='')
+		meta(name='author', content='HackFSU')
 		meta(property='og:image', content='img/hackfsu-post.jpg')
 		meta(property='og:title', content="Don't Call It a Comeback.")
 		meta(name="google-site-verification", content="suuzMNcGGtUdtvQ1Te8M3HxORys7IlGjkDLvOGOkpA8")
 		
 
-		link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300', rel='stylesheet', type='text/css')
+		link(href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Montserrat:400,700', rel='stylesheet', type='text/css')
 		link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
-		//- link(rel='stylesheet', href='/css/square-corners.css')
-		link(rel='stylesheet', href='/css/navbar-fixed.css')
-		//- link(rel='stylesheet', href='/css/fonts.css')
-		link(rel='stylesheet', href='/css/sticky-footer.css')
-		link(rel='stylesheet', href='/css/main-redesign.css')
-		link(rel='stylesheet', href='/css/fontello.css')
+		link(rel='stylesheet' href='css/drytheme/clear.css' type='text/css')
+		link(rel='stylesheet' href='css/drytheme/carouFredSel.css' type='text/css')
+		link(rel='stylesheet' href='css/drytheme/supersized.css' type='text/css')
+		link(rel='stylesheet' href='css/drytheme/common.css' type='text/css')
+		link(rel='stylesheet' href='css/drytheme/prettyPhoto.css' type='text/css')
+		link(rel='stylesheet' href='css/drytheme/accordion-tabs.css' type='text/css')
+		link(rel='stylesheet' href='css/drytheme/style.css' type='text/css')
+		link(rel='stylesheet' href='css/drytheme/isotope.css' type='text/css')
+		link(rel='stylesheet' href='css/drytheme/colors.css' type='text/css')
+		link(rel='stylesheet' href='css/drytheme/responsive.css' type='text/css')
+		link(rel='stylesheet' href='css/square-corners.css' type='text/css')
 		
 		//- <script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
 		block localCSS
 
 		title HackFSU '15 | #{title}
 	body
-		#wrap
-			div.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
-				.navbar-header
-					button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-						span.sr-only Toggle navigation
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-					a.navbar-brand(href='/')
-						img(src='/img/logo-nav.png')
-				div(class='navbar-collapse collapse')
-					
-					ul(class='nav navbar-nav navbar-right')
-						if session.signin == 1
-							li
-								a(href='/user/profile') Profile
-							li
-								a(href='/user/help') Help
-							li
-								a(href='/user/signout') Sign out
-								
-							//- admin only options
-							if session.isAdmin == true
-								li.dropdown
-									a.dropdown-toggle(href='#', data-toggle='dropdown') 
-										| Admin Console
-										b.caret
-									ul.dropdown-menu
-										li
-											a(href='/admin') Home
-										li
-											a(href='/admin/updates') Updates
-										li
-											a(href='/admin/applications') Applications
-										li
-											a(href='/admin/checkins') Check Ins
-										li
-											a(href='/admin/emails') Emails
-						else 
-							li
-								a(href='/signin') Admin Sign In
-							//- 
-								li 
-									a(href='/apply') Apply
-								li
-									a(href='/mentor') Mentor
-								li
-									a(href='/schedule') Schedule
-								li
-									a(href='/help') Need help?
-							//- li
-							//- 	a(href='/spreadtheword') Spread the word
-							//- li
-							//- 	a(href='/sponsor') Sponsor of the Month
-							//- li
-								a(href='/contact') Contact
-							//- li
-							//- 	a(href='/schedule') Schedule
-			//- block flashMessages
-			//- 	if messages
-			//- 		.flashMessages
-			//- 			if messages.error
-			//- 				div(class="alert alert-danger alert-dismissible")
-			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-			//- 						span(aria-hidden="true") &times;
-			//- 					| #{messages.error}
-			//- 			if messages.info
-			//- 				div(class="alert alert-info alert-dismissible")
-			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-			//- 						span(aria-hidden="true") &times;
-			//- 					| #{messages.info}
-			//- 			if messages.success
-			//- 				div(class="alert alert-success alert-dismissible")
-			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-			//- 						span(aria-hidden="true") &times;
-			//- 					| #{messages.success}
-			//- 			if messages.warning
-			//- 				div(class="alert alert-warning alert-dismissible")
-			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-			//- 						span(aria-hidden="true") &times;
-			//- 					| #{messages.warning}
-			
-			.navbar-spacer
-			block content
-			
-			.footer
-				.containerfooter(align="center")
-					.socials
-						a(target='_blank', href='http://www.twitter.com/HackFSU')
-							.icon-twitter 
-						|   
-						p.credit.
-							&copy; 2015 HackFSU
-						| 
-						a(target='_blank', href='https://www.facebook.com/events/400602133450423/') 
-							.icon-facebook
-						
+		.main-menu.main-menu-fixbg#main-menu
+			.center-relative.menu-holder
+				.menu-logo.left
+					img(alt='HackFSU' src='img/logo-nav.png' style='max-width: 200px; height: auto; margin-top: 4px;')
+				
+				ul.right.montserrat-font
+					li.active
+						a(href='/register') REGISTER 
+					li
+						a(href='#') TEST
+				.clear
 		
-		//- Google Analytics
-		script(type='text/javascript').
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			
-			ga('create', 'UA-59773856-1', 'auto');
-			ga('send', 'pageview');
-
-
-		//- Global JavaScript
-		script(src='/bower_components/jquery/dist/jquery.min.js')
-		script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
-		script(src='/js/navbar-active.js')
-		script(src='/js/jquery.jrumble.1.3.min.js')
-		
-		script(src='/js/main.js')
-		
-		block localJavascript
+		.home.section.relative#dry-home
+			.block.content-960.center-relative
+				
+				block content
