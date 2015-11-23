@@ -2,147 +2,86 @@ include ./credits.jade
 
 doctype html
 html(lang='en')
-	
-	head
-		meta(charset='utf-8')
-		meta(http-equiv='X-UA-Compatible' content='IE=edge')
-		meta(name='viewport', content='width=device-width, initial-scale=1')
-		meta(name='description', content="Tallahassee, FL. 30 hours.")
-		meta(name='author', content='')
-		meta(property='og:image', content='img/hackfsu-post.jpg')
-		meta(property='og:title', content="Don't Call It a Comeback.")
-		meta(name="google-site-verification", content="suuzMNcGGtUdtvQ1Te8M3HxORys7IlGjkDLvOGOkpA8")
-		
+  head
+    meta(content='text/html; charset=utf-8', http-equiv='Content-Type')
+    meta(content='Fueling innovation and interdisciplinary collaboration in Tallahassee', name='description')
+    meta(content='HTML, CSS, JavaScript, PHP, Minimal Awesomness', name='keywords')
+    meta(content='width=device-width, initial-scale=1, maximum-scale=1', name='viewport')
 
-		link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300', rel='stylesheet', type='text/css')
-		link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
-		//- link(rel='stylesheet', href='/css/square-corners.css')
-		link(rel='stylesheet', href='/css/navbar-fixed.css')
-		//- link(rel='stylesheet', href='/css/fonts.css')
-		link(rel='stylesheet', href='/css/sticky-footer.css')
-		link(rel='stylesheet', href='/css/main-redesign.css')
-		link(rel='stylesheet', href='/css/fontello.css')
-		
-		//- <script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
-		block localCSS
+    title HackFSU | #{title}
 
-		title HackFSU '15 | #{title}
-	body
-		#wrap
-			div.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
-				.navbar-header
-					button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-						span.sr-only Toggle navigation
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-					a.navbar-brand(href='/')
-						img(src='/img/logo-nav.png')
-				div(class='navbar-collapse collapse')
-					
-					ul(class='nav navbar-nav navbar-right')
-						if session.signin == 1
-							li
-								a(href='/user/profile') Profile
-							li
-								a(href='/user/help') Help
-							li
-								a(href='/user/signout') Sign out
-								
-							//- admin only options
-							if session.isAdmin == true
-								li.dropdown
-									a.dropdown-toggle(href='#', data-toggle='dropdown') 
-										| Admin Console
-										b.caret
-									ul.dropdown-menu
-										li
-											a(href='/admin') Home
-										li
-											a(href='/admin/updates') Updates
-										li
-											a(href='/admin/applications') Applications
-										li
-											a(href='/admin/checkins') Check Ins
-										li
-											a(href='/admin/emails') Emails
-						else 
-							li
-								a(href='/signin') Admin Sign In
-							//- 
-								li 
-									a(href='/apply') Apply
-								li
-									a(href='/mentor') Mentor
-								li
-									a(href='/schedule') Schedule
-								li
-									a(href='/help') Need help?
-							//- li
-							//- 	a(href='/spreadtheword') Spread the word
-							//- li
-							//- 	a(href='/sponsor') Sponsor of the Month
-							//- li
-								a(href='/contact') Contact
-							//- li
-							//- 	a(href='/schedule') Schedule
-			//- block flashMessages
-			//- 	if messages
-			//- 		.flashMessages
-			//- 			if messages.error
-			//- 				div(class="alert alert-danger alert-dismissible")
-			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-			//- 						span(aria-hidden="true") &times;
-			//- 					| #{messages.error}
-			//- 			if messages.info
-			//- 				div(class="alert alert-info alert-dismissible")
-			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-			//- 						span(aria-hidden="true") &times;
-			//- 					| #{messages.info}
-			//- 			if messages.success
-			//- 				div(class="alert alert-success alert-dismissible")
-			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-			//- 						span(aria-hidden="true") &times;
-			//- 					| #{messages.success}
-			//- 			if messages.warning
-			//- 				div(class="alert alert-warning alert-dismissible")
-			//- 					button(type="button", class="close", data-dismiss="alert", aria-label="Close")
-			//- 						span(aria-hidden="true") &times;
-			//- 					| #{messages.warning}
-			
-			.navbar-spacer
-			block content
-			
-			.footer
-				.containerfooter(align="center")
-					.socials
-						a(target='_blank', href='http://www.twitter.com/HackFSU')
-							.icon-twitter 
-						|   
-						p.credit.
-							&copy; 2015 HackFSU
-						| 
-						a(target='_blank', href='https://www.facebook.com/events/400602133450423/') 
-							.icon-facebook
-						
-		
-		//- Google Analytics
-		script(type='text/javascript').
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			
-			ga('create', 'UA-59773856-1', 'auto');
-			ga('send', 'pageview');
+    link(href='images/favicon.png', rel='shortcut icon')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Montserrat:400,700', rel='stylesheet', type='text/css')
+    link(href='css/clear.css', rel='stylesheet', type='text/css')
+    link(href='css/carouFredSel.css', rel='stylesheet', type='text/css')
+    link(href='css/supersized.css', rel='stylesheet', type='text/css')
+    link(href='css/common.css', rel='stylesheet', type='text/css')
+    link(href='css/columns.css', rel='stylesheet', type='text/css')
+    link(href='css/prettyPhoto.css', rel='stylesheet', type='text/css')
+    link(href='css/accordion-tabs.css', rel='stylesheet', type='text/css')
+    link(href='css/style.css', rel='stylesheet', type='text/css')
+    link(href='css/isotope.css', rel='stylesheet', type='text/css')
+    link(href='css/colors.css', rel='stylesheet', type='text/css')
+    link(href='css/responsive.css', rel='stylesheet', type='text/css')
 
-
-		//- Global JavaScript
-		script(src='/bower_components/jquery/dist/jquery.min.js')
-		script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
-		script(src='/js/navbar-active.js')
-		script(src='/js/jquery.jrumble.1.3.min.js')
-		
-		script(src='/js/main.js')
-		
-		block localJavascript
+    //if lt IE 9
+      script(src='http://html5shiv.googlecode.com/svn/trunk/html5.js')
+  body
+    // Loading gif
+    table.doc-loader
+      tr
+        td
+          img(alt='Loading...', src='images/ajax-document-loader.gif')
+    // Navigation Menu
+    #main-menu.main-menu
+      .center-relative.menu-holder
+        .menu-logo.left
+          img(alt='Sensa', src='images/menu_logo.png')
+        ul.right.montserrat-font
+          li.active
+            a(href='#dry-home') HELLO
+          li
+            a(href='#about') ABOUT US
+          li
+            a(href='#sponsors') SPONSORS
+          li
+            a(href='#contact') CONTACT US
+        .clear
+    block content
+    block map
+    // Footer
+    .clear.center-text.footer
+      .scroll-top-holder.relative.block.content-960.center-relative
+      .footer-content.center-text.block.content-960.center-relative
+        img(alt='', src='images/footer_logo.png')
+        .title-separator
+        .big-social.center-text
+          a(href='https://twitter.com/HackFSU', style='text-decoration:none;')
+            img(src='images/twitter-logo.png', alt='HackFSU on Twitter')
+          a(href='https://www.facebook.com/hackfsu', style='text-decoration:none;')
+            img(src='images/facebook-logo.png', alt='HackFSU on Facebook')
+          a(href='http://statigr.am/tag/hackfsu', style='text-decoration:none;')
+            img(src='images/instagram-logo.png', alt='HackFSU on Instagram')
+        .footer-copyright.center-text
+          | Created by: 
+          a(href='http://www.technolegy.org/') TechNOLE
+          |  at Florida State University
+  script(type='text/javascript', src='http://www.parsecdn.com/js/parse-1.2.17.min.js')
+  script(src='js/jquery-1.8.1.min.js', type='text/javascript')
+  script(src='js/jquery.isotope.min.js', type='text/javascript')
+  script(src='js/accordion-tabs.min.js', type='text/javascript')
+  script(src='js/portfolio.js', type='text/javascript')
+  script(src='js/supersized.3.2.7.js', type='text/javascript')
+  script(src='js/jquery.sticky.js', type='text/javascript')
+  script(src='js/jquery.dryMenu.js', type='text/javascript')
+  script(src='js/small-menu.js', type='text/javascript')
+  script(src='js/jquery.carouFredSel-6.2.1-packed.js', type='text/javascript')
+  script(src='js/jquery.mousewheel.min.js', type='text/javascript')
+  script(src='js/jquery.touchSwipe.min.js', type='text/javascript')
+  script(src='js/jquery.easing.1.3.js', type='text/javascript')
+  script(src='js/jquery.myHint.js', type='text/javascript')
+  script(src='js/jquery.vticker-min.js', type='text/javascript')
+  script(src='js/jquery.prettyPhoto.js', type='text/javascript')
+  script(src='js/main.js', type='text/javascript')
+  script(src='js/maps.js', type='text/javascript')
+  script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAPFA-G6fLqiXxbhnZayxz7ahMZWoMM9X8&callback=initMap')
