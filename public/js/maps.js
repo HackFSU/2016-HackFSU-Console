@@ -1,12 +1,24 @@
 var geo = $('#geo');
-if(navigator.geolocation) {
-	navigator.geolocation.getCurrentPosition(showPosition, showError);
-}else{
-	geo.html("Geolocation is not supported by this browser.");
-}
+var scroll = $('#contact').offset().top;
+var lati = 30.445401;
+var longi = -84.299761;
+var gotPos = false;
+
+$(window).on('scroll', function() {
+	var ypos = window.pageYOffset;
+	if(ypos > scroll && gotPos === false) {
+		if(navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition, showError);
+			gotPos = true;
+		}else{
+			geo.html("Geolocation is not supported by this browser.");
+		}
+	}
+});
+
 function showPosition(position) {
 	var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	var destination = new google.maps.LatLng('30.445401', '-84.299761');
+	var destination = new google.maps.LatLng(lati, longi);
 
 	var directionsService = new google.maps.DirectionsService();
 	var request = {
@@ -19,7 +31,7 @@ function showPosition(position) {
 		if(status === 'OK') {
 			var point = response.routes[0].legs[0];
 			var str = point.duration.text.replace("mins", "minutes");
-			geo.html("You could be here in just " + str);
+			geo.html("You could be here in just " + str + "!");
 		}
 	});
 }
