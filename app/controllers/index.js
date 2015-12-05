@@ -7,7 +7,7 @@ export default function(app) {
 	app.controller.Index = {
 
 		index: function(req, res) {
-			res.render('index', {
+			res.render('map', {
 				title: 'Home'
 			});
 		}

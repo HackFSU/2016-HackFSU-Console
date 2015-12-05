@@ -71,7 +71,8 @@ export default function setRoutes(app) {
 	 * - ignores ACL
 	 */
 
-	e.get('/', c.Preview.index);
+	//e.get('/', c.Preview.index);
+	e.get('/', c.Index.index);
 	e.get('/index', c.Preview.index);
 	e.get('/home', c.Preview.index);
 
