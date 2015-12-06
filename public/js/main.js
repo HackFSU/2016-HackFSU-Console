@@ -91,3 +91,10 @@ Sizes are in pixels
 	console.log('rawr');
 
 })(jQuery);
+
+(function($) {
+	'use strict';
+	$('#logo').click(function() {
+		window.location = '/';
+	});
+})(jQuery);

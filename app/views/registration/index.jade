@@ -1,13 +1,14 @@
-extend ../indexLayout
+extend ../standardLayout
 block localJS
-	script(src='/js/views/registration.js')
+	script(src='/js/views/hackForm.js')
+	script(src='/js/views/register.js')
 
 block content
 	#dry-home.clear.services.section.block
 		.block.content-960.center-relative
 			h2.section-title-fixed Registration
 			.title-separator
-			form#application(method='post', action='/register/submit', role='form')
+			form#application(method='post' role='form' name='register')
 				ul#application-form
 					li
 						.form-col-left

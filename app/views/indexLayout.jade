@@ -33,22 +33,25 @@ block layoutJS
 	script(src='/vendor/drythemes-sensa/js/jquery.vticker-min.js')
 	script(src='/vendor/drythemes-sensa/js/jquery.prettyPhoto.js')
 	script(src='/vendor/drythemes-sensa/js/main.js')
+	script(src='/js/main.js')
 
 block header
 	//- Navigation Menu
-	#main-menu.main-menu.main-menu-fixbg
+	#main-menu.main-menu
 		.center-relative.menu-holder
 			.menu-logo.left
-				img(src='/img/logos/menu_logo.png')
+				img#logo(src='/img/white_feather.png')
 			ul.right.montserrat-font
 				li.active
-					a(href='#dry-home') HELLO
+					a(href='/#dry-home') HELLO
 				li
-					a(href='#about') ABOUT US
+					a(href='/#about') ABOUT US
 				li
-					a(href='#sponsors') SPONSORS
+					a(href='/#sponsors') SPONSORS
 				li
-					a(href='#contact') CONTACT US
+					a(href='/#contact') CONTACT US
+				li
+					a(href='/register') REGISTER
 			.clear
 block footer
 	.clear.center-text.footer
