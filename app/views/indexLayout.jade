@@ -1,0 +1,73 @@
+//- 
+	Homepage layout
+
+extend ./baseLayout.jade
+
+block layoutCSS
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/clear.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/carouFredSel.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/supersized.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/common.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/columns.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/prettyPhoto.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/accordion-tabs.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/style.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/isotope.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/colors.css')
+	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/responsive.css')
+
+block layoutJS
+	script(src='/vendor/drythemes-sensa/js/jquery.isotope.min.js')
+	script(src='/vendor/drythemes-sensa/js/accordion-tabs.min.js')
+	script(src='/vendor/drythemes-sensa/js/portfolio.js')
+	script(src='/vendor/drythemes-sensa/js/supersized.3.2.7.js')
+	script(src='/vendor/drythemes-sensa/js/jquery.sticky.js')
+	script(src='/vendor/drythemes-sensa/js/jquery.dryMenu.js')
+	script(src='/vendor/drythemes-sensa/js/small-menu.js')
+	script(src='/vendor/drythemes-sensa/js/jquery.carouFredSel-6.2.1-packed.js')
+	script(src='/vendor/drythemes-sensa/js/jquery.mousewheel.min.js')
+	script(src='/vendor/drythemes-sensa/js/jquery.touchSwipe.min.js')
+	script(src='/vendor/drythemes-sensa/js/jquery.easing.1.3.js')
+	script(src='/vendor/drythemes-sensa/js/jquery.myHint.js')
+	script(src='/vendor/drythemes-sensa/js/jquery.vticker-min.js')
+	script(src='/vendor/drythemes-sensa/js/jquery.prettyPhoto.js')
+	script(src='/vendor/drythemes-sensa/js/main.js')
+
+block header
+	//- Loading gif
+	table.doc-loader
+		tr
+			td
+				img(alt='Loading...' src='/img/theme/ajax-document-loader.gif')
+	//- Navigation Menu
+	#main-menu.main-menu
+		.center-relative.menu-holder
+			.menu-logo.left
+				img(src='/img/logos/menu_logo.png')
+			ul.right.montserrat-font
+				li.active
+					a(href='#dry-home') HELLO
+				li
+					a(href='#about') ABOUT US
+				li
+					a(href='#sponsors') SPONSORS
+				li
+					a(href='#contact') CONTACT US
+			.clear
+block footer
+	.clear.center-text.footer
+			.scroll-top-holder.relative.block.content-960.center-relative
+			.footer-content.center-text.block.content-960.center-relative
+				img(src='/img/logos/footer_logo.png')
+				.title-separator
+				.big-social.center-text
+					a(href='https://twitter.com/HackFSU' style='text-decoration:none;')
+						img(src='/img/logos/twitter-logo.png' alt='HackFSU on Twitter')
+					a(href='https://www.facebook.com/hackfsu' style='text-decoration:none;')
+						img(src='/img/logos/facebook-logo.png' alt='HackFSU on Facebook')
+					a(href='http://statigr.am/tag/hackfsu' style='text-decoration:none;')
+						img(src='/img/logos/instagram-logo.png' alt='HackFSU on Instagram')
+				.footer-copyright.center-text
+					| Created by: 
+					a(href='http://www.technolegy.org/') TechNOLE
+					|  at Florida State University

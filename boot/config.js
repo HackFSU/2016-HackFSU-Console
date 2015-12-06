@@ -28,6 +28,7 @@ import * as helpers from '../app/helpers';
 import store from '../lib/data';
 import EmailManager from '../lib/EmailManager';
 import { default as validate } from '../lib/validate';
+import ACL from '../lib/acl';
 
 export default function configureApp() {
 	const app = {};
@@ -125,6 +126,26 @@ export default function configureApp() {
 	app.controller.admin = {};
 	customLoader.loadAllExports(app, app.dirs.app + '/controllers');
 
+
+
+	// Setup ACL
+	const acl = app.acl = new ACL({
+		roleNames: ['User', 'Hacker', 'Mentor', 'Admin', 'SuperAdmin'],
+		getRoleIdFromRequest: function(req) {
+			if(req.session.user) {
+				return req.session.user.roleId;
+			}
+		},
+		denyMiddleware: function(req, res) {
+			res.redirect('/user/login?accessDenied=true');
+		}
+	});
+	// acl.setEnforce(false);
+
+	acl.mergeRoles('Hacker', ['User']);
+	acl.mergeRoles('Mentor', ['User']);
+	acl.mergeRoles('Admin', ['User', 'Hacker', 'Mentor']);
+	acl.mergeRoles('SuperAdmin', ['User', 'Hacker', 'Mentor', 'Admin']);
 
 
 	return app;
