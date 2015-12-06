@@ -10,3 +10,5 @@ npm-debug.log
 typings
 tmp
 public/js/views
+scripts/build
+
