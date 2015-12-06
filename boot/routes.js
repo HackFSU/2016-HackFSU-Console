@@ -16,7 +16,7 @@ export default function setRoutes(app) {
 	// const urlencodeParser = bodyParser.urlencoded({
 	// 	extended: false
 	// });
-	
+
 	let useAcl = {
 		User: app.acl.useAcl('User'),
 		Hacker: app.acl.useAcl('Hacker'),
@@ -38,7 +38,8 @@ export default function setRoutes(app) {
 	// Preview Page
 	// e.post('/preview/subscribe', jsonParser, c.Preview.subscribe);
 
-	e.get('/register', c.Registration.form);
+	e.get('/register', c.Registration.index);
+	e.post('/register/submit', c.Registration.submit);
 
 	/**************************************************************************
 	 * User

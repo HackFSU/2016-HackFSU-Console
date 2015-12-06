@@ -31,7 +31,10 @@ export default function (app) {
 			this.password = validate(o.password, password => {
 				return !!password && _.isString(password);
 			});
-			this.diet = validate(o.diet, _.isArray);
+			//this.diet = validate(o.diet, _.isArray);
+			this.diet = validate(o.diet, diet => {
+				return !!diet && _.isString(diet);
+			});
 			this.shirtSize = validate(o.shirtSize, shirtSize => {
 				return !!shirtSize && _.isString(shirtSize);
 			});
@@ -41,6 +44,7 @@ export default function (app) {
 			this.set('firstName', this.firstName);
 			this.set('lastName', this.lastName);
 			this.set('email', this.email);
+			this.set('username', this.email);			// This is dumb
 			this.set('password', this.password);
 			this.set('diet', this.diet);
 			this.set('shirtSize', this.shirtSize);

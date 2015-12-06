@@ -3,6 +3,12 @@
   font-weight: 700;
   src: url('/fonts/unisansfree/Uni Sans Heavy.otf');
 }
+
+/* We want the bg to be white */
+.services {
+	background-image: none;
+}
+
 .form-col-left {
 	float: left !important;
 	width: 30%;

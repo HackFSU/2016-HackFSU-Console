@@ -1,0 +1,148 @@
+extend ../indexLayout
+block localJS
+	script(src='/js/views/registration.js')
+
+block content
+	#dry-home.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed Registration
+			.title-separator
+			form#application(method='post', action='/register/submit', role='form')
+				ul#application-form
+					li
+						.form-col-left
+							label(for='firstName') First Name *
+						.form-col-right
+							input#firstName(type='text', placeholder='What do your homies call you' name='firstName')
+					li
+						.form-col-left
+							label(for='lastName') Last Name *
+						.form-col-right
+							input#lastName(type='text', placeholder='Whats the fam go by', name='lastName')
+					li
+						.form-col-left
+							label(for='school') School *
+						.form-col-right
+							input#school(type='text', name='school', placeholder='Florida State University')
+					li
+						.form-col-left
+							label(for='email') Email *
+						.form-col-right
+							input#email(type='email', name='email', placeholder='Whats your .edu')
+					li
+						.form-col-left
+							label(for='phone') Phone Number *
+						.form-col-right
+							input#phone(type='text' name='phone' placeholder='Phone #')
+					li
+						.form-col-left
+							label(for='password') Password *
+						.form-col-right
+							input#password(type='password' name='password' placeholder='Password')
+					li
+						.form-col-left
+							label(for='passwordconfirm') Password Confirmation *
+						.form-col-right
+							input#passwordconfirm(type='password' name='passwordconfirm' placeholder='Confirm password')
+					li
+						.form-col-left
+							label(for='year') Current Year *
+						.form-col-right
+							select#year(name='year', value='year')
+								option(selected='true', disabled='true') Pick a year
+								option(value='Freshman') Freshman
+								option(value='Sophomore') Sophomore
+								option(value='Junior') Junior
+								option(value='Senior') Senior
+								option(value='Graduate Student') Graduate Student
+								option(value='High School Student') High School Student
+					li
+						.form-col-left
+							label(for='shirtSize') Shirt Size
+						.form-col-right
+							select#shirtSize(name='shirtSize' value='shirtSize')
+								option(selected='true' disabled='true') Pick a size
+								option(value='Mens Extra Small') Men's Extra Small
+								option(value='Mens Small') Men's Small
+								option(value='Mens Medium') Men's Medium
+								option(value='Mens Large') Men's Large
+								option(value='Mens Extra Large') Men's Extra Large
+								option(value='Womens Extra Small') Women's Extra Small
+								option(value='Womens Small') Women's Small
+								option(value='Womens Medium') Women's Medium
+								option(value='Womens Large') Women's Large
+								option(value='Womens Extra Large') Women's Extra Large
+					li
+						.form-col-left
+							label(for='major') Major
+						.form-col-right
+							input#major(type='text', name='major', placeholder='What books you readin')
+					li
+						.form-col-left
+							label(for='github') GitHub
+						.form-col-right
+							input#github(type='text', name='github', placeholder='bet you have some mad PRs')
+					li
+						.form-col-left
+							label(for='devpost') DevPost
+						.form-col-right
+							input#devpost(type='text' name='devpost' placeholder='Devpost link')
+					li
+						.form-col-left
+							label(for='resume') Resume
+						.form-col-right
+							input#resume(type='file' name='resume')
+					li
+						.form-col-left
+							label(for='firstHackathon') Will this be your first hackathon?
+						.form-col-right
+							label Yes
+							input#firstHackathon(type='radio', name='firstHackathon', value='Yes')
+							label No
+							input#firstHackathon(type='radio', name='firstHackathon', value='No')
+					li
+						.form-col-left
+							label(for='hate') What is one thing you hate about hackathons?
+						.form-col-right
+							textarea#hate(rows='4', name='hate')
+					li
+						.form-col-left
+							br
+							label(for='diet') Dietary restrictions?
+						.form-col-right
+							input#diet(type='text', name='diet', placeholder='Vegan, vegetarian, etc.')
+					li
+						.form-col-left
+							label(for='comments') Comments?
+						.form-col-right
+							input#comments(type='text', name='comments', placeholder="We're all ears!")
+					li
+						.form-col-left
+							label(for='wants') What do you want to learn or hack on for the weekend?
+						.form-col-right
+							input#ios(type='checkbox' value='iOS' name='wants')
+							label(for='ios') iOS
+							br
+							input#android(type='checkbox' value='Android' name='wants')
+							label(for='android') Android
+							br
+							input#web(type='checkbox' value='Web' name='wants')
+							label(for='web') Web
+							br
+							input#front(type='checkbox' value='Front End' name='wants')
+							label(for='front') Front End
+							br
+							input#back(type='checkbox' value='Back End' name='wants')
+							label(for='back') Back End
+							br
+							input#shelf(type='checkbox' value='off the shelf hardware' name='wants')
+							label(for='shelf') 'Off The Shelf' Hardware: Myo, Oculus Rift, Leap Motion, etc.
+							br
+							input#micro(type='checkbox' value='microcontroller' name='wants')
+							label(for='micro') Microcontrollers: Arduino, Raspberry Pi, etc.
+							br
+							input#sleep(type='checkbox', disabled='true')
+							label(for='sleep') Sleep
+					li
+						.form-col-right
+							button#submit.btn.btn-form(type='submit') SUBMIT
