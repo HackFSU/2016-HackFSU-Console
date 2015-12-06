@@ -137,7 +137,5 @@ gulp.task('run', ['jshint-scripts'], function(done) {
 	}
 
 	require('babel/register');
-	require('./scripts/' + argv.script);
-
-	done();
+	require('./scripts/' + argv.script)(done);
 });
