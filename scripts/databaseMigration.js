@@ -4,43 +4,39 @@
 
 'use strict';
 
-import Parse1 from 'parse/node';
-import Parse2 from 'parse/node';
-import Parse3 from 'parse/node';
+import Parse from 'parse/node';
 
 
 /**
  * Parse Setup
  */
 
-const Parse = {
-	first: Parse1,
-	second: Parse2,
-	current: Parse3
-};
 
-let init = function() {
-	console.log('Initializing...');
+let init = function(name) {
+	console.log('Initializing ' + name);
 	
-	Parse.first.initialize(
-		process.env.PARSE_APP_ID_2014,
-		process.env.PARSE_JS_KEY_2014,
-		process.env.PARSE_MASTER_KEY_2014
-	);
-	Parse.second.initialize(
-		process.env.PARSE_APP_ID_2015,
-		process.env.PARSE_JS_KEY_2015,
-		process.env.PARSE_MASTER_KEY_2015
-	);
-	Parse.current.initialize(
-		process.env.PARSE_APP_ID,
-		process.env.PARSE_JS_KEY,
-		process.env.PARSE_MASTER_KEY
-	);
+	let appId, jsKey, masterKey;
 
-	Parse.first.Cloud.useMasterKey();
-	Parse.second.Cloud.useMasterKey();
-	Parse.current.Cloud.useMasterKey();
+	switch(name) {
+		case 'first':
+			appId = process.env.PARSE_APP_ID_2014;
+			jsKey = process.env.PARSE_JS_KEY_2014;
+			masterKey = process.env.PARSE_MASTER_KEY_2014;
+			break;
+		case 'second':
+			appId = process.env.PARSE_APP_ID_2015;
+			jsKey = process.env.PARSE_JS_KEY_2015;
+			masterKey = process.env.PARSE_MASTER_KEY_2015;
+			break;
+		case 'current':
+			appId = process.env.PARSE_APP_ID;
+			jsKey = process.env.PARSE_JS_KEY;
+			masterKey = process.env.PARSE_MASTER_KEY;
+			break;
+	}
+
+	Parse.initialize(appId, jsKey, masterKey);
+	Parse.Cloud.useMasterKey();
 };
 
 
@@ -53,94 +49,136 @@ let sanatizeGithub = function(name) {
 	if(!name) {
 		return;
 	}
-
-	// TODO, take away urls
-
-	return name;
-};
-
-let sanatizeSchool = function(name) {
-	if(!name) {
-		return;
+	if(name.match(/[\/\.:]/g)) {
+		// not just a username, extract it
+		let start = name.lastIndexOf('/') + 1;
+		if(start !== 0 && start !== name.length) {
+			name = name.substring(start);
+			if(name.charAt(name.length-1) === '/') {
+				name = name.substring(0, name.length-1);
+			}
+		}
 	}
 
-	// TODO, make sure is in the data .json list
-
 	return name;
 };
-
 
 /**
  * HackerOld class to store in new database
  */
-class HackerOld extends Parse.current.Object {
-	constructor(o) {
+init('current');
+let savedCols = [
+	'email',
+	'firstName',
+	'lastName',
+	'phoneNumber',
+	'school',
+	'major', 
+	'github',
+	'tshirt',
+];
+class HackerOld extends Parse.Object {
+	constructor() {
 		super('HackerOld');
-
-		this.email = o.email;
-		this.firstName = o.firstName;
-		this.lastName = o.lastName;
-		this.phoneNumber = o.phoneNumber;
-		this.school = sanatizeSchool(o.school);
-		this.major = o.major;
-		this.github = sanatizeGithub(o.github);
-		this.tshirt = o.tshirt;
 	}
 }
-Parse.current.Object.registerSubclass('HackerOld', HackerOld);
-
 
 let hackers = [];
 
 let addHacker = function(hackerData) {
-	let exists = false;
+	let hacker;
 
 	if(!hackerData.email) {
 		return;
 	}
 
 	// Check if exists
-	hackers.forEach(function(hacker) {
-		if(hacker.get('email') === hackerData.email) {
-			exists = true;
+	hackers.forEach(function(h) {
+		if(h.get('email') === hackerData.email) {
+			hacker = h;
 			return false;
 		}
 	});
 
-	if(exists) {
+	if(hacker) {
 		// TODO: update rather than create
 	} else {
-		hackers.push(new HackerOld(hackerData));
+		hacker = new HackerOld();
+		hackers.push(hacker);
+	}
+
+	for(let key in hackerData) {
+		if(savedCols.indexOf(key) !== -1 && typeof hackerData[key] !== 'undefined') {
+			hacker.set(key, hackerData[key]);
+		}
 	}
 
 };
 
-
 let getFirst = function() {
 	return new Promise(function(resolve/*, reject*/) {
-		console.log('Loading from first...');
+		console.log('Ignoring first...');
 		resolve();
 	});
 };
 
 let getSecond = function() {
-	return new Promise(function(resolve/*, reject*/) {
+	return new Promise(function(resolve, reject) {
 		console.log('Loading from second...');
-		resolve();
+		
+		let Applications = Parse.Object.extend('Applications');
+		let query = new Parse.Query(Applications);
+
+		query.exists('email');
+		query.limit(1000);
+		query.select([
+			'email',
+			'firstName',
+			'lastName',
+			'school',
+			'major',
+			'github',
+			'phoneNumber',
+			'tshirt'
+		]);
+
+		query.find().then(function(results) {
+			results.forEach(function(app) {
+				addHacker({
+					email: app.get('email'),
+					firstName: app.get('firstName'),
+					lastName: app.get('lastName'),
+					school: app.get('school'),
+					major: app.get('major'),
+					github: sanatizeGithub(app.get('github')),
+					phoneNumber: app.get('phoneNumber'),
+					tshirt: app.get('tshirt')
+				});
+			});
+			resolve();
+		}, function(err) {
+			reject(err);
+		});
 	});
 };
 
 
 export default function main(done) {
-	init();
-
 	console.log('Starting...');
+
+	init('first');
 	getFirst().then(function() {
+		init('second');
 		getSecond().then(function() {
 			console.log('Got ' + hackers.length + ' hackers.');
 
 			if(hackers.length) {
+				init('current');
 				console.log('Saving to current...');
+
+				// TODO: account for duplicates already in current db
+
+				Parse.Object.registerSubclass('HackerOld', HackerOld);
 				Parse.Object.saveAll(hackers).then(function() {
 					console.log('Success!');
 					done();
