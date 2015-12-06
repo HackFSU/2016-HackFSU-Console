@@ -1,36 +1,37 @@
-extend ../layout
+extend ../indexLayout
+
 block content
-	.container
-		.containerbody
-			h1.singleLineText Application
-			.formResult
-		div#application(class='col-lg-offset-2 col-lg-10 pull-left')
-				form.form-horizontal(id='application', method='post', action='/apply_submit', role='form')
-					.form-group
-						label(for='firstName', class='col-lg-2 control-label') First Name *
-						.col-lg-6
-							input#firstName(type='text', class='form-control' placeholder='What do your homies call you', name='firstName', value=firstName)
-					
-					.form-group
-						label(for='lastName', class='col-lg-2 control-label') Last Name *
-						.col-lg-6
-							input#lastName(type='text', class='form-control', name='lastName', placeholder='Whats the fam go by', value=lastName)
-				
-					.form-group
-						label(for='school', class='col-lg-2 control-label') School *
-						.col-lg-6
-							input#school(type='text', class='form-control', name='school', placeholder='Florida State University', value=school)
-					
-					.form-group
-						label(for='email', class='col-lg-2 control-label') Email *
-						.col-lg-6
-							.input-group
-								input#email(type='email', class='form-control', name='email', placeholder='What\'s your .edu', value=email)
-					
-					.form-group
-						label(for='year', class='col-lg-2 control-label') Current Year *
-						.col-lg-6
-							select#year(class='form-control', name='year', value='year')
+	#dry-home.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed Registration
+			.title-separator
+			form#application(method='post', action='/apply_submit', role='form')
+				ul#application-form
+					li
+						.form-col-left
+							label(for='firstName') First Name *
+						.form-col-right
+							input#firstName(type='text', placeholder='What do your homies call you' name='firstName')
+					li
+						.form-col-left
+							label(for='lastName') Last Name *
+						.form-col-right
+							input#lastName(type='text', placeholder='Whats the fam go by', name='lastName')
+					li
+						.form-col-left
+							label(for='school') School *
+						.form-col-right
+							input#school(type='text', name='school', placeholder='Florida State University')
+					li
+						.form-col-left
+							label(for='email') Email *
+						.form-col-right
+							input#email(type='email', name='email', placeholder='Whats your .edu')
+					li
+						.form-col-left
+							label(for='year') Current Year *
+						.form-col-right
+							select#year(name='year', value='year')
 								option(selected='true', disabled='true') Pick a year
 								option(value='Freshman') Freshman
 								option(value='Sophomore') Sophomore
@@ -38,88 +39,67 @@ block content
 								option(value='Senior') Senior
 								option(value='Graduate Student') Graduate Student
 								option(value='High School Student') High School Student
-					
-					.form-group
-						label(for='major', class='col-lg-2 control-label') Major
-						.col-lg-6
-							input#major(type='text', class='form-control', name='major', placeholder='What books you readin\'', value=major)
-					
-					.form-group
-						label(for='github', class='col-lg-2 control-label') GitHub
-						.col-lg-6
-							.input-group
-								span(class='input-group-addon')
-									| http://github.com/
-								input#github(type='text', class='form-control', name='github', placeholder='bet you have some mad PRs', value=github)
-					
-					//- These questions could be added dynamically if needed
-					.form-group
-						label(for='QA0', class='col-lg-2 control-label') Will this be your first hackathon? *
-						.col-lg-6(style='margin-top: 12px')
-
-							p
-								input(type="radio", name='QA0', value='Yes', id='hackYes')
-								label(for="hackYes") Yes
-
-							p
-								input(type="radio", name='QA0', value='No', id='hackNo')
-								label(for="hackNo") No
-
-					.form-group
-						label(for='QA1', class='col-lg-2 control-label') What is one thing you hate about hackathons?
-						.col-lg-6
-							textarea#QA1(rows='4', class='form-control', name='QA1', placeholder='', value=QA1)
-					.form-group
-						label(for='QA2', class='col-lg-2 control-label') What do you want to learn or hack on for the weekend?
-						.col-lg-6(style='margin-top: 12px')
-							p
-								input(type="checkbox" id="ios")
-								label(for="ios") iOS
-
-							p
-								input(type="checkbox" id="android")
-								label(for="android") Android
-								
-							p
-								input(type="checkbox" id="web")
-								label(for="web") Web
-								
-							p
-								input(type="checkbox" id="front")
-								label(for="front") Front End
-
-							p
-								input(type="checkbox" id="back")
-								label(for="back") Back End
-
-							p
-								input(type="checkbox" id="shelf")
-								label(for="shelf") 'Off The Shelf' Hardware: Myo, Oculus Rift, Leap Motion, etc.
-
-							p
-								input(type="checkbox" id="micro")
-								label(for="micro") Microcontrollers: Arduino, Raspberry Pi, etc.
-
-							p
-								input(type="checkbox" id="sleep" disabled="true")
-								label(for="sleep") Sleep
-
-					.form-group
-						label(for='QA3', class='col-lg-2 control-label') Dietary restrictions?
-						.col-lg-6
-							input#QA3(type='text', class='form-control', name='QA3', placeholder='Vegan, vegetarian, etc.', value=QA3)
-					.form-group
-						label(for='QA4', class='col-lg-2 control-label') Comments?
-						.col-lg-6
-							input#QA4(type='text', class='form-control', name='QA4', placeholder="We're all ears!", value=QA4)
-								
-					.form-group
-						div(class='form-error-msg col-lg-offset-2 col-lg-6 pull-left')
-						div(class='col-lg-offset-7 col-lg-5 pull-right')
-							button#submit(type='submit', class='btn') holla.
-		
-block localJavascript
-	script(src='js/public/public-apply.js')
-//- block localCSS
-	//- link(rel='stylesheet', href='/css/shakeText.css')
-	//- link(rel='stylesheet', href='/css/public/public-apply.css')
+					li
+						.form-col-left
+							label(for='major') Major
+						.form-col-right
+							input#major(type='text', name='major', placeholder='What books you readin')
+					li
+						.form-col-left
+							label(for='github') GitHub
+						.form-col-right
+							input#github(type='text', name='github', placeholder='bet you have some mad PRs')
+					li
+						.form-col-left
+							label(for='QA0') Will this be your first hackathon?
+						.form-col-right
+							label Yes
+							input#hackYes(type='radio', name='QA0', value='Yes')
+							label No
+							input#hackNo(type='radio', name='QA0', value='No')
+					li
+						.form-col-left
+							label(for='QA1') What is one thing you hate about hackathons?
+						.form-col-right
+							textarea#QA1(rows='4', name='QA1')
+					li
+						.form-col-left
+							br
+							label.dietary(for='QA3') Dietary restrictions?
+						.form-col-right
+							input#QA3(type='text', name='QA3', placeholder='Vegan, vegetarian, etc.')
+					li
+						.form-col-left
+							label(for='QA4') Comments?
+						.form-col-right
+							input#QA4(type='text', name='QA4', placeholder="We're all ears!")
+					li
+						.form-col-left
+							label(for='QA2') What do you want to learn or hack on for the weekend?
+						.form-col-right
+							input#ios(type='checkbox')
+							label(for='ios') iOS
+							br
+							input#android(type='checkbox')
+							label(for='android') Android
+							br
+							input#web(type='checkbox')
+							label(for='web') Web
+							br
+							input#front(type='checkbox')
+							label(for='front') Front End
+							br
+							input#back(type='checkbox')
+							label(for='back') Back End
+							br
+							input#shelf(type='checkbox')
+							label(for='shelf') 'Off The Shelf' Hardware: Myo, Oculus Rift, Leap Motion, etc.
+							br
+							input#micro(type='checkbox')
+							label(for='micro') Microcontrollers: Arduino, Raspberry Pi, etc.
+							br
+							input#sleep(type='checkbox', disabled='true')
+							label(for='sleep') Sleep
+					li
+						.form-col-right
+							button#submit.btn.btn-form(type='submit') SUBMIT

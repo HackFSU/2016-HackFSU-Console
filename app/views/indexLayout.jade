@@ -15,6 +15,7 @@ block layoutCSS
 	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/isotope.css')
 	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/colors.css')
 	link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/responsive.css')
+	link(rel='stylesheet' type='text/css' href='/css/custom.css')
 
 block layoutJS
 	script(src='/vendor/drythemes-sensa/js/jquery.isotope.min.js')
@@ -34,13 +35,8 @@ block layoutJS
 	script(src='/vendor/drythemes-sensa/js/main.js')
 
 block header
-	//- Loading gif
-	table.doc-loader
-		tr
-			td
-				img(alt='Loading...' src='/img/theme/ajax-document-loader.gif')
 	//- Navigation Menu
-	#main-menu.main-menu
+	#main-menu.main-menu.main-menu-fixbg
 		.center-relative.menu-holder
 			.menu-logo.left
 				img(src='/img/logos/menu_logo.png')
