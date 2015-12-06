@@ -129,7 +129,7 @@ export default function configureApp() {
 
 
 	// Setup ACL
-	const acl = app.acl = new ACL({
+	app.acl= new ACL({
 		roleNames: ['User', 'Hacker', 'Mentor', 'Admin', 'SuperAdmin'],
 		getRoleIdFromRequest: function(req) {
 			if(req.session.user) {
@@ -142,11 +142,10 @@ export default function configureApp() {
 	});
 	// acl.setEnforce(false);
 
-	acl.mergeRoles('Hacker', ['User']);
-	acl.mergeRoles('Mentor', ['User']);
-	acl.mergeRoles('Admin', ['User', 'Hacker', 'Mentor']);
-	acl.mergeRoles('SuperAdmin', ['User', 'Hacker', 'Mentor', 'Admin']);
-
+	app.acl.mergeRoles('Hacker', ['User']);
+	app.acl.mergeRoles('Mentor', ['User']);
+	app.acl.mergeRoles('Admin', ['User', 'Hacker', 'Mentor']);
+	app.acl.mergeRoles('SuperAdmin', ['User', 'Hacker', 'Mentor', 'Admin']);
 
 	return app;
 }
