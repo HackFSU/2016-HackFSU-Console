@@ -39,7 +39,7 @@ export default function setRoutes(app) {
 	// e.post('/preview/subscribe', jsonParser, c.Preview.subscribe);
 
 	e.get('/register', c.Registration.index);
-	e.post('/register/submit', c.Registration.submit);
+	e.post('/register/submit', jsonParser, c.Registration.submit);
 
 	/**************************************************************************
 	 * User

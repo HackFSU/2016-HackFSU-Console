@@ -1,0 +1,21 @@
+{
+  "firstName": "Trevor",
+	"lastName": "Helms",
+	"password": "45ij34534n5345ou3h45o345345j43h",
+	"school": "Florida State University",
+	"email": "th13_11@my.fsu.edu",
+	"year": "Junior",
+	"major": "Computer Science",
+	"github": "github.com/th13",
+	"devpost": "devpost.com/idk/trevor",
+	"resume": "CiMgV2ViIEJhY2tlbmQKKiBEYXRhYmFzZSBzZXR1cAogICAgLSByZWxhdGlvbmFsIHBhcnNlCiogSW1wcm92ZWQgQXBwbGljYXRpb24gTWFuYWdtZW50IFN5c3RlbSAtLS0tLS0tLS0tLS0tLS0tLS0tLTMKICAgIC0gU3RhdCB2aWV3ZXIKICAgICAgICArIGNhbiBiZSBwdWxsZWQgdmlhIEFQSQogICAgICAgICsgaGFzIHB1YmxpYyBwdWJsaXNoZWQgdmVyc2lvbiAob3B0aW9uKQoqIEltcHJvdmVkIFB1c2ggTm90aWZpY2F0aW9uIHNlbmRlcgoqIFNjaGVkdWxlIE1hbmFnbWVudAoqIEVtYWlsIFN5c3RlbSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KICAgIC0gZW1haWxzIGRlc2lnbmVkIHdpdGggTWFpbGNoaW1wCiAgICAtIGVtYWlsIHNlbmRpbmcgcGFnZSBvbiBzaXRlCiogTGl2ZSBGZWVkCiAgICAtIHVwZGF0ZXMKICAgIC0gdHdpdHRlciAjSGFja0ZTVQogICAgLSBHaXRIdWIgY29tbWl0cwoqIEp1ZGdpbmcgU3lzdGVtCiAgICAtIHN1Ym1pdCBvbmxpbmUKICAgIC0gYWRtaW5zIHZpZXcgcmVzdWx0cwogICAgLSBwdWxsIHN1Ym1pc3Npb25zIGZyb20gRGV2UG9zdAoqIEltcHJvdmVkIE1lbnRvciBTeXN0ZW0KICAgIC0gdXNlciB0cmFja2luZwogICAgLSByZXNlbmQvYWxlcnQgb3JnYW5pemVycwoqIFVzZXIgUHJvZmlsZQogICAgLSB3aWZpIGNyZWRzCgoKIyBXZWIgRnJvbnRlbmQgKG1haW5seSkKKiBSZWdpc3RyYXRpb24gU3VibWlzc2lvbiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KICAgIC0gcG9wdWxhdGUgd2l0aCBkYXRhIGZyb20gb2xkZXIgeWVhcnMgdXNpbmcgZW1haWwKKiB0aGVtZS9sYW5kaW5nIHBhZ2UgLS0tLS0tLS0tLS0tLS0tYC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAgICAtIHNhbHZhZ2UgZnJvbSAyMDEzCiAgICAtIGdldCBkYXRhIGZyb20gYnJhbmRpbmcgdGVhbQoqIFByZS1yZWdpc3RlcmF0aW9uIGxhbmRpbmcgcGFnZSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQogICAgLSBlbWFpbCBzdWJtaXNzaW9uCiAgICAtIGJhY2tncm91bmQgdmlkZW8KCiMgQW5kcm9pZCBBcHAKCgojIGlPUyBBcHA=",
+	"firstHackathon": "No",
+	"hate": "I hate that we have so much programming to do fuck",
+	"wants": [
+		"Android", "Frontend", "Backend"
+	],
+	"diet": "Vegetarian, blah blah",
+	"comments": "Why am I here",
+	"phone": 3059420743,
+	"shirtSize": "Large"
+}
