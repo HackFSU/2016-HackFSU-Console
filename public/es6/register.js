@@ -1,64 +1,21 @@
-
 (function($) {
 	'use strict';
 
-	let form = $('form[name="register"]');
-	let submitBtn = form.find('button[type="submit"]');
-	let submitting = false;
+	let $errorMessages = $('#error-messages');
+	let submitBtn = $('button[type="submit"]');
 
-	form.hackForm({
-		fields: [{
-			element: form.find('input[name="email"]'),
-			validator: 'email'
-		}]
-	});
-
-	form.on('submit', function(ev) {
-		ev.preventDefault();
-		console.log('in');
-
-		if(submitting) {
-			return;
-		}
-
-		submitting = true;
-		if(form.hackForm('validate')) {
-			$.ajax({
-				type: 'post',
-				url: '/register/submit',
-				data: JSON.stringify(form.hackForm('get')),
-				contentType: 'application/json',
-				success: function(res) {
-					$('#register-content').fadeTo(1000, 0, function() {
-						$('#register-content').remove();
-						//form.hackForm('end', res.err);
-						$("html, body").animate({
-								scrollTop: 0
-						}, 500);
-						$('.hackform-success').fadeIn(1000, function() {
-							//return
-						});
-					});
-
-					submitting = false;
-				},
-				error: function(err) {
-					form.hackForm('end', err);
-					$('#be-the-first').remove();
-					submitting = false;
-				}
-			});
-		} else {
+	$.validate({
+		form: '#application',
+		modules: 'html5, security',
+		borderColorOnError: '#ef626c',
+		errorElementClass: 'form-error',
+		errorMessagePosition: $errorMessages,
+		scrollToTopOnError: false,
+		//errorMessagePosition: $errorMessages,
+		onError: function($form) {
+			//console.log(`Validation of form ${$form.attr('id')} failed!`);
 			submitBtn.shakeIt();
-			submitting = false;
-		}
-
+		},
 	});
-
-	submitBtn.on('click', function() {
-		form.submit();
-	});
-
-
 
 })(jQuery);

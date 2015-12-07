@@ -15,6 +15,15 @@
 		email: function(val) {
 			let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 			return re.test(val);
+		},
+		notEmpty: function(val) {
+			return !!val;
+		},
+		samePassword: function(val) {
+			return $('form[name="register"]').find('input[name="password"]').val() === val;
+		},
+		yearPicked: function(val) {
+			return $('form[name="register"]').find('select[name="year"]').attr("selectedIndex") !== 0;
 		}
 	};
 
@@ -71,9 +80,11 @@
 			// Validate
 			if(o.required && !val) {
 				valid = false;
-			} else if($.isFunction(o.validator)) {
-				valid = this.validator(val);
-			} else {
+			}
+			else if($.isFunction(o.validator)) {
+					valid = this.validator(val);
+			}
+			else {
 				valid = validators[o.validator](val);
 			}
 

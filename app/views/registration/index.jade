@@ -6,51 +6,57 @@ block localJS
 block content
 	#dry-home.clear.services.section.block
 		.block.content-960.center-relative
-			h2.section-title-fixed Registration
+			h2.section-title-fixed.singleLineText Registration
 			.title-separator
+			#error-messages(style='display: none;')
 			form#application(method='post' role='form' name='register')
 				ul#application-form
 					li
 						.form-col-left
+							label(for='email') Email *
+						.form-col-right
+							input#email(type='text' name='email' placeholder='Whats your .edu' data-validation='email')
+					li
+						.form-col-left
 							label(for='firstName') First Name *
 						.form-col-right
-							input#firstName(type='text', placeholder='What do your homies call you' name='firstName')
+							input#firstName(type='text' placeholder='What do your homies call you' name='firstName' data-validation='required')
+							
 					li
 						.form-col-left
 							label(for='lastName') Last Name *
 						.form-col-right
-							input#lastName(type='text', placeholder='Whats the fam go by', name='lastName')
-					li
-						.form-col-left
-							label(for='school') School *
-						.form-col-right
-							input#school(type='text', name='school', placeholder='Florida State University')
-					li
-						.form-col-left
-							label(for='email') Email *
-						.form-col-right
-							input#email(type='email', name='email', placeholder='Whats your .edu')
-					li
-						.form-col-left
-							label(for='phone') Phone Number *
-						.form-col-right
-							input#phone(type='text' name='phone' placeholder='Phone #')
+							input#lastName(type='text' placeholder='Whats the fam go by' name='lastName' data-validation='required')
 					li
 						.form-col-left
 							label(for='password') Password *
 						.form-col-right
-							input#password(type='password' name='password' placeholder='Password')
+							input#password(type='password' name='password' placeholder='Password' data-validation='length' data-validation-length='min8' data-validation-help="Must be 8 or more characters")
 					li
 						.form-col-left
 							label(for='passwordconfirm') Password Confirmation *
 						.form-col-right
-							input#passwordconfirm(type='password' name='passwordconfirm' placeholder='Confirm password')
+							input#passwordconfirm(type='password' name='passwordconfirm' placeholder='Confirm password' data-validation='confirmation' data-validation-confirm='password')
+					li
+						.form-col-left
+							label(for='school') School *
+						.form-col-right
+							input#school(type='text' name='school' placeholder='Florida State University' list='school-list' data-validation='required')
+							datalist#school-list
+								option Florida State University
+								option University of Florida
+								option University of Central Florida
+								option Georgia Institute of Technology
+								option Florida A&amp;M University
+								option University of Miami
+								option Florida International University
+								option Stetson University
 					li
 						.form-col-left
 							label(for='year') Current Year *
 						.form-col-right
-							select#year(name='year', value='year')
-								option(selected='true', disabled='true') Pick a year
+							select#year(name='year' value='year' data-validation='required')
+								option(selected='true' disabled='true') Pick a year
 								option(value='Freshman') Freshman
 								option(value='Sophomore') Sophomore
 								option(value='Junior') Junior
@@ -59,9 +65,9 @@ block content
 								option(value='High School Student') High School Student
 					li
 						.form-col-left
-							label(for='shirtSize') Shirt Size
+							label(for='shirtSize') Shirt Size *
 						.form-col-right
-							select#shirtSize(name='shirtSize' value='shirtSize')
+							select#shirtSize(name='shirtSize' value='shirtSize' data-validation='required')
 								option(selected='true' disabled='true') Pick a size
 								option(value='Mens Extra Small') Men's Extra Small
 								option(value='Mens Small') Men's Small
@@ -75,14 +81,20 @@ block content
 								option(value='Womens Extra Large') Women's Extra Large
 					li
 						.form-col-left
-							label(for='major') Major
+							label(for='major') Major *
 						.form-col-right
-							input#major(type='text', name='major', placeholder='What books you readin')
+							input#major(type='text' name='major' placeholder='What books you readin' data-validation='required' list='majors-list')
+							datalist#majors-list
+								option Computer Science
+								option Computer Engineering
+								option Business
+								option Economics
+								option Entrepreneurship
 					li
 						.form-col-left
 							label(for='github') GitHub
 						.form-col-right
-							input#github(type='text', name='github', placeholder='bet you have some mad PRs')
+							input#github(type='text' name='github' placeholder='bet you have some mad PRs')
 					li
 						.form-col-left
 							label(for='devpost') DevPost
@@ -95,28 +107,33 @@ block content
 							input#resume(type='file' name='resume')
 					li
 						.form-col-left
-							label(for='firstHackathon') Will this be your first hackathon?
+							label(for='phone') Phone Number
 						.form-col-right
-							label Yes
-							input#firstHackathon(type='radio', name='firstHackathon', value='Yes')
-							label No
-							input#firstHackathon(type='radio', name='firstHackathon', value='No')
+							input#phone(type='text' name='phone' placeholder='Phone #')
+					li
+						.form-col-left
+							label(for='firstHackathon') Will this be your first hackathon? *
+						.form-col-right
+								input#hackYes(type='radio' name='firstHackathon' value='Yes' data-validation='required')
+								label(for='hackYes') Yes
+								input#hackNo(type='radio' name='firstHackathon' value='No')
+								label(for='hackNo') No
 					li
 						.form-col-left
 							label(for='hate') What is one thing you hate about hackathons?
 						.form-col-right
-							textarea#hate(rows='4', name='hate')
+							textarea#hate(rows='4' name='hate')
 					li
 						.form-col-left
 							br
 							label(for='diet') Dietary restrictions?
 						.form-col-right
-							input#diet(type='text', name='diet', placeholder='Vegan, vegetarian, etc.')
+							input#diet(type='text' name='diet' placeholder='Vegan vegetarian etc.')
 					li
 						.form-col-left
 							label(for='comments') Comments?
 						.form-col-right
-							input#comments(type='text', name='comments', placeholder="We're all ears!")
+							input#comments(type='text' name='comments' placeholder="We're all ears!")
 					li
 						.form-col-left
 							label(for='wants') What do you want to learn or hack on for the weekend?
@@ -137,12 +154,12 @@ block content
 							label(for='back') Back End
 							br
 							input#shelf(type='checkbox' value='off the shelf hardware' name='wants')
-							label(for='shelf') 'Off The Shelf' Hardware: Myo, Oculus Rift, Leap Motion, etc.
+							label(for='shelf') 'Off The Shelf' Hardware: Myo Oculus Rift Leap Motion etc.
 							br
 							input#micro(type='checkbox' value='microcontroller' name='wants')
-							label(for='micro') Microcontrollers: Arduino, Raspberry Pi, etc.
+							label(for='micro') Microcontrollers: Arduino Raspberry Pi etc.
 							br
-							input#sleep(type='checkbox', disabled='true')
+							input#sleep(type='checkbox' disabled='true')
 							label(for='sleep') Sleep
 					li
 						.form-col-right
