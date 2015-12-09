@@ -80,10 +80,16 @@ Dependencies:
 	$('.singleLineText').fixTextToSingleLine(68.8, 35.2);
 
 
-	$(function() {
-		$('#logo').click(function() {
+	$('.menu-logo').click(function() {
+		var url_parts = location.href.split('/');
+		var last_segment = url_parts[url_parts.length-1];
+
+		// On the home page, clicking the logo should scroll to the top (defined elsewhere).
+		// So don't reload unless we're on another page.
+		if (last_segment !== '') {
 			window.location = '/';
-		});
+		}
 	});
+
 
 })(jQuery);
