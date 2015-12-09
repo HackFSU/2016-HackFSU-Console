@@ -16,9 +16,19 @@
 	border: none;
 }
 
-/*125.250 x 42*/
+#geo {
+  text-align: center !important;
+}
+
+.sponsors {
+  text-align: left;
+  margin-bottom: 70px;
+  margin-top: 70px;
+  font-size: 24px;
+}
+
 #logo {
-	max-height: 42px;
+  max-height: 30px;
 	margin-bottom: 0.5em;
   float: left !important;
 }
@@ -45,14 +55,9 @@ a:link {
   float: right !important;
   font-family: 'Uni Sans', sans-serif;
   color: #fff;
-  font-size: 46px;
-  line-height: 52px;
+  font-size: 34px;
+  line-height: 40px;
   margin-left: 10px;
-}
-
-.faq {
-  text-align: left !important;
-  font-family: 'Open Sans', sans-serif;
 }
 
 .row:before, .row:after {
