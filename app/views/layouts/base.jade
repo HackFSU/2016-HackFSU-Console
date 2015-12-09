@@ -1,0 +1,78 @@
+//- 
+	This is the basic layout for all pages, meant main site structure
+
+include _logo
+
+doctype html
+html(lang='en')
+	head
+
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible' content='IE=edge')
+		meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1')
+		meta(name='description' content='')
+		meta(name='author' content='')
+		meta(name='google-site-verification' content='suuzMNcGGtUdtvQ1Te8M3HxORys7IlGjkDLvOGOkpA8')
+		meta(property='og:url' content='http://hackfsu.com/')
+		meta(property='og:image' content='http://hackfsu.com/img/hackfsu-16-post-preview.jpg')
+		meta(property='og:title' content="HackFSU '16")
+		
+		title HackFSU | #{title}
+
+		//- CSS
+		link(rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Montserrat:400,700')
+		link(rel='stylesheet' type='text/css' href='/fonts/font-awesome/css/font-awesome.min.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/clear.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/carouFredSel.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/supersized.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/common.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/columns.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/prettyPhoto.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/accordion-tabs.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/style.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/isotope.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/colors.css')
+		link(rel='stylesheet' type='text/css' href='/vendor/drythemes-sensa/css/responsive.css')
+		link(rel='stylesheet' type='text/css' href='/css/custom.css')
+		block layoutCSS
+		block localCSS
+
+	body
+
+		//- Page
+		block header
+		block content
+		include _footer
+
+		
+
+		// Google Analytics
+		script(type='text/javascript').
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-59773856-1', 'auto');
+			ga('send', 'pageview');
+		
+		script(src='/bower_components/jquery/dist/jquery.min.js')
+		script(src='/js/views/navbar-active.js')
+		script(src='/vendor/drythemes-sensa/js/jquery.isotope.min.js')
+		script(src='/vendor/drythemes-sensa/js/accordion-tabs.min.js')
+		script(src='/vendor/drythemes-sensa/js/portfolio.js')
+		script(src='/vendor/drythemes-sensa/js/supersized.3.2.7.js')
+		script(src='/vendor/drythemes-sensa/js/jquery.sticky.js')
+		script(src='/vendor/drythemes-sensa/js/small-menu.js')
+		script(src='/vendor/drythemes-sensa/js/jquery.carouFredSel-6.2.1-packed.js')
+		script(src='/vendor/drythemes-sensa/js/jquery.mousewheel.min.js')
+		script(src='/vendor/drythemes-sensa/js/jquery.touchSwipe.min.js')
+		script(src='/vendor/drythemes-sensa/js/jquery.easing.1.3.js')
+		script(src='/vendor/drythemes-sensa/js/jquery.myHint.js')
+		script(src='/vendor/drythemes-sensa/js/jquery.vticker-min.js')
+		script(src='/vendor/drythemes-sensa/js/jquery.prettyPhoto.js')
+		script(src='/vendor/drythemes-sensa/js/main.js')
+		script(src='/js/main.js')
+		
+		block layoutJS
+		block localJS
+		
