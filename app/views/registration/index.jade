@@ -90,6 +90,14 @@ block content
 								option Entrepreneurship
 					li
 						.form-col-left
+							label(for='firstHackathon') Will this be your first hackathon? *
+						.form-col-right
+								input#hackYes(type='radio' name='firstHackathon' value='Yes' data-validation='required')
+								label(for='hackYes') Yes
+								input#hackNo(type='radio' name='firstHackathon' value='No')
+								label(for='hackNo') No
+					li
+						.form-col-left
 							label(for='github') GitHub Link
 						.form-col-right
 							input#github(type='text' name='github' placeholder='Bet you have some mad PRs')
@@ -103,14 +111,6 @@ block content
 							label(for='phone') Phone Number
 						.form-col-right.half
 							input#phone(type='text' name='phone' placeholder='Phone #')
-					li
-						.form-col-left
-							label(for='firstHackathon') Will this be your first hackathon? *
-						.form-col-right
-								input#hackYes(type='radio' name='firstHackathon' value='Yes' data-validation='required')
-								label(for='hackYes') Yes
-								input#hackNo(type='radio' name='firstHackathon' value='No')
-								label(for='hackNo') No
 					li
 						.form-col-left
 							label(for='hate') What is one thing you hate about hackathons?
@@ -155,9 +155,9 @@ block content
 							label(for='sleep') Sleep
 					li
 						.form-col-left
-							label(for="mlhcoc") Code of Conduct
+							label(for="mlhcoc") Code of Conduct *
 						.form-col-right
-							input#mlh(type='checkbox' value='MLH accepted' name='mlhcoc')
+							input#mlh(type='checkbox' value='MLH accepted' data-validation='required' name='mlhcoc')
 							label(for='mlh') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
 					li
 						.form-col-right

@@ -8,6 +8,12 @@
   src: url('/fonts/unisansfree/Uni Sans Heavy.otf');
 }
 
+@font-face {
+  font-family: 'Uni Sans';
+  font-weight: 100;
+  src: url('/fonts/unisansfree/Uni Sans Thin.otf');
+}
+
 .services {
 	background-image: none;
 }
@@ -42,7 +48,6 @@ a {
   font-weight: 400;
 }
 
-
 a:visited {
   color: #eecdb5;
 }
@@ -51,9 +56,88 @@ a:link {
   color: #eecdb5;
 }
 
+
+.hero {
+  color: #fff;
+  font-family: 'Uni Sans', sans-serif;
+  font-weight: 700;
+  font-size: 3em;
+}
+
+.hero.topRight .register {
+  border: 0.15em solid #fff;
+  border-radius: 4px;
+  padding: 20px 10px 10px;
+
+  transition: 200ms all;
+  -webkit-transition: 200ms all;
+  -moz-transition: 200ms all;
+  -o-transition: 200ms all;
+}
+
+.hero.topRight .register:hover {
+  background: #fff;
+  color: #a8d3f1;
+  cursor: pointer;
+}
+
+.hero.topRight .thinUni {
+  font-weight: 100;
+  font-size: 0.5em;
+  vertical-align: 13%;
+  margin-right: 3px;
+}
+
+.hero.sponsor {
+  margin-top: 15px;
+  font-size: 2em;
+  text-align: right;
+}
+
+.hero.topRight {
+  float: right;
+  font-size: 16px;
+}
+
+.hero.bottomLeft {
+  position: absolute;
+  bottom: 40px;
+  font-size: 20px;
+}
+
+.hero.bottomLeft .date {
+  font-size: 4em;
+  margin-bottom: 40px;
+}
+
+.hero.bottomLeft .fsu {
+  font-weight: 100;
+}
+
+.hero a {
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero a:link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero a:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .logotext {
   float: right !important;
   font-family: 'Uni Sans', sans-serif;
+  font-weight: 700;
   color: #fff;
   font-size: 34px;
   line-height: 40px;
@@ -114,12 +198,22 @@ body {
   clear: both;
 }
 
+/*
+.home {
+  background: url('/img/landingOne.png') no-repeat center center fixed;
+  background-position: -200px, 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} */
+
 .section-title-fixed {
 	font-family: 'Uni Sans', sans-serif;
 	font-size: 70px;
-    font-weight: 700;
-    line-height: 55px;
-    color: #303030;
+  font-weight: 700;
+  line-height: 55px;
+  color: #303030;
 }
 
 .title-separator {
@@ -201,6 +295,9 @@ input:-webkit-autofill {
     outline: 0;
     font-weight: 600;
     transition: 200ms all;
+    -webkit-transition: 200ms all;
+    -moz-transition: 200ms all;
+    -o-transition: 200ms all;
     color: #8bd1c9;
     margin-bottom: 100px;
     font-size: 16px;
