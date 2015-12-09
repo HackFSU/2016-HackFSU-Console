@@ -11,7 +11,6 @@ import validator from 'express-validator';
 import session from 'express-session';
 import io from 'socket.io';
 import Parse from 'parse/node';
-import favicon from 'serve-favicon';
 
 // Utility
 import Q from 'q';
@@ -73,7 +72,6 @@ export default function configureApp() {
 		maxAge: maxAge
 	}));
 	e.use(validator());
-	e.use(favicon('public/img/favicon/favicon.ico'));
 	app.io = io(server);
 
 	// Handle caching
