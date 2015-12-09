@@ -23,7 +23,7 @@ block layoutJS
 	script(src='/vendor/drythemes-sensa/js/portfolio.js')
 	script(src='/vendor/drythemes-sensa/js/supersized.3.2.7.js')
 	script(src='/vendor/drythemes-sensa/js/jquery.sticky.js')
-	script(src='/vendor/drythemes-sensa/js/jquery.dryMenu.js')
+	//-script(src='/vendor/drythemes-sensa/js/jquery.dryMenu.js')
 	script(src='/vendor/drythemes-sensa/js/small-menu.js')
 	script(src='/vendor/drythemes-sensa/js/jquery.carouFredSel-6.2.1-packed.js')
 	script(src='/vendor/drythemes-sensa/js/jquery.mousewheel.min.js')
@@ -40,18 +40,16 @@ block header
 	//- Navigation Menu
 	#main-menu.main-menu.main-menu-fixbg
 		.center-relative.menu-holder
-			.menu-logo.left#logo
-				img(src='/img/white_feather.png')
+			.menu-logo.left
+				img#logo(src='/img/white_feather.png')
 				h3.logotext HackFSU
 			ul.right.montserrat-font
-				li.active
-					a(href='/#dry-home') HELLO
 				li
-					a(href='/#about') ABOUT US
+					a(href='/#faq') FAQ
+				li
+					a(href='/#travel') TRAVEL
 				li
 					a(href='/#sponsors') SPONSORS
-				li
-					a(href='/#contact') CONTACT US
 				li
 					a(href='/register') REGISTER
 			.clear
