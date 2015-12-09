@@ -5,11 +5,12 @@ block localJS
 
 block content
 	#dry-home.clear.services.section.block
+		a(href="http://my.mlh.io/oauth/authorize?client_id=5a4e1802fde3116a157ffbd0ab52f94beccfd8c52b85556dd1c72f567e821090&redirect_uri=http%3A%2F%2F127.0.0.1%3A5003%2Fregister&response_type=token") Link with MLH
 		.block.content-960.center-relative
 			h2.section-title-fixed.singleLineText Registration
 			.title-separator
 			#error-messages(style='display: none;')
-			form#application(method='post' role='form' name='register')
+			form#application(method='post' role='form' name='register' autocomplete='off')
 				ul#application-form
 					li
 						.form-col-left

@@ -39,6 +39,7 @@ export default function setRoutes(app) {
 	// e.post('/preview/subscribe', jsonParser, c.Preview.subscribe);
 
 	e.get('/register', c.Registration.index);
+	e.get('/apply', (req, res) => { res.redirect('/register') });
 	e.post('/register/submit', jsonParser, c.Registration.submit);
 
 	/**************************************************************************
