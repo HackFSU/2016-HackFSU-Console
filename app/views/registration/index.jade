@@ -14,7 +14,7 @@ block content
 					li
 						.form-col-left
 							label(for='email') Email *
-						.form-col-right
+						.form-col-right.half
 							input#email(type='text' name='email' placeholder='Whats your .edu' data-validation='email')
 					li
 						.form-col-left
@@ -30,12 +30,12 @@ block content
 					li
 						.form-col-left
 							label(for='password') Password *
-						.form-col-right
+						.form-col-right.half
 							input#password(type='password' name='password' placeholder='Password' data-validation='length' data-validation-length='min8' data-validation-help="Must be 8 or more characters")
 					li
 						.form-col-left
-							label(for='passwordconfirm') Password Confirmation *
-						.form-col-right
+							label(for='passwordconfirm') Confirm Password *
+						.form-col-right.half
 							input#passwordconfirm(type='password' name='passwordconfirm' placeholder='Confirm password' data-validation='confirmation' data-validation-confirm='password')
 					li
 						.form-col-left
@@ -81,7 +81,7 @@ block content
 						.form-col-left
 							label(for='major') Major *
 						.form-col-right
-							input#major(type='text' name='major' placeholder='What books you readin' data-validation='required' list='majors-list')
+							input#major(type='text' name='major' placeholder="What books you readin'" data-validation='required' list='majors-list')
 							datalist#majors-list
 								option Computer Science
 								option Computer Engineering
@@ -90,14 +90,9 @@ block content
 								option Entrepreneurship
 					li
 						.form-col-left
-							label(for='github') GitHub
+							label(for='github') GitHub Link
 						.form-col-right
-							input#github(type='text' name='github' placeholder='bet you have some mad PRs')
-					li
-						.form-col-left
-							label(for='devpost') DevPost
-						.form-col-right
-							input#devpost(type='text' name='devpost' placeholder='Devpost link')
+							input#github(type='text' name='github' placeholder='Bet you have some mad PRs')
 					li
 						.form-col-left
 							label(for='resume') Resume
@@ -106,7 +101,7 @@ block content
 					li
 						.form-col-left
 							label(for='phone') Phone Number
-						.form-col-right
+						.form-col-right.half
 							input#phone(type='text' name='phone' placeholder='Phone #')
 					li
 						.form-col-left
@@ -123,10 +118,9 @@ block content
 							textarea#hate(rows='4' name='hate')
 					li
 						.form-col-left
-							br
 							label(for='diet') Dietary restrictions?
 						.form-col-right
-							input#diet(type='text' name='diet' placeholder='Vegan vegetarian etc.')
+							input#diet(type='text' name='diet' placeholder='Vegan, vegetarian, etc.')
 					li
 						.form-col-left
 							label(for='comments') Comments?
@@ -160,9 +154,11 @@ block content
 							input#sleep(type='checkbox' disabled='true')
 							label(for='sleep') Sleep
 					li
+						.form-col-left
+							label(for="mlhcoc") Code of Conduct
 						.form-col-right
 							input#mlh(type='checkbox' value='MLH accepted' name='mlhcoc')
-							label(for='mlh') I will abide by the MLH Code of Conduct for the duration of the event
+							label(for='mlh') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
 					li
 						.form-col-right
 							button#submit.btn.btn-form(type='submit') SUBMIT
