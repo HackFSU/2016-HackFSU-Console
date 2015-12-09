@@ -69,12 +69,10 @@ block content
 						.form-col-right
 							select#shirtSize(name='shirtSize' value='shirtSize' data-validation='required')
 								option(selected='true' disabled='true') Pick a size
-								option(value='Mens Extra Small') Men's Extra Small
 								option(value='Mens Small') Men's Small
 								option(value='Mens Medium') Men's Medium
 								option(value='Mens Large') Men's Large
 								option(value='Mens Extra Large') Men's Extra Large
-								option(value='Womens Extra Small') Women's Extra Small
 								option(value='Womens Small') Women's Small
 								option(value='Womens Medium') Women's Medium
 								option(value='Womens Large') Women's Large
@@ -161,6 +159,10 @@ block content
 							br
 							input#sleep(type='checkbox' disabled='true')
 							label(for='sleep') Sleep
+					li
+						.form-col-right
+							input#mlh(type='checkbox' value='MLH accepted' name='mlhcoc')
+							label(for='mlh') I will abide by the MLH Code of Conduct for the duration of the event
 					li
 						.form-col-right
 							button#submit.btn.btn-form(type='submit') SUBMIT

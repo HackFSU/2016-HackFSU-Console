@@ -16,9 +16,39 @@
 	border: none;
 }
 
+/*125.250 x 42*/
 #logo {
 	max-height: 42px;
 	margin-bottom: 0.5em;
+  float: left !important;
+}
+
+.logotext {
+  float: right !important;
+  font-family: 'Uni Sans', sans-serif;
+  color: #fff;
+  font-size: 46px;
+  line-height: 52px;
+  margin-left: 10px;
+}
+
+.faq {
+  text-align: left !important;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.row:before, .row:after {
+  display: table;
+}
+
+.row:after {
+  clear: both;
+}
+
+.faq-col {
+  float: left;
+  width: 28%;
+  margin: 10px;
 }
 
 body {
