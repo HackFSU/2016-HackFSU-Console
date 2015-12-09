@@ -1,0 +1,22 @@
+//- 
+	Standard page layout for non-index pages
+
+extend base
+
+block header
+	//- Navigation Menu
+	#main-menu.main-menu.main-menu-fixbg
+		.center-relative.menu-holder
+			.menu-logo.left
+				img#logo(src='/img/white_feather.png')
+				h3.logotext HackFSU
+			ul.right.montserrat-font
+				li
+					a(href='/#faq') FAQ
+				li
+					a(href='/#travel') TRAVEL
+				li
+					a(href='/#sponsors') SPONSORS
+				li
+					a(href='/register') REGISTER
+			.clear

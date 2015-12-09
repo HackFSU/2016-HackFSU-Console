@@ -47,6 +47,14 @@
   float: left !important;
 }
 
+#footer-logo {
+	max-height: 75px;
+}
+
+.big-social i.fa {
+	font-size: 3em;
+}
+
 .half input {
   width: 40%;
 }
