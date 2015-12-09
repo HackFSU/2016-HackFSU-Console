@@ -6,8 +6,8 @@ block localJS
 block content
 	#dry-home.clear.services.section.block
 		.block.content-960.center-relative
-			h2.section-title-fixed.singleLineText Registration
-			.title-separator
+			h2.section-title-fixed.singleLineText.margin-left-15 Registration
+			.title-separator.margin-left-15
 			#error-messages(style='display: none;')
 			form#application(method='post' role='form' name='register')
 				ul#application-form
@@ -154,10 +154,10 @@ block content
 							label(for='back') Back End
 							br
 							input#shelf(type='checkbox' value='off the shelf hardware' name='wants')
-							label(for='shelf') 'Off The Shelf' Hardware: Myo Oculus Rift Leap Motion etc.
+							label(for='shelf') 'Off The Shelf' Hardware: Myo, Oculus Rift, Leap Motion, etc.
 							br
 							input#micro(type='checkbox' value='microcontroller' name='wants')
-							label(for='micro') Microcontrollers: Arduino Raspberry Pi etc.
+							label(for='micro') Microcontrollers: Arduino, Raspberry Pi, etc.
 							br
 							input#sleep(type='checkbox' disabled='true')
 							label(for='sleep') Sleep
