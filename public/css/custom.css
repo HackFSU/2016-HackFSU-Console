@@ -97,6 +97,10 @@ a:link {
   cursor: pointer;
 }
 
+.hero.topRight .register a:hover {
+	color: #a8d3f1;
+}
+
 .hero.topRight .thinUni {
   font-weight: 100;
   font-size: 0.5em;
@@ -232,6 +236,7 @@ body {
 }
 
 #travel h1 {
+	font-family: 'Uni Sans';
   font-size: 1.4em;
 }
 
@@ -243,7 +248,7 @@ body {
  /*
 .contact {
   background: url('/img/travelBackground.jpg') no-repeat center center fixed;
-  
+
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
