@@ -4,6 +4,8 @@
 
 'use strict';
 
+import emailer from '../../lib/mandrill-templates.js';
+
 export default function(app) {
 	app.controller.Registration = {
 
@@ -38,6 +40,38 @@ export default function(app) {
 		// Send confirmation email
 		sendConfirmationEmail: (req, res, next) => {
 			console.log(req.body.firstName);
+
+			let email = {
+				template: 'test-1',
+				content: [{}],
+				message: {
+			    "subject": "example subject",
+			    "from_email": "registration@hackfsu.com",
+			    "from_name": "HackFSU",
+			    "to": [{
+			            "email": req.body.email,
+			            "name": `${req.body.firstname} ${req.body.lastName}`,
+			            "type": "to"
+			    }],
+			    "merge": true,
+			    "merge_language": "mailchimp",
+			    "global_merge_vars": [{
+			      "name": "firstname",
+			    	"content": req.body.firstName
+			    }]
+				}
+			};
+
+			emailer(email, (error, response) => {
+				if (error) {
+					console.log(error);
+					res.send({ error: true });
+				}
+
+				console.log(response);
+				res.send({ success: true });
+
+			});
 		}
 
 	};

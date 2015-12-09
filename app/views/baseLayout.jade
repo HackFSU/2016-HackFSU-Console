@@ -19,9 +19,6 @@ html(lang='en')
 		
 		title HackFSU | #{title}
 
-		//- favicon 
-		link(href='/img/favicon/favicon.png' rel='shortcut icon')
-
 		//- CSS
 		link(rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Montserrat:400,700')
 		block layoutCSS
@@ -46,6 +43,7 @@ html(lang='en')
 			ga('send', 'pageview');
 		
 		script(src='/bower_components/jquery/dist/jquery.min.js')
+		script(src='/js/views/navbar-active.js')
 		
 		block layoutJS
 		block localJS
