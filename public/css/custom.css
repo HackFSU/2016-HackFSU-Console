@@ -23,7 +23,15 @@
 }
 
 #geo {
-  text-align: center !important;
+  font-family: 'Uni Sans', sans-serif;
+  font-weight: 100;
+  font-size: 4em;
+  margin-top: 1.5em;
+  margin-bottom: 15px;
+}
+
+#geo span {
+  font-weight: 700;
 }
 
 .sponsors {
@@ -200,13 +208,39 @@ body {
 
 /*
 .home {
-  background: url('/img/landingOne.png') no-repeat center center fixed;
-  background-position: -200px, 0;
+  background-color: #a8d3f1;
+}*/
+
+#travel {
+  background-color: #eecdb5;
+  color: #fff;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+#travel a {
+  color: #fff;
+  font-weight: 700;
+}
+
+#travel h1 {
+  font-size: 1.4em;
+}
+
+
+.contact {
+  background-image: url('/img/travelBackground.jpg');
+  background-size: cover;
+}
+ /*
+.contact {
+  background: url('/img/travelBackground.jpg') no-repeat center center fixed;
+  
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-} */
+}  */
 
 .section-title-fixed {
 	font-family: 'Uni Sans', sans-serif;
@@ -219,6 +253,7 @@ body {
 .title-separator {
   border-color: #303030;
   margin-top: 30px;
+  max-width: 200px;
 }
 input, textarea, select, option {
 	background-color: transparent;

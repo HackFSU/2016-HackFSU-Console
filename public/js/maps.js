@@ -59,7 +59,7 @@
 				if(status === 'OK') {
 					var point = response.routes[0].legs[0];
 					var str = point.duration.text.replace('mins', 'minutes');
-					geo.html('You could be here in just ' + str + '!');
+					//geo.html('You could be here in just ' + str + '!');
 				}
 			});
 		};
