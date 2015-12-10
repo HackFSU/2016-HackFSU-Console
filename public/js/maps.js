@@ -18,15 +18,23 @@
 		var showError = function(error) {
 			switch(error.code) {
 				case error.PERMISSION_DENIED:
+					$('#geoHrs').removeClass('saving').html('0');
+					$('#geoMins').removeClass('saving').html('0');
 					$('.geo-info').html('Oh no! You denied the location request.');
 					break;
 				case error.POSITION_UNAVAILABLE:
+					$('#geoHrs').removeClass('saving').html('0');
+					$('#geoMins').removeClass('saving').html('0');
 					$('.geo-info').html('Your current location is unavailable.');
 					break;
 				case error.TIMEOUT:
+					$('#geoHrs').removeClass('saving').html('0');
+					$('#geoMins').removeClass('saving').html('0');
 					$('.geo-info').html('The location request timed out.');
 					break;
 				case error.UNKNOWN_ERROR:
+					$('#geoHrs').removeClass('saving').html('0');
+					$('#geoMins').removeClass('saving').html('0');
 					$('.geo-info').html('An unknown error occurred.');
 					break;
 			}
@@ -36,9 +44,13 @@
 			var ypos = window.pageYOffset;
 			if(ypos > scroll && gotPos === false) {
 				if(navigator.geolocation) {
+					$('#geoHrs').addClass('saving').html('<span>.</span><span>.</span><span>.</span>');
+					$('#geoMins').addClass('saving').html('<span>.</span><span>.</span><span>.</span>');
 					navigator.geolocation.getCurrentPosition(showPosition, showError);
 					gotPos = true;
 				} else {
+					$('#geoHrs').removeClass('saving').html('0');
+					$('#geoMins').removeClass('saving').html('0');
 					$('.geo-info').html('Geolocation is not supported by this browser.');
 				}
 			}
@@ -70,8 +82,8 @@
 				if(status === 'OK') {
 					var point = response.routes[0].legs[0];
 					var time = fromSeconds(point.duration.value);
-					$('#geoHrs').html(time.hours);
-					$('#geoMins').html(time.minutes);
+					$('#geoHrs').removeClass('saving').html(time.hours);
+					$('#geoMins').removeClass('saving').html(time.minutes);
 				}
 			});
 		};
