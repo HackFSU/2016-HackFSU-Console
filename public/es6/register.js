@@ -15,6 +15,11 @@
 		onError: function($form) {
 			console.log(`Validation of form ${$form.attr('id')} failed!`);
 			$submitBtn.shakeIt();
+			setTimeout(function() {
+				$('html, body').animate({
+					scrollTop: $('.has-error').offset().top - 60
+				}, 500);
+			}, 500);
 		},
 		onSuccess: function($form) {
 			return $.submitForm($form);

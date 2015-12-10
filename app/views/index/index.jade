@@ -10,8 +10,8 @@ block content
 		.block.content-960.center-relative
 			// Home text slider
 			.hero.topRight
-				.hero.register
-					a(href='/register') Register
+				a(href='/register')
+					.hero.register Register
 				.hero.sponsor <span class='thinUni'>OR</span> <a href='#sponsor'>Sponsor</a>
 
 			.hero.bottomLeft
@@ -25,6 +25,13 @@ block content
 		// Background Slider Holder
 		ul#supersized
 	// Services
+
+	#about.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title Hacking
+			.title-separator
+		.clear
+
 	#faq.clear.services.section.block
 		.block.content-960.center-relative
 			h2.section-title FAQ
@@ -95,12 +102,21 @@ block content
 		br
 		br
 		br
+		br
 	#sponsors.section
 		.block.content-960.center-relative
-			h2.section-title SPONSORS
+			h2.section-title Sponsors
 			.title-separator
 			p.info.sponsors Interested in sponsoring? Email #[a(href='mailto:sponsors@hackfsu.com') sponsors@hackfsu.com] for more information!
 	.clear
 	br
 	br
-		
+
+	#sponsors.section
+	.block.content-960.center-relative
+		h2.section-title Register
+		.title-separator
+		p.info.sponsors yo register
+	.clear
+	br
+	br
