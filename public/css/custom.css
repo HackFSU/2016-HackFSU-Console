@@ -225,14 +225,8 @@ body {
 
 #travel {
   background-color: #eecdb5;
-  color: #fff;
   font-weight: 400;
   font-size: 1em;
-}
-
-#travel a {
-  color: #fff;
-  font-weight: 700;
 }
 
 #travel h1 {
@@ -240,20 +234,41 @@ body {
   font-size: 1.4em;
 }
 
+.white-section, .white-section h1, .white-section .info, .white-section h2 {
+  color: #fff;
+}
+
+.white-section a {
+  color: #fff;
+  font-weight: 700;
+}
+
+.white-section .title-separator {
+  border-color: #fff;
+}
+
 
 .contact {
   background-image: url('/img/travelBackground.jpg');
   background-size: cover;
 }
- /*
-.contact {
-  background: url('/img/travelBackground.jpg') no-repeat center center fixed;
 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+
+.registerDiv {
+  background-image: url('/img/registerSleep.jpg');
   background-size: cover;
-}  */
+  background-position: bottom;
+  background-repeat: no-repeat;
+  padding-bottom: 150px;
+}
+
+.registerDiv p {
+  font-size: 24px;
+}
+
+h2.section-title {
+  letter-spacing: normal;
+}
 
 .section-title-fixed {
 	font-family: 'Uni Sans', sans-serif;
@@ -265,7 +280,7 @@ body {
 
 .title-separator {
   border-color: #303030;
-  margin-top: 30px;
+  margin-top: 20px;
   max-width: 200px;
 }
 input, textarea, select, option {
