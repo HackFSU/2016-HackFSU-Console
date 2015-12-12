@@ -48,7 +48,7 @@ jQuery(document).ready(function() {
         slide_links: 'blank', // Individual links for each slide (Options: false, 'num', 'name', 'blank')
         slides: [ // Slideshow Images
             {
-                image: 'img/theme/header_image_01.jpg'
+                image: 'img/landingOne.jpg'
             },
             /*{image : 'images/header_image_02.jpg'},  
                                 {image : 'images/header_image_03.jpg'}

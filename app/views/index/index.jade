@@ -1,4 +1,4 @@
-extend ../indexLayout
+extend ../layouts/index
 
 block localJS
 	script(src='/js/maps.js' type='text/javascript')
@@ -9,74 +9,113 @@ block content
 	#dry-home.home.section.relative
 		.block.content-960.center-relative
 			// Home text slider
-			h1.big-tittle.montserrat-font.top-30 HackFSU
-			br
-			h1.big-countdown
-			h1.big-date.monsterrat-font See you Next Spring!
+			.hero.topRight
+				a(href='/register')
+					.hero.register Register
+				.hero.sponsor
+					span.thinUni OR 
+					a.slow-scroll(href='#sponsors') Sponsor
+
+			.hero.bottomLeft
+				.hero.date Feb. 5-7
+				.hero.fsu Florida State University
+			//-h1.big-tittle.montserrat-font.top-30 HackFSU
+			//-br
+			//-h1.big-countdown
+			//-h1.big-date.monsterrat-font See you Next Spring!
 		// Background Slider Navigation
 		// Background Slider Holder
 		ul#supersized
 	// Services
+
 	#about.clear.services.section.block
 		.block.content-960.center-relative
-			h2.section-title.montserrat-font
-				| HACK
-				br
-				| THE
-				br
-				| NIGHT
-				br
-				| AWAY
+			h2.section-title Hacking
 			.title-separator
-			h2 WHERE IS IT?
-			p.info Florida State University
-			br
-			h2 WHAT IS IT?
-			p.info HackFSU is a hackathon for students, by students. This will be the ultimate place for collaboration and creation. Attendees will have 24 hours to make something amazing. Students will work in teams of 1-5 and have access to mentors and fellow hackers for help.
-			br
-			h2 WHO'S INVITED?
-			p.info All undergrad and high school students are welcome to attend. Although the event will be focused towards developers and designers, NO CODING EXPERIENCE IS REQUIRED. This will be a space to not only create, but also to learn! We encourage all students who have interest to attend!
-			br
-			h2 WHAT'S IT COST?
-			p.info HackFSU is absolutely free! In fact, because we want as many people as possible to attend, we are working to provide buses to students located in the Southeast.
-			br
-			.full-width.top-150.bottom-100
-				.picfull
-			.clear
-			.full-width.top-150.bottom-100
-				img(src='img/theme/service_graphic_01.png')
-		#sponsors.section
-			h2.section-title.montserrat-font LAST YEAR'S SPONSORS
-			img#sponsors(src='img/sponsors/all_sponsors.png', border='0', width='960', height='932', orgwidth='960', orgheight='932', usemap='#sponsors', alt='')
-			map(name='sponsors')
-				area(alt='', title='Domi', href='http://www.domiventures.co/', shape='rect', coords='326,75,668,319', style='outline:none;', target='_self')
-				area(alt='', title='Selenko', href='http://www.selenko.com/', shape='rect', coords='62,401,326,469', style='outline:none;', target='_self')
-				area(alt='', title='The Crepe Vine', href='http://www.thecrepevine.com/', shape='rect', coords='341,397,635,473', style='outline:none;', target='_self')
-				area(alt='', title='The Jim Moran Institute', href='http://jmi.fsu.edu/', shape='rect', coords='642,373,895,504', style='outline:none;', target='_self')
-				area(alt='', title='Hashrocket', href='http://hashrocket.com/', shape='rect', coords='117,551,394,690', style='outline:none;', target='_self')
-				area(alt='', title='Wolfram', href='http://www.wolfram.com/', shape='rect', coords='411,554,622,701', style='outline:none;', target='_self')
-				area(alt='', title='Lob', href='http://lob.com/', shape='rect', coords='618,582,841,687', style='outline:none;', target='_self')
-				area(alt='', title='Namecheap', href='http://namecheap.com/', shape='rect', coords='262,724,492,850', style='outline:none;', target='_self')
-				area(alt='', title='GiantIvy', href='http://www.giantivy.com/', shape='rect', coords='558,707,725,833', style='outline:none;', target='_self')
-				area(shape='rect', coords='958,930,960,932', alt='Image Map', style='outline:none;', title='Image Map', href='http://www.image-maps.com/index.php?aff=mapped_users_0')
 		.clear
 
-		#contact.clear.contact.section.block
-			h2#geo.section-title.montserrat-font How fast could you be here?
+	#faq.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title FAQ
+			.title-separator
+			.one_third
+				h4 When and where?
+				| Florida State University
+			.one_third
+				h4 Am I invited?
+				| Anyone that is currently a college student or that has graduated in the past year is invited. High schoolers can go ahead and apply and we'll notify you if any problems come about.
+			.one_third.last
+				h4 Not a student?
+				| Become a mentor! Give back to the community by helping hackers learn and build something awesome. Sign up and we’ll reach out with more info!l
+					
+			.one_third
+				h4 Food? Food.
+				| Food. Enough free grub for a food coma. Dietary restrictions? No problem, we got you.
+			.one_third
+				h4 How do teams work?
+				| Teams have a maximum of 4. If you don’t have a team, no sweat, we will have a mixer for you to discuss ideas and meet other hackers to join forces.
+			.one_third.last
+				h4 What should I bring?
+				| Bring your student ID, laptop and charger, a change of clothes, resume, toiletries, and a pillow and sleeping bag may be useful. You do not need a team, idea, food or drink, or animals and leave anything illegal at home please.
+		
+			.one_third
+				h4 What's it gonna cost me?
+				| Everything we provide including food, wifi, caffeine, swag, and a place to create is free!
+			.one_third
+				h4 What can I build?
+				| Whatever you can think up! We’ll have mentors to help you with web, mobile, hardware, design, and any development in between! #[a(href='https://www.youtube.com/watch?v=EbihiWx6Knw' target='_blank') TrakFree] and #[a(href='http://marymkelly.github.io/mood-mixer/' target='_blank') Moodologist] are some example projects from the past.
+			.one_third.last
+				h4 What if this is my first hackathon?
+				| Awesome! We even have prizes for newcomers, as the best way to learn is by building. There will be mentors to help you every step of the way. We all start somewhere, why not here?
+			.one_third
+				h4 How does registration work?
+				| asdfadgadfbadffgasdgasd
+			.one_third.last
+					h4 Wait but I have another question.
+					| Shoot us an email at #[a(href='mailto:info@hackfsu.com') info@hackfsu.com] or just find us in the #[a(href='https://twitter.com/hackfsu' target='_blank') twittersphere]!
+			.clear
+		br
+		br
+		br
+		br
+
+		
+
+	#travel.clear.contact.section.block.white-section
+		.block.content-960.center-relative
+			h2.section-title Travel
+			.title-separator(style='border-color: #fff')
+
+			#geo <span id='geoHrs'>0</span> <span id='geoHTag'>hours</span> <span id='geoMins'>0</span> <span id='geoMTag'>minutes</span>
+			.geo-info
+				| Click 'Allow Location' to see how long the drive to Tallahassee would be!
 			br
 			br
+
+			h1 BUSES
+			p We will be scheduling buses from the most interested and passionate schools! #[a(href='https://twitter.com/hackfsu' target='_blank') Tweet] at us and email #[a(href='mailto:travel@hackfsu.com') travel@hackfsu.com] if you want to coordinate one!
+
 			br
 			br
-			br
-			br
-			br
-			br
-			br
-			br
-			br
-			br
-			br
-			br
-			br
-			br
-			br
+
+			h1 DRIVING
+			p Nothing beats a good roadtrip. Let the #[a(href='mailto:travel@hackfsu.com') Travel Team] know if you're driving and we may be able to reimburse some gas. We'll have a better idea closer to the event.
+		br
+		br
+		br
+		br
+		br
+	#sponsors.section
+		.block.content-960.center-relative
+			h2.section-title Sponsors
+			.title-separator
+			p.info.sponsors Interested in sponsoring? Email #[a(href='mailto:sponsors@hackfsu.com') sponsors@hackfsu.com] for more information!
+	.clear
+	br
+	br
+	#register.section.registerDiv.white-section
+		.block.content-960.center-relative
+			h2.section-title Register
+			.title-separator
+			p.info Don't sleep on HackFSU, #[a(href='/register') register today] to save your spot!
+	.clear
