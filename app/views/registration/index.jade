@@ -2,7 +2,7 @@ extend ../layouts/standard
 block localJS
 	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
 	script(src='/js/views/register.js')
-
+		
 block content
 	#register.clear.services.section.block
 		.block.content-960.center-relative
@@ -10,780 +10,798 @@ block content
 			.title-separator.margin-left-15
 			#error-messages(style='display: none;')
 			form#application(method='post' role='form' name='register' autocomplete='off')
-				ul#application-form
-					li
-						.form-col-left
-							label(for='email') Email *
-						.form-col-right.half
-							input#email(type='text' name='email' placeholder='Whats your .edu' data-validation='email')
-					li
-						.form-col-left
-							label(for='firstName') First Name *
-						.form-col-right
-							input#firstName(type='text' placeholder='What do your homies call you' name='firstName' data-validation='required')
+				div#application-form
+					.one_fourth
+						label(for='email') Email *
+					.one_half
+						input#email(type='text' name='email' placeholder='Whats your .edu' data-validation='email')
+					.one_fourth.last
+					
+					.one_fourth
+						label(for='firstName') First Name *
+					.one_half
+						input#firstName(type='text' placeholder='What do your homies call you' name='firstName' data-validation='required')
+					.one_fourth.last
 							
-					li
-						.form-col-left
-							label(for='lastName') Last Name *
-						.form-col-right
-							input#lastName(type='text' placeholder='Whats the fam go by' name='lastName' data-validation='required')
-					li
-						.form-col-left
-							label(for='password') Password *
-						.form-col-right.half
-							input#password(type='password' name='password' placeholder='Password' data-validation='length' data-validation-length='min8' data-validation-help="Must be 8 or more characters")
-					li
-						.form-col-left
+					.one_fourth
+						label(for='lastName') Last Name *
+					.one_half
+						input#lastName(type='text' placeholder='Whats the fam go by' name='lastName' data-validation='required')
+					.one_fourth.last
+							
+					.one_fourth
+						label(for='password') Password *
+					.one_half
+						input#password(type='password' name='password' placeholder='Password' data-validation='length' data-validation-length='min8' data-validation-help="Must be 8 or more characters")
+					.one_fourth.last
+						
+					.one_fourth
 							label(for='passwordconfirm') Confirm Password *
-						.form-col-right.half
+					.one_half
 							input#passwordconfirm(type='password' name='passwordconfirm' placeholder='Confirm password' data-validation='confirmation' data-validation-confirm='password')
-					li
-						.form-col-left
-							label(for='school') School *
-						.form-col-right
-							input#school(type='text' name='school' placeholder='Florida State University' list='school-list' data-validation='required')
-							datalist#school-list
-								option Adelphi University
-								option Agnes Scott College
-								option University of Alabama
-								option University of Alabama Birmingham
-								option University of Alabama Huntsville
-								option Albion College
-								option Albright College
-								option Alfred University
-								option Allegheny College
-								option American International College
-								option American University
-								option Amherst College
-								option Antioch College
-								option University of Arizona
-								option Arizona State University
-								option University of Arkansas
-								option Assumption College
-								option College of the Atlantic
-								option Auburn University
-								option Austin College
-								option Babson College
-								option Ball State University
-								option Bard College
-								option Baruch College, City University of New York
-								option Baylor University
-								option Belmont University
-								option Beloit College
-								option Bennington College
-								option Bentley University
-								option Birmingham Southern College
-								option Berea College
-								option Boston College
-								option Boston University
-								option Bowling Green State University
-								option Bradley University
-								option Brandeis University
-								option Brigham Young University
-								option University of British Columbia
-								option Brooklyn College
-								option Brown University
-								option Bucknell University
-								option Butler University
-								option University of California - Berkeley
-								option University of California - Davis
-								option University of California - Irvine
-								option University of California - Los Angeles
-								option University of California - Merced
-								option University of California - Riverside
-								option University of California - San Diego
-								option University of California - Santa Barbara
-								option University of California - Santa Cruz
-								option California Institute of Technology
-								option California Lutheran University
-								option Cal Poly Pomona
-								option Cal Poly San Luis Obispo
-								option California State University - GENERAL
-								option California State University - Fresno
-								option California State University - Fullerton
-								option California State University - Long Beach
-								option California State University - Los Angeles
-								option California State University - Monterey Bay
-								option California State University - Northridge
-								option Carleton College
-								option Carnegie Mellon University
-								option Carroll College
-								option Case Western Reserve University
-								option Catholic University of America
-								option Central Connecticut State University
-								option University of Central Florida
-								option Centre College
-								option Champlain College
-								option Chapman University
-								option University of Chicago
-								option Christopher Newport University
-								option University of Cincinnati
-								option City College of New York
-								option Claremont McKenna College
-								option Clark University
-								option Clarkson University
-								option Clemson University
-								option Coe College
-								option Colby College
-								option Colgate University
-								option College of Charleston
-								option University of Colorado - Boulder
-								option Colorado College
-								option Colorado School of Mines
-								option Colorado State University
-								option Columbia College Chicago
-								option University of Connecticut
-								option Connecticut College
-								option Cooper Union
-								option Cornell College
-								option Columbia University
-								option Cornell University
-								option Creighton University
-								option CUNY System
-								option Dartmouth College
-								option University of Dayton
-								option Deep Springs College
-								option DePaul University
-								option DePauw University
-								option Denison University
-								option University of Delaware
-								option University of Denver
-								option Dickinson College
-								option Dominican University of California
-								option Drew University
-								option Drexel University
-								option Duke University
-								option Duquesne University
-								option Earlham College
-								option East Carolina University
-								option Eckerd College
-								option Elizabethtown College
-								option Elon University
-								option Embry-Riddle - Daytona Beach
-								option Embry-Riddle - Prescott
-								option Emerson College
-								option Emory University
-								option Fairfield University
-								option Fairleigh Dickinson University
-								option Fashion Institute of Technology
-								option Fisk University
-								option Flagler College
-								option Florida Atlantic University
-								option Florida A&M University
-								option Florida Institute of Technology
-								option Florida International University
-								option Florida State University
-								option Fordham University
-								option Franklin & Marshall College
-								option Furman University
-								option University of Florida
-								option George Mason University
-								option George Washington University
-								option Georgetown University
-								option Georgia Institute of Technology
-								option Georgia State University
-								option Georgia Tech
-								option Gettysburg College
-								option Goddard College
-								option Golden Gate University
-								option Gonzaga University
-								option Goucher College
-								option Grinnell College
-								option Grove City College
-								option Gustavus Adolphus College
-								option University of Georgia
-								option Hamilton College
-								option Hampden-Sydney College
-								option Hampshire College
-								option Hampton University
-								option Hanover College
-								option University of Hartford
-								option Hartwick College
-								option Harvard University
-								option Harvey Mudd College
-								option Haverford College
-								option Hendrix College
-								option High Point University
-								option Hillsdale College
-								option Hiram College
-								option Hobart and William Smith Colleges
-								option Hofstra University
-								option Hollins University
-								option College of the Holy Cross
-								option Hope College
-								option Howard University
-								option Humboldt State University
-								option Illinois Institute of Technology
-								option Illinois Wesleyan University
-								option Indiana University - Bloomington
-								option Indiana University - South Bend
-								option Indiana University of Pennsylvania
-								option Indiana University-Purdue University Indianapolis
-								option Ithaca College
-								option University of Illinois - Chicago
-								option University of Illinois - Urbana-Champaign
-								option University of Iowa
-								option Iowa State University
-								option James Madison University
-								option Johns Hopkins University
-								option Juniata College
-								option The Juilliard School
-								option Kalamazoo College
-								option Kansas State University
-								option Kent State University
-								option Kenyon College
-								option Knox College
-								option University of Kansas
-								option University of Kentucky
-								option Lafayette College
-								option Lake Forest College
-								option LaSalle University
-								option Lawrence University
-								option Lehigh University
-								option Lewis & Clark College
-								option Linfield College
-								option Louisiana State University
-								option Loyola Marymount University
-								option Loyola University Maryland
-								option Loyola University - New Orleans
-								option Loyola University of Chicago
-								option Lynchburg College
-								option Macalester College
-								option Manhattan College
-								option Manhattanville College
-								option Marietta College
-								option Marist College
-								option Marlboro College
-								option Marquette University
-								option Massachusetts Institute of Technology
-								option Marymount Manhattan College
-								option McGill University
-								option Mercer University
-								option Merrimack College
-								option Miami University - Ohio
-								option Michigan State University
-								option Michigan Technological University
-								option Middlebury College
-								option Mills College
-								option Millsaps College
-								option Mississippi State University
-								option Monmouth University
-								option Montclair State University
-								option Moravian College
-								option Morehouse College
-								option Mount Holyoke College
-								option Muhlenberg College
-								option University of Maine
-								option University of Mary Washington
-								option University of Maryland - Baltimore County
-								option University of Maryland - College Park
-								option University of Massachusetts - Amherst
-								option University of Massachusetts - Boston
-								option University of Miami - Florida
-								option University of Michigan - Ann Arbor
-								option University of Minnesota - Twin Cities
-								option University of Mississippi
-								option University of Missouri - Columbia
-								option University of Missouri - Kansas City
-								option Missouri University of Science and Technology
-								option University of Montana - Missoula
-								option New College of Florida
-								option New England College
-								option New Jersey Institute of Technology
-								option New Mexico Institute of Mining & Technology
-								option New York University
-								option University of North Carolina - Chapel Hill
-								option North Carolina School of the Arts
-								option North Carolina State University
-								option Northeastern University
-								option Northern Arizona University
-								option Northwestern University
-								option The College of New Jersey
-								option University of Nebraska - Lincoln
-								option University of Nevada - Las Vegas
-								option University of New Hampshire
-								option University of New Haven
-								option University of New Mexico
-								option University of New Orleans
-								option University of North Carolina - Asheville
-								option University of North Carolina - Charlotte
-								option University of North Carolina - Greensboro
-								option University of North Carolina - Wilmington
-								option University of North Dakota
-								option University of Notre Dame
-								option University of North Florida
-								option Oberlin College
-								option Occidental College
-								option Oglethorpe University
-								option Ohio Northern University
-								option Ohio State University - Columbus
-								option Ohio University - Athens
-								option Ohio Wesleyan University
-								option Old Dominion University
-								option Olin College
-								option Oregon State University
-								option University of Oklahoma
-								option University of Oregon
-								option Pace University
-								option Parsons School of Design
-								option Penn State - University Park
-								option Pepperdine University
-								option Philadelphia University
-								option Pitzer College
-								option Pomona College
-								option Pratt Institute
-								option Princeton University
-								option Providence College
-								option Purdue University - West Lafayette
-								option University of Pennsylvania
-								option University of Pittsburgh
-								option University of Puget Sound
-								option University of the Pacific
-								option Queens University - Kingston, Ontario
-								option Quinnipiac University
-								option Randolph College
-								option Randolph-Macon College
-								option Reed College
-								option Regis University
-								option Rensselaer Polytechnic Institute
-								option Rhode Island school of Design
-								option Rhodes College - Memphis
-								option Rice University
-								option Rider University
-								option Ripon College
-								option Rochester Institute of Technology
-								option Rollins College
-								option Rose-Hulman Institute of Technology
-								option Rowan University
-								option Rutgers
-								option University of Redlands
-								option University of Rhode Island
-								option University of Richmond
-								option University of Rochester
-								option Sacred Heart University
-								option Saint Anselm College
-								option St. Bonaventure University
-								option St. John's College (Maryland)
-								option St. John's College (New Mexico)
-								option St. John's University
-								option Saint John's University - College of Saint Benedict
-								option Saint Joseph's University
-								option St. Lawrence University
-								option Saint Louis University
-								option Saint Mary's College - Notre Dame
-								option Saint Mary's College of California
-								option St. Mary's College of Maryland
-								option Saint Michael's College
-								option Saint Olaf College
-								option Salisbury University
-								option Salve Regina University
-								option Samford University
-								option San Diego State University
-								option San Francisco State University
-								option Santa Clara University
-								option Sarah Lawrence College
-								option Savannah College of Art and Design
-								option School of Visual Arts
-								option Scripps College
-								option Seattle University
-								option Seton Hall University
-								option Sewanee: The University of the South
-								option Shimer College
-								option Siena College
-								option Simmons College
-								option Simon's Rock College of Bard
-								option Skidmore College
-								option Smith College
-								option Soka University of America
-								option Sonoma State University
-								option Southern Methodist University
-								option Southwestern University
-								option Spelman College
-								option Stanford University
-								option Stephens College
-								option Stetson University
-								option Stevens Institute of Technology
-								option Stevenson University
-								option Stonehill College
-								option SUNY - General
-								option SUNY at Albany
-								option SUNY at Binghamton
-								option SUNY at Buffalo
-								option SUNY at Stony Brook
-								option SUNY College at Geneseo
-								option SUNY College at Purchase
-								option Susquehanna University
-								option Swarthmore College
-								option Sweet Briar College
-								option Syracuse University
-								option University of San Diego
-								option University of San Francisco
-								option University of Scranton
-								option University of South Carolina - Columbia
-								option University of South Florida
-								option University of Southern California
-								option Tallahassee Community College
-								option Texas Christian University
-								option Temple University
-								option Texas A&M University
-								option Texas Tech University
-								option The University of Texas at Austin
-								option The University of Texas at Dallas
-								option Thomas Aquinas College - California
-								option Towson University
-								option Trinity College - Connecticut
-								option Trinity University
-								option Truman State University
-								option Tufts University
-								option Tulane University
-								option Tuskegee University
-								option University of Tampa
-								option University of Tennessee - Knoxville
-								option University of Toronto
-								option University of Tulsa
-								option Union College - New York
-								option United States Air Force Academy
-								option United States Coast Guard Academy
-								option United States Merchant Marine Academy
-								option United States Military Academy
-								option United States Naval Academy
-								option University of the Sciences in Philadelphia
-								option Ursinus College
-								option Ursuline College
-								option University of Vermont
-								option University of Virginia
-								option Valparaiso University
-								option Vanderbilt University
-								option Vassar College
-								option Villanova University
-								option Virginia Commonwealth University
-								option Virginia Tech
-								option Virginia Wesleyan College
-								option College of William and Mary
-								option College of Wooster
-								option University of Washington
-								option University of Wisconsin - Madison
-								option University of Wyoming
-								option Wabash College
-								option Wagner College
-								option Wake Forest University
-								option Warren Wilson College
-								option Washington and Lee University
-								option Washington College
-								option Washington State University
-								option Washington University in St. Louis
-								option University of Waterloo
-								option Webb Institute
-								option Wellesley College
-								option Wells College
-								option Wesleyan College
-								option Wesleyan University
-								option West Virginia University
-								option Western Michigan University
-								option Western Washington University
-								option Westminster College - Pennsylvania
-								option Wheaton College - Illinois
-								option Wheaton College - Massachusetts
-								option Whitman College
-								option Whittier College
-								option Willamette University
-								option William Jewell College
-								option Williams College
-								option Wittenberg University
-								option Wofford College
-								option Worcester Polytechnic Institute
-								option Wright State University
-								option Xavier University
-								option Yale University
-								option Yeshiva University
-					li
-						.form-col-left
-							label(for='year') Current Year *
-						.form-col-right
-							select#year(name='year' value='year' data-validation='required')
-								option(selected='true' disabled='true') Pick a year
-								option(value='Freshman') Freshman
-								option(value='Sophomore') Sophomore
-								option(value='Junior') Junior
-								option(value='Senior') Senior
-								option(value='Graduate Student') Graduate Student
-								option(value='High School Student') High School Student
-					li
-						.form-col-left
-							label(for='shirtSize') Shirt Size *
-						.form-col-right
-							select#shirtSize(name='shirtSize' value='shirtSize' data-validation='required')
-								option(selected='true' disabled='true') Pick a size
-								option(value='Mens Small') Men's Small
-								option(value='Mens Medium') Men's Medium
-								option(value='Mens Large') Men's Large
-								option(value='Mens Extra Large') Men's Extra Large
-								option(value='Womens Small') Women's Small
-								option(value='Womens Medium') Women's Medium
-								option(value='Womens Large') Women's Large
-								option(value='Womens Extra Large') Women's Extra Large
-					li
-						.form-col-left
-							label(for='major') Major *
-						.form-col-right
-							input#major(type='text' name='major' placeholder="What books you readin'" data-validation='required' list='majors-list')
-							datalist#majors-list
-								option Agriculture
-								option Ethnic Studies
-								option Agricultural Sciences
-								option Animal Sciences
-								option Plant &amp; Soil Sciences
-								option Agricultural Business &amp; Management
-								option Range Management
-								option Agricultural Mechanization
-								option Horticulture
-								option Veterinary Sciences
-								option African Studies
-								option American Studies
-								option Asian &amp; Pacific Area Studies
-								option European Studies
-								option Latin American Studies
-								option Middle Eastern Studies
-								option Afro-American (Black) Studies
-								option Native American Studies
-								option Hispanic-American Studies
-								option Islamic Studies
-								option Judaism &amp; Jewish Studies
-								option Biology
-								option Biochemistry
-								option Biophysics
-								option Botany
-								option Molecular Biology
-								option Microbiology/Bacteriology
-								option Zoology
-								option Marine Biology
-								option Physical Sciences
-								option Astronomy
-								option Astrophysics
-								option Atmospheric Sciences
-								option Meteorology
-								option Chemistry
-								option Geological Sciences
-								option Physics
-								option Earth &amp; Space Sciences
-								option Computer Science
-								option Mathematics
-								option Information Sciences
-								option Computer Programming
-								option Data Processing
-								option Information Mgmt. Sciences
-								option Computer Mathematics
-								option Library Science
-								option Museums &amp; Preservation
-								option Photography
-								option Dramatic Arts
-								option Fashion Design
-								option Film Arts
-								option Fine Arts
-								option Music
-								option Mathematics
-								option Actuarial Sciences
-								option Applied Mathematics
-								option Statistics
-								option Bilingual/Crosscultural Education
-								option Special Education
-								option Counseling Adult &amp; Continuing Education
-								option Elementary Education
-								option Pre-School Education
-								option Junior Education
-								option Senior High Education
-								option Art, Music, &amp; Drama Education
-								option Home Economics Education
-								option Physical/Health/Fitness Education
-								option Science Education
-								option Vocational/Industrial Education
-								option Business Education
-								option Foreign Language Teacher Education
-								option Liberal Arts Education
-								option Social Science Education
-								option Mathematics Education
-								option Computer Science Education
-								option Religious Education
-								option Aerospace Engineering
-								option Agricultural Engineering
-								option Architectural Engineering
-								option Bioengineering
-								option Biomedical Engineering
-								option Ceramic Engineering
-								option Chemical Engineering
-								option Civil Engineering
-								option Communications Engineering
-								option Computer Engineering
-								option Electrical Engineering
-								option Electronics Engineering
-								option Geological Engineering
-								option Geophysical Engineering
-								option Industrial Engineering
-								option Design Materials Engineering
-								option Mechanical Engineering
-								option Metallurgical Engineering
-								option Mining &amp; Mineral Engineering
-								option Marine Engineering
-								option Naval Architecture
-								option Nuclear Engineering
-								option Petroleum Engineering
-								option Surveying &amp; Mapping Sciences
-								option Systems Analysis &amp; Engineering
-								option Drafting
-								option Automotive Engineering &amp; Technology
-								option Electrical Technology
-								option Electromechanical Technology
-								option Environmental/Energy Control Technology
-								option Engineering Mechanics
-								option Occupational Safety &amp; Health Technology
-								option Construction &amp; Building Technology
-								option Aviation &amp; Air Transportation
-								option Transportation/Logistics
-								option English
-								option Literature
-								option General &amp; Interdisciplinary Studies
-								option Military Science
-								option English Language
-								option Classics &amp; Classical Studies
-								option Comparative Literature
-								option Creative Writing
-								option Linguistics
-								option American Literature
-								option English Literature
-								option Speech &amp; Rhetorical Studies
-								option Technical and Business Writing
-								option Humanities
-								option Conflict Resolution/Peace Studies
-								option Women's Studies
-								option Liberal/General Studies
-								option Multi/Interdisciplinary Studies
-								option Criminal Justice &amp; Law Enforcement
-								option Fire Protection &amp; Security
-								option Foreign Languages
-								option Parks &amp; Recreation
-								option Philosophy
-								option Religion
-								option Theology
-								option Chinese
-								option Japanese
-								option German
-								option French
-								option Italian
-								option Spanish
-								option Portuguese
-								option Latin
-								option Greek
-								option Hebrew
-								option Russian
-								option Slavic (other than Russian)
-								option Parks Administration
-								option Sports, Recreation, &amp; Leisure Studies
-								option Equestrian Studies
-								option Conservation Management &amp; Protection
-								option Forestry Production &amp; Processing
-								option Forestry Wildlife &amp; Fish Management
-								option Ecology Sciences
-								option Environmental Sciences
-								option Environmental Studies
-								option Bible Studies
-								option Religious Education
-								option Religious Music
-								option Public Affairs &amp; Law
-								option Social Work
-								option Pre-Law
-								option Social Sciences
-								option Anthropology
-								option Archaeology
-								option Criminology
-								option Economics
-								option Geography
-								option History
-								option International Affairs/Relations
-								option Political Science
-								option Psychology
-								option Sociology
-								option Urban Studies
-								option Sports Medicine
-								option Pre-Dental
-					li
-						.form-col-left
-							label(for='firstHackathon') Will this be your first hackathon? *
-						.form-col-right
-								input#hackYes(type='radio' name='firstHackathon' value='Yes' data-validation='required')
-								label(for='hackYes') Yes
-								input#hackNo(type='radio' name='firstHackathon' value='No')
-								label(for='hackNo') No
-					li
-						.form-col-left
-							label(for='github') GitHub Link
-						.form-col-right
-							input#github(type='text' name='github' placeholder='Bet you have some mad PRs')
-					li
-						.form-col-left
-							label(for='resume') Resume
-						.form-col-right
-							input#resume(type='file' name='resume')
-					li
-						.form-col-left
-							label(for='phone') Phone Number
-						.form-col-right.half
-							input#phone(type='text' name='phone' placeholder='Phone #')
-					li
-						.form-col-left
-							label(for='hate') What is one thing you hate about hackathons?
-						.form-col-right
-							textarea#hate(rows='4' name='hate')
-					li
-						.form-col-left
-							label(for='diet') Dietary restrictions?
-						.form-col-right
-							input#diet(type='text' name='diet' placeholder='Vegan, vegetarian, etc.')
-					li
-						.form-col-left
-							label(for='comments') Comments?
-						.form-col-right
-							input#comments(type='text' name='comments' placeholder="We're all ears!")
-					li
-						.form-col-left
-							label(for='wants') What do you want to learn or hack on for the weekend?
-						.form-col-right
-							input#ios(type='checkbox' value='iOS' name='wants')
-							label(for='ios') iOS
-							br
-							input#android(type='checkbox' value='Android' name='wants')
-							label(for='android') Android
-							br
-							input#web(type='checkbox' value='Web' name='wants')
-							label(for='web') Web
-							br
-							input#front(type='checkbox' value='Front End' name='wants')
-							label(for='front') Front End
-							br
-							input#back(type='checkbox' value='Back End' name='wants')
-							label(for='back') Back End
-							br
-							input#shelf(type='checkbox' value='off the shelf hardware' name='wants')
-							label(for='shelf') 'Off The Shelf' Hardware: Myo, Oculus Rift, Leap Motion, etc.
-							br
-							input#micro(type='checkbox' value='microcontroller' name='wants')
-							label(for='micro') Microcontrollers: Arduino, Raspberry Pi, etc.
-							br
-							input#sleep(type='checkbox' disabled='true')
-							label(for='sleep') Sleep
-					li
-						.form-col-left
-							label(for="mlhcoc") Code of Conduct *
-						.form-col-right
-							input#mlh(type='checkbox' value='MLH accepted' data-validation='required' name='mlhcoc')
-							label(for='mlh') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
-					li
-						.form-col-left
-							label(for='yesno18') Are you 18 or not? *
-						.form-col-right
-							input#yes18(type='radio' value='yes' data-validation='required' name='yesno18') 
-							label(for='yes18') I'm 18 or over
-							input#no18(type='radio' value='yes' data-validation='required' name='yesno18') 
-							label(for='no18') I'm under 18
-					li
-						.form-col-right
-							button#submit.btn.btn-form(type='submit') SUBMIT
+					.one_fourth.last
+						
+					.one_fourth
+						label(for='school') School *
+					.one_half
+						input#school(type='text' name='school' placeholder='Florida State University' list='school-list' data-validation='required')
+						datalist#school-list
+							option Adelphi University
+							option Agnes Scott College
+							option University of Alabama
+							option University of Alabama Birmingham
+							option University of Alabama Huntsville
+							option Albion College
+							option Albright College
+							option Alfred University
+							option Allegheny College
+							option American International College
+							option American University
+							option Amherst College
+							option Antioch College
+							option University of Arizona
+							option Arizona State University
+							option University of Arkansas
+							option Assumption College
+							option College of the Atlantic
+							option Auburn University
+							option Austin College
+							option Babson College
+							option Ball State University
+							option Bard College
+							option Baruch College, City University of New York
+							option Baylor University
+							option Belmont University
+							option Beloit College
+							option Bennington College
+							option Bentley University
+							option Birmingham Southern College
+							option Berea College
+							option Boston College
+							option Boston University
+							option Bowling Green State University
+							option Bradley University
+							option Brandeis University
+							option Brigham Young University
+							option University of British Columbia
+							option Brooklyn College
+							option Brown University
+							option Bucknell University
+							option Butler University
+							option University of California - Berkeley
+							option University of California - Davis
+							option University of California - Irvine
+							option University of California - Los Angeles
+							option University of California - Merced
+							option University of California - Riverside
+							option University of California - San Diego
+							option University of California - Santa Barbara
+							option University of California - Santa Cruz
+							option California Institute of Technology
+							option California Lutheran University
+							option Cal Poly Pomona
+							option Cal Poly San Luis Obispo
+							option California State University - GENERAL
+							option California State University - Fresno
+							option California State University - Fullerton
+							option California State University - Long Beach
+							option California State University - Los Angeles
+							option California State University - Monterey Bay
+							option California State University - Northridge
+							option Carleton College
+							option Carnegie Mellon University
+							option Carroll College
+							option Case Western Reserve University
+							option Catholic University of America
+							option Central Connecticut State University
+							option University of Central Florida
+							option Centre College
+							option Champlain College
+							option Chapman University
+							option University of Chicago
+							option Christopher Newport University
+							option University of Cincinnati
+							option City College of New York
+							option Claremont McKenna College
+							option Clark University
+							option Clarkson University
+							option Clemson University
+							option Coe College
+							option Colby College
+							option Colgate University
+							option College of Charleston
+							option University of Colorado - Boulder
+							option Colorado College
+							option Colorado School of Mines
+							option Colorado State University
+							option Columbia College Chicago
+							option University of Connecticut
+							option Connecticut College
+							option Cooper Union
+							option Cornell College
+							option Columbia University
+							option Cornell University
+							option Creighton University
+							option CUNY System
+							option Dartmouth College
+							option University of Dayton
+							option Deep Springs College
+							option DePaul University
+							option DePauw University
+							option Denison University
+							option University of Delaware
+							option University of Denver
+							option Dickinson College
+							option Dominican University of California
+							option Drew University
+							option Drexel University
+							option Duke University
+							option Duquesne University
+							option Earlham College
+							option East Carolina University
+							option Eckerd College
+							option Elizabethtown College
+							option Elon University
+							option Embry-Riddle - Daytona Beach
+							option Embry-Riddle - Prescott
+							option Emerson College
+							option Emory University
+							option Fairfield University
+							option Fairleigh Dickinson University
+							option Fashion Institute of Technology
+							option Fisk University
+							option Flagler College
+							option Florida Atlantic University
+							option Florida A&M University
+							option Florida Institute of Technology
+							option Florida International University
+							option Florida State University
+							option Fordham University
+							option Franklin & Marshall College
+							option Furman University
+							option University of Florida
+							option George Mason University
+							option George Washington University
+							option Georgetown University
+							option Georgia Institute of Technology
+							option Georgia State University
+							option Georgia Tech
+							option Gettysburg College
+							option Goddard College
+							option Golden Gate University
+							option Gonzaga University
+							option Goucher College
+							option Grinnell College
+							option Grove City College
+							option Gustavus Adolphus College
+							option University of Georgia
+							option Hamilton College
+							option Hampden-Sydney College
+							option Hampshire College
+							option Hampton University
+							option Hanover College
+							option University of Hartford
+							option Hartwick College
+							option Harvard University
+							option Harvey Mudd College
+							option Haverford College
+							option Hendrix College
+							option High Point University
+							option Hillsdale College
+							option Hiram College
+							option Hobart and William Smith Colleges
+							option Hofstra University
+							option Hollins University
+							option College of the Holy Cross
+							option Hope College
+							option Howard University
+							option Humboldt State University
+							option Illinois Institute of Technology
+							option Illinois Wesleyan University
+							option Indiana University - Bloomington
+							option Indiana University - South Bend
+							option Indiana University of Pennsylvania
+							option Indiana University-Purdue University Indianapolis
+							option Ithaca College
+							option University of Illinois - Chicago
+							option University of Illinois - Urbana-Champaign
+							option University of Iowa
+							option Iowa State University
+							option James Madison University
+							option Johns Hopkins University
+							option Juniata College
+							option The Juilliard School
+							option Kalamazoo College
+							option Kansas State University
+							option Kent State University
+							option Kenyon College
+							option Knox College
+							option University of Kansas
+							option University of Kentucky
+							option Lafayette College
+							option Lake Forest College
+							option LaSalle University
+							option Lawrence University
+							option Lehigh University
+							option Lewis & Clark College
+							option Linfield College
+							option Louisiana State University
+							option Loyola Marymount University
+							option Loyola University Maryland
+							option Loyola University - New Orleans
+							option Loyola University of Chicago
+							option Lynchburg College
+							option Macalester College
+							option Manhattan College
+							option Manhattanville College
+							option Marietta College
+							option Marist College
+							option Marlboro College
+							option Marquette University
+							option Massachusetts Institute of Technology
+							option Marymount Manhattan College
+							option McGill University
+							option Mercer University
+							option Merrimack College
+							option Miami University - Ohio
+							option Michigan State University
+							option Michigan Technological University
+							option Middlebury College
+							option Mills College
+							option Millsaps College
+							option Mississippi State University
+							option Monmouth University
+							option Montclair State University
+							option Moravian College
+							option Morehouse College
+							option Mount Holyoke College
+							option Muhlenberg College
+							option University of Maine
+							option University of Mary Washington
+							option University of Maryland - Baltimore County
+							option University of Maryland - College Park
+							option University of Massachusetts - Amherst
+							option University of Massachusetts - Boston
+							option University of Miami - Florida
+							option University of Michigan - Ann Arbor
+							option University of Minnesota - Twin Cities
+							option University of Mississippi
+							option University of Missouri - Columbia
+							option University of Missouri - Kansas City
+							option Missouri University of Science and Technology
+							option University of Montana - Missoula
+							option New College of Florida
+							option New England College
+							option New Jersey Institute of Technology
+							option New Mexico Institute of Mining & Technology
+							option New York University
+							option University of North Carolina - Chapel Hill
+							option North Carolina School of the Arts
+							option North Carolina State University
+							option Northeastern University
+							option Northern Arizona University
+							option Northwestern University
+							option The College of New Jersey
+							option University of Nebraska - Lincoln
+							option University of Nevada - Las Vegas
+							option University of New Hampshire
+							option University of New Haven
+							option University of New Mexico
+							option University of New Orleans
+							option University of North Carolina - Asheville
+							option University of North Carolina - Charlotte
+							option University of North Carolina - Greensboro
+							option University of North Carolina - Wilmington
+							option University of North Dakota
+							option University of Notre Dame
+							option University of North Florida
+							option Oberlin College
+							option Occidental College
+							option Oglethorpe University
+							option Ohio Northern University
+							option Ohio State University - Columbus
+							option Ohio University - Athens
+							option Ohio Wesleyan University
+							option Old Dominion University
+							option Olin College
+							option Oregon State University
+							option University of Oklahoma
+							option University of Oregon
+							option Pace University
+							option Parsons School of Design
+							option Penn State - University Park
+							option Pepperdine University
+							option Philadelphia University
+							option Pitzer College
+							option Pomona College
+							option Pratt Institute
+							option Princeton University
+							option Providence College
+							option Purdue University - West Lafayette
+							option University of Pennsylvania
+							option University of Pittsburgh
+							option University of Puget Sound
+							option University of the Pacific
+							option Queens University - Kingston, Ontario
+							option Quinnipiac University
+							option Randolph College
+							option Randolph-Macon College
+							option Reed College
+							option Regis University
+							option Rensselaer Polytechnic Institute
+							option Rhode Island school of Design
+							option Rhodes College - Memphis
+							option Rice University
+							option Rider University
+							option Ripon College
+							option Rochester Institute of Technology
+							option Rollins College
+							option Rose-Hulman Institute of Technology
+							option Rowan University
+							option Rutgers
+							option University of Redlands
+							option University of Rhode Island
+							option University of Richmond
+							option University of Rochester
+							option Sacred Heart University
+							option Saint Anselm College
+							option St. Bonaventure University
+							option St. John's College (Maryland)
+							option St. John's College (New Mexico)
+							option St. John's University
+							option Saint John's University - College of Saint Benedict
+							option Saint Joseph's University
+							option St. Lawrence University
+							option Saint Louis University
+							option Saint Mary's College - Notre Dame
+							option Saint Mary's College of California
+							option St. Mary's College of Maryland
+							option Saint Michael's College
+							option Saint Olaf College
+							option Salisbury University
+							option Salve Regina University
+							option Samford University
+							option San Diego State University
+							option San Francisco State University
+							option Santa Clara University
+							option Sarah Lawrence College
+							option Savannah College of Art and Design
+							option School of Visual Arts
+							option Scripps College
+							option Seattle University
+							option Seton Hall University
+							option Sewanee: The University of the South
+							option Shimer College
+							option Siena College
+							option Simmons College
+							option Simon's Rock College of Bard
+							option Skidmore College
+							option Smith College
+							option Soka University of America
+							option Sonoma State University
+							option Southern Methodist University
+							option Southwestern University
+							option Spelman College
+							option Stanford University
+							option Stephens College
+							option Stetson University
+							option Stevens Institute of Technology
+							option Stevenson University
+							option Stonehill College
+							option SUNY - General
+							option SUNY at Albany
+							option SUNY at Binghamton
+							option SUNY at Buffalo
+							option SUNY at Stony Brook
+							option SUNY College at Geneseo
+							option SUNY College at Purchase
+							option Susquehanna University
+							option Swarthmore College
+							option Sweet Briar College
+							option Syracuse University
+							option University of San Diego
+							option University of San Francisco
+							option University of Scranton
+							option University of South Carolina - Columbia
+							option University of South Florida
+							option University of Southern California
+							option Tallahassee Community College
+							option Texas Christian University
+							option Temple University
+							option Texas A&M University
+							option Texas Tech University
+							option The University of Texas at Austin
+							option The University of Texas at Dallas
+							option Thomas Aquinas College - California
+							option Towson University
+							option Trinity College - Connecticut
+							option Trinity University
+							option Truman State University
+							option Tufts University
+							option Tulane University
+							option Tuskegee University
+							option University of Tampa
+							option University of Tennessee - Knoxville
+							option University of Toronto
+							option University of Tulsa
+							option Union College - New York
+							option United States Air Force Academy
+							option United States Coast Guard Academy
+							option United States Merchant Marine Academy
+							option United States Military Academy
+							option United States Naval Academy
+							option University of the Sciences in Philadelphia
+							option Ursinus College
+							option Ursuline College
+							option University of Vermont
+							option University of Virginia
+							option Valparaiso University
+							option Vanderbilt University
+							option Vassar College
+							option Villanova University
+							option Virginia Commonwealth University
+							option Virginia Tech
+							option Virginia Wesleyan College
+							option College of William and Mary
+							option College of Wooster
+							option University of Washington
+							option University of Wisconsin - Madison
+							option University of Wyoming
+							option Wabash College
+							option Wagner College
+							option Wake Forest University
+							option Warren Wilson College
+							option Washington and Lee University
+							option Washington College
+							option Washington State University
+							option Washington University in St. Louis
+							option University of Waterloo
+							option Webb Institute
+							option Wellesley College
+							option Wells College
+							option Wesleyan College
+							option Wesleyan University
+							option West Virginia University
+							option Western Michigan University
+							option Western Washington University
+							option Westminster College - Pennsylvania
+							option Wheaton College - Illinois
+							option Wheaton College - Massachusetts
+							option Whitman College
+							option Whittier College
+							option Willamette University
+							option William Jewell College
+							option Williams College
+							option Wittenberg University
+							option Wofford College
+							option Worcester Polytechnic Institute
+							option Wright State University
+							option Xavier University
+							option Yale University
+							option Yeshiva University
+					.one_fourth.last
+							
+					.one_fourth
+						label(for='year') Current Year *
+					.one_half
+						select#year(name='year' value='year' data-validation='required')
+							option(selected='true' disabled='true') Pick a year
+							option(value='Freshman') Freshman
+							option(value='Sophomore') Sophomore
+							option(value='Junior') Junior
+							option(value='Senior') Senior
+							option(value='Graduate Student') Graduate Student
+							option(value='High School Student') High School Student
+					.one_fourth.last
+
+					.one_fourth
+						label(for='shirtSize') Shirt Size *
+					.one_half
+						select#shirtSize(name='shirtSize' value='shirtSize' data-validation='required')
+							option(selected='true' disabled='true') Pick a size
+							option(value='Mens Small') Men's Small
+							option(value='Mens Medium') Men's Medium
+							option(value='Mens Large') Men's Large
+							option(value='Mens Extra Large') Men's Extra Large
+							option(value='Womens Small') Women's Small
+							option(value='Womens Medium') Women's Medium
+							option(value='Womens Large') Women's Large
+							option(value='Womens Extra Large') Women's Extra Large
+					.one_fourth.last
+						
+					.one_fourth
+						label(for='major') Major *
+					.one_half
+						input#major(type='text' name='major' placeholder="What books you readin'" data-validation='required' list='majors-list')
+						datalist#majors-list
+							option Agriculture
+							option Ethnic Studies
+							option Agricultural Sciences
+							option Animal Sciences
+							option Plant &amp; Soil Sciences
+							option Agricultural Business &amp; Management
+							option Range Management
+							option Agricultural Mechanization
+							option Horticulture
+							option Veterinary Sciences
+							option African Studies
+							option American Studies
+							option Asian &amp; Pacific Area Studies
+							option European Studies
+							option Latin American Studies
+							option Middle Eastern Studies
+							option Afro-American (Black) Studies
+							option Native American Studies
+							option Hispanic-American Studies
+							option Islamic Studies
+							option Judaism &amp; Jewish Studies
+							option Biology
+							option Biochemistry
+							option Biophysics
+							option Botany
+							option Molecular Biology
+							option Microbiology/Bacteriology
+							option Zoology
+							option Marine Biology
+							option Physical Sciences
+							option Astronomy
+							option Astrophysics
+							option Atmospheric Sciences
+							option Meteorology
+							option Chemistry
+							option Geological Sciences
+							option Physics
+							option Earth &amp; Space Sciences
+							option Computer Science
+							option Mathematics
+							option Information Sciences
+							option Computer Programming
+							option Data Processing
+							option Information Mgmt. Sciences
+							option Computer Mathematics
+							option Library Science
+							option Museums &amp; Preservation
+							option Photography
+							option Dramatic Arts
+							option Fashion Design
+							option Film Arts
+							option Fine Arts
+							option Music
+							option Mathematics
+							option Actuarial Sciences
+							option Applied Mathematics
+							option Statistics
+							option Bilingual/Crosscultural Education
+							option Special Education
+							option Counseling Adult &amp; Continuing Education
+							option Elementary Education
+							option Pre-School Education
+							option Junior Education
+							option Senior High Education
+							option Art, Music, &amp; Drama Education
+							option Home Economics Education
+							option Physical/Health/Fitness Education
+							option Science Education
+							option Vocational/Industrial Education
+							option Business Education
+							option Foreign Language Teacher Education
+							option Liberal Arts Education
+							option Social Science Education
+							option Mathematics Education
+							option Computer Science Education
+							option Religious Education
+							option Aerospace Engineering
+							option Agricultural Engineering
+							option Architectural Engineering
+							option Bioengineering
+							option Biomedical Engineering
+							option Ceramic Engineering
+							option Chemical Engineering
+							option Civil Engineering
+							option Communications Engineering
+							option Computer Engineering
+							option Electrical Engineering
+							option Electronics Engineering
+							option Geological Engineering
+							option Geophysical Engineering
+							option Industrial Engineering
+							option Design Materials Engineering
+							option Mechanical Engineering
+							option Metallurgical Engineering
+							option Mining &amp; Mineral Engineering
+							option Marine Engineering
+							option Naval Architecture
+							option Nuclear Engineering
+							option Petroleum Engineering
+							option Surveying &amp; Mapping Sciences
+							option Systems Analysis &amp; Engineering
+							option Drafting
+							option Automotive Engineering &amp; Technology
+							option Electrical Technology
+							option Electromechanical Technology
+							option Environmental/Energy Control Technology
+							option Engineering Mechanics
+							option Occupational Safety &amp; Health Technology
+							option Construction &amp; Building Technology
+							option Aviation &amp; Air Transportation
+							option Transportation/Logistics
+							option English
+							option Literature
+							option General &amp; Interdisciplinary Studies
+							option Military Science
+							option English Language
+							option Classics &amp; Classical Studies
+							option Comparative Literature
+							option Creative Writing
+							option Linguistics
+							option American Literature
+							option English Literature
+							option Speech &amp; Rhetorical Studies
+							option Technical and Business Writing
+							option Humanities
+							option Conflict Resolution/Peace Studies
+							option Women's Studies
+							option Liberal/General Studies
+							option Multi/Interdisciplinary Studies
+							option Criminal Justice &amp; Law Enforcement
+							option Fire Protection &amp; Security
+							option Foreign Languages
+							option Parks &amp; Recreation
+							option Philosophy
+							option Religion
+							option Theology
+							option Chinese
+							option Japanese
+							option German
+							option French
+							option Italian
+							option Spanish
+							option Portuguese
+							option Latin
+							option Greek
+							option Hebrew
+							option Russian
+							option Slavic (other than Russian)
+							option Parks Administration
+							option Sports, Recreation, &amp; Leisure Studies
+							option Equestrian Studies
+							option Conservation Management &amp; Protection
+							option Forestry Production &amp; Processing
+							option Forestry Wildlife &amp; Fish Management
+							option Ecology Sciences
+							option Environmental Sciences
+							option Environmental Studies
+							option Bible Studies
+							option Religious Education
+							option Religious Music
+							option Public Affairs &amp; Law
+							option Social Work
+							option Pre-Law
+							option Social Sciences
+							option Anthropology
+							option Archaeology
+							option Criminology
+							option Economics
+							option Geography
+							option History
+							option International Affairs/Relations
+							option Political Science
+							option Psychology
+							option Sociology
+							option Urban Studies
+							option Sports Medicine
+							option Pre-Dental
+					.one_fourth.last
+						
+					.one_fourth
+						label(for='firstHackathon') Will this be your first hackathon? *
+					.one_half
+						input#hackYes(type='radio' name='firstHackathon' value='Yes' data-validation='required')
+						label(for='hackYes') Yes
+						input#hackNo(type='radio' name='firstHackathon' value='No')
+						label(for='hackNo') No
+					.one_fourth.last
+					.one
+
+					.one_fourth
+						label(for='github') GitHub Link
+					.one_half
+						input#github(type='text' name='github' placeholder='Bet you have some mad PRs')
+					.one_fourth.last
+						
+					.one_fourth
+						label(for='resume') Resume
+					.one_half
+						input#resume(type='file' name='resume')
+					.one_fourth.last
+						
+					.one_fourth
+						label(for='phone') Phone Number
+					.one_half
+						input#phone(type='text' name='phone' placeholder='Phone #')
+					.one_fourth.last
+					
+					.one_fourth
+						label(for='hate') What is one thing you hate about hackathons?
+					.one_half
+						textarea#hate(rows='4' name='hate')
+					.one_fourth.last
+					
+					.one_fourth
+						label(for='diet') Dietary restrictions?
+					.one_half
+						input#diet(type='text' name='diet' placeholder='Vegan, vegetarian, etc.')
+					.one_fourth.last
+
+					.one_fourth
+						label(for='comments') Comments?
+					.one_half
+						input#comments(type='text' name='comments' placeholder="We're all ears!")
+					.one_fourth.last
+
+					.one_fourth
+						label(for='wants') What do you want to learn or hack on for the weekend?
+					.one_half
+						input#ios(type='checkbox' value='iOS' name='wants')
+						label(for='ios') iOS
+						br
+						input#android(type='checkbox' value='Android' name='wants')
+						label(for='android') Android
+						br
+						input#web(type='checkbox' value='Web' name='wants')
+						label(for='web') Web
+						br
+						input#front(type='checkbox' value='Front End' name='wants')
+						label(for='front') Front End
+						br
+						input#back(type='checkbox' value='Back End' name='wants')
+						label(for='back') Back End
+						br
+						input#shelf(type='checkbox' value='off the shelf hardware' name='wants')
+						label(for='shelf') 'Off The Shelf' Hardware: Myo, Oculus Rift, Leap Motion, etc.
+						br
+						input#micro(type='checkbox' value='microcontroller' name='wants')
+						label(for='micro') Microcontrollers: Arduino, Raspberry Pi, etc.
+						br
+						input#sleep(type='checkbox' disabled='true')
+						label(for='sleep') Sleep
+					.one_fourth.last
+					
+					.one_fourth
+						label(for="mlhcoc") Code of Conduct *
+					.one_half
+						input#mlh(type='checkbox' value='MLH accepted' data-validation='required' name='mlhcoc')
+						label(for='mlh') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
+					.one_fourth.last
+						
+					.one_fourth
+						label(for='yesno18') Are you 18 or not? *
+					.one_half
+						input#yes18(type='radio' value='yes' data-validation='required' name='yesno18') 
+						label(for='yes18') I'm 18 or over
+						input#no18(type='radio' value='yes' data-validation='required' name='yesno18') 
+						label(for='no18') I'm under 18
+					.one_fourth.last
+				
+					.one_half
+						button#submit.btn.btn-form(type='submit') SUBMIT

@@ -1,7 +1,3 @@
-/**
- * registration form
- */
-
 @font-face {
   font-family: 'Uni Sans';
   font-weight: 700;
@@ -12,6 +8,16 @@
   font-family: 'Uni Sans';
   font-weight: 100;
   src: url('/fonts/unisansfree/Uni Sans Thin.otf');
+}
+
+#application .one_fourth {
+	text-align: right;
+}
+
+@media screen and (max-width: 960px) {
+	#application .one_fourth {
+		text-align: left;
+	}
 }
 
 .services {
@@ -49,10 +55,25 @@
 
 #footer-logo {
 	max-height: 75px;
+	margin-right: 2em;
 }
 
-.big-social i.fa {
+.social {
+	margin-top: 0.5em;
+	font-size: 0.6em;
+}
+
+.social i.fa {
+	color: white;
+	padding-right: 1em;
 	font-size: 3em;
+}
+
+.social i.fa:hover {
+	color: #a8d3f1;
+}
+.social i.fa.last {
+	padding-right: 0;
 }
 
 .half input {
