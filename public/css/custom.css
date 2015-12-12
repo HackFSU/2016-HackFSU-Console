@@ -254,6 +254,19 @@ body {
 }
 
 
+.hackingDiv {
+  background-image: url('/img/dumpsterCulture.jpg');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  padding-bottom: 200px;
+}
+
+.hackingDiv p {
+  font-size: 24px;
+}
+
+
 .registerDiv {
   background-image: url('/img/registerSleep.jpg');
   background-size: cover;

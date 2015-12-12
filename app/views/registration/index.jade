@@ -11,18 +11,18 @@ block content
 			#error-messages(style='display: none;')
 			form#application(method='post' role='form' name='register' autocomplete='off')
 				ul#application-form
-					li
+					.one
 						.form-col-left
 							label(for='email') Email *
 						.form-col-right.half
 							input#email(type='text' name='email' placeholder='Whats your .edu' data-validation='email')
-					li
+					.one
 						.form-col-left
 							label(for='firstName') First Name *
 						.form-col-right
 							input#firstName(type='text' placeholder='What do your homies call you' name='firstName' data-validation='required')
 							
-					li
+					.one
 						.form-col-left
 							label(for='lastName') Last Name *
 						.form-col-right
