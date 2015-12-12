@@ -16,12 +16,14 @@ block content
 					.one_half
 						input#email(type='text' name='email' placeholder='Whats your .edu' data-validation='email')
 					.one_fourth.last
+					br
 					
 					.one_fourth
 						label(for='firstName') First Name *
 					.one_half
 						input#firstName(type='text' placeholder='What do your homies call you' name='firstName' data-validation='required')
 					.one_fourth.last
+					br
 							
 					.one_fourth
 						label(for='lastName') Last Name *
@@ -39,8 +41,9 @@ block content
 							label(for='passwordconfirm') Confirm Password *
 					.one_half
 							input#passwordconfirm(type='password' name='passwordconfirm' placeholder='Confirm password' data-validation='confirmation' data-validation-confirm='password')
-					.one_fourth.last
-						
+					.one_fourth
+					.one
+							
 					.one_fourth
 						label(for='school') School *
 					.one_half
@@ -500,6 +503,7 @@ block content
 							option Yale University
 							option Yeshiva University
 					.one_fourth.last
+					.one
 							
 					.one_fourth
 						label(for='year') Current Year *
@@ -721,7 +725,7 @@ block content
 						input#hackNo(type='radio' name='firstHackathon' value='No')
 						label(for='hackNo') No
 					.one_fourth.last
-					.one
+					.one(style='max-height: 0%;')
 
 					.one_fourth
 						label(for='github') GitHub Link
