@@ -84,6 +84,12 @@
 					var time = fromSeconds(point.duration.value);
 					$('#geoHrs').removeClass('saving').html(time.hours);
 					$('#geoMins').removeClass('saving').html(time.minutes);
+					if(time.hours == 1) {
+						$('#geoHTag').html('hour');
+					}
+					if(time.minutes == 1) {
+						$('#geoMTag').html('minute');
+					}
 				}
 			});
 		};

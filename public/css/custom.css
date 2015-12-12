@@ -30,7 +30,7 @@
   margin-bottom: 15px;
 }
 
-#geo span {
+#geoHrs, #geoMins {
   font-weight: 700;
 }
 
