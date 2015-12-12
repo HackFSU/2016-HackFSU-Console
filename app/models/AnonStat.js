@@ -1,7 +1,8 @@
 /**
  * AnonStat model
  * 
- * Anonymous statistics collected from hackers
+ * Anonymous statistics collected from hackers. Parse only stores the integer
+ * ids for each entry and not the names themselves. Names are in the store.
  */
 'use strict';
 
@@ -18,21 +19,15 @@ export default function (app) {
 			super(PARSE_CLASSNAME);
 
 			validate(o, _.isObject);
-
-			// Validate options
-			validate(o.keyName, function(keyName) {
-				return _.isString(keyName) && store.anonStats[keyName];
+			validate(o.statId, _.isNumber);
+			validate(o.optionId, _.isNumber);
+			validate(o, function(o) {
+				return store.anonStats.hasOwnProperty(o.statId) &&
+					store.anonStats[o.statId].options.hasOwnProperty[o.optionId];
 			});
 
-			let possibleValues = store.anonStats[o.keyName].options;
-
-			validate(o.valueName, function(valueName) {
-				return _.isString(valueName) && 
-					possibleValues.hasOwnProperty(valueName);
-			});
-
-			this.set('key', store.anonStats[o.keyName].id);
-			this.set('value', possibleValues[o.valueName]);
+			this.set('statId', o.statId);
+			this.set('optionId', o.optionId);
 		}
 
 	}
