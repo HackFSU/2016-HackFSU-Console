@@ -954,15 +954,3 @@ img.register-button:hover {
   max-width: 500px;
   margin: 20px auto;
 }
-#sponsors img{
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	padding-bottom: 100px;
-	padding-top: 5px;
-}
-
-img#sponsors {
-  max-width: 960px;
-  width: 100%;
-}

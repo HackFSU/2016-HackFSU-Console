@@ -29,6 +29,23 @@
 		text-align: left;
 	}
 
+  h2.section-title {
+    line-height: 55px;
+  }
+
+  #geo {
+    font-size: 2em !important;
+  }
+
+  .hero.date {
+    font-size: 2.5em !important;
+    margin-bottom: 0.25em !important;
+  }
+
+  .hero.fsu {
+    font-size: 1.3em;
+  }
+
 	.margin-left-15 {
 		margin-left: 0 !important;
 	}
@@ -275,6 +292,14 @@ body {
   font-size: 1.4em;
 }
 
+#titlePiece {
+  width: 2em;
+  margin-left: -1.1em;
+  margin-top: -1.6em;
+  position: absolute;
+}
+
+
 .white-section, .white-section h1, .white-section .info, .white-section h2 {
   color: #fff;
 }
@@ -292,6 +317,19 @@ body {
 .contact {
   background-image: url('/img/travelBackground.jpg');
   background-size: cover;
+}
+
+
+.hackingDiv {
+  background-image: url('/img/dumpsterCulture.jpg');
+  background-size: cover;
+  background-position: top right;
+  background-repeat: no-repeat;
+  padding-bottom: 200px;
+}
+
+.hackingDiv p {
+  font-size: 24px;
 }
 
 
