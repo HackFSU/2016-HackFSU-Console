@@ -7,7 +7,7 @@
 // Express Core
 import http from 'http';
 import express from 'express';
-import validator from 'express-validator';
+import expressValidator from 'express-validator';
 import session from 'express-session';
 import io from 'socket.io';
 import Parse from 'parse/node';
@@ -30,6 +30,7 @@ import store from '../lib/data';
 import EmailManager from '../lib/EmailManager';
 import { default as validate } from '../lib/validate';
 import ACL from '../lib/acl';
+import customValidators from '../app/helpers/customValidators';
 
 export default function configureApp() {
 	const app = {};
@@ -43,6 +44,7 @@ export default function configureApp() {
 	app.validate = validate;
 	app.path = path;
 	app.util = util;
+	app.store = store;
 
 	app.dirs = {
 		public: path.resolve(__dirname + '/../public'),
@@ -71,7 +73,9 @@ export default function configureApp() {
 	e.use(express.static(app.dirs.public, {
 		maxAge: maxAge
 	}));
-	e.use(validator());
+	e.use(expressValidator({
+		customValidators: customValidators(app)
+	}));
 	app.io = io(server);
 
 	// Handle caching
@@ -79,6 +83,32 @@ export default function configureApp() {
 		if(req.url.match(/(\.(img|font|mp4))+$/)) {
 			res.setHeader('Cache-Control', 'public, max-age=' + maxAge);
 		}
+		next();
+	});
+
+	// Error sending utility
+	e.use(function(req, res, next) {
+		res.sendError = function(code, message, extraData) {
+			if(!extraData) {
+				extraData = {};
+			} else if(extraData && !_.isObject(extraData)) {
+				extraData = {
+					data: extraData
+				};
+			}
+
+			// Log to console if server error, 5xx
+			if(_.isNumber(code) && code % 100 === 5) {
+				console.error(`[SERVER REQUEST ERROR] ${message}\n
+					${util.inspect(req)}\n
+					${util.inspect(extraData)}\n`);
+			}
+
+			res.code = code;
+			res.json(_.merge({
+				error: message
+			}, extraData));
+		};
 		next();
 	});
 
@@ -113,7 +143,6 @@ export default function configureApp() {
 	Parse.Cloud.useMasterKey();
 
 	// Load project files
-	app.store = store;
 	app.email = new EmailManager(
 		store.email.FROM_EMAIL_INFO,
 		store.email.FROM_NAME

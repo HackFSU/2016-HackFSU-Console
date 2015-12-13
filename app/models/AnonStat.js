@@ -23,7 +23,7 @@ export default function (app) {
 			validate(o.optionId, _.isNumber);
 			validate(o, function(o) {
 				return store.anonStats.hasOwnProperty(o.statId) &&
-					store.anonStats[o.statId].options.hasOwnProperty[o.optionId];
+					store.anonStats[o.statId].options.hasOwnProperty(o.optionId);
 			});
 
 			this.set('statId', o.statId);

@@ -40,7 +40,7 @@ export default function setRoutes(app) {
 
 	e.get('/register', c.Registration.index);
 	e.get('/apply', (req, res) => { res.redirect('/register'); });
-	e.post('/register/submit', jsonParser, c.Registration.createHacker, c.Registration.sendConfirmationEmail);
+	e.post('/register/submit', jsonParser, c.Registration.submit);
 
 	/**************************************************************************
 	 * User

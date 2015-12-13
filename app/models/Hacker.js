@@ -17,66 +17,56 @@ export default function (app) {
 		constructor(o) {
 			super(PARSE_CLASSNAME);
 
-			// Create User by taking the user-specific attributes
-			let userAttrs = _.pick(o, 'firstName', 'lastName', 'email', 'password',
-																'diet', 'shirtSize', 'github', 'phone');
-			this.user = new app.model.User(userAttrs);
+			this.set('firstName', validate(o.firstName, _.isString));
+			this.set('lastName', validate(o.lastName, _.isString));
+			this.set('email', validate(o.email, _.isString));
+			this.set('password', validate(o.password, _.isString));
+			this.set('diet', validate(o.diet, _.isString));
+			this.set('shirtSize', validate(o.shirtSize, _.isString));
+			this.set('github', validate(o.github, _.isString));
+			this.set('phone', validate(o.phone, _.isString));
+			this.set('comments', validate(o.comments, _.isString));
 
-			// Validation for Hacker object attributes
-			o = validate(o, _.isObject);
-			this.firstHackathon = validate(o.firstHackathon, _.isString);
-			this.school = validate(o.school, (school) => {
-				return !!school && _.isString(school);
-			});
-			this.major = validate(o.major, (major) => {
-				return !!major && _.isString(major);
-			});
-			this.devpost = validate(o.devpost, (devpost) => {
-				return !!devpost && _.isString(devpost);
-			});
-			this.year = validate(o.year, (year) => {
-				return !!year && _.isString(year);
-			});
-			this.resume = validate(o.resume, _.isString);
-			this.hate = validate(o.hate, _.isString);
-			this.wants = validate(o.wants, _.isArray);
+			this.set('codeOfConduct', validate(o.codeOfConduct, _.isBoolean));
+			this.set('yesno18', validate(o.yesno18, _.isBoolean));
 
-			// Create and upload resume file
-			let resumeFile = new Parse.File(`${this.user.firstName}_${this.user.lastName}_resume.pdf`, { base64: this.resume });
-			resumeFile.save().then(() => {
-				console.log(`Resume has been saved for ${this.user.firstName} ${this.user.lastName}`);
-				this.set('resume', resumeFile);
-			}, (err) => {
-				console.log(err);
-				throw new Error('Cannot continue without resume file.');
-			});
+			let isIdArray = function(array) {
+				let valid = true;
+				if(!Array.isArray(array)) {
+					return false;
+				}
+
+				array.forEach(function(id) {
+					if(!_.isNumber(id)) {
+						valid = false;
+					}
+					return valid;
+				});
+
+				return valid;
+			};
+
+			this.set('jobGoals', validate(o.jobGoals, isIdArray));
+			this.set('hackerGoals', validate(o.hackerGoals, isIdArray));
+			
 		}
 
-		signUp() {
-			let promise = new Parse.Promise();
-			this.user.signUp().then(
-				(user) => {
-					console.log(`Testing *** ${user.firstName}`);
-					// Create hacker
-					this.set('firstHackathon', this.firstHackathon);
-					this.set('school', this.school);
-					this.set('major', this.major);
-					this.set('devpost', this.devpost);
-					this.set('year', this.year);
-					this.set('status', 'registered');
-					this.set('user', user);
-					this.save().then(
-						(hacker) => {
-							promise.resolve(hacker);
-						}
-					);
-				},
-				(error) => {
-					console.log(`A fucking ERROR bro: ${app.util.inspect(error)}`);
-					promise.reject('No');
-				}
-			);
-			return promise;
+
+		saveResume(base64) {
+			let dfd = new Parse.Promise();
+			let fileName = `${this.user.firstName}_${this.user.lastName}_resume.pdf`;
+			let resumeFile = new Parse.File(fileName, { base64: base64 });
+			
+			resumeFile.save().then(() => {
+				console.log(`Resume "${fileName}" saved`);
+				this.set('resume', resumeFile);
+				dfd.resolve();
+			}, (err) => {
+				console.log(err);
+				dfd.reject(err);
+			});
+
+			return dfd;
 		}
 
 	}
