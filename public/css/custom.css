@@ -1,7 +1,3 @@
-/**
- * registration form
- */
-
 @font-face {
   font-family: 'Uni Sans';
   font-weight: 700;
@@ -12,6 +8,35 @@
   font-family: 'Uni Sans';
   font-weight: 100;
   src: url('/fonts/unisansfree/Uni Sans Thin.otf');
+}
+
+#application .one_fourth {
+	text-align: right;
+}
+
+@media screen and (max-width: 960px) {
+	#application .one_fourth {
+		text-align: left;
+	}
+
+  h2.section-title {
+    line-height: 55px;
+  }
+
+  #geo {
+    font-size: 2em !important;
+  }
+
+  .hero.date {
+    font-size: 2.5em !important;
+    margin-bottom: 0.25em !important;
+  }
+
+  .hero.fsu {
+    font-size: 1.3em;
+  }
+
+
 }
 
 .services {
@@ -30,7 +55,7 @@
   margin-bottom: 15px;
 }
 
-#geo span {
+#geoHrs, #geoMins {
   font-weight: 700;
 }
 
@@ -49,10 +74,25 @@
 
 #footer-logo {
 	max-height: 75px;
+	margin-right: 2em;
 }
 
-.big-social i.fa {
+.social {
+	margin-top: 0.5em;
+	font-size: 0.6em;
+}
+
+.social i.fa {
+	color: white;
+	padding-right: 1em;
 	font-size: 3em;
+}
+
+.social i.fa:hover {
+	color: #a8d3f1;
+}
+.social i.fa.last {
+	padding-right: 0;
 }
 
 .half input {
@@ -234,6 +274,14 @@ body {
   font-size: 1.4em;
 }
 
+#titlePiece {
+  width: 2em;
+  margin-left: -1.1em;
+  margin-top: -1.6em;
+  position: absolute;
+}
+
+
 .white-section, .white-section h1, .white-section .info, .white-section h2 {
   color: #fff;
 }
@@ -257,7 +305,7 @@ body {
 .hackingDiv {
   background-image: url('/img/dumpsterCulture.jpg');
   background-size: cover;
-  background-position: top;
+  background-position: top right;
   background-repeat: no-repeat;
   padding-bottom: 200px;
 }

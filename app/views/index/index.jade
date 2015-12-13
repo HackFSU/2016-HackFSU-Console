@@ -12,7 +12,9 @@ block content
 			.hero.topRight
 				a(href='/register')
 					.hero.register Register
-				.hero.sponsor <span class='thinUni'>OR</span> <a href='#sponsor'>Sponsor</a>
+				.hero.sponsor
+					span.thinUni OR 
+					a.slow-scroll(href='#sponsors') Sponsor
 
 			.hero.bottomLeft
 				.hero.date Feb. 5-7
@@ -28,8 +30,10 @@ block content
 
 	#about.clear.services.section.block
 		.block.content-960.center-relative
+			h2.section-title HackFSU '15
+			.title-separator
 			.one
-				.youtube <iframe width="560" height="315" src="https://www.youtube.com/embed/_96bjX-wKBI" frameborder="0" allowfullscreen></iframe>
+				.youtube <iframe width="560" height="315" src="https://www.youtube.com/embed/_96bjX-wKBI?showinfo=0" frameborder="0" allowfullscreen></iframe>
 		.clear
 	br
 	br
@@ -48,7 +52,7 @@ block content
 
 	#faq.clear.services.section.block
 		.block.content-960.center-relative
-			h2.section-title FAQ
+			h2.section-title <img id='titlePiece' src='/img/titlepieces1.png' />FAQ
 			.title-separator
 			.one_third
 				h4 When and where?
@@ -97,7 +101,7 @@ block content
 			h2.section-title Travel
 			.title-separator(style='border-color: #fff')
 
-			#geo <span id='geoHrs'>0</span> hours <span id='geoMins'>0</span> minutes
+			#geo <span id='geoHrs'>0</span> <span id='geoHTag'>hours</span> <span id='geoMins'>0</span> <span id='geoMTag'>minutes</span>
 			.geo-info
 				| Click 'Allow Location' to see how long the drive to Tallahassee would be!
 			br
@@ -118,7 +122,7 @@ block content
 		br
 	#sponsors.section
 		.block.content-960.center-relative
-			h2.section-title Sponsors
+			h2.section-title <img id='titlePiece' src='/img/titlepiece2.png' />Sponsors
 			.title-separator
 			p.info.sponsors Interested in sponsoring? Email #[a(href='mailto:sponsors@hackfsu.com') sponsors@hackfsu.com] for more information!
 	.clear

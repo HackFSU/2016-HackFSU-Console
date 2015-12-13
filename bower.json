@@ -20,6 +20,7 @@
     "datatables": "~1.10.9",
     "socket.io-client": "~1.3.7",
     "jquery-ui": "~1.11.4",
-		"jquery-form-validator" : ">=2.2.8"
+		"jquery-form-validator" : ">=2.2.8",
+		"skeleton": "~2.0.4"
   }
 }
