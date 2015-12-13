@@ -25,6 +25,10 @@
 }
 
 @media screen and (max-width: 960px) {
+	.footer-copyright {
+		font-size: 1em;
+	}
+
 	#application .one_fourth {
 		text-align: left;
 	}

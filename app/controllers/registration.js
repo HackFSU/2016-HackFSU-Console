@@ -45,7 +45,7 @@ export default function(app) {
 				template: 'hackfsu-confirmation',
 				content: [{}],
 				message: {
-			    "subject": "example subject",
+			    "subject": "See you this spring!",
 			    "from_email": "registration@hackfsu.com",
 			    "from_name": "HackFSU",
 			    "to": [{
