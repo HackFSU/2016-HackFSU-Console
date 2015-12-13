@@ -77,7 +77,7 @@ Dependencies:
 		});
 		return this;
 	};
-	$('.singleLineText').fixTextToSingleLine(68.8, 35.2);
+	//$('.singleLineText').fixTextToSingleLine(68.8, 35.2);
 
 
 	$('.menu-logo').click(function() {

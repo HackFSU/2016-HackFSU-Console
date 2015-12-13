@@ -10,13 +10,29 @@
   src: url('/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
+#application label {
+	color: #8bd1c9;
+}
+
 #application .one_fourth {
 	text-align: right;
 }
 
+.form-help
+
 @media screen and (max-width: 960px) {
 	#application .one_fourth {
 		text-align: left;
+	}
+
+	.margin-left-15 {
+		margin-left: 0 !important;
+	}
+}
+
+@media screen and (max-width: 560px) {
+	.section-title-fixed {
+		font-size: 50px !important;
 	}
 }
 
