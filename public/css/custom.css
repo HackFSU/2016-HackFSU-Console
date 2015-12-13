@@ -10,9 +10,14 @@
   src: url('/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
+#application label {
+	color: #8bd1c9;
+}
+
 #application .one_fourth {
 	text-align: right;
 }
+
 
 @media screen and (max-width: 960px) {
 	#application .one_fourth {
@@ -36,7 +41,15 @@
     font-size: 1.3em;
   }
 
+	.margin-left-15 {
+		margin-left: 0 !important;
+	}
+}
 
+@media screen and (max-width: 560px) {
+	.section-title-fixed {
+		font-size: 50px !important;
+	}
 }
 
 .services {
@@ -75,6 +88,7 @@
 #footer-logo {
 	max-height: 75px;
 	margin-right: 2em;
+<<<<<<< HEAD
 }
 
 .social {
@@ -82,6 +96,15 @@
 	font-size: 0.6em;
 }
 
+=======
+}
+
+.social {
+	margin-top: 0.5em;
+	font-size: 0.6em;
+}
+
+>>>>>>> e114cc6eab4f570bf937b14b06fae97283061f4d
 .social i.fa {
 	color: white;
 	padding-right: 1em;
