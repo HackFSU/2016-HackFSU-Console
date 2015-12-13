@@ -45,6 +45,7 @@ export default function configureApp() {
 	app.path = path;
 	app.util = util;
 	app.store = store;
+	app.expressValidator = expressValidator;
 
 	app.dirs = {
 		public: path.resolve(__dirname + '/../public'),
@@ -73,9 +74,9 @@ export default function configureApp() {
 	e.use(express.static(app.dirs.public, {
 		maxAge: maxAge
 	}));
-	e.use(expressValidator({
-		customValidators: customValidators(app)
-	}));
+	// e.use(expressValidator({
+	// 	customValidators: customValidators(app)
+	// }));
 	app.io = io(server);
 
 	// Handle caching

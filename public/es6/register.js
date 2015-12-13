@@ -20,9 +20,26 @@
 				}, 500);
 			}, 500);
 		},
-		onSuccess: function($form) {
+		onSuccess: function(form) {
 			// disable submit button
 			$('button[type=submit]').attr('disabled', 'disabled');
+			let formData = $(form).serialize();
+			console.log(formData);
+
+			$.ajax({
+				type: 'post',
+				url: '/register/submit',
+				data: formData,
+				dataType: 'json',
+				success: function() {
+					console.log('success');
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});
+
+			return false;
 		}
 	});
 })(jQuery);

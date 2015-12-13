@@ -398,6 +398,14 @@ textarea:focus, select:focus {
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
+
+button[type="submit"]:disabled {
+	border-color: #aaa;
+	color: #aaa;
+	box-shadow: none;
+}
+
+
 .btn {
   display: inline-block;
   padding: 6px 12px;
@@ -448,7 +456,7 @@ input:-webkit-autofill {
     margin-bottom: 100px;
     font-size: 16px;
 }
-.btn-form:hover {
+.btn-form:hover:not(:disabled) {
 	background-color: #8bd1c9;
 	color: #fff;
   box-shadow: none;

@@ -5,6 +5,7 @@
 'use strict';
 
 import bodyParser from 'body-parser';
+import expressValidator from 'express-validator';
 
 
 export default function setRoutes(app) {
@@ -16,6 +17,9 @@ export default function setRoutes(app) {
 	// const urlencodeParser = bodyParser.urlencoded({
 	// 	extended: false
 	// });
+
+	e.use(bodyParser.json());
+	e.use(expressValidator());
 
 	let useAcl = {
 		User: app.acl.useAcl('User'),
@@ -40,7 +44,7 @@ export default function setRoutes(app) {
 
 	e.get('/register', c.Registration.index);
 	e.get('/apply', (req, res) => { res.redirect('/register'); });
-	e.post('/register/submit', jsonParser, c.Registration.submit);
+	e.post('/register/submit', c.Registration.submit);
 
 	/**************************************************************************
 	 * User
