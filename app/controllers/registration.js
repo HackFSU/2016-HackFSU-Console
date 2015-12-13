@@ -17,7 +17,7 @@ export default function(app) {
 		let dfd = new Parse.Promise();
 
 		let email = {
-			template: 'test-1',
+			template: 'hackfsu-confirmation',
 			content: [{}],
 			message: {
 		    "subject": "example subject",

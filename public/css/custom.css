@@ -10,13 +10,54 @@
   src: url('/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
+#application .one_fourth > label {
+	color: #8bd1c9;
+}
+
 #application .one_fourth {
 	text-align: right;
 }
 
+.help-block {
+	margin-top: 5px;
+	color: #4d4d4d;
+	font-size: 0.75em;
+}
+
 @media screen and (max-width: 960px) {
+	.footer-copyright {
+		font-size: 1em;
+	}
+
 	#application .one_fourth {
 		text-align: left;
+	}
+
+  h2.section-title {
+    line-height: 55px;
+  }
+
+  #geo {
+    font-size: 2em !important;
+  }
+
+  .hero.date {
+    font-size: 2.5em !important;
+    margin-bottom: 0.25em !important;
+  }
+
+  .hero.fsu {
+    font-size: 1.3em;
+  }
+
+	.margin-left-15 {
+		margin-left: 0 !important;
+	}
+}
+
+@media screen and (max-width: 560px) {
+	.section-title-fixed {
+		font-size: 50px !important;
 	}
 }
 
@@ -255,6 +296,14 @@ body {
   font-size: 1.4em;
 }
 
+#titlePiece {
+  width: 2em;
+  margin-left: -1.1em;
+  margin-top: -1.6em;
+  position: absolute;
+}
+
+
 .white-section, .white-section h1, .white-section .info, .white-section h2 {
   color: #fff;
 }
@@ -272,6 +321,19 @@ body {
 .contact {
   background-image: url('/img/travelBackground.jpg');
   background-size: cover;
+}
+
+
+.hackingDiv {
+  background-image: url('/img/dumpsterCulture.jpg');
+  background-size: cover;
+  background-position: top right;
+  background-repeat: no-repeat;
+  padding-bottom: 200px;
+}
+
+.hackingDiv p {
+  font-size: 24px;
 }
 
 
@@ -491,6 +553,7 @@ input:-webkit-autofill {
 	margin-right: 10px;
 }
 
+
 /* checkbox aspect */
 [type="radio"]:not(:checked) + label:before,
 [type="radio"]:checked + label:before {
@@ -534,6 +597,7 @@ input:-webkit-autofill {
 [type="radio"]:disabled + label {
   color: #aaa;
 }
+
 
 
 
@@ -613,6 +677,10 @@ input:-webkit-autofill {
 .saving span:nth-child(3) {
   -webkit-animation-delay: .4s;
           animation-delay: .4s;
+}
+
+.footer-copyright {
+	font-family: 'Uni Sans';
 }
 
 @-webkit-keyframes blink {

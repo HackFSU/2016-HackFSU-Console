@@ -35,3 +35,4 @@ export default function (app) {
 	app.model.AnonStat = AnonStat;
 	Parse.Object.registerSubclass(PARSE_CLASSNAME, AnonStat);
 }
+
