@@ -675,6 +675,10 @@ input:-webkit-autofill {
           animation-delay: .4s;
 }
 
+.footer-copyright {
+	font-family: 'Uni Sans';
+}
+
 @-webkit-keyframes blink {
   0% {
     opacity: .2;

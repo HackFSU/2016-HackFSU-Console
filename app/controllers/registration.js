@@ -42,7 +42,7 @@ export default function(app) {
 			console.log(req.body.firstName);
 
 			let email = {
-				template: 'test-1',
+				template: 'hackfsu-confirmation',
 				content: [{}],
 				message: {
 			    "subject": "example subject",
