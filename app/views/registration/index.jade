@@ -802,25 +802,51 @@ block content
 						label(for='sleep') Sleep
 					.one_fourth.last
 					.clear
+						
+					.one_fourth
+						label(for='wantjob') Looking for a job?
+					.one_half
+						input#fulltime(type='checkbox' name='wantjob' value='fulltime')
+						label(for='fulltime' style='color: #303030;') Full-time
+						input#parttime(type='checkbox' name='wantjob' value='parttime')
+						label(for='parttime') Part-time
+						input#internship(type='checkbox' name='wantjob' value='internship')
+						label(for='internship') Internship
+					.one_fourth.last
+					.clear 
 					
 					.one_fourth
-						label(for='Gender') Gender
+						label(for='gender') Gender
 					.one_half
-						select#gender(name='gender' data-validation='required')
+						select#gender(name='gender')
 							option(selected='true' disabled='true') Select a gender
 							option(value='male') Male
 							option(value='female') Female 
 							option(value='other') Other
-						.form-help This
+						.help-block Answering this optional field is anonymous and will not be associated with your account.
 					.one_fourth.last
 					.clear
 						
+					.one_fourth
+						label(for='ethnicity') Ethnicity
+					.one_half
+						select#ethnicity(name='ethnicity')
+							option White
+							option Asian
+							option Hispanic
+							option Black
+							option Multicultural
+							option Other
+						.help-block Answering this optional field is anonymous and will not be associated with your account.
+					.one_fourth.last
+					.clear 
+							
 					.one_fourth
 						label(for='yesno18') Are you 18 or not? *
 					.one_half
 						input#yes18(type='radio' value='yes' data-validation='required' name='yesno18') 
 						label(for='yes18') I'm 18 or over
-						input#no18(type='radio' value='yes' data-validation='' name='yesno18') 
+						input#no18(type='radio' value='no' data-validation='' name='yesno18') 
 						label(for='no18') I'm under 18
 					.one_fourth.last
 					.clear

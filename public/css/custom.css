@@ -10,7 +10,7 @@
   src: url('/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
-#application label {
+#application .one_fourth > label {
 	color: #8bd1c9;
 }
 
@@ -18,7 +18,11 @@
 	text-align: right;
 }
 
-.form-help
+.help-block {
+	margin-top: 5px;
+	color: #4d4d4d;
+	font-size: 0.75em;
+}
 
 @media screen and (max-width: 960px) {
 	#application .one_fourth {
@@ -507,6 +511,7 @@ input:-webkit-autofill {
 	margin-right: 10px;
 }
 
+
 /* checkbox aspect */
 [type="radio"]:not(:checked) + label:before,
 [type="radio"]:checked + label:before {
@@ -550,6 +555,7 @@ input:-webkit-autofill {
 [type="radio"]:disabled + label {
   color: #aaa;
 }
+
 
 
 
