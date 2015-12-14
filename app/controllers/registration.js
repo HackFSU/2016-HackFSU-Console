@@ -12,6 +12,7 @@ export default function(app) {
 	const store = app.store;
 	const Parse = app.Parse;
 	const _ = app._;
+	const validator = app.validator;
 
 	let sendConfirmationEmail = function(hackerEmail, firstName) {
 		let dfd = new Parse.Promise();
@@ -63,45 +64,6 @@ export default function(app) {
 
 		// Submission
 		submit: function(req, res) {
-			// Validate request
-			// req.checkBody('email', 'Invalid email').notEmpty().isEmail();
-			// req.checkBody('firstName', 'Invalid first name').notEmpty().isAlpha();
-			// req.checkBody('lastName', 'Invalid last name').notEmpty().isAlpha();
-			// req.checkBody('password', 'Invalid password').notEmpty().isString();
-			// req.checkBody('school', 'Invalid school').notEmpty().isString();
-			// req.checkBody('year', 'Invalid year').notEmpty().isString();
-			// //req.checkBody('shirtSize').isShirtSize();
-			// req.checkBody('shirtSize').notEmpty().isString();
-			// req.checkBody('major', 'Invalid major').notEmpty().isString();
-			// req.checkBody('firstHackathon', 'Invalid first hackathon selection').notEmpty().isString();
-			// req.checkBody('github').isString(); // NOT a url
-			// req.checkBody('resume').isBase64();
-			// req.checkBody('phone').isString();
-			// req.checkBody('hate').isString();
-			// req.checkBody('diet', 'Invalid diet').notEmpty().isString();
-			// req.checkBody('comments').notEmpty().isString();
-			// req.checkBody('hackerGoals').isHackerGoalArray();
-			// req.checkBody('jobGoals').isJobGoalArray();
-			// req.checkBody('gender').isString();
-			// req.checkBody('ethnicity').isString();
-			// req.checkBody('yesno18').isString();
-			// req.checkBody('mlhcoc').isString();
-
-
-			//req.checkBody('anonStats').isAnonStatArray();
-			//
-			// if(req.validationErrors()) {
-			// 	req.sendError(400, 'Invalid request data', {
-			// 		validationErrors: req.validationErrors()
-			// 	});
-			// 	return;
-			// }
-
-			// res.json({
-			// 	resume: req.body.resumeBase64
-			// });
-			// return;
-
 			let hackerAttrs = _.pick(req.body,
 				'email',
 				'firstName',
@@ -126,11 +88,49 @@ export default function(app) {
 				'mlhcoc'
 			);
 
+			// Change some of the defaults
 			hackerAttrs.firstHackathon = 'yes' ? true : false;
 			hackerAttrs.yesno18 = 'yes' ? true : false;
 			hackerAttrs.mlhcoc = 'yes' ? true : false;
+			hackerAttrs.wantjob = _.isArray(hackerAttrs.wantjob) ? hackerAttrs.wantjob : [ hackerAttrs.wantjob ];
+			hackerAttrs.wantjob = hackerAttrs.wantjob[0] === null ? null : hackerAttrs.wantjob;
+			hackerAttrs.wants = _.isArray(hackerAttrs.wants) ? hackerAttrs.wants : [ hackerAttrs.wants ];
+			hackerAttrs.wants = hackerAttrs.wants[0] === null ? null : hackerAttrs.wants;
 
-			console.log(req.body);
+			// Validate data
+			let o = hackerAttrs;
+			let valErrs = [];
+			valErrs.push(validator.isAscii(o.firstName));
+			valErrs.push(validator.isAscii(o.lastName));
+			valErrs.push(validator.isEmail(o.email));
+			valErrs.push(validator.isAscii(o.password));
+			valErrs.push(validator.isAscii(o.school));
+			valErrs.push(validator.isAlpha(o.year));
+			valErrs.push(validator.isAscii(o.shirtSize));
+			valErrs.push(validator.isAscii(o.major));
+			valErrs.push(validator.isBoolean(o.firstHackathon));
+			valErrs.push(validator.isAlphanumeric(o.github) || _.isEmpty(o.github));
+			valErrs.push(validator.isBase64(o.resumeBase64) || _.isEmpty(o.resumeBase64));
+			valErrs.push(validator.isAscii(o.phone) || _.isEmpty(o.phone));
+			valErrs.push(validator.isAscii(o.hate) || _.isEmpty(o.hate));
+			valErrs.push(validator.isAscii(o.diet) || _.isEmpty(o.diet));
+			valErrs.push(validator.isAscii(o.comments) || _.isEmpty(o.comments));
+			valErrs.push(_.isArray(o.wants) || _.isEmpty(o.wants));
+			valErrs.push(_.isArray(o.wantjob) || _.isEmpty(o.wantjob));
+			valErrs.push(validator.isAlpha(o.gender) || _.isEmpty(o.gender));
+			valErrs.push(validator.isAlpha(o.ethnicity) || _.isEmpty(o.ethnicity));
+			valErrs.push(validator.isBoolean(o.yesno18));
+			valErrs.push(validator.isBoolean(o.mlhcoc));
+
+			// Send error if there were validation errors
+			if(_.includes(valErrs, false)) {
+				console.log(app.util.inspect(valErrs));
+
+				res.json({
+					error: 'There were one or more validation errors in the form.'
+				});
+				return;
+			}
 
 			let hacker = new app.model.Hacker(hackerAttrs);
 
@@ -141,12 +141,6 @@ export default function(app) {
 			// });
 
 			hacker.signUp().then(function(hacker) {
-				// Parse.Object.saveAll(anonStats).then(function(results) {
-				// 	if(!results || results.length !== anonStats.length) {
-				// 		res.sendError(500, 'Not all AnonStat objects saved', results);
-				// 		return;
-				// 	}
-
 				let user = hacker.get('user');
 					// Complete, send confirmation email
 					res.json({
@@ -156,13 +150,9 @@ export default function(app) {
 					sendConfirmationEmail(user.get('email'),
 						user.get('firstName')
 					);
-
-				// }, function(err) {
-				// 	res.sendError(500, 'Unable to save AnonStat(s)', err);
-			//	});
 			}, function(err) {
 				res.json({
-					error: err
+					error: err.message
 				});
 			});
 		},

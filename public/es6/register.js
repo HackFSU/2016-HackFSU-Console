@@ -35,23 +35,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 		scrollToTopOnError: false,
 		onError: function($form) {
 			console.log(`Validation of form ${$form.attr('id')} failed!`);
-
-			// // Generate a JSON object for the form data
-			// let formData = {};
-			// $('input, select, textarea').each(function() {
-			// 	let input = $(this);
-			// 	if (input.attr('type') === 'checkbox') {
-			// 		formData[input.attr('name')] = [];
-			// 		input.each(function() {
-			// 			formData[input.attr('name')].push(this.checked ? $(this).val() : '' );
-			// 		});
-			// 	}
-			// 	else {
-			// 		formData[input.attr('name')] = input.val();
-			// 	}
-			// });
-			//
-			// console.log(formData);
 			$submitBtn.shakeIt();
 			setTimeout(function() {
 				$('html, body').animate({
@@ -63,36 +46,56 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 			// disable submit button
 			$('button[type=submit]').attr('disabled', 'disabled');
 			let formData = $(form).serialize();
-			// console.log(formData);
 
-			// // Generate a JSON object for the form data
-			// let formData = {};
-			// $('input, select, textarea').each(function() {
-			// 	let input = $(this);
-			// 	if (input.attr('type') === 'checkbox') {
-			// 		formData[input.attr('name')] = [];
-			// 		input.each(function() {
-			// 			formData[input.attr('name')].push($(this).prop('checked') ? $(this).val : '' );
-			// 		});
-			// 	}
-			// 	formData[input.attr('name')] = input.val();
-			// });
-			//
-			// console.log(formData);
-			//
 			$.ajax({
 				type: 'post',
 				url: '/register/submit',
 				data: formData,
-				success: function() {
-					console.log('success');
+				success: function(res) {
+					if (res.error) {
+						console.log(res.error);
+						$('#error-messages').empty();
+						$('#error-messages').append('<p><strong>Uh oh!</strong> ' + capitalizeFirstLetter(res.error) + '</p>');
+						$('#errors').show();
+						$('html, body').animate({
+							scrollTop: 0
+						}, 500);
+
+						$('button[type="submit"]').attr('disabled', false);
+					}
+					else {
+						// Just in case the error messages were displayed, remove them
+						$('#errors').remove();
+						$('#application').fadeTo(1000, 0, function() {
+							$('#application').remove();
+							$('html, body').animate({
+								scrollTop: 0
+							}, 500);
+							$('#confirmation').fadeIn(1000, function() {
+								return;
+							});
+						});
+					}
 				},
 				error: function(err) {
 					console.log(err);
+					$('#error-messages').empty();
+					$('#error-messages').append('<p><strong>Uh oh!</strong> ' + capitalizeFirstLetter(err) + '</p>');
+					$('#errors').show();
+					$('html, body').animate({
+						scrollTop: 0
+					}, 500);
+
+					$('button[type="submit"]').attr('disabled', false);
+					return;
 				}
 			});
 
 			return false;
 		}
 	});
+
+	function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 })(jQuery);

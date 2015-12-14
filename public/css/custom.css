@@ -18,6 +18,29 @@
 	text-align: right;
 }
 
+#confirmation {
+	min-height: 400px;
+}
+
+#confirmation h2 {
+	font-size: 1.5em;
+	margin-bottom: 10px;
+}
+
+#confirmation p.strong {
+	font-size: 1em;
+	font-weight: 500;
+	margin-top: 5px;
+}
+
+#error-messages {
+	margin-top: 10px;
+	margin-bottom: -20px;
+	color: #ef626c;
+	padding: 20px;
+	border: 3px solid #ef626c;
+}
+
 .help-block {
 	margin-top: 5px;
 	color: #4d4d4d;
@@ -28,6 +51,15 @@
 	.footer-copyright {
 		font-size: 1em;
 	}
+
+	#application button[type="submit"] {
+		width: 100%;
+	}
+
+	#confirmation {
+		margin-bottom: 50px;
+	}
+
 
 	#application .one_fourth {
 		text-align: left;
@@ -52,6 +84,10 @@
 
 	.margin-left-15 {
 		margin-left: 0 !important;
+	}
+
+	.margin-right-15 {
+		margin-right: 0 !important;
 	}
 }
 
@@ -250,6 +286,10 @@ body {
 
 .margin-left-15 {
   margin-left: 15%;
+}
+
+.margin-right-15 {
+  margin-right: 15%;
 }
 
 .form-col-left {

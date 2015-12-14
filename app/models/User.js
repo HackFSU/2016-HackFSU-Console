@@ -31,10 +31,7 @@ export default function (app) {
 			this.password = validate(o.password, password => {
 				return !!password && _.isString(password);
 			});
-			//this.diet = validate(o.diet, _.isArray);
-			this.diet = validate(o.diet, diet => {
-				return !!diet && _.isString(diet);
-			});
+			this.diet = validate(o.diet, _.isString);
 			this.shirtSize = validate(o.shirtSize, shirtSize => {
 				return !!shirtSize && _.isString(shirtSize);
 			});

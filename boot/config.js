@@ -7,10 +7,12 @@
 // Express Core
 import http from 'http';
 import express from 'express';
+import validator from 'validator';
 import expressValidator from 'express-validator';
 import session from 'express-session';
 import io from 'socket.io';
 import Parse from 'parse/node';
+import bodyParser from 'body-parser';
 
 // Utility
 import Q from 'q';
@@ -30,7 +32,7 @@ import store from '../lib/data';
 import EmailManager from '../lib/EmailManager';
 import { default as validate } from '../lib/validate';
 import ACL from '../lib/acl';
-import customValidators from '../app/helpers/customValidators';
+//import customValidators from '../app/helpers/customValidators';
 
 export default function configureApp() {
 	const app = {};
@@ -45,7 +47,8 @@ export default function configureApp() {
 	app.path = path;
 	app.util = util;
 	app.store = store;
-	app.expressValidator = expressValidator;
+	app.validator = validator;
+	app.bodyParser = bodyParser;
 
 	app.dirs = {
 		public: path.resolve(__dirname + '/../public'),
@@ -74,9 +77,6 @@ export default function configureApp() {
 	e.use(express.static(app.dirs.public, {
 		maxAge: maxAge
 	}));
-	// e.use(expressValidator({
-	// 	customValidators: customValidators(app)
-	// }));
 	app.io = io(server);
 
 	// Handle caching

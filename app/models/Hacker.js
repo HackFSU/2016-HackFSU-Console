@@ -23,7 +23,7 @@ export default function (app) {
 
 			// Validate resume independently because we store in elsewhere before
 			// associating it with a Hacker
-			this.resume = o.resumeBase64;
+			this.resume = validate(o.resumeBase64, _.isString);
 
 			// These are the attributes that are stored in the user account
 			this.userData = _.pick(o,
@@ -69,7 +69,10 @@ export default function (app) {
 				// together
 				let promiseSetResume = new Parse.Promise();
 
-				this.set('resume', resumeFile);
+				if (resumeFile !== 0) {
+					this.set('resume', resumeFile);
+				}
+
 				promiseSetResume.resolve();
 
 				return promiseSetResume;
@@ -145,6 +148,13 @@ export default function (app) {
 		*/
 		saveResume(base64) {
 			let promiseSaveResume = new Parse.Promise();
+
+			if (base64 === '') {
+				console.log(`No resume file specified for ${this.userData.firstName} ${this.userData.lastName}`);
+				promiseSaveResume.resolve(0);
+				return promiseSaveResume;
+			}
+
 			let fileName = `${this.userData.firstName}_${this.userData.lastName}_resume.pdf`;
 			let resumeFile = new Parse.File(fileName, { base64: base64 });
 

@@ -8,7 +8,22 @@ block content
 		.block.content-960.center-relative
 			h2.section-title-fixed.singleLineText.margin-left-15 Registration
 			.title-separator.margin-left-15
-			#error-messages(style='display: none;')
+			#confirmation(style='display: none;').margin-left-15.margin-right-15
+					h2 Thanks!
+					p 
+						| Your registration has been submitted and you should receive a confirmation email
+						| soon! Don't forget to check out the <a href="/">rest of our site</a> if you
+						| haven't already. We've got a new video on the Florida Hacking Culture, an 
+						| FAQ section if you have any questions, and travel information for those of you
+						| heading to Tallahassee from another school (you might be able to be reimbursed
+						| for coming to HackFSU!).
+					p.strong See you next Spring!
+				.clear
+			#errors(style='display: none;')
+				.three_fourth.margin-left-15
+					#error-messages
+				.one_fourth.last
+				.clear
 			form#application(method='post' action='' autocomplete='off')
 				div#application-form
 					.one_fourth
