@@ -27,12 +27,12 @@ export default function setRoutes(app) {
 	};
 
 	// Home
-	e.get('/', c.Index.index);
-	e.get('/index', c.Index.index);
-	e.get('/home', c.Index.index);
-
+	//e.get('/', c.Index.index);
+	//e.get('/index', c.Index.index);
+	//e.get('/home', c.Index.index);
+	e.get('/', c.Preview.index);
 	// Preview Page
-	// e.post('/preview/subscribe', jsonParser, c.Preview.subscribe);
+	 e.post('/preview/subscribe', jsonParser, c.Preview.subscribe);
 
 	// Registration pages
 	e.get('/register', c.Registration.index);
