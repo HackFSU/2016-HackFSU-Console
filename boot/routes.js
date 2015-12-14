@@ -15,6 +15,7 @@ export default function setRoutes(app) {
 	// Parsers
 	const jsonParser = app.bodyParser.json();
 	const urlencodeParser = app.bodyParser.urlencoded({
+		limit: '2mb',
 		extended: false
 	});
 
