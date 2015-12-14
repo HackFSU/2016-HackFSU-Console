@@ -16,6 +16,7 @@
 
 #application .one_fourth {
 	text-align: right;
+  margin-right: 3%;
 }
 
 #confirmation {
@@ -61,10 +62,6 @@
 	}
 
 
-	#application .one_fourth {
-		text-align: left;
-	}
-
   h2.section-title {
     line-height: 55px;
   }
@@ -85,6 +82,10 @@
 	.margin-left-15 {
 		margin-left: 0 !important;
 	}
+
+  #titlePiece {
+    display: none;
+  }
 
 	.margin-right-15 {
 		margin-right: 0 !important;
@@ -285,11 +286,11 @@ body {
 }
 
 .margin-left-15 {
-  margin-left: 15%;
+  margin-left: 13%;
 }
 
 .margin-right-15 {
-  margin-right: 15%;
+  margin-right: 13%;
 }
 
 .form-col-left {
@@ -340,6 +341,13 @@ body {
   width: 2em;
   margin-left: -1.1em;
   margin-top: -1.6em;
+  position: absolute;
+}
+
+#titlePiece2 {
+  width: 2.3em;
+  margin-left: -1.2em;
+  margin-top: -2.1em;
   position: absolute;
 }
 
