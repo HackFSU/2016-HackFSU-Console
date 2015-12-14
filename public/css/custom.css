@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Uni Sans';
   font-weight: 700;
-  src: url('/fonts/unisansfree/Uni Sans Heavy.otf');
+  src: url('/fonts/unisansfree/UniSansHeavyWeb.woff');
 }
 
 @font-face {
@@ -190,7 +190,7 @@ a:link {
 .hero.topRight .register {
   border: 0.15em solid #fff;
   border-radius: 4px;
-  padding: 0.25em 0.25em 0.05em 0.25em;
+  padding: 0.125em 0.25em 0.125em 0.25em;
 	line-height: normal;
   transition: 200ms all;
   -webkit-transition: 200ms all;
@@ -268,7 +268,6 @@ a:link {
   color: #fff;
   font-size: 34px;
   margin-left: 10px;
-	padding-top: 0.125em;
 }
 
 .row:before, .row:after {
