@@ -13,7 +13,7 @@ block content
 				div#application-form
 					.one_fourth
 						label(for='email') Email *
-					.one_half
+					.one_half.half
 						input#email(type='text' name='email' placeholder='Whats your .edu' data-validation='email')
 					.one_fourth.last
 					.clear
@@ -34,14 +34,15 @@ block content
 							
 					.one_fourth
 						label(for='password') Password *
-					.one_half
+					.one_half.half
 						input#password(type='password' name='password' placeholder='Password' data-validation='length' data-validation-length='min8' data-validation-help="Must be 8 or more characters")
+						br
 					.one_fourth.last
 					.clear
 						
 					.one_fourth
 							label(for='passwordconfirm') Confirm Password *
-					.one_half
+					.one_half.half
 							input#passwordconfirm(type='password' name='passwordconfirm' placeholder='Confirm password' data-validation='confirmation' data-validation-confirm='password')
 					.one_fourth.last
 					.clear
@@ -745,6 +746,18 @@ block content
 						input#resume(type='file' name='resume')
 					.one_fourth.last
 					.clear
+
+					.one_fourth
+						label(for='wantjob') Looking for a job?
+					.one_half
+						input#fulltime(type='checkbox' name='wantjob' value='fulltime')
+						label(for='fulltime' style='color: #303030;') Full-time
+						input#parttime(type='checkbox' name='wantjob' value='parttime')
+						label(for='parttime') Part-time
+						input#internship(type='checkbox' name='wantjob' value='internship')
+						label(for='internship') Internship
+					.one_fourth.last
+					.clear 
 						
 					.one_fourth
 						label(for='phone') Phone Number
@@ -803,17 +816,7 @@ block content
 					.one_fourth.last
 					.clear
 						
-					.one_fourth
-						label(for='wantjob') Looking for a job?
-					.one_half
-						input#fulltime(type='checkbox' name='wantjob' value='fulltime')
-						label(for='fulltime' style='color: #303030;') Full-time
-						input#parttime(type='checkbox' name='wantjob' value='parttime')
-						label(for='parttime') Part-time
-						input#internship(type='checkbox' name='wantjob' value='internship')
-						label(for='internship') Internship
-					.one_fourth.last
-					.clear 
+					
 					
 					.one_fourth
 						label(for='gender') Gender
