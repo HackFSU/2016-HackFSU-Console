@@ -1,6 +1,6 @@
 /**
- * Gulp config. 
- * 
+ * Gulp config.
+ *
  * Used to run checks + transpile front end and then boot the server.
  */
 
@@ -20,6 +20,10 @@ var argv = require('yargs')
 	.alias('p', 'production')
 	.describe('p', 'RUN_LEVEL = PROD')
 
+	.string('s')
+	.alias('s', 'script')
+	.describe('s', 'Script file to run')
+
 	.argv;
 
 var dirs = {
@@ -28,8 +32,13 @@ var dirs = {
 	js: __dirname + '/public/js',
 	app: __dirname + '/app',
 	lib: __dirname + '/lib',
-	boot: __dirname + '/boot'
+	boot: __dirname + '/boot',
+	scripts: {
+		src: __dirname + '/scripts/src',
+		build: __dirname + '/scripts/build'
+	}
 };
+
 
 gulp.task('clean', function(done) {
 	try {
@@ -41,6 +50,16 @@ gulp.task('clean', function(done) {
 			done();
 		});
 	}
+
+	// try {
+	// 	fs.statSync(dirs.scripts.dest);
+	// } catch (e) {
+	// 	fs.mkdirSync(dirs.scripts.dest);
+	// } finally {
+	// 	del([dirs.scripts.dest + '/*.js']).then(function() {
+	// 		done();
+	// 	});
+	// }
 });
 
 gulp.task('jshint-backend', function() {
@@ -62,6 +81,13 @@ gulp.task('jshint-frontend', function() {
 		.pipe(jshint.reporter('default'));
 });
 
+gulp.task('jshint-scripts', function() {
+	return gulp.src([dirs.scripts.src + '/**/*.js'])
+		.pipe(jshint())
+		.pipe(jshint.reporter('default'));
+});
+
+
 gulp.task('transpile-frontend', ['clean', 'jshint-frontend'], function() {
 	return gulp.src(['public/es6' + '/**/*.js'])
 		.pipe(sourcemaps.init())
@@ -75,6 +101,18 @@ gulp.task('transpile-frontend', ['clean', 'jshint-frontend'], function() {
 		.pipe(gulp.dest(dirs.views));
 });
 
+gulp.task('transpile-scripts', ['jshint-scripts'], function() {
+	return gulp.src([dirs.scripts.src + '/*.js'])
+		.pipe(sourcemaps.init())
+			.pipe(babel({
+				presets: ['es2015']
+			}))
+		.pipe(sourcemaps.write('./', {
+			sourceRoot: '../src',
+		}))
+		.pipe(gulp.dest(dirs.scripts.build));
+});
+
 gulp.task('default', ['jshint-backend', 'transpile-frontend'], function() {
 
 	gulp.watch([dirs.es6 + '/**/*.js'], ['transpile-frontend']);
@@ -86,6 +124,18 @@ gulp.task('default', ['jshint-backend', 'transpile-frontend'], function() {
 
 	// Initiate boot
 	require('./server');
-	
+
 });
 
+
+gulp.task('run', ['jshint-scripts'], function(done) {
+	var dotenv = require('dotenv');
+
+	dotenv.load();
+	if(!process.env.RUN_LEVEL) {
+		process.env.RUN_LEVEL = 'DEV';
+	}
+
+	require('babel/register');
+	require('./scripts/' + argv.script)(done);
+});

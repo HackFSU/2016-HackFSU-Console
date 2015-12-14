@@ -1,0 +1,49 @@
+include ../logo.jade
+doctype html
+html(lang='en')
+	head
+		// So meta
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible' content='IE=edge')
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+		meta(name='description' content='')
+		meta(name='author' content='')
+		meta(property='og:url' content='http://hackfsu.com/')
+		meta(property='og:image' content='http://hackfsu.com/img/hackfsu-16-post-preview.jpg')
+		meta(property='og:title' content="HackFSU '16")
+		meta(name='google-site-verification' content='suuzMNcGGtUdtvQ1Te8M3HxORys7IlGjkDLvOGOkpA8')
+		
+		title #{title}
+
+		link(rel='stylesheet' type='text/css' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+		link(rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800')
+		link(rel='stylesheet', href='/css/navbar-fixed.css')
+		block localCSS
+			
+	body
+		nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
+			.container
+				.navbar-header
+					button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href='/')
+						//img(src='/img/logo-nav.png')
+						| HackFSU Admin Console
+				div#navbar(class='navbar-collapse collapse')
+					ul(class='nav navbar-nav navbar-right')
+						li
+							a(href='/admin/emails') Emails
+						li
+							a(href='#') Something Else						
+		.container
+			block content
+
+		//- Global JavaScript
+		script(src='/bower_components/jquery/dist/jquery.min.js')
+		script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+		script(src='/js/navbar-active.js')
+			
+		block localJS

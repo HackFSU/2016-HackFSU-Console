@@ -1,0 +1,7 @@
+/*
+* Push body content down so it isn't under the navbar
+*/
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}

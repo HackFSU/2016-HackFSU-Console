@@ -7,10 +7,12 @@
 // Express Core
 import http from 'http';
 import express from 'express';
-import validator from 'express-validator';
+import validator from 'validator';
+import expressValidator from 'express-validator';
 import session from 'express-session';
 import io from 'socket.io';
 import Parse from 'parse/node';
+import bodyParser from 'body-parser';
 
 // Utility
 import Q from 'q';
@@ -18,6 +20,7 @@ import moment from 'moment';
 import uuid from 'node-uuid';
 import _ from 'lodash';
 import path from 'path';
+import util from 'util';
 
 // Logging
 import morgan from 'morgan';
@@ -28,6 +31,8 @@ import * as helpers from '../app/helpers';
 import store from '../lib/data';
 import EmailManager from '../lib/EmailManager';
 import { default as validate } from '../lib/validate';
+import ACL from '../lib/acl';
+//import customValidators from '../app/helpers/customValidators';
 
 export default function configureApp() {
 	const app = {};
@@ -40,6 +45,10 @@ export default function configureApp() {
 	app._ = _;
 	app.validate = validate;
 	app.path = path;
+	app.util = util;
+	app.store = store;
+	app.validator = validator;
+	app.bodyParser = bodyParser;
 
 	app.dirs = {
 		public: path.resolve(__dirname + '/../public'),
@@ -66,9 +75,8 @@ export default function configureApp() {
 	e.set('views', app.dirs.app + '/views');
 	e.set('view engine', 'jade');
 	e.use(express.static(app.dirs.public, {
-		maxAge: maxAge 
+		maxAge: maxAge
 	}));
-	e.use(validator());
 	app.io = io(server);
 
 	// Handle caching
@@ -79,7 +87,33 @@ export default function configureApp() {
 		next();
 	});
 
-	
+	// Error sending utility
+	e.use(function(req, res, next) {
+		res.sendError = function(code, message, extraData) {
+			if(!extraData) {
+				extraData = {};
+			} else if(extraData && !_.isObject(extraData)) {
+				extraData = {
+					data: extraData
+				};
+			}
+
+			// Log to console if server error, 5xx
+			if(_.isNumber(code) && code % 100 === 5) {
+				console.error(`[SERVER REQUEST ERROR] ${message}\n
+					${util.inspect(req)}\n
+					${util.inspect(extraData)}\n`);
+			}
+
+			res.code = code;
+			res.json(_.merge({
+				error: message
+			}, extraData));
+		};
+		next();
+	});
+
+
 
 	// Setup session
 	e.use(session({
@@ -91,7 +125,7 @@ export default function configureApp() {
 		saveUninitialized: false,
 		resave: false
 	}));
-	
+
 
 	// Pass locals to jade
 	e.use(function(req, res, next) {
@@ -110,7 +144,6 @@ export default function configureApp() {
 	Parse.Cloud.useMasterKey();
 
 	// Load project files
-	app.store = store;
 	app.email = new EmailManager(
 		store.email.FROM_EMAIL_INFO,
 		store.email.FROM_NAME
@@ -122,9 +155,29 @@ export default function configureApp() {
 	customLoader.loadAllExports(app, app.dirs.app + '/models');
 
 	app.controller = {}; // Should all be functions
+	app.controller.admin = {};
 	customLoader.loadAllExports(app, app.dirs.app + '/controllers');
 
 
+
+	// Setup ACL
+	app.acl= new ACL({
+		roleNames: ['User', 'Hacker', 'Mentor', 'Admin', 'SuperAdmin'],
+		getRoleIdFromRequest: function(req) {
+			if(req.session.user) {
+				return req.session.user.roleId;
+			}
+		},
+		denyMiddleware: function(req, res) {
+			res.redirect('/user/login?accessDenied=true');
+		}
+	});
+	// acl.setEnforce(false);
+
+	app.acl.mergeRoles('Hacker', ['User']);
+	app.acl.mergeRoles('Mentor', ['User']);
+	app.acl.mergeRoles('Admin', ['User', 'Hacker', 'Mentor']);
+	app.acl.mergeRoles('SuperAdmin', ['User', 'Hacker', 'Mentor', 'Admin']);
 
 	return app;
 }

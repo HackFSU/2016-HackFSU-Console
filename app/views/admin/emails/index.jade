@@ -1,0 +1,31 @@
+extend ../layout
+block content
+	.container
+		div(class="panel panel-default")
+			.panel-heading 
+				h3.panel-title Emails List
+			.panel-body
+				p.
+					Each listing below contains an email template. To add a template, click "Add".
+
+
+			table(class="table table-hover")
+				thead
+					tr
+						th Template Name 
+						th Description
+						th Send to
+						th Actions
+				tbody
+					if emails.length > 0
+						each template in emails
+							tr(id="#{templateList.name}")
+								td= template.name
+								td= template.description
+								td= template.sendto
+								td
+									button(type="button", id="#{template.name}", class="button") Test                   
+					else
+						tr
+							td(colspan="4")
+								p.text-center No templates found!
