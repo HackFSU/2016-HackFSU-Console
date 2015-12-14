@@ -1,6 +1,6 @@
 /**
  * AnonStat model
- * 
+ *
  * Anonymous statistics collected from hackers. Parse only stores the integer
  * ids for each entry and not the names themselves. Names are in the store.
  */
@@ -19,15 +19,11 @@ export default function (app) {
 			super(PARSE_CLASSNAME);
 
 			validate(o, _.isObject);
-			validate(o.statId, _.isNumber);
-			validate(o.optionId, _.isNumber);
-			validate(o, function(o) {
-				return store.anonStats.hasOwnProperty(o.statId) &&
-					store.anonStats[o.statId].options.hasOwnProperty(o.optionId);
-			});
+			validate(o.name, _.isString);
+			validate(o.option, _.isString);
 
-			this.set('statId', o.statId);
-			this.set('optionId', o.optionId);
+			this.set('name', o.name);
+			this.set('option', o.option);
 		}
 
 	}
@@ -35,4 +31,3 @@ export default function (app) {
 	app.model.AnonStat = AnonStat;
 	Parse.Object.registerSubclass(PARSE_CLASSNAME, AnonStat);
 }
-

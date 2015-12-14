@@ -82,11 +82,20 @@ export default function(app) {
 				'comments',
 				'wants',
 				'wantjob',
-				'gender',
-				'ethnicity',
 				'yesno18',
 				'mlhcoc'
 			);
+
+			let anonStats = [
+				{
+					name: 'gender',
+					option: req.body.gender
+				},
+				{
+					name: 'ethnicity',
+					option: req.body.ethnicity
+				}
+			];
 
 			// Change some of the defaults
 			hackerAttrs.email = hackerAttrs.email.toLowerCase();
@@ -118,10 +127,11 @@ export default function(app) {
 			valErrs.push(validator.isAscii(o.comments) || _.isEmpty(o.comments));
 			valErrs.push(_.isArray(o.wants) || _.isEmpty(o.wants));
 			valErrs.push(_.isArray(o.wantjob) || _.isEmpty(o.wantjob));
-			valErrs.push(validator.isAlpha(o.gender) || _.isEmpty(o.gender));
-			valErrs.push(validator.isAlpha(o.ethnicity) || _.isEmpty(o.ethnicity));
 			valErrs.push(validator.isBoolean(o.yesno18));
 			valErrs.push(validator.isBoolean(o.mlhcoc));
+			// Convert this to a loop
+			valErrs.push(validator.isAscii(anonStats[0].option) || _.isEmpty(anonStats[0].option));
+			valErrs.push(validator.isAscii(anonStats[1].option) || _.isEmpty(anonStats[1].option));
 
 			// Send error if there were validation errors
 			if(_.includes(valErrs, false)) {
@@ -135,17 +145,21 @@ export default function(app) {
 
 			let hacker = new app.model.Hacker(hackerAttrs);
 
-			// // Create AnonStats
-			// let anonStats = [];
-			// anonStats.forEach(function(pair) {
-			// 	anonStats.push(new app.model.AnonStat(pair));
-			// });
-
 			hacker.signUp().then(function(hacker) {
 				let user = hacker.get('user');
 					// Complete, send confirmation email
 					res.json({
 						name: user.name()
+					});
+
+					_.each(anonStats, (stat) => {
+						let anonStat = new app.model.AnonStat(stat);
+						anonStat.save().then((stat) => {
+							console.log('Anon Stat saved: ', stat);
+						},
+						(err) => {
+							console.log('Anon Stat not saved: ', err);
+						});
 					});
 
 					sendConfirmationEmail(user.get('email'),
