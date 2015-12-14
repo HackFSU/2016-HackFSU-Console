@@ -39,7 +39,7 @@ export default function (app) {
 				return !!shirtSize && _.isString(shirtSize);
 			});
 			this.github = validate(o.github, _.isString);
-			this.phone = validate(o.phone, _.isNumber);
+			this.phone = validate(o.phone, _.isString);
 
 			this.set('firstName', this.firstName);
 			this.set('lastName', this.lastName);
@@ -50,6 +50,13 @@ export default function (app) {
 			this.set('shirtSize', this.shirtSize);
 			this.set('github', this.github);
 			this.set('phone', this.phone);
+		}
+
+		/**
+		* Returns the User's name, formatted as 'FIRST LAST'
+		*/
+		name() {
+			return `${this.get('firstName')} ${this.get('lastName')}`;
 		}
 	}
 

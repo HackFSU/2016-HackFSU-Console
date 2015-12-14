@@ -18,9 +18,14 @@ export default function (app) {
 			super(PARSE_CLASSNAME);
 
 			o = validate(o, _.isObject);
-			this.resume = validate(o.resume, _.isString);
 
-			// This is the data that is stored in the user account
+			console.log(o);
+
+			// Validate resume independently because we store in elsewhere before
+			// associating it with a Hacker
+			this.resume = o.resumeBase64;
+
+			// These are the attributes that are stored in the user account
 			this.userData = _.pick(o,
 				'email',
 				'firstName',
@@ -32,15 +37,12 @@ export default function (app) {
 				'diet'
 			);
 
+			// Hacker attributes
 			this.set('school', validate(o.school, _.isString));
 			this.set('year', validate(o.year, _.isString));
-			this.set('shirtSize', validate(o.shirtSize, _.isString));
 			this.set('major', validate(o.major, _.isString));
 			this.set('firstHackathon', validate(o.firstHackathon, _.isBoolean));
-			this.set('github', validate(o.github, _.isString));
-			this.set('phone', validate(o.phone, _.isString));
 			this.set('hate', validate(o.hate, _.isString));
-			this.set('diet', validate(o.diet, _.isString));
 			this.set('comments', validate(o.comments, _.isString));
 			this.set('wants', validate(o.wants, _.isArray));
 			this.set('wantjob', validate(o.wantjob, _.isArray));
@@ -72,18 +74,45 @@ export default function (app) {
 
 				return promiseSetResume;
 			},
+			// Reject promiseSignUp if there was an error saving the resume file.
 			(err) => {
-				throw Error(`Couldn't save resume for ${this.name()}: ${err}`);
+				console.log('There was an error creating the resume file: ', err);
+				promiseSignUp.reject(err);
 			})
-			// Called after setResume promise is completed
+			// Called after setResume promise is resolved
+			// Returns a promise with the created user to associated with the Hacker
 			.then(() => {
+				let promiseUserCreated = new Parse.Promise();
+				//console.log('wtd');
+				this.createUser().then((user) => {
+					console.log(user);
+					promiseUserCreated.resolve(user);
+				},
+				(err) => {
+					console.log('Creating a user failed: ', err);
+					promiseUserCreated.reject(err);
+				});
+				return promiseUserCreated;
+			},
+			(err) => {
+				promiseSignUp.reject(err);
+			})
+			// Finally, we save the Hacker here. We first associate the hacker with a
+			// User account, then save the hacker and return a promise.
+			.then((user) => {
+				this.set('user', user);
 				this.save().then((hacker) => {
 					// This is the main promise to resolve and exits this model function.
 					promiseSignUp.resolve(hacker);
 				},
 				(err) => {
+					console.log(err);
 					promiseSignUp.reject(err);
 				});
+
+			// Error handler if error propogated in creating a user
+			}, (err) => {
+					promiseSignUp.reject(err);
 			});
 
 			// Return a promise to whhatever called signUp()
@@ -93,8 +122,21 @@ export default function (app) {
 		/**
 		* Create the user associated with the Hacker account
 		*/
-		createUser(userData) {
+		createUser() {
+			let promiseCreateUser = new Parse.Promise();
 
+			let user = new app.model.User(this.userData);
+
+			// Sign up the user and resolve the promise
+			user.signUp().then((savedUser) => {
+				promiseCreateUser.resolve(savedUser);
+			},
+			// ... or reject with an error
+			(err) => {
+				promiseCreateUser.reject(err);
+			});
+
+			return promiseCreateUser;
 		}
 
 		/**
@@ -103,7 +145,7 @@ export default function (app) {
 		*/
 		saveResume(base64) {
 			let promiseSaveResume = new Parse.Promise();
-			let fileName = `${this.get('firstName')}_${this.get('lastName')}_resume.pdf`;
+			let fileName = `${this.userData.firstName}_${this.userData.lastName}_resume.pdf`;
 			let resumeFile = new Parse.File(fileName, { base64: base64 });
 
 			resumeFile.save().then(() => {
@@ -115,13 +157,6 @@ export default function (app) {
 			});
 
 			return promiseSaveResume;
-		}
-
-		/**
-		* Returns the Hacker's name, formatted as 'FIRST LAST'
-		*/
-		name() {
-			return `${this.get('firstName')} ${this.get('lastName')}`;
 		}
 
 	}

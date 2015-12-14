@@ -14,12 +14,12 @@ export default function setRoutes(app) {
 
 	// Parsers
 	const jsonParser = bodyParser.json();
-	// const urlencodeParser = bodyParser.urlencoded({
-	// 	extended: false
-	// });
+	const urlencodeParser = bodyParser.urlencoded({
+		extended: false
+	});
 
-	e.use(bodyParser.json());
-	e.use(expressValidator());
+	// e.use(bodyParser.json());
+	// e.use(expressValidator());
 
 	let useAcl = {
 		User: app.acl.useAcl('User'),
@@ -44,7 +44,7 @@ export default function setRoutes(app) {
 
 	e.get('/register', c.Registration.index);
 	e.get('/apply', (req, res) => { res.redirect('/register'); });
-	e.post('/register/submit', c.Registration.submit);
+	e.post('/register/submit', urlencodeParser, c.Registration.submit);
 
 	/**************************************************************************
 	 * User

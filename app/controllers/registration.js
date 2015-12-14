@@ -11,7 +11,7 @@ export default function(app) {
 
 	const store = app.store;
 	const Parse = app.Parse;
-
+	const _ = app._;
 
 	let sendConfirmationEmail = function(hackerEmail, firstName) {
 		let dfd = new Parse.Promise();
@@ -97,11 +97,42 @@ export default function(app) {
 			// 	return;
 			// }
 
-			req.body.firstHackathon = 'yes' ? true : false;
-			req.body.yesno18 = 'yes' ? true : false;
-			req.body.mlhcoc = 'yes' ? true : false;
+			// res.json({
+			// 	resume: req.body.resumeBase64
+			// });
+			// return;
 
-			let hacker = new app.model.Hacker(req.body);
+			let hackerAttrs = _.pick(req.body,
+				'email',
+				'firstName',
+				'lastName',
+				'password',
+				'school',
+				'year',
+				'shirtSize',
+				'major',
+				'firstHackathon',
+				'github',
+				'resumeBase64',
+				'phone',
+				'hate',
+				'diet',
+				'comments',
+				'wants',
+				'wantjob',
+				'gender',
+				'ethnicity',
+				'yesno18',
+				'mlhcoc'
+			);
+
+			hackerAttrs.firstHackathon = 'yes' ? true : false;
+			hackerAttrs.yesno18 = 'yes' ? true : false;
+			hackerAttrs.mlhcoc = 'yes' ? true : false;
+
+			console.log(req.body);
+
+			let hacker = new app.model.Hacker(hackerAttrs);
 
 			// // Create AnonStats
 			// let anonStats = [];
@@ -116,20 +147,23 @@ export default function(app) {
 				// 		return;
 				// 	}
 
+				let user = hacker.get('user');
 					// Complete, send confirmation email
 					res.json({
-						name: hacker.name()
+						name: user.name()
 					});
 
-					sendConfirmationEmail(hacker.get('email'),
-						hacker.get('firstName')
+					sendConfirmationEmail(user.get('email'),
+						user.get('firstName')
 					);
 
 				// }, function(err) {
 				// 	res.sendError(500, 'Unable to save AnonStat(s)', err);
 			//	});
 			}, function(err) {
-				res.sendError(500, 'Unable to save Hacker', err);
+				res.json({
+					error: err
+				});
 			});
 		},
 

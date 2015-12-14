@@ -743,6 +743,7 @@ block content
 						label(for='resume') Resume
 					.one_half
 						input#resume(type='file' name='resume')
+						textarea#resumeBase64(name='resumeBase64' style='display: none;')
 					.one_fourth.last
 					.clear
 						
@@ -855,7 +856,7 @@ block content
 					.one_fourth
 						label(for="mlhcoc") Code of Conduct *
 					.one_half
-						input#mlh(type='checkbox' value='MLH accepted' data-validation='required' name='mlhcoc')
+						input#mlh(type='checkbox' value='yes' data-validation='required' name='mlhcoc')
 						label(for='mlh') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
 					.one_fourth.last
 					.clear
