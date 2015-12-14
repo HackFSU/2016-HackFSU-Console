@@ -134,7 +134,6 @@ block content
 							option Case Western Reserve University
 							option Catholic University of America
 							option Central Connecticut State University
-							option University of Central Florida
 							option Centre College
 							option Champlain College
 							option Chapman University
@@ -186,6 +185,9 @@ block content
 							option Embry-Riddle - Prescott
 							option Emerson College
 							option Emory University
+							option Florida State University
+							option University of Florida
+							option University of Central Florida
 							option Fairfield University
 							option Fairleigh Dickinson University
 							option Fashion Institute of Technology
@@ -195,11 +197,9 @@ block content
 							option Florida A&M University
 							option Florida Institute of Technology
 							option Florida International University
-							option Florida State University
 							option Fordham University
 							option Franklin & Marshall College
 							option Furman University
-							option University of Florida
 							option George Mason University
 							option George Washington University
 							option Georgetown University
@@ -763,6 +763,18 @@ block content
 					.clear
 						
 					.one_fourth
+						label(for='wantjob') Looking for a job?
+					.one_half
+						input#fulltime(type='checkbox' name='wantjob' value='fulltime')
+						label(for='fulltime' style='color: #303030;') Full-time
+						input#parttime(type='checkbox' name='wantjob' value='parttime')
+						label(for='parttime') Part-time
+						input#internship(type='checkbox' name='wantjob' value='internship')
+						label(for='internship') Internship
+					.one_fourth.last
+					.clear 
+						
+					.one_fourth
 						label(for='phone') Phone Number
 					.one_half
 						input#phone(type='text' name='phone' placeholder='Phone #')
@@ -818,18 +830,6 @@ block content
 						label(for='sleep') Sleep
 					.one_fourth.last
 					.clear
-						
-					.one_fourth
-						label(for='wantjob') Looking for a job?
-					.one_half
-						input#fulltime(type='checkbox' name='wantjob' value='fulltime')
-						label(for='fulltime' style='color: #303030;') Full-time
-						input#parttime(type='checkbox' name='wantjob' value='parttime')
-						label(for='parttime') Part-time
-						input#internship(type='checkbox' name='wantjob' value='internship')
-						label(for='internship') Internship
-					.one_fourth.last
-					.clear 
 					
 					.one_fourth
 						label(for='gender') Gender
@@ -848,12 +848,12 @@ block content
 					.one_half
 						select#ethnicity(name='ethnicity')
 							option(selected='true' disabled='true') Select your ethnicity
-							option White
-							option Asian
-							option Hispanic
-							option Black
-							option Multicultural
-							option Other
+							option(value='white') White
+							option(value='asian') Asian
+							option(value='hispanic') Hispanic
+							option(value='black') Black
+							option(value='multicultural') Multicultural
+							option(value='other') Other
 						.help-block Answering this optional field is anonymous and will not be associated with your account.
 					.one_fourth.last
 					.clear 
