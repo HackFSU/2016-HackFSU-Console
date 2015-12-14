@@ -44,8 +44,12 @@ export default function (app) {
 			this.set('firstHackathon', validate(o.firstHackathon, _.isBoolean));
 			this.set('hate', validate(o.hate, _.isString));
 			this.set('comments', validate(o.comments, _.isString));
-			this.set('wants', validate(o.wants, _.isArray));
-			this.set('wantjob', validate(o.wantjob, _.isArray));
+			this.set('wants', validate(o.wants, function(wants) {
+				return _.isArray(wants) || wants === undefined;
+			}));
+			this.set('wantjob', validate(o.wantjob, function(wantjob) {
+				return _.isArray(wantjob) || wantjob === undefined;
+			}));
 			this.set('yesno18', validate(o.yesno18, _.isBoolean));
 			this.set('mlhcoc', validate(o.mlhcoc, _.isBoolean));
 		}

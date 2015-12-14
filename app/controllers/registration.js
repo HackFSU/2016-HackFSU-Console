@@ -99,13 +99,11 @@ export default function(app) {
 
 			// Change some of the defaults
 			hackerAttrs.email = hackerAttrs.email.toLowerCase();
-			hackerAttrs.firstHackathon = 'yes' ? true : false;
-			hackerAttrs.yesno18 = 'yes' ? true : false;
-			hackerAttrs.mlhcoc = 'yes' ? true : false;
-			hackerAttrs.wantjob = _.isArray(hackerAttrs.wantjob) ? hackerAttrs.wantjob : [ hackerAttrs.wantjob ];
-			hackerAttrs.wantjob = hackerAttrs.wantjob[0] === null ? null : hackerAttrs.wantjob;
-			hackerAttrs.wants = _.isArray(hackerAttrs.wants) ? hackerAttrs.wants : [ hackerAttrs.wants ];
-			hackerAttrs.wants = hackerAttrs.wants[0] === null ? null : hackerAttrs.wants;
+			hackerAttrs.firstHackathon = hackerAttrs.firstHackathon === 'yes' ? true : false;
+			hackerAttrs.yesno18 = hackerAttrs.yesno18 === 'yes' ? true : false;
+			hackerAttrs.mlhcoc = hackerAttrs.mlhcoc === 'yes' ? true : false;
+			hackerAttrs.wantjob = _.isArray(hackerAttrs.wantjob) || _.isEmpty(hackerAttrs.wantjob) ? hackerAttrs.wantjob : [ hackerAttrs.wantjob ];
+			hackerAttrs.wants = _.isArray(hackerAttrs.wants) || _.isEmpty(hackerAttrs.wants) ? hackerAttrs.wants : [ hackerAttrs.wants ];
 
 			// Validate data
 			let o = hackerAttrs;
@@ -153,13 +151,15 @@ export default function(app) {
 					});
 
 					_.each(anonStats, (stat) => {
-						let anonStat = new app.model.AnonStat(stat);
-						anonStat.save().then((stat) => {
-							console.log('Anon Stat saved: ', stat);
-						},
-						(err) => {
-							console.log('Anon Stat not saved: ', err);
-						});
+						if (stat.option !== undefined) {
+							let anonStat = new app.model.AnonStat(stat);
+							anonStat.save().then((stat) => {
+								console.log('Anon Stat saved: ', stat);
+							},
+							(err) => {
+								console.log('Anon Stat not saved: ', err);
+							});
+						}
 					});
 
 					sendConfirmationEmail(user.get('email'),
