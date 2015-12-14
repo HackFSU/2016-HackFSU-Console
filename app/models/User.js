@@ -31,15 +31,12 @@ export default function (app) {
 			this.password = validate(o.password, password => {
 				return !!password && _.isString(password);
 			});
-			//this.diet = validate(o.diet, _.isArray);
-			this.diet = validate(o.diet, diet => {
-				return !!diet && _.isString(diet);
-			});
+			this.diet = validate(o.diet, _.isString);
 			this.shirtSize = validate(o.shirtSize, shirtSize => {
 				return !!shirtSize && _.isString(shirtSize);
 			});
 			this.github = validate(o.github, _.isString);
-			this.phone = validate(o.phone, _.isNumber);
+			this.phone = validate(o.phone, _.isString);
 
 			this.set('firstName', this.firstName);
 			this.set('lastName', this.lastName);
@@ -50,6 +47,13 @@ export default function (app) {
 			this.set('shirtSize', this.shirtSize);
 			this.set('github', this.github);
 			this.set('phone', this.phone);
+		}
+
+		/**
+		* Returns the User's name, formatted as 'FIRST LAST'
+		*/
+		name() {
+			return `${this.get('firstName')} ${this.get('lastName')}`;
 		}
 	}
 

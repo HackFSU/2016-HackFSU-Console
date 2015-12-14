@@ -18,6 +18,29 @@
 	text-align: right;
 }
 
+#confirmation {
+	min-height: 400px;
+}
+
+#confirmation h2 {
+	font-size: 1.5em;
+	margin-bottom: 10px;
+}
+
+#confirmation p.strong {
+	font-size: 1em;
+	font-weight: 500;
+	margin-top: 5px;
+}
+
+#error-messages {
+	margin-top: 10px;
+	margin-bottom: -20px;
+	color: #ef626c;
+	padding: 20px;
+	border: 3px solid #ef626c;
+}
+
 .help-block {
 	margin-top: 5px;
 	color: #4d4d4d;
@@ -25,6 +48,19 @@
 }
 
 @media screen and (max-width: 960px) {
+	.footer-copyright {
+		font-size: 1em;
+	}
+
+	#application button[type="submit"] {
+		width: 100%;
+	}
+
+	#confirmation {
+		margin-bottom: 50px;
+	}
+
+
 	#application .one_fourth {
 		text-align: left;
 	}
@@ -53,6 +89,10 @@
   #titlePiece {
     display: none;
   }
+
+	.margin-right-15 {
+		margin-right: 0 !important;
+	}
 }
 
 @media screen and (max-width: 560px) {
@@ -252,6 +292,10 @@ body {
   margin-left: 15%;
 }
 
+.margin-right-15 {
+  margin-right: 15%;
+}
+
 .form-col-left {
 	float: left !important;
 	width: 25%;
@@ -405,6 +449,14 @@ textarea:focus, select:focus {
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
+
+button[type="submit"]:disabled {
+	border-color: #aaa;
+	color: #aaa;
+	box-shadow: none;
+}
+
+
 .btn {
   display: inline-block;
   padding: 6px 12px;
@@ -455,7 +507,7 @@ input:-webkit-autofill {
     margin-bottom: 100px;
     font-size: 16px;
 }
-.btn-form:hover {
+.btn-form:hover:not(:disabled) {
 	background-color: #8bd1c9;
 	color: #fff;
   box-shadow: none;
@@ -684,6 +736,10 @@ input:-webkit-autofill {
 .saving span:nth-child(3) {
   -webkit-animation-delay: .4s;
           animation-delay: .4s;
+}
+
+.footer-copyright {
+	font-family: 'Uni Sans';
 }
 
 @-webkit-keyframes blink {

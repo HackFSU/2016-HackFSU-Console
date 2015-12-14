@@ -8,8 +8,23 @@ block content
 		.block.content-960.center-relative
 			h2.section-title-fixed.singleLineText.margin-left-15 Registration
 			.title-separator.margin-left-15
-			#error-messages(style='display: none;')
-			form#application(method='post' role='form' name='register' autocomplete='off')
+			#confirmation(style='display: none;').margin-left-15.margin-right-15
+					h2 Thanks!
+					p 
+						| Your registration has been submitted and you should receive a confirmation email
+						| soon! Don't forget to check out the <a href="/">rest of our site</a> if you
+						| haven't already. We've got a new video on the Florida Hacking Culture, an 
+						| FAQ section if you have any questions, and travel information for those of you
+						| heading to Tallahassee from another school (you might be able to be reimbursed
+						| for coming to HackFSU!).
+					p.strong See you next Spring!
+				.clear
+			#errors(style='display: none;')
+				.three_fourth.margin-left-15
+					#error-messages
+				.one_fourth.last
+				.clear
+			form#application(method='post' action='' autocomplete='off')
 				div#application-form
 					.one_fourth
 						label(for='email') Email *
@@ -744,6 +759,7 @@ block content
 						label(for='resume') Resume
 					.one_half
 						input#resume(type='file' name='resume')
+						textarea#resumeBase64(name='resumeBase64' style='display: none;')
 					.one_fourth.last
 					.clear
 
@@ -822,7 +838,7 @@ block content
 						label(for='gender') Gender
 					.one_half
 						select#gender(name='gender')
-							option(selected='true' disabled='true') Select a gender
+							option(selected='true' disabled='true') Select your gender
 							option(value='male') Male
 							option(value='female') Female 
 							option(value='other') Other
@@ -834,6 +850,7 @@ block content
 						label(for='ethnicity') Ethnicity
 					.one_half
 						select#ethnicity(name='ethnicity')
+							option(selected='true' disabled='true') Select your ethnicity
 							option White
 							option Asian
 							option Hispanic
@@ -857,7 +874,7 @@ block content
 					.one_fourth
 						label(for="mlhcoc") Code of Conduct *
 					.one_half
-						input#mlh(type='checkbox' value='MLH accepted' data-validation='required' name='mlhcoc')
+						input#mlh(type='checkbox' value='yes' data-validation='required' name='mlhcoc')
 						label(for='mlh') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
 					.one_fourth.last
 					.clear
