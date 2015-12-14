@@ -190,8 +190,8 @@ a:link {
 .hero.topRight .register {
   border: 0.15em solid #fff;
   border-radius: 4px;
-  padding: 0.5em 0.25em 0.25em;
-
+  padding: 0.25em 0.25em 0.05em 0.25em;
+	line-height: normal;
   transition: 200ms all;
   -webkit-transition: 200ms all;
   -moz-transition: 200ms all;
