@@ -16,6 +16,7 @@ let to = [];
 
 let Subscriber = Parse.Object.extend('Subscriber');
 let query = new Parse.Query(Subscriber);
+query.skip(100);
 query.find({
 	success: (results) => {
 		_.each(results, (subscriber) => {

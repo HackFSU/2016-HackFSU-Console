@@ -110,14 +110,14 @@ export default function(app) {
 			let valErrs = [];
 			valErrs.push(validator.isAscii(o.firstName));
 			valErrs.push(validator.isAscii(o.lastName));
-			valErrs.push(validator.isEmail(o.email));
+			valErrs.push(validator.isAscii(o.email));
 			valErrs.push(validator.isAscii(o.password));
 			valErrs.push(validator.isAscii(o.school));
-			valErrs.push(validator.isAlpha(o.year));
+			valErrs.push(validator.isAscii(o.year));
 			valErrs.push(validator.isAscii(o.shirtSize));
 			valErrs.push(validator.isAscii(o.major));
 			valErrs.push(validator.isBoolean(o.firstHackathon));
-			valErrs.push(validator.isAlphanumeric(o.github) || _.isEmpty(o.github));
+			valErrs.push(validator.isAscii(o.github) || _.isEmpty(o.github));
 			valErrs.push(validator.isBase64(o.resumeBase64) || _.isEmpty(o.resumeBase64));
 			valErrs.push(validator.isAscii(o.phone) || _.isEmpty(o.phone));
 			valErrs.push(validator.isAscii(o.hate) || _.isEmpty(o.hate));
