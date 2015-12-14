@@ -87,6 +87,10 @@
     display: none;
   }
 
+  #titlePiece2 {
+    display: none;
+  }
+
 	.margin-right-15 {
 		margin-right: 0 !important;
 	}
