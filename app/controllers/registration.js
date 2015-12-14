@@ -89,6 +89,7 @@ export default function(app) {
 			);
 
 			// Change some of the defaults
+			hackerAttrs.email = hackerAttrs.email.toLowerCase();
 			hackerAttrs.firstHackathon = 'yes' ? true : false;
 			hackerAttrs.yesno18 = 'yes' ? true : false;
 			hackerAttrs.mlhcoc = 'yes' ? true : false;
