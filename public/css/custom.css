@@ -53,6 +53,10 @@
 		font-size: 1em;
 	}
 
+	#application .one_fourth {
+		text-align: left;
+	}
+
 	#application button[type="submit"] {
 		width: 100%;
 	}
