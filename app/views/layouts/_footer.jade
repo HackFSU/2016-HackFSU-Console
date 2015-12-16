@@ -1,11 +1,11 @@
 .clear.center-text.footer
 	.footer-content.center-text.block.content-960.center-relative
 		.social.center-text
-			a(href='https://twitter.com/HackFSU' style='text-decoration:none;')
+			a(href='#{store.links.twitter}' style='text-decoration:none;')
 				i.fa.fa-twitter
-			a(href='https://www.facebook.com/hackfsu' style='text-decoration:none;')
+			a(href='#{store.links.facebook}' style='text-decoration:none;')
 				i.fa.fa-facebook
-			a(href='https://www.instagram.com/hackfsu/' style='text-decoration:none;')
+			a(href='#{store.links.instagram}' style='text-decoration:none;')
 				i.last.fa.fa-instagram
 		.footer-copyright.center-text
-			| &copy; 2015 HackFSU
+			= store.app.copyright

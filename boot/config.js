@@ -8,7 +8,6 @@
 import http from 'http';
 import express from 'express';
 import validator from 'validator';
-import expressValidator from 'express-validator';
 import session from 'express-session';
 import io from 'socket.io';
 import Parse from 'parse/node';
@@ -28,7 +27,7 @@ import morgan from 'morgan';
 // Project utilities/core
 import * as customLoader from '../lib/customLoader';
 import * as helpers from '../app/helpers';
-import store from '../lib/data';
+import store from '../app/store';
 import EmailManager from '../lib/EmailManager';
 import { default as validate } from '../lib/validate';
 import ACL from '../lib/acl';

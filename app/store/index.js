@@ -1,5 +1,5 @@
 /**
- * Load any static data and constants
+ * Initialization file for app-wide store.
  *
  * TODO: Move any applicable data from here into the database and load them
  * on app start into the cache
@@ -9,27 +9,35 @@
  */
 'use strict';
 
-import schoolData from './schools.json';
+import schools from './data/schools.json';
+import majors from './data/majors.json';
+import anonStats from './data/anon-stats.json';
 
+// store represents an object containing all static data to be used in the app
+let store = {};
 
-var store = {};
-
-// Add all data to the store
-store.HOST_NAME = 'hackfsu.com';
+store.app = {
+	name: 'HackFSU',
+	host_name: 'hackfsu.com',
+	copyright: `\u00a9 ${new Date().getFullYear()} HackFSU`		// Uses unicode value for copyright symbol
+};
 
 store.email = {
-	FROM_EMAIL_NOREPLY: 'noreply@' + exports.HOST_NAME,		// fake
-	FROM_EMAIL_REGISTER: 'register@' + exports.HOST_NAME,	// fake
-	FROM_EMAIL_INFO: 'info@' + exports.HOST_NAME,				// valid
-	FROM_NAME: 'HackFSU'
+	noreply: 'noreply@' + store.HOST_NAME,
+	register: 'register@' + store.HOST_NAME,
+	info: 'info@' + store.HOST_NAME,
+	from_name: 'HackFSU'
 };
 
 store.links = {
 	twitter: 'http://www.twitter.com/HackFSU',
-	facebook: ''
+	facebook: 'https://www.facebook.com/hackfsu',
+	instagram: 'https://www.instagram.com/hackfsu'
 };
 
-store.schoolData = schoolData;
+store.schools = schools;
+store.majors = majors;
+store.anonStats = anonStats;
 
 store.shirtSizes = {
 	'm-s': 'Men\'s Small',
@@ -40,31 +48,6 @@ store.shirtSizes = {
 	'w-m': 'Women\'s Medium',
 	'w-l': 'Women\'s Large',
 	'w-xl': 'Women\'s Extra Large'
-};
-
-// List of stats and their option choices.
-// Ids are explicit to allow for verboseness. Do not change them once data
-// has been collected.
-store.anonStats = {
-	0: {
-		name: 'Ethnicity',
-		options: {
-			0: 'White',
-			1: 'Asian',
-			2: 'Hispanic',
-			3: 'Multicultural',
-			4: 'Other'
-		}
-	},
-
-	1: {
-		name: 'Gender',
-		options: {
-			0: 'Male',
-			1: 'Female',
-			2: 'Other'
-		}
-	}
 };
 
 store.hackerGoals = {
@@ -78,7 +61,7 @@ store.hackerGoals = {
 
 store.jobGoals = {
 	0: 'internship',
-	1: 'partTime', 
+	1: 'partTime',
 	2: 'fullTime'
 };
 
@@ -98,7 +81,7 @@ store.util = {
 	},
 
 	/**
-	 * Searches for the ids of the stat and option AnonStat pair by name. 
+	 * Searches for the ids of the stat and option AnonStat pair by name.
 	 * Result object should be checked for statId & optionId
 	 */
 	getAnonStatIdPair: function(statName, optionName) {
@@ -146,7 +129,7 @@ store.util = {
 			id = loopkupFunction(value);
 			if(id) {
 				arrayOfIds.push(id);
-			} 
+			}
 		});
 
 		return arrayOfIds;
@@ -154,4 +137,4 @@ store.util = {
 
 };
 
-export default store; 
+export default store;

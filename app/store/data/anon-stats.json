@@ -1,0 +1,15 @@
+{
+	"ethnicity": {
+		"white": "White",
+		"asian": "Asian",
+		"hispanic": "Hispanic",
+		"black": "Black",
+		"multicultural": "Multicultural",
+		"other": "Other"
+	},
+	"gender": {
+		"male": "Male",
+		"female": "Female",
+		"other": "Other"
+	}
+}

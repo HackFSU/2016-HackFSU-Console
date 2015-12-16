@@ -28,7 +28,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 	$.validate({
 		form: '#application',
-		modules: 'html5, security',
+		modules: 'html5, security, file',
 		borderColorOnError: '#ef626c',
 		errorElementClass: 'form-error',
 		errorMessagePosition: $errorMessages,
