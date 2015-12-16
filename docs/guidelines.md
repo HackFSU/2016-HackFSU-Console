@@ -5,12 +5,12 @@ Everyone must follow the following coding guidelines outlined in this document.
 
 ## General
 
-* use the project wide app variable to reference resources
-* large sections of the site should use their
-* every model should correspond to a Parse class in the database
+* Use the project wide app variable to reference resources
+* Large sections of the site should use their
+* Every model should correspond to a Parse class in the database
 * Every file shall have a comment block at the top describing what it is for
-* comment frequently
-* try not to exceed ~80 character width
+* Comment frequently
+* Try not to exceed ~80 character width
     - I like to use Sublime's rulers for this:
 ```json
 {
@@ -19,31 +19,31 @@ Everyone must follow the following coding guidelines outlined in this document.
     ]
 }
 ```
-* use tabs for spacing, rather than spaces. Use tab width of 4.
-* use unix line endings (Sublime: View > Line Endings > Unix)
-* Sublime Text 3 is the prefered text editior
-    - Notepad++ is a piece of crap
+* Use tabs for spacing, rather than spaces.
+* Use unix line endings (Sublime: View > Line Endings > Unix)
+* Use Sublime Text 3 with the recommended packages, or if you're feeling frisky,
+try out Atom (pro: built-in Git support!)
 
 ## JavaScript Language
 
-* use jshint
-* always declare all variables at the top of the block in which it is hoisted
-    - var/function are hoisted at the function level
-    - let/const are hoisted at the block level
-    - initialize them just before they are needed if they are large objects that have the possiblility of not being used (like if it the function errors)
-* adhere to new ES6 practices
-    - use const whenever possible, especially for referencing external utilites
-    - use let instead of var unless function scope is desired for some reason
-    - use import over require
-    - use export & export default over CommonJS's module.export
-    - use the new class syntax where appropriate
-    - use template strings instead of concatenation where possible
-* all imports should be at the top of the file, just under `'use strict';`
-* only make functions as variables for clarity
-* always use single quotes
-* start code blocks on the line where they start, rather than on the next line.
-* block comments should be made with [these](https://github.com/spadgos/sublime-jsdocs)
-* use the ternary (?:) operators in place of short if statements ([docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator))
+* Use jshint
+* Always declare all variables at the top of the block in which it is hoisted
+    - `var`/`function` are hoisted at the function level
+    - `let`/`const` are hoisted at the block level
+    - Initialize them just before they are needed if they are large objects that have the possibility of not being used (like if the function errs)
+* Adhere to new ES6 practices
+    - Use const whenever possible, especially for referencing external utilities
+    - Use let instead of var unless function scope is desired for some reason
+    - Use import over require
+    - Use export & export default over CommonJS's module.export
+    - Use the new class syntax where appropriate
+    - Use template strings instead of concatenation where possible
+* All imports should be at the top of the file, just under `'use strict';`
+* Only make functions as variables for clarity
+* Always use single quotes (or back-ticks for template strings)
+* Start code blocks on the line where they start, rather than on the next line.
+* Block comments should be made with [these](https://github.com/spadgos/sublime-jsdocs)
+* Use the ternary (`?` `:`) operators in place of short if statements ([docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator))
 
 *Good*
 ```javascript
@@ -79,7 +79,7 @@ let bar = function ()
 
 };
 
-let b = 
+let b =
 [
     'rawr',
     bar
@@ -102,7 +102,7 @@ TODO
 
 Files that need the `app` variable should be structured as so, and need to be imported with the customLoader. This allows us to break apart our code, be more organized, and access the same resources across the project.
 
-*Note:* `customLoader.loadAllExports(app, pathFromProjectRoot)` 
+*Note:* `customLoader.loadAllExports(app, pathFromProjectRoot)`
 
 ```javascript
 
@@ -154,19 +154,32 @@ export default function(app) {
 ```
 
 
-## lib vs. helper 
-Write library utilites for things that can be seen as non-project specifc, and write helper utilites for things that are app wide and project specific.
+## lib vs. helper
+Write library utilities for things that can be seen as non-project specific (i.e.,
+code that you could reuse in another project), and write helper utilities for
+things that are project specific.
 
-*lib*
-* general javascript utility will go in lib
-* does not use `app`, imports own resources
-* throws purposeful unhandled errors to break code
+**Warning!** Helpers are _library_ functions that _help_ the app in some way. For
+example, a function that formats a string in a specific way to display in a template.
+Do not make the mistake of factoring out model or controller **logic** into a helper!
+Refactor your logic as private (read: non-exported) functions in the controller
+or model file.
 
-*helper*
-* uses project data or resources
-* okay to be used anywhere in app when appropriate
-* may be used in jade
-* never throws unhandled errors
+*`lib/`*
+* General JavasSript utilities _created by our team_ will go in `lib/`
+	- Third-party libraries (that aren't in NPM) should go in a `vendor/` folder.
+	- But almost everything is in NPM, so this will likely never come up.
+* Do not use `app`, import own resources
+* Throw purposeful unhandled errors to break code
+	- _**Note**_: We actually don't want that. We should have documentation for each
+	library function that defines how and when errors might show up, and examples on
+	how to handle them in your code. Libraries shouldn't break your app!
+
+*`helper/`*
+* Can use project data or resources
+* Okay to be used anywhere in app when appropriate, but usually just in views and
+ controllers
+* Never throws unhandled errors
 
 
 ## Throwing Errors
@@ -191,7 +204,7 @@ export function foo(someString, someNum) {
 
     if(someString.length > 100) {
         throw new Error(
-            `InvalidParameter: someString must be less than 100 characters, got "${someString.substring(200)}" 
+            `InvalidParameter: someString must be less than 100 characters, got "${someString.substring(200)}"
             ${someString.length > 200 ? '(truncated)' : ''}`
         );
     }
@@ -202,11 +215,11 @@ export function foo(someString, someNum) {
 
 
 ## Handling Front-End Input
-In the best case senario, all front end input should be validated & sanitized. This assures that when you use the data being passed in that you should know what to expect to occur.
+In the best case scenario, all front end input should be validated & sanitized. This assures that when you use the data being passed in that you should know what to expect to occur.
 
 > You can **never** be certain of what will be sent, and it may crash the server or worse.
 
-Validation involves checking to make sure what
+Validation involves checking to make sure what `...`
 
 We use the [express-validator](https://github.com/ctavan/express-validator) to help us do this.
 
@@ -215,4 +228,3 @@ Here is an example showing all steps.
 ```javascript
 TODO
 ```
-
