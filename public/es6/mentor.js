@@ -1,34 +1,12 @@
 (function($) {
 	'use strict';
 
-	var handleFileSelect = function(evt) {
-		var files = evt.target.files;
-		var file = files[0];
-
-		if (files && file) {
-				var reader = new FileReader();
-
-				reader.onload = function(readerEvt) {
-						var binaryString = readerEvt.target.result;
-						document.getElementById("resumeBase64").value = btoa(binaryString);
-				};
-
-				reader.readAsBinaryString(file);
-		}
-	};
-
-if (window.File && window.FileReader && window.FileList && window.Blob) {
-		document.getElementById('resume').addEventListener('change', handleFileSelect, false);
-} else {
-		alert('The File APIs are not fully supported in this browser.');
-}
-
 	let $errorMessages = $('#error-messages');
 	let $submitBtn = $('button[type="submit"]');
 
 	$.validate({
-		form: '#application',
-		modules: 'html5, security, file',
+		form: '#mentor',
+		modules: 'html5, security',
 		borderColorOnError: '#ef626c',
 		errorElementClass: 'form-error',
 		errorMessagePosition: $errorMessages,
@@ -38,7 +16,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 			$submitBtn.shakeIt();
 			setTimeout(function() {
 				$('html, body').animate({
-					scrollTop: $('.has-error').offset().top - 60
+					scrollTop: $('.has-error').offset().top - 120
 				}, 500);
 			}, 500);
 		},
@@ -49,7 +27,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 			$.ajax({
 				type: 'POST',
-				url: '/register',
+				url: '/mentor',
 				data: formData,
 				success: function(res) {
 					if (res.error) {
@@ -66,8 +44,8 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 					else {
 						// Just in case the error messages were displayed, remove them
 						$('#errors').remove();
-						$('#application').fadeTo(1000, 0, function() {
-							$('#application').remove();
+						$('#mentor').fadeTo(1000, 0, function() {
+							$('#mentor').remove();
 							$('html, body').animate({
 								scrollTop: 0
 							}, 500);

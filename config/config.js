@@ -1,6 +1,6 @@
 /**
- * Definition of the project-wide 'app'
- */
+* Configuration of the Express server
+*/
 
 'use strict';
 
@@ -33,7 +33,7 @@ import { default as validate } from '../lib/validate';
 import ACL from '../lib/acl';
 //import customValidators from '../app/helpers/customValidators';
 
-export default function configureApp() {
+export default function() {
 	const app = {};
 	let maxAge;
 

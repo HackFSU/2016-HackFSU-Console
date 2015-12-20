@@ -6,28 +6,24 @@
  */
 'use strict';
 
-export default function (app) {
-	const PARSE_CLASSNAME = 'AnonStat';
+import _ from 'lodash';
+import Parse from 'parse/node';
+import validate from '../../lib/validate';
 
-	const Parse = app.Parse;
-	const _ = app._;
-	const store = app.store;
-	const validate = app.validate;
+const PARSE_CLASSNAME = 'AnonStat';
 
-	class AnonStat extends Parse.Object {
-		constructor(o) {
-			super(PARSE_CLASSNAME);
+export default class AnonStat extends Parse.Object {
+	constructor(o) {
+		super(PARSE_CLASSNAME);
 
-			validate(o, _.isObject);
-			validate(o.name, _.isString);
-			validate(o.option, _.isString);
+		validate(o, _.isObject);
+		validate(o.name, _.isString);
+		validate(o.option, _.isString);
 
-			this.set('name', o.name);
-			this.set('option', o.option);
-		}
-
+		this.set('name', o.name);
+		this.set('option', o.option);
 	}
 
-	app.model.AnonStat = AnonStat;
-	Parse.Object.registerSubclass(PARSE_CLASSNAME, AnonStat);
 }
+
+	Parse.Object.registerSubclass(PARSE_CLASSNAME, AnonStat);

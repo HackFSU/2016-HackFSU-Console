@@ -7,56 +7,54 @@
 
 'use strict';
 
-export default function (app) {
-	const PARSE_CLASSNAME = 'User';
+import Parse from 'parse/node';
+import _ from 'lodash';
+import validate from '../../lib/validate';
 
-	const Parse = app.Parse;
-	const _ = app._;
-	const validate = app.validate;
+const PARSE_CLASSNAME = 'User';
 
-	class User extends Parse.User {
-		constructor(o) {
-			super(PARSE_CLASSNAME);
+export default class User extends Parse.User {
+	constructor(o) {
+		super(PARSE_CLASSNAME);
 
-			o = validate(o, _.isObject);
-			this.firstName = validate(o.firstName, firstName => {
-				return !!firstName && _.isString(firstName);
-			});
-			this.lastName = validate(o.lastName, lastName => {
-				return !!lastName && _.isString(lastName);
-			});
-			this.email = validate(o.email, email => {
-				return !!email;
-			});
-			this.password = validate(o.password, password => {
-				return !!password && _.isString(password);
-			});
-			this.diet = validate(o.diet, _.isString);
-			this.shirtSize = validate(o.shirtSize, shirtSize => {
-				return !!shirtSize && _.isString(shirtSize);
-			});
-			this.github = validate(o.github, _.isString);
-			this.phone = validate(o.phone, _.isString);
+		o = validate(o, _.isObject);
+		this.firstName = validate(o.firstName, firstName => {
+			return !!firstName && _.isString(firstName);
+		});
+		this.lastName = validate(o.lastName, lastName => {
+			return !!lastName && _.isString(lastName);
+		});
+		this.email = validate(o.email, email => {
+			return !!email;
+		});
+		this.password = validate(o.password, password => {
+			return !!password && _.isString(password);
+		});
+		this.diet = validate(o.diet, _.isString);
+		this.shirtSize = validate(o.shirtSize, shirtSize => {
+			return !!shirtSize && _.isString(shirtSize);
+		});
+		this.github = validate(o.github, _.isString);
+		this.phone = validate(o.phone, _.isString);
 
-			this.set('firstName', this.firstName);
-			this.set('lastName', this.lastName);
-			this.set('email', this.email);
-			this.set('username', this.email);			// This is dumb
-			this.set('password', this.password);
-			this.set('diet', this.diet);
-			this.set('shirtSize', this.shirtSize);
-			this.set('github', this.github);
-			this.set('phone', this.phone);
-		}
-
-		/**
-		* Returns the User's name, formatted as 'FIRST LAST'
-		*/
-		name() {
-			return `${this.get('firstName')} ${this.get('lastName')}`;
-		}
+		this.set('firstName', this.firstName);
+		this.set('lastName', this.lastName);
+		this.set('email', this.email);
+		this.set('username', this.email);			// This is dumb
+		this.set('password', this.password);
+		this.set('diet', this.diet);
+		this.set('shirtSize', this.shirtSize);
+		this.set('github', this.github);
+		this.set('phone', this.phone);
 	}
 
-	app.model.User = User;
-	Parse.Object.registerSubclass(PARSE_CLASSNAME, User);
+	/**
+	* Returns the User's name, formatted as 'FIRST LAST'
+	*/
+	name() {
+		return `${this.get('firstName')} ${this.get('lastName')}`;
+	}
 }
+
+
+Parse.Object.registerSubclass(PARSE_CLASSNAME, User);

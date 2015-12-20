@@ -10,11 +10,11 @@
   src: url('/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
-#application .one_fourth > label {
+#application, #mentor .one_fourth > label, #availability-blurb {
 	color: #8bd1c9;
 }
 
-#application .one_fourth {
+#application, #mentor .one_fourth {
 	text-align: right;
   margin-right: 3%;
 }
@@ -48,16 +48,49 @@
 	font-size: 0.75em;
 }
 
+#availability {
+	margin-top: -10px;
+}
+
+#mentor textarea {
+	height: 7em;
+}
+
+#mentor-blurb {
+	margin: 60px 7%;
+}
+
+.input-spacer {
+	margin-top: 10px;
+}
+
+#availability .one_fourth {
+	text-align: left !important;
+}
+
+#availability h2 {
+	font-weight: 400;
+	font-size: 1.25em;
+}
+
+#availability .side-list {
+	margin-left: 70px;
+}
+
+#availability-blurb {
+	margin-top: 10px;
+}
+
 @media screen and (max-width: 960px) {
 	.footer-copyright {
 		font-size: 1em;
 	}
 
-	#application .one_fourth {
+	#application, #mentor .one_fourth {
 		text-align: left;
 	}
 
-	#application button[type="submit"] {
+	#application, #mentor button[type="submit"] {
 		width: 100%;
 	}
 
@@ -65,6 +98,16 @@
 		margin-bottom: 50px;
 	}
 
+	#mentor-blurb {
+		margin-left: 0;
+	}
+
+	#availability {
+		margin-left: 30px;
+	}
+	#availability .side-list {
+		margin-left: 0;
+	}
 
   h2.section-title {
     line-height: 55px;
@@ -319,12 +362,12 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-#application {
+#application, #mentor {
   font-weight: 400;
   color: #303030;
 }
 
-#application li{
+#application, #mentor li{
   clear: both;
 }
 
@@ -536,7 +579,7 @@ button[type="submit"]:disabled {
   position: relative;
   padding-left: 25px;
   cursor: pointer;
-  color: #303030;
+  color: #303030 !important;
   font-weight: 400;
 }
 

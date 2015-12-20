@@ -112,9 +112,9 @@ block content
 					.one_fourth
 						label(for='firstHackathon') Will this be your first hackathon? *
 					.one_half
-						input#hackYes(type='radio' name='firstHackathon' value='yes' data-validation='required')
+						input#hackYes(type='radio' name='firstHackathon' value='true' data-validation='required')
 						label(for='hackYes') Yes
-						input#hackNo(type='radio' name='firstHackathon' value='no')
+						input#hackNo(type='radio' name='firstHackathon' value='false')
 						label(for='hackNo') No
 					.one_fourth.last
 					.clear
@@ -230,9 +230,9 @@ block content
 					.one_fourth
 						label(for='yesno18') Are you 18 or not? *
 					.one_half
-						input#yes18(type='radio' value='yes' data-validation='required' name='yesno18') 
+						input#yes18(type='radio' value='true' data-validation='required' name='yesno18') 
 						label(for='yes18') I'm 18 or over
-						input#no18(type='radio' value='no' data-validation='' name='yesno18') 
+						input#no18(type='radio' value='false' data-validation='' name='yesno18') 
 						label(for='no18') I'm under 18
 					.one_fourth.last
 					.clear
@@ -240,7 +240,7 @@ block content
 					.one_fourth
 						label(for="mlhcoc") Code of Conduct *
 					.one_half
-						input#mlh(type='checkbox' value='yes' data-validation='required' name='mlhcoc')
+						input#mlh(type='checkbox' value='true' data-validation='required' name='mlhcoc')
 						label(for='mlh') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
 					.one_fourth.last
 					.clear

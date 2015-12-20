@@ -5,7 +5,7 @@
 	"camelcase"     : false,
 	"curly"         : true,
 	"eqeqeq"        : true,
-	"forin"         : true, 
+	"forin"         : true,
 	"freeze"        : true,
 	"immed"         : false,
 	"latedef"       : false,
@@ -15,7 +15,7 @@
 	"plusplus"      : false,
 	"singleGroups"  : true,
 	"undef"         : true,
-	"unused"        : true,
+	"unused"        : "vars",
 
 	"strict"        : true,
 	"maxparams"     : false,
