@@ -132,6 +132,10 @@
 		margin-left: 0 !important;
 	}
 
+	.margin-left-7 {
+		margin-left: 0 !important;
+	}
+
   #titlePiece {
     display: none;
   }
@@ -339,6 +343,10 @@ body {
 
 .margin-left-15 {
   margin-left: 13%;
+}
+
+.margin-left-7 {
+	margin-left: 7%;
 }
 
 .margin-right-15 {
