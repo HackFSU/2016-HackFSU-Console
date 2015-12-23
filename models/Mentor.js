@@ -8,7 +8,7 @@
 
 import _ from 'lodash';
 import Parse from 'parse/node';
-import validate from '../../lib/validate';
+import validate from '../lib/validate';
 import User from './User';
 
 const PARSE_CLASSNAME = 'Mentor';
@@ -18,8 +18,6 @@ export default class Mentor extends Parse.Object {
 		super(PARSE_CLASSNAME);
 
 		o = validate(o, _.isObject);
-
-		console.log(o);
 
 		// These are the attributes that are stored in the user account
 		this.userData = _.pick(o,

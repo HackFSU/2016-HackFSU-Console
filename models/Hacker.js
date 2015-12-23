@@ -2,13 +2,15 @@
 * Hacker model
 *
 * Creates a Hacker object (which also has an associated User object)
+*
+* TODO: Move private methods to be actually private!
 */
 
 'use strict';
 
 import _ from 'lodash';
 import Parse from 'parse/node';
-import validate from '../../lib/validate';
+import validate from '../lib/validate';
 import User from './User';
 
 const PARSE_CLASSNAME = 'Hacker';
@@ -18,8 +20,6 @@ export default class Hacker extends Parse.Object {
 		super(PARSE_CLASSNAME);
 
 		o = validate(o, _.isObject);
-
-		console.log(o);
 
 		// Validate resume independently because we store in elsewhere before
 		// associating it with a Hacker
@@ -173,6 +173,11 @@ export default class Hacker extends Parse.Object {
 		return promiseSaveResume;
 	}
 
+	static getSchools() {
+		let promsieGetSchools = new Parse.Promise();
+
+		let query = new Parse.Query(Hacker);
+	}
 }
 
 

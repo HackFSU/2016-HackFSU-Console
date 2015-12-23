@@ -44,13 +44,13 @@ jQuery(document).ready(function() {
     jQuery.supersized({
         slide_interval: 3000, // Length between transitions
         transition: 0, // 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
-        transition_speed: 700, // Speed of transition               
+        transition_speed: 700, // Speed of transition
         slide_links: 'blank', // Individual links for each slide (Options: false, 'num', 'name', 'blank')
         slides: [ // Slideshow Images
             {
-                image: 'img/landingOne.jpg'
+                image: '/assets/img/landingOne.jpg'
             },
-            /*{image : 'images/header_image_02.jpg'},  
+            /*{image : 'images/header_image_02.jpg'},
                                 {image : 'images/header_image_03.jpg'}
                                 */
         ]
@@ -103,7 +103,7 @@ jQuery(window).load(function() {
 
     commentFormWidthFix();
 
-    //Isotope    
+    //Isotope
     var $container = $('#container');
 
     $container.isotope({
@@ -386,7 +386,7 @@ jQuery(window).resize(function() {
     //
     jQuery(".home").height(jQuery(window).height() - 150);
 
-        
+
 
 });
 

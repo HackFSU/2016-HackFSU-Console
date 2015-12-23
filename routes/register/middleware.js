@@ -1,12 +1,12 @@
 /**
-* Helper functions for register routes
+* Middleware functions for register routes
 */
 
 'use strict';
 
 import _ from 'lodash';
-import Hacker from '../../app/models/Hacker';
-import AnonStat from '../../app/models/AnonStat';
+import Hacker from '../../models/Hacker';
+import AnonStat from '../../models/AnonStat';
 import emailer from '../../lib/emailer.js';
 
 /**
@@ -145,14 +145,14 @@ export function signUpHacker(req, res, next) {
 			if (stat.option !== undefined) {
 				let anonStat = new AnonStat(stat);
 				anonStat.save().then((stat) => {
-					console.log('Anon Stat saved: ', stat);
+					req.log.info({ stat: stat }, 'Anon Stat saved successfully');
 				},
 				// We're not going to reject the request here if the anon stat isn't saved.
 				// That would be silly.
 				// "Sorry, Hacker. We couldn't store anonymous information about you,
 				// so we're rejecting your registration. Good day!"
 				(err) => {
-					console.log('Anon Stat not saved: ', err);
+					req.log.warn({ err: err }, 'Anon Stat not saved');
 				});
 			}
 		});
@@ -174,6 +174,8 @@ export function signUpHacker(req, res, next) {
 * we log the success and continue along.
 */
 export function sendConfirmationEmail(req, res, next) {
+	let user = req.hacker.get('user');
+
 	let email = {
 		template: 'hackfsu-confirmation',
 		content: [{}],
@@ -182,27 +184,27 @@ export function sendConfirmationEmail(req, res, next) {
 			"from_email": "registration@hackfsu.com",
 			"from_name": "HackFSU",
 			"to": [{
-				"email": req.hacker.email,
+				"email": user.get('email'),
 				"type": "to"
 			}],
 			"merge": true,
 			"merge_language": "mailchimp",
 			"global_merge_vars": [{
 				"name": "firstname",
-				"content": req.hacker.firstName
+				"content": user.get('firstName')
 			}]
 		}
 	};
 
 	emailer(email, function(error) {
 		if(error) {
-			console.error(`[EMAIL ERROR] Unable to send confirmation to "${req.hacker.email}"`);
+			req.log.warn({type: 'Mandrill', err: error }, `Unable to send confirmation to "${user.get('email')}"`);
 			res.json({
 				error: error
 			});
 		}
 		else {
-			console.log(`Confirmation email sent to "${req.hacker.email}"`);
+			req.log.info({ type: 'Mandrill '}, `Confirmation email sent to "${user.get('email')}"`);
 			next();
 		}
 	});

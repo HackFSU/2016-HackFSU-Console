@@ -1,22 +1,22 @@
 @font-face {
   font-family: 'Uni Sans';
   font-weight: 700;
-  src: url('/fonts/unisansfree/UniSansHeavyWeb.woff2') format('woff2');
-	src: url('/fonts/unisansfree/UniSansHeavyWeb.woff') format('woff');
+  src: url('/assets/fonts/unisansfree/UniSansHeavyWeb.woff2') format('woff2');
+	src: url('/assets/fonts/unisansfree/UniSansHeavyWeb.woff') format('woff');
 
 }
 
 @font-face {
   font-family: 'Uni Sans';
   font-weight: 100;
-  src: url('/fonts/unisansfree/Uni Sans Thin.otf');
+  src: url('/assets/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
-#application, #mentor .one_fourth > label, #availability-blurb {
+#application .one_fourth > label, #mentor .one_fourth > label, #availability-blurb {
 	color: #8bd1c9;
 }
 
-#application, #mentor .one_fourth {
+#application .one_fourth, #mentor .one_fourth {
 	text-align: right;
   margin-right: 3%;
 }
@@ -88,11 +88,11 @@
 		font-size: 1em;
 	}
 
-	#application, #mentor .one_fourth {
+	#application .one_fourth, #mentor .one_fourth {
 		text-align: left;
 	}
 
-	#application, #mentor button[type="submit"] {
+	#application button[type="submit"], #mentor button[type="submit"] {
 		width: 100%;
 	}
 
@@ -377,7 +377,7 @@ body {
   color: #303030;
 }
 
-#application, #mentor li{
+#application li, #mentor li{
   clear: both;
 }
 
@@ -427,13 +427,13 @@ body {
 
 
 .contact {
-  background-image: url('/img/travelBackground.jpg');
+  background-image: url('/assets/img/travelBackground.jpg');
   background-size: cover;
 }
 
 
 .hackingDiv {
-  background-image: url('/img/dumpsterCulture.jpg');
+  background-image: url('/assets/img/dumpsterCulture.jpg');
   background-size: cover;
   background-position: top right;
   background-repeat: no-repeat;
@@ -446,7 +446,7 @@ body {
 
 
 .registerDiv {
-  background-image: url('/img/registerSleep.jpg');
+  background-image: url('/assets/img/registerSleep.jpg');
   background-size: cover;
   background-position: bottom;
   background-repeat: no-repeat;

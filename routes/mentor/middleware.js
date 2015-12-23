@@ -5,7 +5,7 @@
 'use strict';
 
 import _ from 'lodash';
-import Mentor from '../../app/models/Mentor';
+import Mentor from '../../models/Mentor';
 import emailer from '../../lib/emailer.js';
 
 /**
@@ -128,7 +128,7 @@ export function sendConfirmationEmail(req, res, next) {
 			"from_email": "registration@hackfsu.com",
 			"from_name": "HackFSU",
 			"to": [{
-				"email": req.mentor.email,
+				"email": req.mentor.get('user').get('email'),
 				"type": "to"
 			}],
 			"merge": true,
@@ -142,13 +142,14 @@ export function sendConfirmationEmail(req, res, next) {
 
 	emailer(email, function(error) {
 		if(error) {
-			console.error(`[EMAIL ERROR] Unable to send confirmation to "${req.hacker.email}"`);
+			req.log.warn({ type: 'Mandrill' }, `Unable to send confirmation to "${req.mentor.get('user').get('email')}"`);
 			res.json({
 				error: error
 			});
 		}
 		else {
-			console.log(`Confirmation email sent to "${req.mentor.email}"`);
+			req.log.info({ type: 'Mandrill'}, `Confirmation email sent to "${req.mentor.get('user').get('email')}"`);
+			next();
 			next();
 		}
 	});

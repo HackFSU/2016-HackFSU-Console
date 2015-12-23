@@ -12,7 +12,7 @@ import * as middleware from './middleware';
 // Log the request body for all requests
 router.use(function(req, res, next) {
 	if (req.app.get('env') === 'development' && req.body) {
-		console.log(req.body);
+		req.log.debug({ body: req.body });
 	}
 
 	next();
