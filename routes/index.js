@@ -7,12 +7,14 @@
 import home from './home';
 import register from './register';
 import mentor from './mentor';
+import dashboard from './dashboard';
 
 export default function(app) {
 	// Mount paths
 	app.use('/', home);
 	app.use('/register', register);
 	app.use('/mentor', mentor);
+	app.use('/dashboard', dashboard);
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {

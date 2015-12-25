@@ -95,11 +95,9 @@ export function validateMentorSignup(req, res, next) {
 * and we don't continue on.
 */
 export function signUpMentor(req, res, next) {
-	// Create a new Mentor object
-	let mentor = new Mentor(req.mentor);
-
-	// Sign the new hacker up
-	mentor.signUp().then(function(mentor) {
+	// Sign the new mentor up
+	Mentor.new(req.mentor).signUp()
+	.then(function(mentor) {
 		req.mentor = mentor;
 		next();
 	}, function(err) {

@@ -18,15 +18,18 @@ const PARSE_CLASSNAME = 'Hacker';
 export default class Hacker extends Parse.Object {
 	constructor(o) {
 		super(PARSE_CLASSNAME);
+	}
 
+	static new(o) {
+		let hacker = new Hacker();
 		o = validate(o, _.isObject);
 
 		// Validate resume independently because we store in elsewhere before
 		// associating it with a Hacker
-		this.resume = validate(o.resumeBase64, _.isString);
+		hacker.resume = validate(o.resumeBase64, _.isString);
 
 		// These are the attributes that are stored in the user account
-		this.userData = _.pick(o,
+		hacker.userData = _.pick(o,
 			'email',
 			'firstName',
 			'lastName',
@@ -38,20 +41,22 @@ export default class Hacker extends Parse.Object {
 		);
 
 		// Hacker attributes
-		this.set('school', validate(o.school, _.isString));
-		this.set('year', validate(o.year, _.isString));
-		this.set('major', validate(o.major, _.isString));
-		this.set('firstHackathon', validate(o.firstHackathon, _.isBoolean));
-		this.set('hate', validate(o.hate, _.isString));
-		this.set('comments', validate(o.comments, _.isString));
-		this.set('wants', validate(o.wants, function(wants) {
+		hacker.set('school', validate(o.school, _.isString));
+		hacker.set('year', validate(o.year, _.isString));
+		hacker.set('major', validate(o.major, _.isString));
+		hacker.set('firstHackathon', validate(o.firstHackathon, _.isBoolean));
+		hacker.set('hate', validate(o.hate, _.isString));
+		hacker.set('comments', validate(o.comments, _.isString));
+		hacker.set('wants', validate(o.wants, function(wants) {
 			return _.isArray(wants) || wants === undefined;
 		}));
-		this.set('wantjob', validate(o.wantjob, function(wantjob) {
+		hacker.set('wantjob', validate(o.wantjob, function(wantjob) {
 			return _.isArray(wantjob) || wantjob === undefined;
 		}));
-		this.set('yesno18', validate(o.yesno18, _.isBoolean));
-		this.set('mlhcoc', validate(o.mlhcoc, _.isBoolean));
+		hacker.set('yesno18', validate(o.yesno18, _.isBoolean));
+		hacker.set('mlhcoc', validate(o.mlhcoc, _.isBoolean));
+
+		return hacker;
 	}
 
 	/**
@@ -132,7 +137,7 @@ export default class Hacker extends Parse.Object {
 	createUser() {
 		let promiseCreateUser = new Parse.Promise();
 
-		let user = new User(this.userData);
+		let user = User.new(this.userData);
 
 		// Sign up the user and resolve the promise
 		user.signUp().then((savedUser) => {
@@ -174,9 +179,22 @@ export default class Hacker extends Parse.Object {
 	}
 
 	static getSchools() {
-		let promsieGetSchools = new Parse.Promise();
+		let promiseGetSchools = new Parse.Promise();
 
 		let query = new Parse.Query(Hacker);
+		// Can't be certain about how many Hackers we'll have, but 1000 seems like a
+		// good top-end limit
+		query.limit(1000);
+		query.select('school', 'user');
+		query.include('user');
+		query.find().then(function(schools) {
+			promiseGetSchools.resolve(schools);
+		},
+		function(err) {
+			promiseGetSchools.reject(err);
+		});
+
+		return promiseGetSchools;
 	}
 }
 

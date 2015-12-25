@@ -68,21 +68,11 @@ Or you can just use SSH.
 Now open a browser and go to `http://localhost:5003` to see your local server,
 running our sacred code!
 
-#### Project Structure
-
-* `app/` Contains controllers, helpers, models, and views
-  * `assets` TODO: Create asset pipeline for CSS and client JS
-  * `controllers/` Each controller should be defined as an exported app-wide class
-  * `helpers/` General helper functions. These are autoloaded into the app.helpers object.
-  * `views/` Jade templates. File names should match the matching function call from the controller and HTTP route
-* `boot/` Contains generally boot scripts for when the server is started.
-  * `config.js` Configuration for the app. Module dependencies should go here.
-  * `index.js` Loads the other boot scripts and starts the server
-  * `routes.js` Specify HTTP routes in this file
-* `lib/` Libraries
-  * `autoload.js` Function to autoload modules in a directory (recursively)
-* `public/` Served as static content from the server (directly accessible from the web). Similar to `public_html` in Apache.
-    TODO: Move CSS and JS to `app/assets/` and create asset pipeline
-* `package.json` Contains general project information and npm dependencies.
-* `server.js` Loads the coffeescript module and boot scripts (probably will never need to be changed)
-* `.env` (not in git for security) Contains environment variables, such as keys/usernames/passwords to connect to outside sources
+#### API
+###### Dashboard
+For now, individual resources are being listed under dashboard, but these will be
+changed to `/api` in the future for better modularity.
+* `GET /dashboard` Main dashboard page
+* `POST /dashboard` No functionality as of now
+	* `GET /dashboard/schools` Returns list of schools.
+		* `GET /dashboard/schools/:school` Return data about a particular school.

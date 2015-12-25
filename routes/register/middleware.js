@@ -134,7 +134,7 @@ export function signUpHacker(req, res, next) {
 	];
 
 	// Create a new Hacker object
-	let hacker = new Hacker(req.hacker);
+	let hacker = Hacker.new(req.hacker);
 
 	// Sign the new hacker up
 	hacker.signUp().then(function(hacker) {

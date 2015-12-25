@@ -16,42 +16,47 @@ const PARSE_CLASSNAME = 'User';
 export default class User extends Parse.User {
 	constructor(o) {
 		super(PARSE_CLASSNAME);
+	}
 
+	static new(o) {
+		let user = new User();
 		o = validate(o, _.isObject);
-		this.firstName = validate(o.firstName, firstName => {
+		user.firstName = validate(o.firstName, firstName => {
 			return !!firstName && _.isString(firstName);
 		});
-		this.lastName = validate(o.lastName, lastName => {
+		user.lastName = validate(o.lastName, lastName => {
 			return !!lastName && _.isString(lastName);
 		});
-		this.email = validate(o.email, email => {
+		user.email = validate(o.email, email => {
 			return !!email;
 		});
-		this.password = validate(o.password, password => {
+		user.password = validate(o.password, password => {
 			return !!password && _.isString(password);
 		});
-		this.diet = validate(o.diet, _.isString);
-		this.shirtSize = validate(o.shirtSize, shirtSize => {
+		user.diet = validate(o.diet, _.isString);
+		user.shirtSize = validate(o.shirtSize, shirtSize => {
 			return !!shirtSize && _.isString(shirtSize);
 		});
-		this.github = validate(o.github, _.isString);
-		this.phone = validate(o.phone, _.isString);
+		user.github = validate(o.github, _.isString);
+		user.phone = validate(o.phone, _.isString);
 
-		this.set('firstName', this.firstName);
-		this.set('lastName', this.lastName);
-		this.set('email', this.email);
-		this.set('username', this.email);			// This is dumb
-		this.set('password', this.password);
-		this.set('diet', this.diet);
-		this.set('shirtSize', this.shirtSize);
-		this.set('github', this.github);
-		this.set('phone', this.phone);
+		user.set('firstName', user.firstName);
+		user.set('lastName', user.lastName);
+		user.set('email', user.email);
+		user.set('username', user.email);			// This is dumb
+		user.set('password', user.password);
+		user.set('diet', user.diet);
+		user.set('shirtSize', user.shirtSize);
+		user.set('github', user.github);
+		user.set('phone', user.phone);
+
+		return user;
 	}
 
 	/**
 	* Returns the User's name, formatted as 'FIRST LAST'
 	*/
-	name() {
+	getName() {
 		return `${this.get('firstName')} ${this.get('lastName')}`;
 	}
 }

@@ -31,3 +31,5 @@ router.route('/schools')
 		res.json(req.schools);
 	}
 );
+
+export default router;
