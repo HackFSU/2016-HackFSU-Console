@@ -1,6 +1,8 @@
 extends layouts/standard
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+	#mentor-page.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title= message
+			h4= error.status
+			p #{error.stack}

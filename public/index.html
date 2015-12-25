@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app='dashboardModule'>
+	<head>
+	</head>
+	<body ng-controller='hackerCtrl'>
+		<table>
+			<thead>
+				<th>Name</th>
+				<th>School</th>
+			</thead>
+			<tbody>
+					<tr ng-repeat='hacker in hackers' ng-hide='loading'>
+						<td>{{ hacker.user.firstName + ' ' + hacker.user.lastName }}</td>
+						<td>{{ hacker.school }}</td>
+					</tr>
+					<tr ng-show='loading'>
+						<td colspan="2">Loading.</td>
+					</tr>
+			</tbody>
+		</table>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
+		<script src="/app/dashboard/module.js"></script>
+	</body>
+</html>

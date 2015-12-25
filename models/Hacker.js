@@ -59,6 +59,21 @@ export default class Hacker extends Parse.Object {
 		return hacker;
 	}
 
+	static findAll() {
+		let promiseFindAll = new Parse.Promise();
+
+		let query = new Parse.Query(Hacker);
+		query.limit(1000);
+		query.include('user');
+		query.find().then((results) => {
+			promiseFindAll.resolve(results);
+		}, function(err) {
+			promiseFindAll.reject(err);
+		});
+
+		return promiseFindAll;
+	}
+
 	/**
 	* The main signUp function for saving a Hacker. Use this instead of
 	* hacker.save()! This does extra work required to save a hacker, such as
