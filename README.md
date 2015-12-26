@@ -68,11 +68,10 @@ Or you can just use SSH.
 Now open a browser and go to `http://localhost:5003` to see your local server,
 running our sacred code!
 
+#
+
 #### API
-###### Dashboard
-For now, individual resources are being listed under dashboard, but these will be
-changed to `/api` in the future for better modularity.
-* `GET /dashboard` Main dashboard page
-* `POST /dashboard` No functionality as of now
-	* `GET /dashboard/schools` Returns list of schools.
-		* `GET /dashboard/schools/:school` Return data about a particular school.
+###### Hackers
+* `GET /api/hackers` Returns an array of all hacker objects (including their assoc. user).
+	* **TODO**: Add an optional query parameter to limit the queried attributes (tl;dr save our
+		system resources!) Something like: `GET /api/hackers?q=user.firstName,user.lastName,school`
