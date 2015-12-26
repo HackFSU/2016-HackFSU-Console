@@ -15,12 +15,12 @@ let router = express.Router();
 // Eventually set this up to use the ACL.
 // router.use();
 
-router.route('/')
-// GET /dashboard
-// Dashboard index page
-.get(function(req, res, next) {
-	res.send('Dashboard home');
-});
+// router.route('/')
+// // GET /dashboard
+// // Dashboard index page
+// .get(function(req, res, next) {
+// 	res.send('Dashboard home');
+// });
 
 
 export default router;

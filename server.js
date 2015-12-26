@@ -58,6 +58,7 @@ app.use(bodyParser.urlencoded({
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/app')));
 
 // Mount our routes. These are defined in /routes/index.js
 setRoutes(app);

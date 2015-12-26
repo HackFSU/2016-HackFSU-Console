@@ -16,7 +16,9 @@ export default function(app) {
 	app.use('/', home);
 	app.use('/register', register);
 	app.use('/mentor', mentor);
-	app.use('/dashboard', dashboard);
+	// app.use('/dashboard', function(req, res, next) {
+	// 	res.sendFile('dashboard/index.html', { root: 'public/app/' });
+	// });
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
