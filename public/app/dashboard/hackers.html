@@ -10,11 +10,11 @@
 				<th>School</th>
 			</thead>
 			<tbody>
-					<tr ng-repeat='hacker in hackers.data'>
+					<tr ng-repeat='hacker in hackers.data' ng-hide='loading'>
 						<td>{{ hacker.user.firstName + ' ' + hacker.user.lastName }}</td>
 						<td>{{ hacker.school }}</td>
 					</tr>
-					<tr ng-hide='hackers.loaded'>
+					<tr ng-show='loading'>
 						<td colspan="2">Loading.</td>
 					</tr>
 			</tbody>

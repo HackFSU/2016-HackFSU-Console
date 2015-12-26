@@ -76,6 +76,6 @@ following pages:
 
 #### API
 ###### Hackers
-* `GET /api/hackers` Returns an array of all hacker objects (including their assoc. user).
+* `GET` `/api/hackers` Returns an array of all hacker objects (including their assoc. user).
 	* **TODO**: Add an optional query parameter to limit the queried attributes (tl;dr save our
 		system resources!) Something like: `GET /api/hackers?q=user.firstName,user.lastName,school`
