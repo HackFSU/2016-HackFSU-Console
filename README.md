@@ -68,7 +68,11 @@ Or you can just use SSH.
 Now open a browser and go to `http://localhost:5003` to see your local server,
 running our sacred code!
 
-#
+#### Angular
+###### Dashboard
+Currently, only our admin-facing dashboard is being developed in AngularJS. We have the
+following pages:
+* `/dashboard/#/hackers` Queries `/api/hackers` and parses result into a table.
 
 #### API
 ###### Hackers
