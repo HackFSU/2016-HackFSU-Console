@@ -54,6 +54,10 @@ $ npm install
 $ bower install
 $ gulp    # Build system
 
+# On UNIX systems
+# This lets us import things without dealing with disgusting relative paths
+$ ln -s common node_modules/common
+
 # Start the server (while in repo directory)
 $ npm start
 ```

@@ -5,9 +5,9 @@
 'use strict';
 
 import _ from 'lodash';
-import Hacker from '../../models/Hacker';
-import AnonStat from '../../models/AnonStat';
-import emailer from '../../lib/emailer.js';
+import Hacker from 'common/models/Hacker';
+import AnonStat from 'common/models/AnonStat';
+import emailer from 'common/lib/emailer.js';
 
 /**
 * Middleware function to validate registration form data.

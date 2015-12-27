@@ -13,7 +13,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
 import dotenv from 'dotenv';
-import store from './common/store';
+import store from 'common/store';
 import Parse from 'parse/node';
 
 // Load routes
