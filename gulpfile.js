@@ -1,8 +1,10 @@
 /**
- * Gulp config.
- *
- * Used to run checks + transpile front end and then boot the server.
- */
+* Gulp config.
+*
+* Used to run checks + transpile front end and then boot the server.
+*
+* TODO: We desperately need to clean this file up..........
+*/
 
 'use strict';
 

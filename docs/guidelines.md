@@ -6,28 +6,36 @@ Everyone must follow the following coding guidelines outlined in this document.
 ## General
 
 * If you need a reference to `app` outside of the server/config file, use `req.app`.
-We no longer import the app object into route or middleware files.
-* Every model should correspond to a Parse class in the database
+* Every model should correspond to a Parse class in the database.
 * Every file shall have a comment block at the top describing what it is for.
 * Every function should have a comment block at the top describing what it is for.
 * Comment frequently.
-* Try not to exceed ~80 character width
-    - I like to use Sublime's rulers for this:
-```json
-{
-    "rulers": [
-            80
-    ]
-}
-```
+* Try not to exceed ~80 character width.
+	* You can set a ruler to an 80 character width in most popular editors.
 * Use tabs for spacing, rather than spaces.
+	* There is a lot of [debate](http://www.emacswiki.org/emacs/TabsAreEvil) surrounding
+	this, but using tabs helps when developers use different tab widths. There's no
+	point in wasting time and energy making sure everyone is on the same page.
+
+	**TL;DR Make sure you are using tabs. Width does not matter.**
 * Use unix line endings (Sublime: View > Line Endings > Unix)
-* Use Sublime Text 3 with the recommended packages, or if you're feeling frisky,
+* Use Sublime Text 3 with the recommended packages, *OR* if you're feeling frisky,
 try out Atom (pro: built-in Git support!)
-* Don't use "magic" code. That means: be expressive about what modules a file is
-loading AKA don't use automatic loaders. It makes it more difficult to tell what
-modules a file depends on when it uses pre-loaded modules. This means each file
-should `import` all of the modules it will use.
+* Don't use "magic" code. That means: be expressive about what modules a file depends on. **Don't** use or be tempted by automatic loaders. It makes it more difficult to
+tell a file's dependencies, and leads to unmaintainable and unportable code.
+
+## Deployment
+#### `.env` File
+* All custom environment variables must be set in the `.env` file. Do not set these
+in `.bashrc`, `.bash_profile`, or any other system configuration file. This helps
+with portability and ease of changing settings based on environment.
+* `NODE_ENV`
+	* This should usually be set to `development` when working on the project locally.
+	> You can use `production` to test production settings before deploying to the server.
+
+	* This can be accessed through `process.env.NODE_ENV` or `app.get('env')`. It's
+	preferable not to directly access `process.env` variabels, **so when writing
+	configuration based on the environment, use `app.get('env')`.**
 
 ## JavaScript Language
 
@@ -101,34 +109,6 @@ hurr durr durr
 ## Jade Language
 
 TODO
-
-
-## lib vs. helper
-Write library utilities for things that can be seen as non-project specific (i.e.,
-code that you could reuse in another project), and write helper utilities for
-things that are project specific.
-
-**Warning!** Helpers are _library_ functions that _help_ the app in some way. For
-example, a function that formats a string in a specific way to display in a template.
-Do not make the mistake of factoring out model or controller **logic** into a helper!
-Refactor your logic as private (read: non-exported) functions in the controller
-or model file.
-
-*`lib/`*
-* General JavasSript utilities _created by our team_ will go in `lib/`
-	- Third-party libraries (that aren't in NPM) should go in a `vendor/` folder.
-	- But almost everything is in NPM, so this will likely never come up.
-* Do not use `app`, import own resources
-* Throw purposeful unhandled errors to break code
-	- _**Note**_: We actually don't want that. We should have documentation for each
-	library function that defines how and when errors might show up, and examples on
-	how to handle them in your code. Libraries shouldn't break your app!
-
-*`helper/`*
-* Can use project data or resources
-* Okay to be used anywhere in app when appropriate, but usually just in views and
- controllers
-* Never throws unhandled errors
 
 
 ## Throwing Errors

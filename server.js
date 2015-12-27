@@ -1,8 +1,12 @@
 /**
- * Setup environment and launch
- */
+* Setup environment and launch
+*
+* TODO: Refactor some of this code into a configuration file?
+*/
 
 'use strict';
+
+import fs from 'fs';
 
 import express from 'express';
 import path from 'path';
@@ -24,6 +28,17 @@ dotenv.load();
 
 let app = express();
 let log = bunyan.createLogger({ name: 'HackFSU' });
+
+// Development settings
+if (app.get('env') === 'development') {
+	app.locals.pretty = true;
+	app.use(morgan('dev'));
+	app.set('maxAge', 0);
+}
+// Production settings
+else if (app.get('env') === 'production') {
+	app.set('maxAge', 86400000); 	// One day
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,8 +63,6 @@ app.use(function(req, res, next) {
 	req.log = log;
 	next();
 });
-// HTTP request logging
-app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	limit: '2mb',
@@ -60,7 +73,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/app')));
 
+// Handle caching
+app.use(function(req, res, next) {
+	if(req.url.match(/(\.(img|font|mp4))+$/)) {
+		res.setHeader('Cache-Control', 'public, max-age=' + app.get('maxAge'));
+	}
+	next();
+});
+
 // Mount our routes. These are defined in /routes/index.js
 setRoutes(app);
+
+// logging
+log.info({ environment: dotenv.keys_and_values }, 'Custom Environment Values');
 
 export default app;
