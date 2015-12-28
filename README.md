@@ -79,6 +79,8 @@ following pages:
 * `/dashboard/#/hackers` Queries `/api/hackers` and parses result into a table.
 
 #### API
+We should try to develop an API compliant with [these](http://jsonapi.org/) standards.
+
 ###### Hackers
 * `GET` `/api/hackers` Returns an array of all hacker objects (including their assoc. user).
 	* **TODO**: Add an optional query parameter to limit the queried attributes (tl;dr save our
