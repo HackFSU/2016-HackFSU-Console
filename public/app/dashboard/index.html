@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html ng-app='Dashboard'>
 	<head>
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
+		<link rel="stylesheet" href="/assets/css/dashboard.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular-animate.js"></script>
 		<script src="/app/dashboard/module.js"></script>
 	</head>
 	<body>
@@ -12,13 +14,13 @@
 			<nav class="navbar navbar-default">
 				<div class="container">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="/">Angular Routing Example</a>
+						<a class="navbar-brand" href="/">HackFSU Dashboard</a>
 		    </div>
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-						<li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
-						<li><a href="#contact"><i class="fa fa-comment"></i> Contact</a></li>
+						<li><a href="#">Home</a></li>
+						<li><a href="#/schools">Schools</a></li>
+						<li><a href="#/hackers">Hackers</a></li>
 					</ul>
 				</div>
 			</nav>

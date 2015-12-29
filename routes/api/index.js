@@ -9,9 +9,11 @@
 
 import express from 'express';
 import hackers from './hackers';
+import schools from './schools';
 
 let router = express.Router();
 
 router.use('/hackers', hackers);
+router.use('/schools', schools);
 
 export default router;

@@ -1,0 +1,11 @@
+/**
+* Schools list page
+*/
+#schools-page .students-list {
+	padding-top: 0.75em;
+}
+
+#schools-page h3 small {
+	font-size: 18px;
+	font-weight: 300;
+}
