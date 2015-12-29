@@ -24,4 +24,17 @@ router.route('/')
 	}
 );
 
+router.route('/:id')
+/**
+* GET /api/hackers/:id
+*
+* Returns the data of an individual hacker
+*/
+.get(
+	middleware.getHacker,
+	function(req, res, next) {
+		res.json(req.hacker);
+	}
+);
+
 export default router;

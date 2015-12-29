@@ -32,11 +32,11 @@ export function getSchools(req, res, next) {
 		_.each(schools, function(school) {
 			if (!_.has(schoolData, school.get('school'))) {
 				_.set(schoolData, `${school.get('school')}.count`, 1);
-				_.set(schoolData, `${school.get('school')}.students`, [ school.get('user').get('firstName') + ' ' + school.get('user').get('lastName') ]);
+				_.set(schoolData, `${school.get('school')}.students`, [{ name: school.get('user').get('firstName') + ' ' + school.get('user').get('lastName'), id: school.id }]);
 			}
 			else {
 				_.set(schoolData, `${school.get('school')}.count`, _.get(schoolData, `${school.get('school')}.count`) + 1);
-				schoolData[school.get('school')].students.push(school.get('user').get('firstName') + ' ' + school.get('user').get('lastName'));
+				schoolData[school.get('school')].students.push({ name: school.get('user').get('firstName') + ' ' + school.get('user').get('lastName'), id: school.id });
 			}
 		});
 

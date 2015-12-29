@@ -1,0 +1,19 @@
+<div id="student-page" class="container">
+	<div class="text-center">
+		<img src="/assets/img/loading.gif" ng-show="student.loading" alt="Loading...">
+	</div>
+
+	<h1>{{ student.data.user.firstName }} {{ student.data.user.lastName }}
+		<small>
+			<a ng-if="student.data.user.github" href="http://github.com/{{ student.data.user.github }}"><i class="fa fa-github"></i></a>
+			<a href="mailto:{{ student.data.user.email }}" target="_top"><i class="fa fa-envelope-o"></i></a>
+		</small>
+	</h1>
+	<p class="lead">
+		{{ student.data.school }}
+	</p>
+	<p>
+		<strong>{{ student.data.year }}</strong> studying <strong>{{ student.data.major }}</strong>
+	</p>
+
+</div>

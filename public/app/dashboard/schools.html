@@ -3,7 +3,8 @@
 	<p class="lead">
 		This page is a listing of schools (grabbed from the Hackers table), with a count
 		of how many students have registered from each school as well as a list of every
-		student's name from each school.
+		student's name from each school. You can click on a student to see more information
+		about him/her.
 	</p>
 
 	<div class="text-center">
@@ -24,7 +25,9 @@
 				<div class="row students-list" ng-show="showStudents">
 					<div ng-repeat="student in data.students">
 						<div class="clearfix" ng-if="$index % 3 == 0"></div>
-							<div class="col-md-4 student">{{ student }}</div>
+							<div class="col-md-4 student">
+								<a href="#/students/{{ student.id }}">{{ student.name }}</a>
+							</div>
 					</div>
 				</div>
 			</div>

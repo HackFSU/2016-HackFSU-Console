@@ -59,6 +59,22 @@ export default class Hacker extends Parse.Object {
 		return hacker;
 	}
 
+	static find(id) {
+		let promiseFind = new Parse.Promise();
+
+		let query = new Parse.Query(Hacker);
+		query.include('user');
+		query.get(id)
+			.then(function(hacker) {
+				promiseFind.resolve(hacker);
+			},
+			function(err) {
+				promiseFind.reject(err);
+			});
+
+		return promiseFind;
+	}
+
 	static findAll() {
 		let promiseFindAll = new Parse.Promise();
 

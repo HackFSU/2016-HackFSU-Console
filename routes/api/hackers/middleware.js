@@ -26,3 +26,20 @@ export function getHackers(req, res, next) {
 		});
 	});
 }
+
+/**
+* Returns a specific hacker
+*/
+export function getHacker(req, res, next) {
+	Hacker.find(req.params.id).then(function(hacker) {
+		req.log.info({ hacker: hacker }, 'Requested Hacker');
+		req.hacker = hacker;
+		next();
+	},
+	function(err) {
+		req.log.warn({ err: err }, 'Error getting hacker');
+		res.json({
+			err: err
+		});
+	});
+}

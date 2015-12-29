@@ -9,10 +9,37 @@
 	margin-bottom: 0.5em;
 }
 
+#schools-page .students-list .student a {
+	color: black;
+	font-weight: 400;
+}
+
+#schools-page .students-list .student a:hover {
+	text-decoration: none;
+	font-weight: 500;
+}
+
 #schools-page small {
 	font-weight: 300;
 }
 
 #schools-page h3 small {
 	font-size: 18px;
+}
+
+
+
+/**
+* Hacker/student page
+*/
+#student-page p.lead {
+	margin-bottom: 0.5em;
+}
+
+#student-page small {
+	font-weight: 300;
+}
+
+#student-page strong {
+	font-weight: 500;
 }
