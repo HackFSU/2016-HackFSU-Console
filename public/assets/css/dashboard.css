@@ -5,6 +5,10 @@
 	padding-top: 0.75em;
 }
 
+#schools-page .students-list .student {
+	margin-bottom: 0.5em;
+}
+
 #schools-page small {
 	font-weight: 300;
 }
