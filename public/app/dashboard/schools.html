@@ -1,5 +1,5 @@
 <div id="schools-page" class="container">
-	<h1>Schools</h1>
+	<h1>Schools <small ng-hide="schools.loading">{{ schools.dataLength }}</small></h1>
 	<p class="lead">
 		This page is a listing of schools (grabbed from the Hackers table), with a count
 		of how many students have registered from each school as well as a list of every

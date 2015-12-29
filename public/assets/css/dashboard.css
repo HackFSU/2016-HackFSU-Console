@@ -5,7 +5,10 @@
 	padding-top: 0.75em;
 }
 
+#schools-page small {
+	font-weight: 300;
+}
+
 #schools-page h3 small {
 	font-size: 18px;
-	font-weight: 300;
 }

@@ -24,6 +24,7 @@ function SchoolsCtrl($http) {
 	$http.get('/api/schools')
 		.then(function(result) {
 			vm.data = result.data;
+			vm.dataLength = Object.keys(vm.data).length;
 		})
 		.catch(function(error) {
 			console.log('Uh oh... Error getting from schools API\n');
