@@ -1,8 +1,16 @@
 extends layouts/standard
 
 block content
-	#mentor-page.clear.services.section.block
+	#error-page.clear.services.section.block
 		.block.content-960.center-relative
 			h2.section-title= message
-			h4= error.status
+			br
+			h2
+				if error.status
+					= error.status
+				else
+					| 404
+					br 
+					| Sorry about that.
 			p #{error.stack}
+			.clear

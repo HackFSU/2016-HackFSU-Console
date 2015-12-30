@@ -12,6 +12,10 @@
 	src: url('/assets/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
+#error-page {
+	min-height: 500px;
+}
+
 #application .one_fourth > label, #mentor .one_fourth > label, #availability-blurb {
 	color: #8bd1c9;
 }
