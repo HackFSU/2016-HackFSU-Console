@@ -45,7 +45,7 @@ export function getSchools(req, res, next) {
 		next();
 	},
 	function(err) {
-		req.warn({ err: err }, 'Error getting list of schools');
+		req.log.warn({ err: err }, 'Error getting list of schools');
 		res.json({
 			err: err
 		});
