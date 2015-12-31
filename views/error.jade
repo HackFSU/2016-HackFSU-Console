@@ -5,12 +5,8 @@ block content
 		.block.content-960.center-relative
 			h2.section-title= message
 			br
-			h2
-				if error.status
-					= error.status
-				else
-					| 404
-					br 
-					| Sorry about that.
-			p #{error.stack}
-			.clear
+			if starwars
+				br
+				h2 Just kidding... But this is not the <a href="https://www.youtube.com/watch?v=8yy3q9f84EA&feature=youtu.be&t=1m37s">page</a> you're looking for.
+			else
+				p= error.stack
