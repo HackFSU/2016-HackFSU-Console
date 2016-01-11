@@ -40,6 +40,14 @@ else if (app.get('env') === 'production') {
 	app.set('maxAge', 86400000); 	// One day
 }
 
+// Handle caching
+app.use(function(req, res, next) {
+	if(req.url.match(/(\.(img|font|mp4))+$/)) {
+		res.setHeader('Cache-Control', 'public, max-age=' + app.get('maxAge'));
+	}
+	next();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -73,13 +81,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/app')));
 
-// Handle caching
-app.use(function(req, res, next) {
-	if(req.url.match(/(\.(img|font|mp4))+$/)) {
-		res.setHeader('Cache-Control', 'public, max-age=' + app.get('maxAge'));
-	}
-	next();
-});
 
 // Mount our routes. These are defined in /routes/index.js
 setRoutes(app);
