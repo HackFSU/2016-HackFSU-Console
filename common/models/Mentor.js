@@ -66,10 +66,10 @@ export default class Mentor extends Parse.Object {
 			return this.save();
 		})
 		.then((mentor) => {
-			console.log('Mentor created: ', mentor);
+			//console.log('Mentor created: ', mentor);
 			promiseSignUp.resolve(mentor);
 		}, (err) => {
-			console.log('Error creating mentor: ', err);
+			//console.log('Error creating mentor: ', err);
 			promiseSignUp.reject(err);
 		});
 
