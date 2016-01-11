@@ -87,9 +87,11 @@ block content
 					.one_fourth
 						label(for='firstHackathon') Have you mentored at a hackathon before? *
 					.one_half
-						input#hackYes(type='radio' name='firstHackathon' value='true' data-validation='required')
+						//- Note here: The question is asked in the positive, but the data stored is in the negative.
+						//- So, a mentor who HAS mentored before is NOT mentoring their first hackathon.
+						input#hackYes(type='radio' name='firstHackathon' value='false' data-validation='required')
 						label(for='hackYes') Yes
-						input#hackNo(type='radio' name='firstHackathon' value='false')
+						input#hackNo(type='radio' name='firstHackathon' value='true')
 						label(for='hackNo') No
 					.one_fourth.last
 					.clear
