@@ -50,38 +50,45 @@ block content
 		.block.content-960.center-relative
 			h2.section-title Schedule
 			.title-separator
-			.one.last
+			br
+			.one
 				h4.schedule-day Thursday
-				.three_fourth
-					p.schedule-title iOS workshop by Apple engineers @ #[a(href='http://www.domistation.com' target='_blank') Domi Station]
-				.one_fourth.last
-					p.schedule-time 6PM - 12AM
+				.one_fourth.schedule-smaller
+					p.schedule-time 6 PM - 12 AM
+				.three_fourth.last
+					p.schedule-title iOS Workshop run by Apple Engineers @ #[a.schedule-link(href='http://www.domistation.com' target='_blank') Domi Station]
+			.clear
 			hr
-			.one_half
+			.one_half(style='margin-bottom:-5px')
 				h4.schedule-day Friday
-				.three_fourth
-					p.schedule-titleCheck-in
-					p.schedule-title Opening ceremony
-				.one_fourth.last
-					p.schedule-time 9PM
-					p.schedule-time 11PM
-			.one_half.last
+				.one_fourth
+					p.schedule-time 9 PM
+					p.schedule-time 11 PM
+					p.schedule-time 12 AM
+				.three_fourth.last
+					p.schedule-title Check-In
+					p.schedule-title Opening Ceremony
+					p.schedule-title Hacking Starts
+			.one_half.last(style='margin-bottom:-5px')
 				h4.schedule-day Saturday
-				.three_fourth
-					p.schedule-title Hack expo begins
-					p.schedule-title Closing ceremony
+				.one_fourth
+					p.schedule-time 8 AM
+					p.schedule-time 11 AM
+					p.schedule-time 1 PM
+				.three_fourth.last
+					p.schedule-title Hack Expo Begins
+					p.schedule-title Closing Ceremony
 					p.schedule-title Departure
-				.one_fourth.last
-					p.schedule-time 8AM
-					p.schedule-time 11AM
-					p.schedule-time 12:30PM
-			.one.last.schedule-events
-				h4.schedule-day Discussion & Events
+			.clear
+			hr
+			.one.schedule-events(style='margin-top:-10px')
+				h4.schedule-day Discussions & Events
 				ul.schedule-list
-					li.schedule-title Women in Tech
-					li.schedule-title Design Workshop
-					li.schedule-title Design a Brand Competition
-					li.schedule-title More to be announced!
+					li.schedule-title-list Women in Tech
+					li.schedule-title-list Design Workshop
+					li.schedule-title-list Design a Brand Competition
+				br
+				span.events-more More to be announced!
 	.clear
 	br
 	br

@@ -848,32 +848,62 @@ button[type="submit"]:disabled {
 p.schedule-time {
 	color: #8bd1c9;
 	font-weight: bold;
-	text-align: right;
 }
 
-#schedule .one_half {
+#schedule .one_half,
+#schedule .three_fourth,
+#schedule .one_fourth {
 	margin-bottom: 20px;
+	margin-top: 20px;
 }
 
 #schedule .schedule-events {
 	margin-bottom: 0;
+	padding-top: 37px;
 }
 
 #schedule .schedule-title {
-	color: #ee616c;
 	font-weight: bold;
+}
+
+#schedule .schedule-title-list {
+	font-weight: bold;
+}
+
+.schedule-smaller {
+	width: 14%;
+	margin-right: 0;
+}
+
+a.schedule-link,
+a.schedule-link:visited {
+	color: #6d6d6d;
+}
+
+.schedule-events .schedule-day {
+	padding-bottom: 20px;
+}
+
+.events-more {
+	font-size: 20px;
 }
 
 @media screen and (max-width: 841px) {
 	#schedule .three_fourth {
 		width: 75%;
-		float: left;
-	}
-	#schedule .one_fourth .last {
-		width: 25%;
 		float: right;
+	}
+	#schedule .one_fourth {
+		width: 25%;
+		float: left;
 	}
 	p.schedule-time {
 		overflow: auto;
+	}
+	#schedule .one_half {
+		padding-top: 20px;
+	}
+	.schedule-events {
+		margin-top: -15px;
 	}
 }
