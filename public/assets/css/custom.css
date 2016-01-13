@@ -829,3 +829,51 @@ button[type="submit"]:disabled {
 		opacity: .2;
 	}
 }
+
+.schedule-list {
+	list-style-type: square;
+	margin-left: 23px;
+}
+
+.schedule-day {
+	font-size: 30px;
+	margin-bottom: 5px;
+}
+
+#schedule p, #schedule li {
+	font-size: 20px;
+	padding-bottom: 5px;
+}
+
+p.schedule-time {
+	color: #8bd1c9;
+	font-weight: bold;
+	text-align: right;
+}
+
+#schedule .one_half {
+	margin-bottom: 20px;
+}
+
+#schedule .schedule-events {
+	margin-bottom: 0;
+}
+
+#schedule .schedule-title {
+	color: #ee616c;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 841px) {
+	#schedule .three_fourth {
+		width: 75%;
+		float: left;
+	}
+	#schedule .one_fourth .last {
+		width: 25%;
+		float: right;
+	}
+	p.schedule-time {
+		overflow: auto;
+	}
+}
