@@ -5,7 +5,7 @@
 'use strict';
 
 import _ from 'lodash';
-import HelpRequest from 'common/HelpRequest';
+import HelpRequest from 'common/models/HelpRequest';
 
 /**
 * Middleware function to sanitize and validate help request body sent thru POST

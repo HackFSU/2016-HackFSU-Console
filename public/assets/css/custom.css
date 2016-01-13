@@ -16,11 +16,12 @@
 	min-height: 500px;
 }
 
-#application .one_fourth > label, #mentor .one_fourth > label, #availability-blurb {
+#application .one_fourth > label, #mentor .one_fourth > label,
+#help .one_fourth > label, #availability-blurb {
 	color: #8bd1c9;
 }
 
-#application .one_fourth, #mentor .one_fourth {
+#application .one_fourth, #mentor .one_fourth, #help .one_fourth {
 	text-align: right;
 	margin-right: 3%;
 }
@@ -58,7 +59,7 @@
 	margin-top: -10px;
 }
 
-#mentor textarea {
+#mentor textarea, #help textarea {
 	height: 7em;
 }
 
@@ -92,11 +93,11 @@
 		font-size: 1em;
 	}
 
-	#application .one_fourth, #mentor .one_fourth {
+	#application .one_fourth, #mentor .one_fourth, #help .one_fourth {
 		text-align: left;
 	}
 
-	#application button[type="submit"], #mentor button[type="submit"] {
+	#application button[type="submit"], #mentor button[type="submit"], #help button[type="submit"] {
 		width: 100%;
 	}
 
@@ -376,12 +377,12 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-#application, #mentor {
+#application, #mentor, #help {
 	font-weight: 400;
 	color: #303030;
 }
 
-#application li, #mentor li{
+#application li, #mentor li, #help li {
 	clear: both;
 }
 

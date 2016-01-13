@@ -30,9 +30,10 @@ router.route('/')
 // POST /help
 // Create new help request
 .post(
+	middleware.validateHelpRequest,
 	middleware.createHelpRequest,
 	function(req, res, next) {
-		res.json(req.help);
+		res.json(req.helpReq);
 	}
 );
 
