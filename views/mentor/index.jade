@@ -87,9 +87,11 @@ block content
 					.one_fourth
 						label(for='firstHackathon') Have you mentored at a hackathon before? *
 					.one_half
-						input#hackYes(type='radio' name='firstHackathon' value='true' data-validation='required')
+						//- Note here: The question is asked in the positive, but the data stored is in the negative.
+						//- So, a mentor who HAS mentored before is NOT mentoring their first hackathon.
+						input#hackYes(type='radio' name='firstHackathon' value='false' data-validation='required')
 						label(for='hackYes') Yes
-						input#hackNo(type='radio' name='firstHackathon' value='false')
+						input#hackNo(type='radio' name='firstHackathon' value='true')
 						label(for='hackNo') No
 					.one_fourth.last
 					.clear
@@ -147,21 +149,21 @@ block content
 						.one_fourth
 							h2 Sat
 							.input-spacer
-							input#sat-mid-morn(type='checkbox' name='availability' value='sat-mid-morn' data-validation='checkbox_group' data-validation-qty='min1')
+							input#sat-mid-morn(type='checkbox' name='times' value='sat-mid-morn' data-validation='checkbox_group' data-validation-qty='min1')
 							label(for='sat-mid-morn') Midnight - Morning
 							.input-spacer
-							input#sat-morn-mid(type='checkbox' name='availability' value='sat-morn-mid')
+							input#sat-morn-mid(type='checkbox' name='times' value='sat-morn-mid')
 							label(for='sat-morn-mid') Morning - Midday
 							.input-spacer
-							input#sat-mid-eve(type='checkbox' name='availability' value='sat-mid-eve')
+							input#sat-mid-eve(type='checkbox' name='times' value='sat-mid-eve')
 							label(for='sat-mid-eve') Midday - Evening
 							.input-spacer
-							input#sat-eve-mid(type='checkbox' name='availability' value='sat-eve-mid')
+							input#sat-eve-mid(type='checkbox' name='times' value='sat-eve-mid')
 							label(for='sat-eve-mid') Evening - Midnight
 						.one_fourth.side-list
 							h2 Sun
 							.input-spacer
-							input#sun-mid-morn(type='checkbox' name='availability' value='sun-mid-morn')
+							input#sun-mid-morn(type='checkbox' name='times' value='sun-mid-morn')
 							label(for='sun-mid-morn') Midnight - Morning
 						.one_fourth.last
 					.clear

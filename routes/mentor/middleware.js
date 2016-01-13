@@ -98,6 +98,7 @@ export function signUpMentor(req, res, next) {
 	// Sign the new mentor up
 	Mentor.new(req.mentor).signUp()
 	.then(function(mentor) {
+		req.log.info({ mentor: mentor }, 'Mentor Created');
 		req.mentor = mentor;
 		next();
 	}, function(err) {
@@ -109,21 +110,19 @@ export function signUpMentor(req, res, next) {
 }
 
 /**
-* Middleware function to send confirmation email to newly signed up hacker.
-* This only executes if a new hacker was saved successfully. It creates an email
+* Middleware function to send confirmation email to newly signed up mentor.
+* This only executes if a new mentor was saved successfully. It creates an email
 * object to send to our emailer() library function, then attempts to send the email.
 * If there is an error, we respond with an error and don't continue on, otherwise
 * we log the success and continue along.
 */
 export function sendConfirmationEmail(req, res, next) {
-	next();  // Uncomment when we have the registration email
-	return;
 	let email = {
-		template: 'hackfsu-confirmation',
+		template: 'hackfsu-mentor-confirmation',
 		content: [{}],
 		message: {
 			"subject": "See you this Spring!",
-			"from_email": "registration@hackfsu.com",
+			"from_email": "mentor@hackfsu.com",
 			"from_name": "HackFSU",
 			"to": [{
 				"email": req.mentor.get('user').get('email'),
@@ -133,13 +132,13 @@ export function sendConfirmationEmail(req, res, next) {
 			"merge_language": "mailchimp",
 			"global_merge_vars": [{
 				"name": "firstname",
-				"content": req.mentor.firstName
+				"content": req.mentor.get('user').get('firstName')
 			}]
 		}
 	};
 
 	emailer(email, function(error) {
-		if(error) {
+		if (error) {
 			req.log.warn({ type: 'Mandrill' }, `Unable to send confirmation to "${req.mentor.get('user').get('email')}"`);
 			res.json({
 				error: error
@@ -147,7 +146,6 @@ export function sendConfirmationEmail(req, res, next) {
 		}
 		else {
 			req.log.info({ type: 'Mandrill'}, `Confirmation email sent to "${req.mentor.get('user').get('email')}"`);
-			next();
 			next();
 		}
 	});

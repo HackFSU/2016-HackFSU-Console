@@ -80,9 +80,9 @@ table {
 
 hr {
     display:block;
-    height:1px;
+    height:7px;
     border:0;   
-    border-top:1px solid #cccccc;
+    border-top:3px solid #6d6d6d;
     margin:1em 0;
     padding:0;
 }
