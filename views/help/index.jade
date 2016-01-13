@@ -1,0 +1,158 @@
+extend ../layouts/standard
+block localJS
+	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
+	script(src='/js/views/help.js')
+		
+block content
+	#mentor-page.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed.singleLineText.margin-left-7 Submit a Help Request
+			.title-separator.margin-left-7
+			#confirmation(style='display: none;').margin-left-7.margin-right-15
+					p 
+						| Your help request has been submitted! We'll send you an email with
+						| the name of your mentor as soon as one has been assigned to your
+						| request.
+				.clear
+			#errors(style='display: none;')
+				.three_fourth.margin-left-7
+					#error-messages
+				.one_fourth.last
+				.clear
+			form#help(method='post' action='' autocomplete='off')
+				div#help-form
+					.one_fourth
+						label(for='email') Email *
+					.one_half
+						input#email(type='text' name='email' placeholder='me@my.uni.edu' data-validation='email')
+					.one_fourth.last
+					.clear
+					
+					.one_fourth
+						label(for='firstName') Name *
+					.one_half
+						input#firstName(type='text' placeholder='' name='firstName' data-validation='required')
+					.one_fourth.last
+					.clear
+							
+					.one_fourth
+						label(for='password') Password *
+					.one_half
+						input#password(type='password' name='password' placeholder='Password' data-validation='length' data-validation-length='min8' data-validation-help="Must be 8 or more characters")
+						.clear
+					.one_fourth.last
+					.clear
+						
+					.one_fourth
+							label(for='passwordconfirm') Confirm Password *
+					.one_half
+							input#passwordconfirm(type='password' name='passwordconfirm' placeholder='Confirm password' data-validation='confirmation' data-validation-confirm='password')
+					.one_fourth.last
+					.clear
+							
+					.one_fourth
+						label(for='school') Affiliation *
+					.one_half
+						input#affiliation(type='text' name='affiliation' placeholder='SpaceX' data-validation='required')
+					.one_fourth.last
+					.clear
+
+					.one_fourth
+						label(for='shirtSize') Shirt Size *
+					.one_half
+						select#shirtSize(name='shirtSize' value='shirtSize' data-validation='required')
+							option(selected='true' disabled='true') Pick your size
+							each val, key in store.shirtSizes
+								option(value='#{key}')= val
+					.one_fourth.last
+					.clear
+						
+					.one_fourth
+						label(for='firstHackathon') Have you mentored at a hackathon before? *
+					.one_half
+						//- Note here: The question is asked in the positive, but the data stored is in the negative.
+						//- So, a mentor who HAS mentored before is NOT mentoring their first hackathon.
+						input#hackYes(type='radio' name='firstHackathon' value='false' data-validation='required')
+						label(for='hackYes') Yes
+						input#hackNo(type='radio' name='firstHackathon' value='true')
+						label(for='hackNo') No
+					.one_fourth.last
+					.clear
+						
+					.one_fourth
+						label(for='phone') Phone Number *
+					.one_half
+						input#phone(type='text' name='phone' placeholder='867-5309' data-validation='required')
+					.one_fourth.last
+					.clear
+						
+					.one_fourth
+						label(for='skills') Languages, frameworks, or other technologies with which you are comfortable *
+					.one_half
+						textarea#skills(name='skills' placeholder='Objective-C, Angular, C++, Java, Ruby on Rails, HMTL/CSS, JavaScript...' data-validation='required')
+					.one_fourth.last
+					.clear
+
+					.one_fourth
+						label(for='github') GitHub Username
+					.one_half
+						input#github(type='text' name='github' placeholder='ada95' data-validation-help="Please enter JUST your username. Don't include the URL part!")
+					.one_fourth.last
+					.clear
+					
+					.one_fourth
+						label(for='diet') Dietary restrictions?
+					.one_half
+						input#diet(type='text' name='diet' placeholder='Vegan, vegetarian, etc.')
+					.one_fourth.last
+					.clear
+
+					.one_fourth
+						label(for='comments') Comments?
+					.one_half
+						input#comments(type='text' name='comments' placeholder="We're all ears!")
+					.one_fourth.last
+					.clear
+						
+					.one_fourth
+						label(for="mlhcoc") Code of Conduct *
+					.one_half
+						input#mlh(type='checkbox' value='true' data-validation='required' name='mlhcoc')
+						label(for='mlh') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
+					.one_fourth.last
+					.clear
+
+					.one.margin-right-15
+						p#availability-blurb
+							| Hacking starts at Midnight on Friday, February 5th and ends Sunday February 7th at 6 AM. When will you be available?
+					.clear
+						
+					#availability
+						.one_fourth
+						.one_fourth
+							h2 Sat
+							.input-spacer
+							input#sat-mid-morn(type='checkbox' name='times' value='sat-mid-morn' data-validation='checkbox_group' data-validation-qty='min1')
+							label(for='sat-mid-morn') Midnight - Morning
+							.input-spacer
+							input#sat-morn-mid(type='checkbox' name='times' value='sat-morn-mid')
+							label(for='sat-morn-mid') Morning - Midday
+							.input-spacer
+							input#sat-mid-eve(type='checkbox' name='times' value='sat-mid-eve')
+							label(for='sat-mid-eve') Midday - Evening
+							.input-spacer
+							input#sat-eve-mid(type='checkbox' name='times' value='sat-eve-mid')
+							label(for='sat-eve-mid') Evening - Midnight
+						.one_fourth.side-list
+							h2 Sun
+							.input-spacer
+							input#sun-mid-morn(type='checkbox' name='times' value='sun-mid-morn')
+							label(for='sun-mid-morn') Midnight - Morning
+						.one_fourth.last
+					.clear
+				
+					.one_fourth
+					.one_half
+						button#submit.btn.btn-form(type='submit') SUBMIT
+					.one_fourth.last
+					.clear

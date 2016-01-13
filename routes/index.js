@@ -7,16 +7,19 @@
 import home from './home';
 import register from './register';
 import mentor from './mentor';
-import dashboard from './dashboard';
+import help from './help';
+//import dashboard from './dashboard';
 //import api from './api';
 
 export default function(app) {
 	// Mount paths
-	// Kill the API for now
-	//app.use('/api', api);
 	app.use('/', home);
 	app.use('/register', register);
 	app.use('/mentor', mentor);
+	app.use('/help', help);
+
+	// Kill the API for now
+	//app.use('/api', api);
 	//app.use('dashboard', dashboard);
 
 	// catch 404 and forward to error handler
