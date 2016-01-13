@@ -7,18 +7,15 @@
 import home from './home';
 import register from './register';
 import mentor from './mentor';
-import dashboard from './dashboard';
 import api from './api';
 
 export default function(app) {
+
 	// Mount paths
 	app.use('/api', api);
 	app.use('/', home);
 	app.use('/register', register);
 	app.use('/mentor', mentor);
-	// app.use('/dashboard', function(req, res, next) {
-	// 	res.sendFile('dashboard/index.html', { root: 'public/app/' });
-	// });
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {

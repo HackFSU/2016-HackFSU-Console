@@ -6,11 +6,8 @@
 
 'use strict';
 
-import fs from 'fs';
-
 import express from 'express';
 import path from 'path';
-import favicon from 'serve-favicon';
 import morgan from 'morgan';
 import bunyan from 'bunyan';
 import cookieParser from 'cookie-parser';
@@ -19,6 +16,7 @@ import expressValidator from 'express-validator';
 import dotenv from 'dotenv';
 import store from 'common/store';
 import Parse from 'parse/node';
+import parseSession from 'common/parse-session';
 
 // Load routes
 import setRoutes from './routes';
@@ -30,13 +28,11 @@ let app = express();
 let log = bunyan.createLogger({ name: 'HackFSU' });
 
 // Development settings
-if (app.get('env') === 'development') {
+if(app.get('env') === 'development') {
 	app.locals.pretty = true;
 	app.use(morgan('dev'));
 	app.set('maxAge', 0);
-}
-// Production settings
-else if (app.get('env') === 'production') {
+} else if (app.get('env') === 'production') {
 	app.set('maxAge', 86400000); 	// One day
 }
 
@@ -55,8 +51,26 @@ Parse.initialize(
 );
 Parse.Cloud.useMasterKey();
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+
+
+/**
+ * Request Managment
+ * Each middlewhere is called in the order of the .use() calls
+ */
+
+// Handle caching
+app.use(function(req, res, next) {
+	if(req.url.match(/(\.(img|font|mp4))+$/)) {
+		res.setHeader('Cache-Control', 'public, max-age=' + app.get('maxAge'));
+	}
+	next();
+});
+
+// Serve unrestricted content
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/app')));
+
 
 // Allow middleware to use the log
 app.use(function(req, res, next) {
@@ -70,16 +84,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(expressValidator());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public/app')));
 
-// Handle caching
-app.use(function(req, res, next) {
-	if(req.url.match(/(\.(img|font|mp4))+$/)) {
-		res.setHeader('Cache-Control', 'public, max-age=' + app.get('maxAge'));
-	}
-	next();
-});
+// Read session information
+app.use(parseSession(function(req) {
+	return req.param('sid');
+}));
+
 
 // Mount our routes. These are defined in /routes/index.js
 setRoutes(app);

@@ -6,10 +6,12 @@
 
 import express from 'express';
 import * as middleware from './middleware';
+import * as acl from 'common/lib/acl';
 
 let router = express.Router();
 
 router.route('/')
+.all(acl.useAcl('Admin'))
 /**
 * GET /api/hackers
 *
@@ -25,6 +27,7 @@ router.route('/')
 );
 
 router.route('/:id')
+.all()
 /**
 * GET /api/hackers/:id
 *
@@ -36,5 +39,17 @@ router.route('/:id')
 		res.json(req.hacker);
 	}
 );
+
+
+
+router.route('/:id/accept')
+.post(
+	acl.useAcl('Admin'),
+	function(req, res, next) {
+		
+	}
+);
+
+
 
 export default router;
