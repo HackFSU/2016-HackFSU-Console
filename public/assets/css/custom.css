@@ -902,6 +902,15 @@ a.schedule-link:visited {
 	font-size: 20px;
 }
 
+span.schedule-date {
+	font-weight: 300;
+}
+
+sup {
+	vertical-align: super;
+	font-size: 0.6em;
+}
+
 @media screen and (max-width: 841px) {
 	#schedule .three_fourth {
 		width: 75%;
@@ -919,5 +928,11 @@ a.schedule-link:visited {
 	}
 	.schedule-events {
 		margin-top: -15px;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	a#mlh-trust-badge {
+		display: none !important;
 	}
 }
