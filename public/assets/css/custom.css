@@ -852,7 +852,7 @@ p.schedule-time {
 }
 
 .schedule-range {
-	border-left: 2px solid;
+	border-left: 3px solid;
 	padding: 2px;
 	/* Line up with P in 9PM */
 	/* margin-left: 18px;*/
