@@ -9,11 +9,11 @@
 
 import express from 'express';
 import * as middleware from './middleware';
+import helprequests from './helprequests';
 
 let router = express.Router();
 
-// Eventually set this up to use the ACL.
-// router.use();
+router.use('/helprequests', helprequests);
 
 // router.route('/')
 // // GET /dashboard
@@ -21,6 +21,7 @@ let router = express.Router();
 // .get(function(req, res, next) {
 // 	res.send('Dashboard home');
 // });
+
 
 
 export default router;

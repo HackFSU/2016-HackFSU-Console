@@ -8,7 +8,7 @@ import home from './home';
 import register from './register';
 import mentor from './mentor';
 import help from './help';
-//import dashboard from './dashboard';
+import dashboard from './dashboard';
 //import api from './api';
 
 export default function(app) {
@@ -17,10 +17,10 @@ export default function(app) {
 	app.use('/register', register);
 	app.use('/mentor', mentor);
 	app.use('/help', help);
+	app.use('/dashboard', dashboard);
 
 	// Kill the API for now
 	//app.use('/api', api);
-	//app.use('dashboard', dashboard);
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
