@@ -17,11 +17,11 @@
 }
 
 #application .one_fourth > label, #mentor .one_fourth > label,
-#help .one_fourth > label, #availability-blurb {
+#help .one_fourth > label, #login .one_fourth > label, #availability-blurb {
 	color: #8bd1c9;
 }
 
-#application .one_fourth, #mentor .one_fourth, #help .one_fourth {
+#application .one_fourth, #mentor .one_fourth, #help .one_fourth, #login .one_fourth {
 	text-align: right;
 	margin-right: 3%;
 }
@@ -93,11 +93,12 @@
 		font-size: 1em;
 	}
 
-	#application .one_fourth, #mentor .one_fourth, #help .one_fourth {
+	#application .one_fourth, #mentor .one_fourth, #help .one_fourth, #login .one_fourth {
 		text-align: left;
 	}
 
-	#application button[type="submit"], #mentor button[type="submit"], #help button[type="submit"] {
+	#application button[type="submit"], #mentor button[type="submit"],
+	#help button[type="submit"], #login button[type="submit"] {
 		width: 100%;
 	}
 
@@ -377,12 +378,12 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-#application, #mentor, #help {
+#application, #mentor, #help, #login {
 	font-weight: 400;
 	color: #303030;
 }
 
-#application li, #mentor li, #help li {
+#application li, #mentor li, #help li, #login li {
 	clear: both;
 }
 

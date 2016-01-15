@@ -6,6 +6,7 @@
 
 import home from './home';
 import register from './register';
+import user from './user';
 import mentor from './mentor';
 import help from './help';
 import dashboard from './dashboard';
@@ -15,6 +16,7 @@ export default function(app) {
 	// Mount paths
 	app.use('/', home);
 	app.use('/register', register);
+	app.use('/user', user);
 	app.use('/mentor', mentor);
 	app.use('/help', help);
 	app.use('/dashboard', dashboard);
