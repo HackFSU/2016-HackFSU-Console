@@ -1,4 +1,36 @@
-extend ../standardLayout
-
+extend ../layouts/standard
+block localJS
+	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
+	script(src='/js/views/login.js')
+		
 block content
-	h1 Login
+	#login-page.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed.singleLineText.margin-left-7 Login
+			.title-separator.margin-left-7
+			#errors(style='display: none;')
+				.three_fourth.margin-left-7
+					#error-messages
+				.one_fourth.last
+				.clear
+			form#login(method='post' action='/user/login' autocomplete='off')
+				div#mentor-form
+					.one_fourth
+						label(for='email') Email *
+					.one_half
+						input#email(type='text' name='email' data-validation='email')
+					.one_fourth.last
+					.clear
+					
+					.one_fourth
+						label(for='password') Password *
+					.one_half
+						input#password(type='password' name='password' data-validation='required')
+					.one_fourth.last
+					.clear
+				
+					.one_fourth
+					.one_half
+						button#submit.btn.btn-form(type='submit') SUBMIT
+					.one_fourth.last
+					.clear
