@@ -40,13 +40,13 @@ store.links = {
  * DO NOT CHANGE THE ORDER!
  * TODO: put in MySQL db
  */
-store.roles = {
+store.roles = [
 	'User',
 	'Hacker',
 	'Mentor',
 	'Admin',
 	'Super Admin'
-}
+]
 
 store.schools = schools;
 store.majors = majors;

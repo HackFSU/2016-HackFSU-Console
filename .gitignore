@@ -3,7 +3,7 @@ bower_components
 .env
 public/js/views
 scripts/build
-
+test
 
 # Misc system-specific files
 npm-debug.log

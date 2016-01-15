@@ -4,8 +4,7 @@
 
 import express from 'express';
 import bodyParser from 'bodyParser';
-import { parser, session, validator } from 'app/router/util';
-import * as acl from 'app/lib/acl';
+import { parser, session, validator, acl } from 'app/router/util';
 import * as middleware from './middleware';
 
 
@@ -40,7 +39,8 @@ router.route('/login')
 )
 .post(
 	session,
-	middleware.loginUser
+	parser.json,
+	middleware.loginUser,
 	function(req, res) {
 		res.json({});
 	}

@@ -5,6 +5,8 @@
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
 import expressValidator from 'expressValidator';
+import Acl from 'lib/acl';
+import store from 'app/store';
 
 export const parser = {
 	json: bodyParser.json(),
@@ -30,3 +32,29 @@ export const session = expressSession({
  * Request validation
  */
 export const validator = expressValidator();
+
+
+let acl = new Acl()
+
+/**
+ * Setup ACL
+ * TODO: get role names/ids from db
+ */
+acl = new Acl(
+	store.roles,
+	function(req) {
+		if(req.session && req.session.roleKey) {
+			return req.session.roleKey;
+		}
+	},
+	function(req, res) {
+		res.redirect('/user/login?accessDenied=true');
+	}
+);
+
+acl.role('Hacker').canAccess('User');
+acl.role('Mentor').canAccess('User');
+acl.role('Admin').canAccess(['User', 'Hacker', 'Mentor']);
+acl.role('Super Admin').canAccess('Admin', true);
+
+export acl;
