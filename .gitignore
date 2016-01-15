@@ -1,14 +1,17 @@
 node_modules
-.dropbox*
-desktop.ini
-public/bower_components
+bower_components
 .env
-CloudCode_HackFSU-test/config/*
-.DS_Store
-wifi/creds.*
-npm-debug.log
-typings
-tmp
 public/js/views
 scripts/build
+
+
+# Misc system-specific files
+npm-debug.log
+.dropbox*
+desktop.ini
+wifi/creds.*
+.DS_Store
+tmp
+
+
 

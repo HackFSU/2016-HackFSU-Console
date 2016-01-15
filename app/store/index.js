@@ -23,9 +23,9 @@ store.app = {
 };
 
 store.email = {
-	noreply: 'noreply@' + store.HOST_NAME,
-	register: 'register@' + store.HOST_NAME,
-	info: 'info@' + store.HOST_NAME,
+	noreply: 'noreply@' + store.app.host_name,
+	register: 'register@' + store.app.host_name,
+	info: 'info@' + store.app.host_name,
 	from_name: 'HackFSU'
 };
 
@@ -34,6 +34,19 @@ store.links = {
 	facebook: 'https://www.facebook.com/hackfsu',
 	instagram: 'https://www.instagram.com/hackfsu'
 };
+
+/**
+ * ACL role names. 
+ * DO NOT CHANGE THE ORDER!
+ * TODO: put in MySQL db
+ */
+store.roles = {
+	'User',
+	'Hacker',
+	'Mentor',
+	'Admin',
+	'Super Admin'
+}
 
 store.schools = schools;
 store.majors = majors;

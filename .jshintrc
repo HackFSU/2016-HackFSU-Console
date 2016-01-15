@@ -67,7 +67,5 @@
 	"typed"         : false,
 	"worker"        : false,
 	"wsh"           : false,
-	"yui"           : false,
-
-	"globals"       : {}
+	"yui"           : false
 }
