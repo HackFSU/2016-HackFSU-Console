@@ -8,7 +8,7 @@
 'use strict';
 
 import _ from 'lodash';
-import Hacker from 'common/models/Hacker';
+import Hacker from 'app/models/Hacker';
 
 /**
 * This function returns a formatted array of JSON objects each containing a unique

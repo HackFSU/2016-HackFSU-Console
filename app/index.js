@@ -12,7 +12,6 @@ import bunyan from 'bunyan';
 import Parse from 'parse/node';
 import store from 'app/store';
 import routes from 'app/routes';
-import * as acl from 'app/lib/acl';
 import boot from 'app/boot';
 
 export default function() {
@@ -94,8 +93,7 @@ export default function() {
 
 	// Serve routed content
 	routes(app);
-	
+
 	// Start the server
 	boot(app);
 }
-

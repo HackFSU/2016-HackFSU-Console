@@ -1,19 +1,17 @@
 /**
  * Handles /user/* routing
  */
+'use strict';
 
 import express from 'express';
-import bodyParser from 'bodyParser';
-import { parser, session, validator, acl } from 'app/router/util';
+import { parser, session, validator, acl } from 'app/routes/util';
 import * as middleware from './middleware';
 
 
-let router = express.Router();
+const router = express.Router();
 
 router.route('/')
 .get(
-	session,
-	acl.use('User'),
 	function(req, res) {
 		res.redirect('/profile');
 	}
@@ -24,7 +22,7 @@ router.route('/login')
 	session,
 	function(req, res) {
 		if(req.session.user && req.session.user.roleKey > 0) {
-			res.redirect('/user/profile' + req.query.accessDenied? '?accessDenied=true' : '');
+			res.redirect('/user/profile' + req.query.accessDenied ? '?accessDenied=true' : '');
 			return;
 		}
 
@@ -40,6 +38,7 @@ router.route('/login')
 .post(
 	session,
 	parser.json,
+	middleware.validateUser,
 	middleware.loginUser,
 	function(req, res) {
 		res.json({});
@@ -51,12 +50,15 @@ router.route('/profile')
 .get(
 	session,
 	acl.use('User'),
+	middleware.loadUser,
 	function(req, res) {
 		res.render('user/profile', {
 			title: 'Profile',
-			accessDenied: !!req.query.accessDenied
-		})
+			accessDenied: !!req.query.accessDenied,
+		});
 	}
-)
+);
 
 // TODO: reset password
+
+export default router;

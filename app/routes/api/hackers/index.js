@@ -6,7 +6,7 @@
 
 import express from 'express';
 import * as middleware from './middleware';
-import * as acl from 'common/lib/acl';
+import * as acl from 'lib/acl';
 
 let router = express.Router();
 

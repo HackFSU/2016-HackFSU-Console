@@ -8,7 +8,7 @@
 'use strict';
 
 import _ from 'lodash';
-import Hacker from 'common/models/Hacker';
+import Hacker from 'app/models/Hacker';
 
 /**
 * Returns all hackers

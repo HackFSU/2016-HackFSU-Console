@@ -10,8 +10,8 @@
 
 import _ from 'lodash';
 import Parse from 'parse/node';
-import validate from '../lib/validate';
-import User from './User';
+import validate from 'lib/validate';
+import User from 'app/models/User';
 
 const PARSE_CLASSNAME = 'Hacker';
 

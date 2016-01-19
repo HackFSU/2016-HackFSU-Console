@@ -5,8 +5,8 @@
 'use strict';
 
 import _ from 'lodash';
-import Mentor from 'common/models/Mentor';
-import emailer from 'common/lib/emailer.js';
+import Mentor from 'app/models/Mentor';
+import emailer from 'lib/emailer.js';
 
 /**
 * Middleware function to validate mentor form data.

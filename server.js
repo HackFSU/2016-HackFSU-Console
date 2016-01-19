@@ -6,5 +6,5 @@
 'use strict';
 
 require('app-module-path/register');	// allows app/* require() access
-require('babel/register');					// allows ES6
-require('app')();								// boots up express app
+require('babel/register');				// allows ES6
+require('app')();						// boots up express app

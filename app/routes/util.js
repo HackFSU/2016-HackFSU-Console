@@ -1,10 +1,11 @@
 /**
  * Route utilites. Mantains standard instances throughout app.
  */
+'use strict';
 
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
-import expressValidator from 'expressValidator';
+import expressValidator from 'express-validator';
 import Acl from 'lib/acl';
 import store from 'app/store';
 
@@ -34,13 +35,11 @@ export const session = expressSession({
 export const validator = expressValidator();
 
 
-let acl = new Acl()
-
 /**
  * Setup ACL
  * TODO: get role names/ids from db
  */
-acl = new Acl(
+export const acl = new Acl(
 	store.roles,
 	function(req) {
 		if(req.session && req.session.roleKey) {
@@ -56,5 +55,3 @@ acl.role('Hacker').canAccess('User');
 acl.role('Mentor').canAccess('User');
 acl.role('Admin').canAccess(['User', 'Hacker', 'Mentor']);
 acl.role('Super Admin').canAccess('Admin', true);
-
-export acl;

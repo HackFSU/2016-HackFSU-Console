@@ -8,7 +8,7 @@
 
 import _ from 'lodash';
 import Parse from 'parse/node';
-import validate from '../lib/validate';
+import validate from 'lib/validate';
 
 const PARSE_CLASSNAME = 'AnonStat';
 

@@ -9,7 +9,7 @@
 
 import Parse from 'parse/node';
 import _ from 'lodash';
-import validate from '../lib/validate';
+import validate from 'lib/validate';
 
 const PARSE_CLASSNAME = 'User';
 
@@ -58,6 +58,55 @@ export default class User extends Parse.User {
 	*/
 	getName() {
 		return `${this.get('firstName')} ${this.get('lastName')}`;
+	}
+
+
+	static checkLogin(email, password) {
+		let query = new Parse.Query(User);
+		query.equalTo('username', email);
+		query.equalTo('password', password);
+		query.select([
+			'objectId',
+			'roleKey'
+		]);
+
+		return new Promise(function(resolve, reject) {
+			query.first()
+			.then(function(user) {
+				resolve({
+					objectId: user.get('objectId'),
+					roleKey: user.get('roleKey')
+				});
+			}, function(err) {
+				reject(err);
+			});
+		});
+	}
+
+
+	/**
+	 * Simple query automation
+	 */
+	static loadSimple(objectId, ...cols) {
+		let query = new Parse.Query(User);
+		query.equalTo('objectId', objectId);
+		query.select(cols);
+
+		return new Promise(function(resolve, reject) {
+			query.first()
+			.then(function(user) {
+				let result = {};
+
+				cols.forEach(function(c) {
+					result[c] = user.get(c);
+				});
+
+				resolve(result);
+
+			}, function(err) {
+				reject(err);
+			});
+		});
 	}
 }
 

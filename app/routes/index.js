@@ -4,10 +4,10 @@
 
 'use strict';
 
-import home from './home';
-import register from './register';
-import mentor from './mentor';
-import user from './user';
+import home from 'app/routes/home';
+import register from 'app/routes/register';
+import mentor from 'app/routes/mentor';
+import user from 'app/routes/user';
 
 
 export default function(app) {
@@ -20,7 +20,7 @@ export default function(app) {
 	app.use('/mentor', mentor);
 	app.use('/user', user);
 
-	
+
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
 		var err = new Error('Not Found');
