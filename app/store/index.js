@@ -57,10 +57,14 @@ store.shirtSizes = {
 	'm-m': 'Men\'s Medium',
 	'm-l': 'Men\'s Large',
 	'm-xl': 'Men\'s Extra Large',
+	'm-2xl': 'Men\'s 2XL',
+	'm-3xl': 'Men\'s 3XL',
 	'w-s': 'Women\'s Small',
 	'w-m': 'Women\'s Medium',
 	'w-l': 'Women\'s Large',
-	'w-xl': 'Women\'s Extra Large'
+	'w-xl': 'Women\'s Extra Large',
+	'w-2xl': 'Women\'s 2XL',
+	'w-3xl': 'Women\'s 3XL'
 };
 
 store.hackerGoals = {

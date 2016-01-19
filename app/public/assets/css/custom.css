@@ -16,11 +16,12 @@
 	min-height: 500px;
 }
 
-#application .one_fourth > label, #mentor .one_fourth > label, #availability-blurb {
+#application .one_fourth > label, #mentor .one_fourth > label,
+#help .one_fourth > label, #login .one_fourth > label, #availability-blurb {
 	color: #8bd1c9;
 }
 
-#application .one_fourth, #mentor .one_fourth {
+#application .one_fourth, #mentor .one_fourth, #help .one_fourth, #login .one_fourth {
 	text-align: right;
 	margin-right: 3%;
 }
@@ -58,7 +59,7 @@
 	margin-top: -10px;
 }
 
-#mentor textarea {
+#mentor textarea, #help textarea {
 	height: 7em;
 }
 
@@ -92,11 +93,12 @@
 		font-size: 1em;
 	}
 
-	#application .one_fourth, #mentor .one_fourth {
+	#application .one_fourth, #mentor .one_fourth, #help .one_fourth, #login .one_fourth {
 		text-align: left;
 	}
 
-	#application button[type="submit"], #mentor button[type="submit"] {
+	#application button[type="submit"], #mentor button[type="submit"],
+	#help button[type="submit"], #login button[type="submit"] {
 		width: 100%;
 	}
 
@@ -376,12 +378,12 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-#application, #mentor {
+#application, #mentor, #help, #login {
 	font-weight: 400;
 	color: #303030;
 }
 
-#application li, #mentor li{
+#application li, #mentor li, #help li, #login li {
 	clear: both;
 }
 
@@ -850,6 +852,21 @@ p.schedule-time {
 	font-weight: bold;
 }
 
+.schedule-range {
+	border-left: 3px solid;
+
+	margin-top: -5px;
+	height: 35px;
+	/* Line up with P in 9PM */
+	/* margin-left: 18px;*/
+
+	/* Line up as average between these */
+	margin-left: 25px;
+
+	/* Line up with P in 11PM */
+	/*margin-left: 31px;*/
+}
+
 #schedule .one_half,
 #schedule .three_fourth,
 #schedule .one_fourth {
@@ -888,6 +905,15 @@ a.schedule-link:visited {
 	font-size: 20px;
 }
 
+span.schedule-date {
+	font-weight: 300;
+}
+
+sup {
+	vertical-align: super;
+	font-size: 0.6em;
+}
+
 @media screen and (max-width: 841px) {
 	#schedule .three_fourth {
 		width: 75%;
@@ -906,4 +932,34 @@ a.schedule-link:visited {
 	.schedule-events {
 		margin-top: -15px;
 	}
+}
+
+@media screen and (max-width: 960px) {
+	a#mlh-trust-badge {
+		display: none !important;
+	}
+}
+
+/*
+* Stuff for sponsors
+*/
+
+#sponsors h3 {
+	font-family: 'Uni Sans';
+	font-size: 2.8em;
+	font-weight: 300;
+	color: #4d4d4d;
+}
+
+h3#partners {
+	margin-top: 120px;
+}
+
+#partners-section {
+	text-align: center;
+}
+
+#partners-section .logo {
+	max-width: 250px;
+	margin: 50px;
 }

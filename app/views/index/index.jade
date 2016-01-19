@@ -52,7 +52,8 @@ block content
 			.title-separator
 			br
 			.one
-				h4.schedule-day Thursday
+				h4.schedule-day Thursday 
+					span.schedule-date 4<sup>th</sup>
 				.one_fourth.schedule-smaller
 					p.schedule-time 6 PM - 12 AM
 				.three_fourth.last
@@ -60,33 +61,40 @@ block content
 			.clear
 			hr
 			.one_half(style='margin-bottom:-5px')
-				h4.schedule-day Friday
+				h4.schedule-day Friday 
+					span.schedule-date 5<sup>th</sup>
 				.one_fourth
 					p.schedule-time 9 PM
+					p.schedule-time.schedule-range &nbsp;
 					p.schedule-time 11 PM
 					p.schedule-time 12 AM
 				.three_fourth.last
 					p.schedule-title Check-In
+					p.schedule-title Sponsor Expo
 					p.schedule-title Opening Ceremony
 					p.schedule-title Hacking Starts
 			.one_half.last(style='margin-bottom:-5px')
-				h4.schedule-day Saturday
+				h4.schedule-day Sunday 
+					span.schedule-date 7<sup>th</sup>
 				.one_fourth
+					p.schedule-time 6 AM
 					p.schedule-time 8 AM
 					p.schedule-time 11 AM
 					p.schedule-time 1 PM
 				.three_fourth.last
+					p.schedule-title Hacking Ends
 					p.schedule-title Hack Expo Begins
 					p.schedule-title Closing Ceremony
 					p.schedule-title Departure
 			.clear
 			hr
 			.one.schedule-events(style='margin-top:-10px')
-				h4.schedule-day Discussions & Events
+				h4.schedule-day Discussions &amp; Events
 				ul.schedule-list
 					li.schedule-title-list Women in Tech
 					li.schedule-title-list Design Workshop
 					li.schedule-title-list Design a Brand Competition
+					li.schedule-title-list Building a Web Server with JavaScript
 				br
 				span.events-more More to be announced!
 	.clear
@@ -172,6 +180,9 @@ block content
 			h2.section-title <img id='titlePiece2' src='/assets/img/titlepiece2.png' />Sponsors
 			.title-separator
 			p.info.sponsors Interested in sponsoring? Email #[a(href='mailto:sponsors@hackfsu.com') sponsors@hackfsu.com] for more information!
+			h3#partners Partners
+			#partners-section
+				img.logo(src="/assets/img/mlh-logo.png")
 	.clear
 	br
 	br

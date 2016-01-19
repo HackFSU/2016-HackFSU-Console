@@ -1,0 +1,64 @@
+extend ../layouts/standard
+block localJS
+	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
+	script(src='/js/views/help.js')
+		
+block content
+	#mentor-page.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed.singleLineText.margin-left-7 Submit a Help Request
+			.title-separator.margin-left-7
+			#confirmation(style='display: none;').margin-left-7.margin-right-15
+					p 
+						| Your help request has been submitted! We'll send you an email with
+						| the name of your mentor as soon as one has been assigned to your
+						| request.
+				.clear
+			#errors(style='display: none;')
+				.three_fourth.margin-left-7
+					#error-messages
+				.one_fourth.last
+				.clear
+			form#help(method='post' action='' autocomplete='off')
+				div#help-form
+					.one_fourth
+						label(for='email') Email *
+					.one_half
+						input#email(type='text' name='email' placeholder='me@my.uni.edu' data-validation='email')
+					.one_fourth.last
+					.clear
+					
+					.one_fourth
+						label(for='name') Name *
+					.one_half
+						input#name(type='text' placeholder='Bob Ross' name='name' data-validation='required')
+					.one_fourth.last
+					.clear
+							
+					.one_fourth
+						label(for='location') Location *
+					.one_half
+						input#location(type='text' name='location' placeholder='E.g. "Back of 2nd floor, by the mentor lounge"' data-validation='required' data-validation-help="Try to include the floor you're on, major landmarks near you, or even what color shirt you're wearing to help our mentors find you!")
+					.one_fourth.last
+					.clear
+
+					.one_fourth
+						label(for='environment') Language, Framework, Platform *
+					.one_half
+						input#environment(type='text' name='environment' placeholder='NodeJS, ExpressJS, MongoDB' data-validation='required')
+					.one_fourth.last
+					.clear
+					
+					.one_fourth
+						label(for='description') Description *
+					.one_half
+						textarea#decription(name='description' placeholder='Need help with using authentication middleware on my routes' data-validation='required')
+						.help-block Please try to be as specific as possible!
+					.one_fourth.last
+					.clear
+
+					.one_fourth
+					.one_half
+						button#submit.btn.btn-form(type='submit') SUBMIT
+					.one_fourth.last
+					.clear
