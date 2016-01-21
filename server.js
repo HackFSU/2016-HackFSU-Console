@@ -6,8 +6,6 @@
 
 'use strict';
 
-import fs from 'fs';
-
 import express from 'express';
 import path from 'path';
 import favicon from 'serve-favicon';
@@ -80,7 +78,7 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // Headshot on the dashboard
-//app.use(express.static(path.join(__dirname, 'public/app')));
+app.use(express.static(path.join(__dirname, 'public/app')));
 
 
 // Mount our routes. These are defined in /routes/index.js

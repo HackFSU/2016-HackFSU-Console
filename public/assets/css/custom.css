@@ -963,3 +963,47 @@ h3#partners {
 	max-width: 250px;
 	margin: 50px;
 }
+
+#sponsor-logos {
+}
+
+#sponsor-logos .logo {
+	margin: 27.5px 55px;
+}
+
+#sponsor-logos img {
+	max-width: 325px;
+}
+
+#tier2 {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+/* How to make this better i wonder ? */
+#tier1 {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+#tier1 img {
+	max-width: 200px;
+}
+
+.apple-logo img {
+	max-width: 110px !important;
+	margin: 0 55px;
+}
+
+@media screen and (max-width: 960px) {
+	#sponsor-logos {
+		margin-top: -70px;
+	}
+	.apple-logo img {
+		margin: 110px;
+	}
+}

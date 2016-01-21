@@ -10,7 +10,7 @@ import user from './user';
 import mentor from './mentor';
 import help from './help';
 import dashboard from './dashboard';
-//import api from './api';
+import api from './api';
 
 export default function(app) {
 	// Mount paths
@@ -22,7 +22,7 @@ export default function(app) {
 	app.use('/dashboard', dashboard);
 
 	// Kill the API for now
-	//app.use('/api', api);
+	app.use('/api', api);
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
