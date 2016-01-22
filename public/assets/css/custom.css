@@ -974,6 +974,7 @@ h3#partners {
 
 #sponsor-logos img {
 	max-width: 325px;
+	content: attr(target) "blank";
 }
 
 #tier2 {
@@ -1010,5 +1011,9 @@ a.state-farm-logo > img {
 	}
 	.apple-logo img {
 		margin: 110px;
+	}
+
+	a.state-farm-logo > img {
+		max-width: 350px !important;
 	}
 }
