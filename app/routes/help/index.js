@@ -5,9 +5,10 @@
 'use strict';
 
 import express from 'express';
-let router = express.Router();
+import * as middleware from 'app/routes/help/middleware';
 
-import * as middleware from './middleware';
+
+let router = express.Router();
 
 // Log the request body for all requests
 router.use(function(req, res, next) {

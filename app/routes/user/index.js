@@ -38,7 +38,7 @@ router.route('/login')
 .post(
 	session,
 	parser.json,
-	middleware.validateUser,
+	middleware.validateLogin,
 	middleware.loginUser,
 	function(req, res) {
 		res.json({});

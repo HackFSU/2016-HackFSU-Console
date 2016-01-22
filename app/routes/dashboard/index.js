@@ -8,8 +8,7 @@
 'use strict';
 
 import express from 'express';
-import * as middleware from './middleware';
-import helprequests from './helprequests';
+import helprequests from 'app/routes/dashboard/helprequests';
 
 let router = express.Router();
 
