@@ -12,7 +12,7 @@
 	src: url('/assets/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
-#error-page {
+#error-page, #help-request-page {
 	min-height: 500px;
 }
 
@@ -579,6 +579,7 @@ button[type="submit"]:disabled {
 	box-shadow: none;
 }
 
+
 .form-error {
 	color: #ef626c;
 }
@@ -1016,4 +1017,36 @@ a.state-farm-logo > img {
 	a.state-farm-logo > img {
 		max-width: 350px !important;
 	}
+}
+
+
+/**
+* Stuff for helpreqs
+*/
+table#helpreqs {
+	text-align: center;
+}
+
+table#helpreqs td {
+	vertical-align: middle;
+}
+
+.btn-help {
+	background-color: transparent;
+	border-radius: 3px;
+	border: 0.2em solid #8bd1c9;
+	padding: 10px;
+	outline: 0;
+	font-weight: 600;
+	transition: 200ms all;
+	-webkit-transition: 200ms all;
+	-moz-transition: 200ms all;
+	-o-transition: 200ms all;
+	color: #8bd1c9;
+	font-size: 16px;
+}
+.btn-help:hover:not(:disabled) {
+	background-color: #8bd1c9;
+	color: #fff;
+	box-shadow: none;
 }
