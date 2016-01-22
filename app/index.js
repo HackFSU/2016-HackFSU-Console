@@ -79,8 +79,9 @@ export default function() {
 	});
 
 	// Serve unrestricted content
-	app.use(express.static(path.join(__dirname, 'public')));
-	app.use(express.static(path.join(__dirname, 'public/app')));
+	app.use(express.static(path.join(__dirname, '../public/static')));
+	app.use(express.static(path.join(__dirname, '../public/build')));
+	app.use(express.static(path.join(__dirname, '../public/app')));
 
 
 	// Prepare request for route managment

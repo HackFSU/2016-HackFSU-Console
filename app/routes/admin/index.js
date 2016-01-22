@@ -6,7 +6,7 @@
 
 import express from 'express';
 import { parser, session, validator, acl } from 'app/routes/util';
-import * as middleware from 'app/routes/admin/middleware';
+import * as regs from 'app/routes/admin/regs';
 
 const router = express.Router();
 

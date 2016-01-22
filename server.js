@@ -1,10 +1,10 @@
 /**
  * Server initialization. Sets up server process.
  *
- * Use this script to boot the server via cmd or require() it in a loader.
+ * Run with 'babel-node --presets es2015 server.js' or use 'npm start'
  */
 'use strict';
 
 require('app-module-path/register');	// allows app/* require() access
-require('babel/register');				// allows ES6
-require('app')();						// boots up express app
+require('babel-register');              // allows ES6
+require('./app').default();				// boots up express app

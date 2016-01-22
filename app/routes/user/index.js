@@ -4,8 +4,8 @@
 'use strict';
 
 import express from 'express';
-import { parser, session, validator, acl } from 'app/routes/util';
-import * as middleware from './middleware';
+import { parser, session, acl } from 'app/routes/util';
+import * as middleware from 'app/routes/user/middleware';
 
 
 const router = express.Router();

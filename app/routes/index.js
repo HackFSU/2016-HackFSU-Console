@@ -9,7 +9,6 @@ import register from 'app/routes/register';
 import mentor from 'app/routes/mentor';
 import user from 'app/routes/user';
 import help from 'app/routes/help';
-import dashboard from 'app/routes/dashboard';
 
 export default function(app) {
 
@@ -19,7 +18,6 @@ export default function(app) {
 	app.use('/user', user);
 	app.use('/mentor', mentor);
 	app.use('/help', help);
-	app.use('/dashboard', dashboard);
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
