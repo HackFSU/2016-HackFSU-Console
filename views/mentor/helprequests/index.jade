@@ -4,6 +4,7 @@ block localCSS
 	link(rel="stylesheet" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css")
 		
 block localJS
+	script(src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js")
 	script(src="/js/views/helpreqs.js")
 
 block content
@@ -12,21 +13,22 @@ block content
 			h2.section-title-fixed.singleLineText Help Requests
 			.title-separator
 			
-			table#helpreqs.dataTable
-				thead
-					tr
-						th Name
-						th Location
-						th Description
-						th Actions
-				tbody
-					each req in helpReqs
-						tr 
-							td= req.get('name')
-							td= req.get('location')
-							td= req.get('description')
-							td
-								button.btn.btn-help(type='') Assign to Me
-					if helpReqs.length === 0
-						tr 
-							td(colspan="4") No help requests
+			#helpreq-section
+				table#helpreqs.dataTable
+					thead
+						tr
+							th Name
+							th Location
+							th Description
+							th Actions
+					tbody
+						each req in helpReqs
+							tr 
+								td= req.get('name')
+								td= req.get('location')
+								td= req.get('description')
+								td
+									button.btn.btn-help(type='') Assign to Me
+						if helpReqs.length === 0
+							tr 
+								td(colspan="4") No help requests

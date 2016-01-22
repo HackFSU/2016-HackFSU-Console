@@ -1023,12 +1023,18 @@ a.state-farm-logo > img {
 /**
 * Stuff for helpreqs
 */
+#helpreq-section {
+	margin-top: -50px;
+}
+
 table#helpreqs {
-	text-align: center;
+
 }
 
 table#helpreqs td {
-	vertical-align: middle;
+	vertical-align: top;
+	min-width: 100%;
+	padding: 10px;
 }
 
 .btn-help {

@@ -1,5 +1,7 @@
-$(document).ready(function() {
+
 	'use strict';
 
-  $('#helpreqs').DataTable();
-});
+	console.log($('#helpreqs').html());
+  $('#helpreqs').DataTable({
+		paging: false
+	});
