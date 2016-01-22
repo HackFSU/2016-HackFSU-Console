@@ -17,6 +17,7 @@ import expressValidator from 'express-validator';
 import dotenv from 'dotenv';
 import store from 'common/store';
 import Parse from 'parse/node';
+import socketio from 'socket.io';
 
 // Load routes
 import setRoutes from './routes';
