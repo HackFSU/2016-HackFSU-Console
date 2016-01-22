@@ -4,7 +4,6 @@
 'use strict';
 
 import User from 'app/models/User';
-import Parse from 'parse/node';
 
 /**
  * Builds user session for valid users

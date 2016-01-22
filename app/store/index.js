@@ -36,7 +36,7 @@ store.links = {
 };
 
 /**
- * ACL role names. 
+ * ACL role names.
  * DO NOT CHANGE THE ORDER!
  * TODO: put in MySQL db
  */
@@ -46,7 +46,7 @@ store.roles = [
 	'Mentor',
 	'Admin',
 	'Super Admin'
-]
+];
 
 store.schools = schools;
 store.majors = majors;

@@ -1,7 +1,7 @@
 node_modules
 bower_components
 .env
-public/js/views
+public/build
 scripts/build
 test
 
@@ -12,6 +12,3 @@ desktop.ini
 wifi/creds.*
 .DS_Store
 tmp
-
-
-

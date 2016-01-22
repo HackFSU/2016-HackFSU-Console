@@ -8,7 +8,6 @@
 (function($) {
 	'use strict';
 
-	var geo = $('#geo');
 	var scroll = $('#travel').offset().top;
 	var lati = 30.445401;
 	var longi = -84.299761;
@@ -59,8 +58,8 @@
 		var fromSeconds = function(seconds) {
 			var hours = Math.floor(seconds / 3600);
 			seconds = seconds - hours * 3600;
-			var minutes = (Math.floor(seconds / 60) < 10) ? Math.floor(seconds / 60) : Math.floor(seconds / 60);
-			
+			var minutes = Math.floor(seconds / 60) < 10 ? Math.floor(seconds / 60) : Math.floor(seconds / 60);
+
 			return {
 				hours: hours,
 				minutes: minutes
@@ -84,16 +83,16 @@
 					var time = fromSeconds(point.duration.value);
 					$('#geoHrs').removeClass('saving').html(time.hours);
 					$('#geoMins').removeClass('saving').html(time.minutes);
-					if(time.hours == 1) {
+					if(time.hours === 1) {
 						$('#geoHTag').html('hour');
 					}
-					if(time.minutes == 1) {
+					if(time.minutes === 1) {
 						$('#geoMTag').html('minute');
 					}
 				}
 			});
 		};
-	
+
 	};
 
 })(jQuery);

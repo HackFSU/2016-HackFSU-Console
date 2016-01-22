@@ -50,7 +50,14 @@ const dirs = {
  * - creates build folder if DNE
  */
 gulp.task('clean:app', function(done) {
-	fs.emptyDir(dirs.public.build, done);
+	try {
+		fs.emptyDirSync(dirs.public.build);
+		fs.ensureDirSync(dirs.public.build + '/js');
+
+		done();
+	} catch(e) {
+		done(e);
+	}
 });
 gulp.task('clean:scripts', function(done) {
 	fs.emptyDir(dirs.scripts.build, done);
@@ -104,7 +111,7 @@ function buildStream(src, dst) {
 gulp.task('build:app', ['clean:app', 'jshint:app'], function() {
 	return buildStream([
 		dirs.public.es6 + '/**/*.js'
-	], dirs.public.build);
+	], dirs.public.build + '/js');
 });
 gulp.task('build:scripts', ['clean:scripts', 'jshint:scripts'], function() {
 	return buildStream([

@@ -7,7 +7,6 @@
 
 'use strict';
 
-import _ from 'lodash';
 import Hacker from 'app/models/Hacker';
 
 /**
