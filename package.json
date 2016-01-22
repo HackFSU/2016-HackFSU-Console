@@ -5,8 +5,7 @@
   "repository": "https://github.com/HackFSU/hackfsu-console",
   "scripts": {
     "start": "node server.js | bunyan",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gulp build:app; node server.js | bunyan"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "HackFSU",
   "license": "ISC",
