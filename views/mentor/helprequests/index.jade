@@ -15,9 +15,9 @@ block content
 				tbody
 					each req in helpReqs
 						tr 
-							td req.name
-							td req.location
-							td req.description
+							td= req.get('name')
+							td= req.get('location')
+							td= req.get('description')
 							td
 								button(type="") Assign to me
 		

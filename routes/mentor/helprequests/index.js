@@ -12,16 +12,29 @@ import * as middleware from './middleware';
 
 let router = express.Router();
 
+// Log the request body for all requests
+router.use(function(req, res, next) {
+	if (req.app.get('env') === 'development' && req.body) {
+		req.log.debug({ reqBody: req.body });
+	}
+
+	next();
+});
+
 router.route('/')
 /**
-* GET /dashboard/helprequests
+* GET /mentor/helprequests
 *
 * Render a table with all of the help requests currently open and assigned
 */
 .get(
 	middleware.getAllHelpRequests,
 	function(req, res, next) {
-		res.render('mentor/helprequests/index', req.helpReqs);
+		req.log.info({ h: req.helpReqs }, 'Helps');
+		res.render('mentor/helprequests/index', {
+			title: 'Help Requests',
+			helpReqs: req.helpReqs
+		});
 	}
 );
 
