@@ -9,11 +9,8 @@
 
 import express from 'express';
 import * as middleware from './middleware';
-import helprequests from './helprequests';
 
 let router = express.Router();
-
-router.use('/helprequests', helprequests);
 
 // router.route('/')
 // // GET /dashboard

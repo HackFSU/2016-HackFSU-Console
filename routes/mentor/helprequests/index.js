@@ -19,12 +19,9 @@ router.route('/')
 * Render a table with all of the help requests currently open and assigned
 */
 .get(
+	middleware.getAllHelpRequests,
 	function(req, res, next) {
-		let data = {
-			test: 'This is a test'
-		};
-		
-		res.render('dashboard/helprequests/index', data);
+		res.render('mentor/helprequests/index', req.helpReqs);
 	}
 );
 

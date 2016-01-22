@@ -21,9 +21,7 @@ export default class HelpRequest extends Parse.Object {
 		o = validate(o, _.isObject);
 
 		helpReq.set('name', o.name);
-		helpReq.set('email', o.email);
 		helpReq.set('location', o.location);
-		helpReq.set('environment', o.environment);
 		helpReq.set('description', o.description);
 
 		return helpReq;
