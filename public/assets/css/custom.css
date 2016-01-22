@@ -965,6 +965,7 @@ h3#partners {
 }
 
 #sponsor-logos {
+	padding-top: 30px;
 }
 
 #sponsor-logos .logo {
@@ -997,6 +998,10 @@ h3#partners {
 .apple-logo img {
 	max-width: 110px !important;
 	margin: 0 55px;
+}
+
+a.state-farm-logo > img {
+	max-width: 400px !important;
 }
 
 @media screen and (max-width: 960px) {
