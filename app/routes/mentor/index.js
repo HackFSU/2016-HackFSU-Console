@@ -7,8 +7,8 @@
 import express from 'express';
 let router = express.Router();
 
-import * as middleware from './middleware';
-import helprequests from './helprequests';
+import * as middleware from 'app/routes/mentor/middleware';
+import helprequests from 'app/routes/mentor/helprequests';
 
 // Mount helpreqs to /mentor
 router.use('/helprequests', helprequests);

@@ -4,7 +4,7 @@
 
 'use strict';
 
-import HelpRequest from 'common/models/HelpRequest';
+import HelpRequest from 'app/models/HelpRequest';
 
 export function getAllHelpRequests(req, res, next) {
 	HelpRequest.findAll().then(function(helpReqs) {
