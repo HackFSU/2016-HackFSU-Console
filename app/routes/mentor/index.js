@@ -8,6 +8,10 @@ import express from 'express';
 let router = express.Router();
 
 import * as middleware from './middleware';
+import helprequests from './helprequests';
+
+// Mount helpreqs to /mentor
+router.use('/helprequests', helprequests);
 
 // Log the request body for all requests
 router.use(function(req, res, next) {

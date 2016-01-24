@@ -17,9 +17,7 @@ export function validateHelpRequest(req, res, next) {
 	});
 
 	req.checkBody('name', 'Invalid name').notEmpty().isAscii();
-	req.checkBody('email', 'Invalid email').notEmpty().isEmail();
 	req.checkBody('location', 'Invalid location').notEmpty().isAscii();
-	req.checkBody('environment', 'Invalid environment').notEmpty().isAscii();
 	req.checkBody('description', 'Invalid description').notEmpty().isAscii();
 
 	if (req.validationErrors()) {

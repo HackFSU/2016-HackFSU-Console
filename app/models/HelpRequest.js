@@ -21,12 +21,23 @@ export default class HelpRequest extends Parse.Object {
 		o = validate(o, _.isObject);
 
 		helpReq.set('name', o.name);
-		helpReq.set('email', o.email);
 		helpReq.set('location', o.location);
-		helpReq.set('environment', o.environment);
 		helpReq.set('description', o.description);
 
 		return helpReq;
+	}
+
+	static findAll() {
+		let promiseFindAll = new Parse.Promise();
+		let query = new Parse.Query(HelpRequest);
+		query.limit(500);
+		query.find().then(function(req) {
+			promiseFindAll.resolve(req);
+		}, function(err) {
+			promiseFindAll.reject(err);
+		});
+
+		return promiseFindAll;
 	}
 }
 
