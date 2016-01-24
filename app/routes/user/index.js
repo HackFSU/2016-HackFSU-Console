@@ -4,7 +4,7 @@
 'use strict';
 
 import express from 'express';
-import { parser, session, acl, validator } from 'app/routes/util';
+import { parser, acl, validator } from 'app/routes/util';
 import * as middleware from 'app/routes/user/middleware';
 
 
@@ -19,15 +19,14 @@ router.route('/')
 
 router.route('/login')
 .get(
-	session,
 	function(req, res) {
-		if(req.session.user && req.session.user.roleKey > 0) {
+		if(req.session.user && req.session.user.roleId > 0) {
 			res.redirect('/user/profile' + req.query.accessDenied ? '?accessDenied=true' : '');
 			return;
 		}
 
 		// Not a valid user
-		req.session.user = undefined;
+		req.session.destroy();
 
 		res.render('user/login', {
 			title: 'Login',
@@ -36,8 +35,7 @@ router.route('/login')
 	}
 )
 .post(
-	session,
-	parser.json,
+	parser.urlencoded,
 	validator,
 	middleware.validateLogin,
 	middleware.loginUser,
@@ -49,7 +47,6 @@ router.route('/login')
 
 router.route('/profile')
 .get(
-	session,
 	acl.use('User'),
 	middleware.loadUserData,
 	function(req, res) {
@@ -59,6 +56,8 @@ router.route('/profile')
 		});
 	}
 );
+
+
 
 // TODO: reset password
 

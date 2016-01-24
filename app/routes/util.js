@@ -24,8 +24,11 @@ export const parser = {
 export const session = expressSession({
 	secret: process.env.secret || 'BoopTheSnoot123',
 	cookie: {
+		maxAge: 172800000,
 		secure: false	// TODO: setup HTTPS for this
-	}
+	},
+	resave: false,
+	saveUninitialized: false
 });
 
 
@@ -42,8 +45,8 @@ export const validator = expressValidator();
 export const acl = new Acl(
 	store.roles,
 	function(req) {
-		if(req.session && req.session.roleId) {
-			return req.session.roleId;
+		if(req.session && req.session.user) {
+			return +req.session.user.roleId;
 		}
 	},
 	function(req, res) {

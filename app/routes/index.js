@@ -9,12 +9,21 @@ import register from 'app/routes/register';
 import mentor from 'app/routes/mentor';
 import user from 'app/routes/user';
 import help from 'app/routes/help';
+import { session } from 'app/routes/util';
+
 
 export default function(app) {
 
-	// Mount paths
+	/**
+	 * Mount paths
+	 */
+
+	// general, public paths
 	app.use('/', home);
 	app.use('/register', register);
+
+	// session related paths
+	app.use(session);
 	app.use('/user', user);
 	app.use('/mentor', mentor);
 	app.use('/help', help);

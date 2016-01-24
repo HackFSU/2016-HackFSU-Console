@@ -9,8 +9,6 @@ import User from 'app/models/User';
  * Builds user session for valid users
  */
 export function validateLogin(req, res, next) {
-	// TODO: build req.session.user object
-
 	req.checkBody('email').isEmail();
 	req.checkBody('password').notEmpty();
 
@@ -29,14 +27,13 @@ export function loginUser(req, res, next) {
 	.then(function(userId) {
 		User.fetchSimple(userId, 'roleId')
 		.then(function(user) {
-
 			// save ids in session data
-			req.session = {
+			req.session.user = {
 				userId: userId,
 				roleId: user.roleId
 			};
 
-			req.log.info('[session] create', req.session);
+			req.log.info(`[session] login ${userId} : ${user.roleId}`);
 			next();
 		})
 		.catch(function() {
@@ -57,7 +54,7 @@ export function loginUser(req, res, next) {
  * Pulls user's session data
  */
 export function loadUserData(req, res, next) {
-	User.fetchSimple(req.session.userId,
+	User.fetchSimple(req.session.user.userId,
 		'firstName',
 		'lastName',
 		'github',

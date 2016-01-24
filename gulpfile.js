@@ -149,5 +149,7 @@ gulp.task('watch:app', ['build:app'], function() {
 		dirs.public.static + '/js/**/*.js',
 		dirs.app + '/js/**/*.js'
 	], ['jshint:app']);
-	gulp.watch(dirs.public.es6, ['build:app']);
+	gulp.watch([
+		dirs.public.es6 + '/**/*.js'
+	], ['build:app']);
 });
