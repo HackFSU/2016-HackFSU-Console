@@ -42,8 +42,8 @@ export const validator = expressValidator();
 export const acl = new Acl(
 	store.roles,
 	function(req) {
-		if(req.session && req.session.roleKey) {
-			return req.session.roleKey;
+		if(req.session && req.session.roleId) {
+			return req.session.roleId;
 		}
 	},
 	function(req, res) {

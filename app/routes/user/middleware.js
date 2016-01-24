@@ -11,8 +11,8 @@ import User from 'app/models/User';
 export function validateLogin(req, res, next) {
 	// TODO: build req.session.user object
 
-	req.checkBody('email', 'Invalid params').isEmail();
-	req.checkBody('password', 'Invalid params').notEmpty();
+	req.checkBody('email').isEmail();
+	req.checkBody('password').notEmpty();
 
 	if(req.validationErrors()) {
 		res.json({
@@ -26,13 +26,25 @@ export function validateLogin(req, res, next) {
 
 export function loginUser(req, res, next) {
 	User.checkLogin(req.body.email, req.body.password)
-	.then(function(user) {
-		req.session = {
-			user: user.objectId,
-			roleKey: user.roleKey
-		};
+	.then(function(userId) {
+		User.fetchSimple(userId, 'roleId')
+		.then(function(user) {
 
-		next();
+			// save ids in session data
+			req.session = {
+				userId: userId,
+				roleId: user.roleId
+			};
+
+			req.log.info('[session] create', req.session);
+			next();
+		})
+		.catch(function() {
+			req.log.error('[session] missing roleId', userId);
+			res.json({
+				error: 'Server Error'
+			});
+		});
 	})
 	.catch(function() {
 		res.json({
@@ -44,8 +56,8 @@ export function loginUser(req, res, next) {
 /**
  * Pulls user's session data
  */
-export function loadUser(req, res, next) {
-	User.loadSimple(req.session.user,
+export function loadUserData(req, res, next) {
+	User.fetchSimple(req.session.userId,
 		'firstName',
 		'lastName',
 		'github',
@@ -56,6 +68,7 @@ export function loadUser(req, res, next) {
 	)
 	.then(function(user) {
 		res.locals.user = user;
+		next();
 	})
 	.catch(function(err) {
 		req.log.error(err);

@@ -4,7 +4,7 @@
 'use strict';
 
 import express from 'express';
-import { parser, session, acl } from 'app/routes/util';
+import { parser, session, acl, validator } from 'app/routes/util';
 import * as middleware from 'app/routes/user/middleware';
 
 
@@ -38,6 +38,7 @@ router.route('/login')
 .post(
 	session,
 	parser.json,
+	validator,
 	middleware.validateLogin,
 	middleware.loginUser,
 	function(req, res) {
@@ -50,7 +51,7 @@ router.route('/profile')
 .get(
 	session,
 	acl.use('User'),
-	middleware.loadUser,
+	middleware.loadUserData,
 	function(req, res) {
 		res.render('user/profile', {
 			title: 'Profile',
