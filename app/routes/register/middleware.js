@@ -34,12 +34,15 @@ export function validateRegistration(req, res, next) {
 	req.sanitizeBody('yesno18').toBoolean();
 	req.sanitizeBody('mlhcoc').toBoolean();
 	req.sanitizeBody('email').normalizeEmail({ lowercase: true });
+		req.log.info({ body: req.body }, 'Body');
+
+
 	// Coerce single values into array
-	req.body.wants = _.isArray(req.body.wants) || _.isEmpty(req.body.wants)?
-		req.body.wants :
+	req.body.wants = _.isArray(req.body.wants) || _.isEmpty(req.body.wants)
+		? req.body.wants :
 		[ req.body.wants ];
-	req.body.wantjob = _.isArray(req.body.wantjob) || _.isEmpty(req.body.wantjob)?
-		req.body.wantjob :
+	req.body.wantjob = _.isArray(req.body.wantjob) || _.isEmpty(req.body.wantjob)
+		? req.body.wantjob :
 		[ req.body.wantjob ];
 	// TODO: Add sanitizer to remove url part of github (if accidentally supplied)
 
@@ -99,6 +102,7 @@ export function validateRegistration(req, res, next) {
 	req.checkBody('mlhcoc', 'Invalid code of conduct parameter').notEmpty().isBoolean();
 	req.checkBody('gender', 'Invalid gender').optional({ checkFalsy: true }).isAscii();
 	req.checkBody('ethnicity', 'Invalid ethnicity').optional({ checkFalsy: true }).isAscii();
+
 
 	if (req.validationErrors()) {
 		res.json({

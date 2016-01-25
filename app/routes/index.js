@@ -9,24 +9,33 @@ import register from 'app/routes/register';
 import mentor from 'app/routes/mentor';
 import user from 'app/routes/user';
 import help from 'app/routes/help';
-import { session } from 'app/routes/util';
+import { session, parser, validator } from 'app/routes/util';
 
 
 export default function(app) {
+	/**
+	* HTTP Body Parsers
+	*/
+	app.use(parser.urlencoded);
+	app.use(validator);
 
 	/**
 	 * Mount paths
 	 */
 
 	// general, public paths
+	// @jrdbnntt Put these here for now because none of these have "sessions" as of
+	// yet. For example, /mentor is the mentor signup and /help is to submit help
+	// requests BUT we aren't using login for said help reqs (in case people forgot)
+	// passwords and the like.
 	app.use('/', home);
 	app.use('/register', register);
+	app.use('/mentor', mentor);
+	app.use('/help', help);
 
 	// session related paths
 	app.use(session);
 	app.use('/user', user);
-	app.use('/mentor', mentor);
-	app.use('/help', help);
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {

@@ -32,7 +32,7 @@ export function validateMentorSignup(req, res, next) {
 	req.sanitizeBody('mlhcoc').toBoolean();
 	req.sanitizeBody('email').normalizeEmail({ lowercase: true });
 	// Coerce single values into array
-	req.body.times = _.isArray(req.body.times) || _.isEmpty(req.body.times)?
+	req.body.times = _.isArray(req.body.times) || _.isEmpty(req.body.times) ?
 		req.body.times :
 		[ req.body.times ];
 
