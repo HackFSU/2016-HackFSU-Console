@@ -6,15 +6,12 @@ This is the top-secret code behind [HackFSU](http://hackfsu.com) and its accompa
 web-based services (i.e. preview, registration, landing page, admin apps, etc).
 
 ### Languages and Frameworks
-Hackathons are all about pushing the boundary of technology and using the latest and
-greatest for development. We here at HackFSU agree with this, so we use the latest and greatest (in our opinions) for our development as well. We're talking
 * Node.js and Express.js backend
 * Jade templates
 * ES6-based JavaScript code (both on the Node backend and client frontend)
 * HTML5 and CSS (maybe in the future, we'll get with SASS or LESS)
 * Parse database system
-* Our own home-grown, somewhat-still-in-development Node framework being dev'd by
-Jared and Trevor
+* Socket.io for real-time apps
 
 #### Setup and Deployment Instructions
 
@@ -24,7 +21,7 @@ Jared and Trevor
 `n` as a Node version manager (`npm install -g n`) and running `n stable` to get the
 latest stable version of Node.
 2. Have [Git](https://git-scm.com/downloads) installed.
-3. `.env` is needed to connect to our various external APIs (such as Parse, Mandrill, etc)  and it is `.gitignore`'d for security, ask Jared or Trevor for this file).
+3. `.env` is needed to connect to our various external APIs (such as Parse, Mandrill, etc)  and it is `.gitignore`'d for security, ask Jared or Trevor for this file.
 
 
 #### Setup Documentation
@@ -39,27 +36,36 @@ $ sudo n stable
 # Install global node modules
 $ sudo npm install -g nodemon bower gulp
 
-# [Optional] Create a git folder...
-$ cd ~
-$ mkdir git
-$ cd ~/git
+# Navigate to your projects directory
+$ cd my/projects/dir
 
-# ...or navigate to your project directory
-$ cd my/project/dir
-
-# Setup repo
+# Setup repo (https is used here, but you can replace it with ssh:// if you have that setup)
 $ git clone https://YOUR_GITHUB_USERNAME@github.com/HackFSU/hackfsu-console.git
 $ cd hackfsu-console
 $ npm install
 $ bower install
-$ gulp    # Build system
-
-# On UNIX systems
-# This lets us import things without dealing with disgusting relative paths
-$ ln -s common node_modules/common
+$ gulp build:app
 
 # Start the server (while in repo directory)
 $ npm start
+```
+
+> You'll know everything is up and running if you get output in your console like this:
+
+```
+> hackfsu-console@4.0.0 start /Users/trevor1/Projects/HackFSU/hackfsu-console
+> node server.js | bunyan
+
+[2016-01-25T21:08:27.004Z]  INFO: HackFSU/12013 on wc-dhcp238d030.student-secure.wireless.fsu.edu: Custom Environment Values
+    environment: {
+      "NODE_ENV": "development",
+      "PORT": "5003",
+      "PARSE_APP_ID": "redacted for safety",
+      "PARSE_JS_KEY": "redacted for safety",
+      "PARSE_MASTER_KEY": "redacted for safety",
+      "MANDRILL_KEY": "redacted for safety"
+    }
+Listening on port 5003
 ```
 
 Jared recommends adding password caching to git if you haven't already. See [this](http://stackoverflow.com/questions/5343068/is-there-a-way-to-skip-password-typing-when-using-https-github).
@@ -72,16 +78,5 @@ Or you can just use SSH.
 Now open a browser and go to `http://localhost:5003` to see your local server,
 running our sacred code!
 
-#### Angular
-###### Dashboard
-Currently, only our admin-facing dashboard is being developed in AngularJS. We have the
-following pages:
-* `/dashboard/#/hackers` Queries `/api/hackers` and parses result into a table.
-
-#### API
-We should try to develop an API compliant with [these](http://jsonapi.org/) standards.
-
-###### Hackers
-* `GET` `/api/hackers` Returns an array of all hacker objects (including their assoc. user).
-	* **TODO**: Add an optional query parameter to limit the queried attributes (tl;dr save our
-		system resources!) Something like: `GET /api/hackers?q=user.firstName,user.lastName,school`
+**For more information on working on the project, see the relevant documentation in
+`/docs`.**
