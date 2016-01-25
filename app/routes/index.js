@@ -9,6 +9,7 @@ import register from 'app/routes/register';
 import mentor from 'app/routes/mentor';
 import user from 'app/routes/user';
 import help from 'app/routes/help';
+import api from 'app/routes/api';
 import { session, parser, validator } from 'app/routes/util';
 
 
@@ -32,6 +33,7 @@ export default function(app) {
 	app.use('/register', register);
 	app.use('/mentor', mentor);
 	app.use('/help', help);
+	//app.use('/api', api);					// Only use this for dev purposes
 
 	// session related paths
 	app.use(session);
