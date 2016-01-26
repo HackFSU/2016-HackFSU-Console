@@ -113,8 +113,7 @@ gulp.task('build', ['clean:app', 'jshint:app'], function() {
  * - runs script
  */
 gulp.task('run', ['jshint:scripts'], function(done) {
-	var dotenv = require('dotenv'),
-		script;
+	var dotenv = require('dotenv');
 
 	dotenv.load();
 	if(!process.env.RUN_LEVEL) {
@@ -128,15 +127,8 @@ gulp.task('run', ['jshint:scripts'], function(done) {
 	console.log('Loading script "' + argv.script + '"');
 
 	require('babel-register');
-	script = require(dirs.scripts + '/' + argv.script);
+	require(dirs.scripts + '/' + argv.script);
 
-	if(typeof script === 'function') {
-		// Should handle async call internally
-		script(done);
-		return;
-	} else {
-		done();
-	}
 });
 
 
