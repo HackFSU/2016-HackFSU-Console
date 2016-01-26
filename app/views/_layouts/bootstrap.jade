@@ -64,9 +64,11 @@ html(lang='en')
 								li: a(href='/user/login') LOG IN
 							else
 								li: a(href='/user/profile') PROFILE
-								li: a(href='/user/logout') LOG OUT
+							
+								if acl && acl.canAccess.Mentor
+									li: a(href='/mentor/helprequests') HELP REQUESTS
 								
-								if showAdmin
+								if acl && acl.canAccess.Admin
 									li.dropdown
 										a.dropdown-toggle(data-toggle='dropdown' role='button' aria-expanded='false')
 											| Admin
@@ -75,7 +77,8 @@ html(lang='en')
 											li: a(href='/admin/regs') Regsitrations
 											li: a(href='/admin/schools') Schools
 											li: a(href='/admin/checkin') Check in
-		
+												
+								li: a(href='/user/logout') LOG OUT
 		#content
 			block content
 				// replace this block for page

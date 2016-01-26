@@ -35,7 +35,7 @@ export default function(app) {
 		},
 		resave: false,
 		saveUninitialized: false
-	}));
+	}));	
 
 	/**
 	 * Mount paths

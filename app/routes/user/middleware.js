@@ -28,21 +28,21 @@ export function validateLogin(req, res, next) {
 export function loginUser(req, res, next) {
 	User.checkLogin(req.body.email, req.body.password)
 	.then(function(userId) {
-		User.fetchSimple(userId, 'roleId')
+		User.fetchSimple(userId, 'roleKey')
 		.then(function(user) {
 			// make sure at least counted as a user
-			if(typeof user.roleId === 'undefined') {
-				req.log.error('[session] missing roleId', userId);
-				user.roleId = userRoleId;
+			if(typeof user.roleKey === 'undefined') {
+				req.log.error('[session] missing roleKey', userId);
+				user.roleKey = userRoleId;
 			}
 
 			// save ids in session data
 			req.session.user = {
 				userId: userId,
-				roleId: user.roleId
+				roleKey: user.roleKey
 			};
 
-			req.log.info(`[session] login ${userId} : ${user.roleId}`);
+			req.log.info(`[session] login ${userId} : ${user.roleKey}`);
 			next();
 		})
 		.catch(function(err) {

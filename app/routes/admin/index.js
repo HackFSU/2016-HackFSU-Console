@@ -9,13 +9,47 @@
 'use strict';
 
 import express from 'express';
-// import { acl } from 'app/routes/util';
+import { acl } from 'app/routes/util';
 import hackers from 'app/routes/admin/hackers';
 
 const router = express.Router();
 
-// router.all('*', acl.use('Admin'));
+router.all('*', acl.use()); // switch back to 'Admin' when ready
 
 router.use('/hackers', hackers);
+
+
+/**
+ * Acl debugging, load it if you get confused about the acl
+ * By default it will use your acl key. Pass in a role to see stats about it.
+ */
+router.route('/acl')
+.get(
+	function(req, res, next) {
+		res.locals.valid = true;
+		req.session.user = req.session.user || {
+			roleKey: acl.role('User').id
+		};
+
+		if(req.query.roleName && acl.getRoles()[req.query.roleName]) {
+			req.session.user.roleKey = acl.role(req.query.roleName).id;
+			res.locals.roleName = req.query.roleName;
+		} else if(req.query.roleKey) {
+			req.session.user.roleKey = parseInt(req.query.roleKey);
+		}
+
+		next();
+	},
+	acl.use(), // reloads locals.acl
+	function(req, res) {
+		res.json({
+			checkedRole: res.locals.roleName || '<current>',
+			roleKey: req.session.user.roleKey.toString(2),
+			valid: res.locals.valid,
+			acl: res.locals.acl,
+			all: acl.getRoles()
+		});
+	}
+);
 
 export default router;

@@ -14,7 +14,7 @@ export const acl = new Acl(
 	store.roles,
 	function(req) {
 		if(req.session && req.session.user) {
-			return +req.session.user.roleId;
+			return +req.session.user.roleKey;
 		}
 	},
 	function(req, res) {
