@@ -1,8 +1,11 @@
 extend ../_layouts/standard
+block vars
+	- title = 'Registration'
+	
 block localJS
 	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
 	script(src='/js/views/register.js')
-		
+
 block content
 	#register.clear.services.section.block
 		.block.content-960.center-relative

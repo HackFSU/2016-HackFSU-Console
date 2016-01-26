@@ -1,5 +1,8 @@
 /**
  * Handles /user/* routing
+ *
+ * TODO /user/logout
+ * TODO /user/resetpassword
  */
 'use strict';
 
@@ -43,6 +46,12 @@ router.route('/login')
 	}
 );
 
+router.get('/logout', function(req, res) {
+	req.session.destroy();
+	res.redirect('./login');
+});
+
+
 router.route('/profile')
 .get(
 	acl.use('User'),
@@ -55,8 +64,5 @@ router.route('/profile')
 	}
 );
 
-
-
-// TODO: reset password
 
 export default router;

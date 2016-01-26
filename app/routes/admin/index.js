@@ -1,85 +1,21 @@
 /**
  * Administration pages
  * /admin/*
+ * TODO /admin/hackers
+ * TODO /admin/mentors
+ * TODO /admin/checkin
+ * TODO /admin/schools
  */
 'use strict';
 
 import express from 'express';
-import { acl } from 'app/routes/util';
-// import * as regs from 'app/routes/admin/regs';
+// import { acl } from 'app/routes/util';
+import hackers from 'app/routes/admin/hackers';
 
 const router = express.Router();
 
-router.all('*', acl.use('Admin'));
+// router.all('*', acl.use('Admin'));
 
-/**
- * General Utility page
- *
- * links w/ docs
- * how-to's
- */
-router.get('/', function(req, res) {
-    res.redirect('/admin/home');
-});
-router.get('/home', function(req, res) {
-    res.render('/admin/home');
-});
+router.use('/hackers', hackers);
 
-
-
-
-/**
- * Registration Statistics (current hackathon)
- *
- * dynamically loaded, fully searchable
- * school stats
- * registered hacker stats
- */
-router.get('/regs', function(req, res) {
-    res.render('/admin/regs');
-});
-router.get('/regs/schools', function(req, res) {
-    res.json({
-        data: []
-    });
-});
-router.get('/regs/hackers', function(req, res) {
-    res.json({
-        data: []
-    });
-});
-router.get('/regs/anonstats', function(req, res) {
-    res.json({
-        data: []
-    });
-});
-router.get('/regs/counts', function(req, res) {
-    res.json({
-        data: []
-    });
-});
-
-/**
- * Hackathon statistics
- *
- * general stats of all hackathons
- */
-router.get('/hackathons');
-
-
-/**
- * Hacker Details
- *
- * displays all hackers in db from any hackathon
- * past projects + teams
- * past hackathons
- */
-router.get('/hackers');
-
-// Specific hacker details
-router.get('/hackers/:id');
-
-
-/**
- *
- */
+export default router;

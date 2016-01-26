@@ -23,9 +23,7 @@ router.route('/')
 // GET /register
 // Shows the registration form
 .get(function(req, res, next) {
-	res.render('registration/index', {
-		title: 'Register'
-	});
+	res.render('registration/index');
 })
 // POST /register
 // Create new registration

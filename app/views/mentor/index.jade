@@ -1,8 +1,11 @@
 extend ../_layouts/standard
+block vars
+	- title = 'Mentor'
+
 block localJS
 	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
 	script(src='/js/views/mentor.js')
-		
+
 block content
 	#mentor-page.clear.services.section.block
 		.block.content-960.center-relative

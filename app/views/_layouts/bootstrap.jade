@@ -1,0 +1,113 @@
+//- 
+	bootstrap layout base
+
+block vars
+	//- title
+
+include _logo
+doctype html
+html(lang='en')
+	head
+
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible' content='IE=edge')
+		meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1')
+		meta(name='description' content='')
+		meta(name='author' content='')
+		meta(name='google-site-verification' content='suuzMNcGGtUdtvQ1Te8M3HxORys7IlGjkDLvOGOkpA8')
+		meta(property='og:url' content='http://hackfsu.com/')
+		meta(property='og:image' content='http://hackfsu.com/assets/img/hackfsu-16-reg-open.png')
+		meta(property='og:title' content="HackFSU '16")
+		meta(property='og:description' content='Build to learn. February 5-7th. 30 hours.')
+		
+		title= 'HackFSU' + (title ? ' | ' + title : '')
+		
+		link(rel="icon" type="image/png" href="/img/favicon/favicon.ico")
+
+		//- CSS
+		link(rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Montserrat:400,700')
+		link(rel='stylesheet' type='text/css' href='/assets/fonts/font-awesome/css/font-awesome.min.css')
+		link(rel='stylesheet' type='text/css' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+		link(rel='stylesheet' type='text/css' href='/assets/css/custom.css')
+		
+		block layoutCSS
+		block localCSS
+
+	body
+
+		block header
+			.navbar.navbar-default
+				.container-fluid
+					.navbar-header
+						button.navbar-toggle.collapsed(data-toggle='collapse' data-target='#navbar-target' aria-expanded='false')
+							.icon-bar
+							.icon-bar
+							.icon-bar
+						.navbar-brand
+							a(href='/')
+								img#logo(src='/assets/img/white_feather.png')
+								| HackFSU
+					
+					#navbar-target-target.navbar-collapse
+						ul.nav.navbar-nav.navbar-rights
+							li.dropdown
+								a.dropdown-toggle(data-toggle='dropdown' role='button' aria-expanded='false')
+									| About 
+									.caret
+								ul.dropdown-menu
+									li: a(href='/#faq') FAQ
+									li: a(href='/#travel') TRAVEL
+									li: a(href='/#sponsors') SPONSORS
+							
+							if session && session.user
+								li: a(href='/register') REGISTER
+								li: a(href='/user/login') LOG IN
+							else
+								li: a(href='/user/profile') PROFILE
+								li: a(href='/user/logout') LOG OUT
+								
+								if showAdmin
+									li.dropdown
+										a.dropdown-toggle(data-toggle='dropdown' role='button' aria-expanded='false')
+											| Admin
+											.caret
+										ul.dropdown-menu
+											li: a(href='/admin/regs') Regsitrations
+											li: a(href='/admin/schools') Schools
+											li: a(href='/admin/checkin') Check in
+		
+		#content
+			block content
+				// replace this block for page
+		
+		
+		block footer
+			.text-center.footer
+				.footer-content
+					.social.center-text
+						a(href='#{store.links.twitter}' style='text-decoration:none;')
+							i.fa.fa-twitter
+						a(href='#{store.links.facebook}' style='text-decoration:none;')
+							i.fa.fa-facebook
+						a(href='#{store.links.instagram}' style='text-decoration:none;')
+							i.last.fa.fa-instagram
+					.footer-copyright.center-text
+						= store.app.copyright
+
+
+		// Google Analytics
+		script(type='text/javascript').
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-59773856-1', 'auto');
+			ga('send', 'pageview');
+		
+		script(src='/bower_components/jquery/dist/jquery.min.js')
+		script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+		script(src='/js/main.js')
+		
+		block layoutJS
+		block localJS
+		

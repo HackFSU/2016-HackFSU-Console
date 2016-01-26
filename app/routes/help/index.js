@@ -24,9 +24,7 @@ router.route('/')
 // GET /
 // Shows the help
 .get(function(req, res, next) {
-	res.render('help/index', {
-		title: 'Help Request'
-	});
+	res.render('help/index');
 })
 // POST /help
 // Create new help request
