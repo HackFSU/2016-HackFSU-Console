@@ -34,7 +34,7 @@ $ sudo npm install -g n
 $ sudo n stable
 
 # Install global node modules
-$ sudo npm install -g nodemon bower gulp
+$ sudo npm install -g bower gulp
 
 # Navigate to your projects directory
 $ cd my/projects/dir
@@ -44,7 +44,7 @@ $ git clone https://YOUR_GITHUB_USERNAME@github.com/HackFSU/hackfsu-console.git
 $ cd hackfsu-console
 $ npm install
 $ bower install
-$ gulp build:app
+$ gulp build
 
 # Start the server (while in repo directory)
 $ npm start
