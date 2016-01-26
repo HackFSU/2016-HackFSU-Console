@@ -9,18 +9,19 @@ import * as middleware from 'app/routes/user/middleware';
 
 
 const router = express.Router();
+const userKey = acl.role('User').key;
 
 router.route('/')
 .get(
 	function(req, res) {
-		res.redirect('/profile');
+		res.redirect('/user/profile');
 	}
 );
 
 router.route('/login')
 .get(
 	function(req, res) {
-		if(req.session.user && req.session.user.roleId > 0) {
+		if(req.session.user && acl.check(req.session.user.roleId, userKey)) {
 			res.redirect('/user/profile' + req.query.accessDenied ? '?accessDenied=true' : '');
 			return;
 		}
