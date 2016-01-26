@@ -83,7 +83,7 @@ export default function() {
 	app.use(express.static(path.join(__dirname, '../public/build')));
 	app.use(express.static(path.join(__dirname, '../public/app')));
 	// Only use this for dev purposes
-	//app.use(express.static(path.join(__dirname, '../public/.legacy/app')));
+	app.use(express.static(path.join(__dirname, '../public/.legacy/app')));
 
 	// Prepare request for route managment
 	app.use(function(req, res, next) {

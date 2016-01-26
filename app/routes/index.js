@@ -13,7 +13,7 @@ import register from 'app/routes/register';
 import mentor from 'app/routes/mentor';
 import user from 'app/routes/user';
 import help from 'app/routes/help';
-// import api from 'app/routes/api';
+//import api from 'app/routes/api';
 
 
 
@@ -47,6 +47,7 @@ export default function(app) {
 	app.use('/mentor', mentor);
 	app.use('/help', help);
 	app.use('/user', user);
+	//app.use('/api', api);
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
