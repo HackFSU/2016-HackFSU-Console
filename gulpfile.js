@@ -30,7 +30,7 @@ var argv = require('yargs')
 
 
 // Project directories
-const dirs = {
+var dirs = {
 	lib: __dirname + '/lib',
 	app: __dirname + '/app',
 	public: {
