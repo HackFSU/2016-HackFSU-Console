@@ -24,11 +24,11 @@ export default class User extends Parse.User {
 		let user = new User();
 
 		validate(o, _.isPlainObject);
-		user.set('firstName', validate(o.firstName));
-		user.set('lastName', validate(o.lastName));
-		user.set('email', validate(o.email));
+		user.set('firstName', validate(o.firstName, _.isString));
+		user.set('lastName', validate(o.lastName, _.isString));
+		user.set('email', validate(o.email, _.isString));
 		user.set('username', o.email);
-		user.set('password', validate(o.password));
+		user.set('password', validate(o.password, _.isString));
 		user.set('shirtSize', validate(o.shirtSize, _.isString));
 		user.set('roleKey', acl.getRoleId('User'));
 
