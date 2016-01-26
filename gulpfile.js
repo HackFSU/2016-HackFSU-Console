@@ -10,7 +10,6 @@
 
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
-var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var fs = require('fs-extra');
 
@@ -30,7 +29,7 @@ var argv = require('yargs')
 
 
 // Project directories
-const dirs = {
+var dirs = {
 	lib: __dirname + '/lib',
 	app: __dirname + '/app',
 	public: {
@@ -96,6 +95,7 @@ gulp.task('jshint', ['jshint:lib', 'jshint:app', 'jshint:scripts']);
  */
 
 gulp.task('build', ['clean:app', 'jshint:app'], function() {
+	var babel = require('gulp-babel');
 	return gulp.src([
 		dirs.public.es6 + '/**/*.js'
 	])

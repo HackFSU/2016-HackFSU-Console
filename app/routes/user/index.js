@@ -14,7 +14,7 @@ const userKey = acl.role('User').key;
 router.route('/')
 .get(
 	function(req, res) {
-		res.redirect('/user/profile');
+		res.redirect('./profile' + (req.query.accessDenied ? '?accessDenied=true' : ''));
 	}
 );
 
@@ -22,7 +22,7 @@ router.route('/login')
 .get(
 	function(req, res) {
 		if(req.session.user && acl.check(req.session.user.roleId, userKey)) {
-			res.redirect('/user/profile' + req.query.accessDenied ? '?accessDenied=true' : '');
+			res.redirect('./profile' + (req.query.accessDenied ? '?accessDenied=true' : ''));
 			return;
 		}
 
@@ -42,7 +42,6 @@ router.route('/login')
 		res.json({});
 	}
 );
-
 
 router.route('/profile')
 .get(
