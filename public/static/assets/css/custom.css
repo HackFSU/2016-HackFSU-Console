@@ -956,11 +956,14 @@ h3#partners {
 	margin-top: 120px;
 }
 
-#partners-section {
-	text-align: center;
+#partners-logos {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
 }
 
-#partners-section .logo {
+#partners-logos .logo {
 	max-width: 250px;
 	margin: 50px;
 }
@@ -1018,6 +1021,10 @@ a.domi-logo > img {
 	padding-bottom: 40px;
 }
 
+.mlh-logo {
+	padding-top: 15px !important;
+}
+
 @media screen and (max-width: 960px) {
 	#sponsor-logos {
 		margin-top: -70px;
@@ -1035,6 +1042,10 @@ a.domi-logo > img {
 		padding-bottom: 0px;
 		padding-right: 0px;
 		max-width: 300px !important;
+	}
+
+	a.domi-logo > img {
+		padding-bottom: 0;
 	}
 }
 
