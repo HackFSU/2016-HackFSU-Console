@@ -1,7 +1,5 @@
 /**
 * Script to get a list of mentors
-*
-* WHY ISN'T GULP RUN -S WORKING FOR THIS?
 */
 
 'use strict';
@@ -10,9 +8,9 @@ var _ = require('lodash');
 var Parse = require('parse/node');
 
 Parse.initialize(
-	'7MgItVIkvSmADkIdIVPmEbIOOZQ84ilW224wXsgS',
-	'IEVQHLSvq5dWfd1A1d37kk69EHHEOvDkUitPGEDl',
-	'nwceDKx3iqtph3SAxaj41LxDavXsujwKWy2yJo3n'
+	process.env.PARSE_APP_ID,
+	process.env.PARSE_JS_KEY,
+	process.env.PARSE_MASTER_KEY
 );
 Parse.Cloud.useMasterKey();
 
