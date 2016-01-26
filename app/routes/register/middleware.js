@@ -38,11 +38,11 @@ export function validateRegistration(req, res, next) {
 
 
 	// Coerce single values into array
-	req.body.wants = _.isArray(req.body.wants) || _.isEmpty(req.body.wants)
-		? req.body.wants :
+	req.body.wants = _.isArray(req.body.wants) || _.isEmpty(req.body.wants)?
+		req.body.wants :
 		[ req.body.wants ];
-	req.body.wantjob = _.isArray(req.body.wantjob) || _.isEmpty(req.body.wantjob)
-		? req.body.wantjob :
+	req.body.wantjob = _.isArray(req.body.wantjob) || _.isEmpty(req.body.wantjob)?
+		req.body.wantjob :
 		[ req.body.wantjob ];
 	// TODO: Add sanitizer to remove url part of github (if accidentally supplied)
 

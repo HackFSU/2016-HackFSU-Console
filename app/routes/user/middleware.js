@@ -4,6 +4,9 @@
 'use strict';
 
 import User from 'app/models/User';
+import { acl } from 'app/routes/util';
+
+const userRoleId = acl.role('User').id;
 
 /**
  * Builds user session for valid users
@@ -27,6 +30,12 @@ export function loginUser(req, res, next) {
 	.then(function(userId) {
 		User.fetchSimple(userId, 'roleId')
 		.then(function(user) {
+			// make sure at least counted as a user
+			if(typeof user.roleId === 'undefined') {
+				req.log.error('[session] missing roleId', userId);
+				user.roleId = userRoleId;
+			}
+
 			// save ids in session data
 			req.session.user = {
 				userId: userId,
@@ -36,8 +45,8 @@ export function loginUser(req, res, next) {
 			req.log.info(`[session] login ${userId} : ${user.roleId}`);
 			next();
 		})
-		.catch(function() {
-			req.log.error('[session] missing roleId', userId);
+		.catch(function(err) {
+			req.log.error('[session] Problem logging in', userId, err);
 			res.json({
 				error: 'Server Error'
 			});

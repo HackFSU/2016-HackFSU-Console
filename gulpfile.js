@@ -38,10 +38,7 @@ const dirs = {
 		static: __dirname + '/public/static',
 		es6: __dirname + '/public/es6',
 	},
-	scripts: {
-		src: __dirname + '/scripts/src',
-		build: __dirname + '/scripts/build'
-	}
+	scripts: __dirname + '/scripts'
 };
 
 
@@ -59,10 +56,6 @@ gulp.task('clean:app', function(done) {
 		done(e);
 	}
 });
-gulp.task('clean:scripts', function(done) {
-	fs.emptyDir(dirs.scripts.build, done);
-});
-
 
 /**
  * Run scrips though linter
@@ -92,6 +85,8 @@ gulp.task('jshint:scripts', ['jshint:lib'], function() {
 	]);
 });
 
+gulp.task('jshint', ['jshint:lib', 'jshint:app', 'jshint:scripts']);
+
 
 /**
  * Build es6
@@ -99,43 +94,49 @@ gulp.task('jshint:scripts', ['jshint:lib'], function() {
  * - sourcemaps
  * TODO optional uglify
  */
-function buildStream(src, dst) {
-	return gulp.src(src)
+
+gulp.task('build', ['clean:app', 'jshint:app'], function() {
+	return gulp.src([
+		dirs.public.es6 + '/**/*.js'
+	])
 	.pipe(sourcemaps.init())
 	.pipe(babel({
 		presets: ['es2015']
 	}))
 	.pipe(sourcemaps.write('./'))
-	.pipe(gulp.dest(dst));
-}
-gulp.task('build:app', ['clean:app', 'jshint:app'], function() {
-	return buildStream([
-		dirs.public.es6 + '/**/*.js'
-	], dirs.public.build + '/js');
+	.pipe(gulp.dest(dirs.public.build + '/js'));
 });
-gulp.task('build:scripts', ['clean:scripts', 'jshint:scripts'], function() {
-	return buildStream([
-		dirs.scripts.src + '/**/*.js'
-	], dirs.scripts.build);
-});
-
 
 /**
  * Script managment
  * - builds script
  * - runs script
  */
-
-gulp.task('run', ['jshint-scripts'], function(done) {
-	var dotenv = require('dotenv');
+gulp.task('run', ['jshint:scripts'], function(done) {
+	var dotenv = require('dotenv'),
+		script;
 
 	dotenv.load();
 	if(!process.env.RUN_LEVEL) {
 		process.env.RUN_LEVEL = 'DEV';
 	}
 
+	if(!argv.script) {
+		new Error('No script given. Run with "gulp run -s <script name>"');
+	}
+
+	console.log('Loading script "' + argv.script + '"');
+
 	require('babel-register');
-	require('./scripts/' + argv.script)(done);
+	script = require(dirs.scripts + '/' + argv.script);
+
+	if(typeof script === 'function') {
+		// Should handle async call internally
+		script(done);
+		return;
+	} else {
+		done();
+	}
 });
 
 
@@ -143,7 +144,7 @@ gulp.task('run', ['jshint-scripts'], function(done) {
  * Server managment
  * - builds/rebuilds
  */
-gulp.task('watch:app', ['build:app'], function() {
+gulp.task('watch', ['build'], function() {
 	gulp.watch([
 		__dirname + '*.js',
 		dirs.public.static + '/js/**/*.js',

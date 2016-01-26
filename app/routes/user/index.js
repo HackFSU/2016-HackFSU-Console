@@ -4,23 +4,24 @@
 'use strict';
 
 import express from 'express';
-import { parser, acl, validator } from 'app/routes/util';
+import { acl } from 'app/routes/util';
 import * as middleware from 'app/routes/user/middleware';
 
 
 const router = express.Router();
+const userKey = acl.role('User').key;
 
 router.route('/')
 .get(
 	function(req, res) {
-		res.redirect('/profile');
+		res.redirect('/user/profile');
 	}
 );
 
 router.route('/login')
 .get(
 	function(req, res) {
-		if(req.session.user && req.session.user.roleId > 0) {
+		if(req.session.user && acl.check(req.session.user.roleId, userKey)) {
 			res.redirect('/user/profile' + req.query.accessDenied ? '?accessDenied=true' : '');
 			return;
 		}
@@ -35,8 +36,6 @@ router.route('/login')
 	}
 )
 .post(
-	parser.urlencoded,
-	validator,
 	middleware.validateLogin,
 	middleware.loginUser,
 	function(req, res) {

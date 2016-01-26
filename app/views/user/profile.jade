@@ -2,9 +2,9 @@ extend ../_layouts/standard
 block content
 	.clear.services.section.block
 	if accessDenied
-	.access-denied
-		h3 Access Denied
-	br
+		.access-denied
+			h3 Access Denied
+		br
 
 	h3 Trevor format this
 	p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}

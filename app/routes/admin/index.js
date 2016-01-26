@@ -5,13 +5,12 @@
 'use strict';
 
 import express from 'express';
-import { parser, session, validator, acl } from 'app/routes/util';
+import { acl } from 'app/routes/util';
 // import * as regs from 'app/routes/admin/regs';
 
 const router = express.Router();
 
-router.all('*', session, acl.use('Admin'));
-router.post('*', parser, validator);
+router.all('*', acl.use('Admin'));
 
 /**
  * General Utility page
