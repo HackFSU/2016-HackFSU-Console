@@ -4,39 +4,48 @@
 
 'use strict';
 
+import bodyParser from 'body-parser';
+import validator from 'express-validator';
+import session from 'express-session';
+
 import home from 'app/routes/home';
 import register from 'app/routes/register';
 import mentor from 'app/routes/mentor';
 import user from 'app/routes/user';
 import help from 'app/routes/help';
-import api from 'app/routes/api';
-import { session, parser, validator } from 'app/routes/util';
+// import api from 'app/routes/api';
+
 
 
 export default function(app) {
-	/**
-	* HTTP Body Parsers
-	*/
-	app.use(parser.urlencoded);
-	app.use(validator);
+
+	// parse body for post reqs only
+	app.post('*',
+		bodyParser.urlencoded({
+			limit: '2mb',
+			extended: false
+		}),
+		bodyParser.json(),
+		validator()
+	);
+
+	app.use(session({
+		secret: process.env.secret || 'BoopTheSnoot123',
+		cookie: {
+			maxAge: 172800000,
+			secure: false	// TODO: setup HTTPS for this
+		},
+		resave: false,
+		saveUninitialized: false
+	}));
 
 	/**
 	 * Mount paths
 	 */
-
-	// general, public paths
-	// @jrdbnntt Put these here for now because none of these have "sessions" as of
-	// yet. For example, /mentor is the mentor signup and /help is to submit help
-	// requests BUT we aren't using login for said help reqs (in case people forgot)
-	// passwords and the like.
 	app.use('/', home);
 	app.use('/register', register);
 	app.use('/mentor', mentor);
 	app.use('/help', help);
-	//app.use('/api', api);					// Only use this for dev purposes
-
-	// session related paths
-	app.use(session);
 	app.use('/user', user);
 
 	// catch 404 and forward to error handler

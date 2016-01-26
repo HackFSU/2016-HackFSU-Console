@@ -4,7 +4,7 @@
 'use strict';
 
 import express from 'express';
-import { parser, acl, validator } from 'app/routes/util';
+import { acl } from 'app/routes/util';
 import * as middleware from 'app/routes/user/middleware';
 
 
@@ -36,8 +36,6 @@ router.route('/login')
 	}
 )
 .post(
-	parser.urlencoded,
-	validator,
 	middleware.validateLogin,
 	middleware.loginUser,
 	function(req, res) {

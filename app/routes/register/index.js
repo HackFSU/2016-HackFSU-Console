@@ -7,7 +7,7 @@
 import express from 'express';
 let router = express.Router();
 
-import * as middleware from './middleware';
+import * as middleware from 'app/routes/register/middleware';
 
 // Log the request body for all requests
 router.use(function(req, res, next) {
