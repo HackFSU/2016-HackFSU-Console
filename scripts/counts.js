@@ -52,7 +52,6 @@ query.find().then(function(results) {
 		}
 	}
 
-
 	console.log(new Date());
 	console.log(COUNT_CLASS_NAME, results.length);
 	console.log(COUNT_COL_NAME, list.length);
@@ -79,11 +78,9 @@ query.find().then(function(results) {
 	}
 
 	function print() {
-		for(let value in counts) {
-			if(counts.hasOwnProperty(value)) {
-				console.log(counts[value], value);
-			}
-		}
+		list.forEach(function(item) {
+			console.log(item.count, item.value);
+		});
 		console.log();
 	}
 
