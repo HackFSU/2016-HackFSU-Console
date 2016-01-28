@@ -13,7 +13,7 @@ import Confirmation from 'app/models/Confirmation';
 * Middleware to validate a confirmation submission
 */
 export function validateConfirmation(req, res, next) {
-	req.sanitizeBody('waiver-signature').trim();
+	req.sanitizeBody('waiverSignature').trim();
 	req.sanitizeBody('phone').trim();		// Keep in mind this could be not-set
 
 	// The following fields are assumed to be true automagically if they so choose
