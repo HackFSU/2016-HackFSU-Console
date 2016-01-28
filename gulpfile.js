@@ -112,12 +112,12 @@ gulp.task('build', ['clean:app'], function() {
  * - builds script
  * - runs script
  */
-gulp.task('run', ['jshint:scripts'], function(done) {
+gulp.task('run', function(done) {
 	var dotenv = require('dotenv');
 
 	dotenv.load();
-	if(!process.env.RUN_LEVEL) {
-		process.env.RUN_LEVEL = 'DEV';
+	if(!process.env.NODE_ENV) {
+		process.env.NODE_ENV = 'development';
 	}
 
 	if(!argv.script) {
@@ -127,6 +127,9 @@ gulp.task('run', ['jshint:scripts'], function(done) {
 	console.log('Loading script "' + argv.script + '"');
 
 	require('babel-register');
+	jshintStream([
+		dirs.scripts + '/' + argv.script
+	]);
 	require(dirs.scripts + '/' + argv.script);
 
 });
