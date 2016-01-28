@@ -22,7 +22,7 @@ export function validateConfirmation(req, res, next) {
 	req.body.mlhDataSharing = true;
 
 	// Validate fields
-	req.checkBody('waiver-signature', 'Invalid signature').notEmpty().isAscii();
+	req.checkBody('waiverSignature', 'Invalid signature').notEmpty().isAscii();
 	req.checkBody('phone', 'Invalid phone').optional({ checkFalsy: true }).isAscii();
 
 	if (req.validationErrors()) {
