@@ -24,11 +24,13 @@ router.use(function(req, res, next) {
 router.route('/:id')
 // GET /
 // Shows the help
+// TODO: Implement the phoneNotSet feature
 .get(function(req, res, next) {
 	res.render('confirm/index', {
 		title: 'Confirm Your Attendance!',
 		date: moment().format("MMMM DD, YYYY"),
-		phoneNotSet: true
+		phoneNotSet: true,
+		hackerId: req.params.id
 	});
 })
 // POST /confirm/:id
