@@ -44,8 +44,8 @@
 					else {
 						// Just in case the error messages were displayed, remove them
 						$('#errors').remove();
-						$('#mentor').fadeTo(1000, 0, function() {
-							$('#mentor').remove();
+						$('#confirm').fadeTo(1000, 0, function() {
+							$('#confirm').remove();
 							$('html, body').animate({
 								scrollTop: 0
 							}, 500);

@@ -94,7 +94,7 @@ gulp.task('jshint', ['jshint:lib', 'jshint:app', 'jshint:scripts']);
  * TODO optional uglify
  */
 
-gulp.task('build', ['clean:app', 'jshint:app'], function() {
+gulp.task('build', ['clean:app'], function() {
 	var babel = require('gulp-babel');
 	return gulp.src([
 		dirs.public.es6 + '/**/*.js'

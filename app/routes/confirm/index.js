@@ -39,11 +39,10 @@ router.route('/')
 // Create new help request
 .post(
 	middleware.validateConfirmation,
+	middleware.savePhoneIfSet,
 	middleware.submitConfirmation,
 	function(req, res, next) {
-		res.json({
-			worked: true
-		});
+		res.json(req.confirmation);
 	}
 );
 

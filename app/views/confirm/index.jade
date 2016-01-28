@@ -1,31 +1,34 @@
 extend ../_layouts/standard
 block localJS
 	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
-	script(src='/js/views/help.js')
+	script(src='/js/views/confirm.js')
 		
 block content
-	#mentor-page.clear.services.section.block
+	#confirm-page.clear.services.section.block
 		.block.content-960.center-relative
 			h2.section-title-fixed.singleLineText.margin-left-7.margin-right-15 Confirm your attendance
 			.title-separator.margin-left-7
 			#confirmation(style='display: none;').margin-left-7.margin-right-15
 					p 
-						| 
+						| Are you ready?! Let us know in the HackFSU ’16 Attendees FB Group. In there you 
+						| can look for a team, get updates, find more information on bussing or 
+						| carpooling, and ask any questions you may have!
+					p
+						strong See you next weekend!
 				.clear
 			#errors(style='display: none;')
 				.three_fourth.margin-left-7
 					#error-messages
 				.one_fourth.last
 				.clear
-			.one.margin-right-15
-				#confirm-blurb
-					| Before your confirmation is official, we need you to accept a few things on this
-					| page. Once you hit submit, your confirmation will be official and you'll have a spot
-					| reserved for you at HackFSU.
-			.clear
 			form#confirm(method='post' action='' autocomplete='off').margin-right-15
-				div#help-form
-					
+				.one
+					#confirm-blurb
+						| Before your confirmation is official, we need you to accept a few things on this
+						| page. Once you hit submit, your confirmation will be official and you'll have a spot
+						| reserved for you at HackFSU.
+				.clear
+				div#confirm-form
 					.one_fourth
 						label(for='waiver') Waiver *
 					.one_half
