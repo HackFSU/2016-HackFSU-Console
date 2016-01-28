@@ -25,14 +25,17 @@ router.route('/:id')
 // GET /
 // Shows the help
 // TODO: Implement the phoneNotSet feature
-.get(function(req, res, next) {
-	res.render('confirm/index', {
-		title: 'Confirm Your Attendance!',
-		date: moment().format("MMMM DD, YYYY"),
-		phoneNotSet: true,
-		hackerId: req.params.id
-	});
-});
+.get(
+	middleware.checkPhoneSet,
+	function(req, res, next) {
+		res.render('confirm/index', {
+			title: 'Confirm Your Attendance!',
+			date: moment().format("MMMM DD, YYYY"),
+			phoneNotSet: req.phoneNotSet,
+			hackerId: req.params.id
+		});
+	}
+);
 
 router.route('/')
 // POST /confirm

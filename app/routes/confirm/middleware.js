@@ -10,6 +10,23 @@ import Confirmation from 'app/models/Confirmation';
 
 
 /**
+* Middleware function to check if the hacker supplied a phone number when he/she
+* registered. If not, we need to set a flag so that we ask for it on the
+* confirmation page.
+*/
+export function checkPhoneSet(req, res, next) {
+	Hacker.find(req.params.id).then((hacker) => {
+		const phone = hacker.get('user').get('phone');
+		req.phoneNotSet = _.isEmpty(phone);
+		next();
+	}, (err) => {
+		res.json({
+			error: err
+		});
+	});
+}
+
+/**
 * Middleware to validate a confirmation submission.
 * This is fairly trivial, but necessary. We also set some fields statically,
 * because they are implied from submitting the confirmation form.
@@ -46,6 +63,7 @@ export function validateConfirmation(req, res, next) {
 export function savePhoneIfSet(req, res, next) {
 	if (!_.isEmpty(req.body.phone)) {
 		Hacker.find(req.body.hackerId).then((hacker) => {
+			// Phone # is stored in the user object
 			hacker.get('user').set('phone', req.body.phone);
 			return hacker.get('user').save();
 		})
