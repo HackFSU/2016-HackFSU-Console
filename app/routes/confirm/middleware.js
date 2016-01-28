@@ -45,10 +45,22 @@ export function validateConfirmation(req, res, next) {
 */
 export function savePhoneIfSet(req, res, next) {
 	if (!_.isEmpty(req.body.phone)) {
-		// TODO Save phone #
+		Hacker.find(req.body.hackerId).then((hacker) => {
+			hacker.get('user').set('phone', req.body.phone);
+			return hacker.get('user').save();
+		})
+		.then((hacker) => {
+			return next();
+		}, (err) => {
+			res.json({
+				error: err
+			});
+		});
 	}
-
-	next();
+	// If we don't need to store the phone #, we skip along merrily
+	else {
+		next();
+	}
 }
 
 /**

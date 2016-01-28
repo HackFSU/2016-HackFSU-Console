@@ -58,7 +58,7 @@
 				error: function(err) {
 					console.log(err);
 					$('#error-messages').empty();
-					$('#error-messages').append('<p><strong>Uh oh!</strong> ' + capitalizeFirstLetter(err) + '</p>');
+					$('#error-messages').append('<p><strong>Uh oh!</strong> ' + err.message + '</p>');
 					$('#errors').show();
 					$('html, body').animate({
 						scrollTop: 0
