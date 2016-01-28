@@ -1,0 +1,64 @@
+extend ../_layouts/standard
+block localJS
+	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
+	script(src='/js/views/help.js')
+		
+block content
+	#mentor-page.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed.singleLineText.margin-left-7.margin-right-15 Confirm your attendance
+			.title-separator.margin-left-7
+			#confirmation(style='display: none;').margin-left-7.margin-right-15
+					p 
+						| Your help request has been submitted! We'll send you an email with
+						| the name of your mentor as soon as one has been assigned to your
+						| request.
+				.clear
+			#errors(style='display: none;')
+				.three_fourth.margin-left-7
+					#error-messages
+				.one_fourth.last
+				.clear
+			.one.margin-right-15
+				#confirm-blurb
+					| Before your confirmation is official, we need you to accept a few things on this
+					| page. Once you hit submit, your confirmation will be official and you'll have a spot
+					| reserved for you at HackFSU.
+			.clear
+			form#confirm(method='post' action='' autocomplete='off').margin-right-15
+				div#help-form
+					
+					.one_fourth
+						label(for='name') Waiver *
+					.one_half
+							input#waiver(type='text' placeholder="Please sign your name" data-validation='required' name='waiver')
+							.help-block By signing your name above, on this day of #{date}, you hereby agree to the terms of our 
+								a(href="/docs/waiver.pdf") Release of Liability 
+								| waiver.
+					.one_fourth.last
+					.clear
+					
+					// We only show this field is they didnt supply it in registration
+					if phoneNotSet
+						.one_fourth
+							label(for='description') Phone *
+						.one_half
+							input#phone(name='phone' placeholder='867-5309' data-validation='required')
+							.help-block Our records indicate you didn't supply your phone number
+								| when you registered. We need this on file in case of an emergency.
+								| 
+						.one_fourth.last
+						.clear
+					
+					br
+					.one.margin-left-7
+						p#mlh-data-sharing
+							| We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to share certain 
+							| application/registration information for event administration, ranking, MLH administration, and occasional 
+							| messages about hackathons in line with the <a href="https://mlh.io/privacy">MLH Privacy Policy</a>.
+					.clear
+						
+					.one_fourth
+					.three_fourth.last
+						button#submit.btn.btn-form(type='submit') SUBMIT
+					.clear

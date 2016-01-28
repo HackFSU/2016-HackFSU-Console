@@ -6,6 +6,7 @@
 
 import express from 'express';
 import * as middleware from './middleware';
+import moment from 'moment';
 
 
 let router = express.Router();
@@ -25,13 +26,15 @@ router.route('/:id')
 // Shows the help
 .get(function(req, res, next) {
 	res.render('confirm/index', {
-		title: 'Confirm Your Attendance!'
+		title: 'Confirm Your Attendance!',
+		date: moment().format("MMMM DD, YYYY"),
+		phoneNotSet: true
 	});
 })
 // POST /confirm/:id
 // Create new help request
 .post(
-	middleware.validateConfirmation,
+	//middleware.validateConfirmation,
 	function(req, res, next) {
 		res.json(req.helpReq);
 	}
