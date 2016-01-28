@@ -30,25 +30,54 @@ export default class Confirmation extends Parse.Object {
 	}
 
 	/**
+	* Checks to make sure someone hasn't already submitted a confirmation
+	*/
+	static checkNotConfirmed(id) {
+		let promiseNotConfirmed = new Parse.Promise();
+
+		Hacker.find(id).then((hacker) => {
+			if (hacker.get('status') === 'confirmed') {
+				promiseNotConfirmed.reject({
+					message: 'You\'ve already submitted your confirmation.'
+				});
+			}
+			else {
+				promiseNotConfirmed.resolve();
+			}
+		}, (err) => {
+			promiseNotConfirmed.reject(err);
+		});
+
+		return promiseNotConfirmed;
+	}
+
+	/**
 	* Save the confirmation data. Needs to set the hacker object first.
 	* Idk how to fucking do this properly. This is what I came up with.
 	*/
 	saveIt() {
 		let promiseSave = new Parse.Promise();
 
-		let query = new Parse.Query(Hacker);
-		query.get(this.hackerId).then((hacker) => {
-			console.log(hacker);
-			this.set('hacker', hacker);
-			return this.save();
-		})
-		.then((confirm) => {
-			promiseSave.resolve(confirm);
-		}, (err) => {
-			promiseSave.reject({
-				code: 101,
-				message: 'Hacker with supplied ID not found.'
+		Confirmation.checkNotConfirmed(this.hackerId).then(() => {
+			let query = new Parse.Query(Hacker);
+			query.get(this.hackerId).then((hacker) => {
+				hacker.set('status', 'confirmed');
+				return hacker.save();
+			})
+			.then((hacker) => {
+				this.set('hacker', hacker);
+				return this.save();
+			})
+			.then((confirm) => {
+				promiseSave.resolve(confirm);
+			}, (err) => {
+				promiseSave.reject({
+					code: 101,
+					message: 'Hacker with supplied ID not found.'
+				});
 			});
+		}, (err) => {
+			promiseSave.reject(err);
 		});
 
 		return promiseSave;
