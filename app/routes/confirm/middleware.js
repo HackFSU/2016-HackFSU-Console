@@ -13,6 +13,9 @@ import Confirmation from 'app/models/Confirmation';
 * Middleware function to check if the hacker supplied a phone number when he/she
 * registered. If not, we need to set a flag so that we ask for it on the
 * confirmation page.
+*
+* NOTE: This also has a nice side-effect of disabling the confirmation form if
+* someone tries an invalid ID.
 */
 export function checkPhoneSet(req, res, next) {
 	Hacker.find(req.params.id).then((hacker) => {
@@ -20,9 +23,7 @@ export function checkPhoneSet(req, res, next) {
 		req.phoneNotSet = _.isEmpty(phone);
 		next();
 	}, (err) => {
-		res.json({
-			error: err
-		});
+		res.redirect('/no');
 	});
 }
 
