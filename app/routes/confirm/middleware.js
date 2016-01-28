@@ -36,11 +36,23 @@ export function validateConfirmation(req, res, next) {
 }
 
 /**
+* Middleware to save the phone number parameter for a hacker if it is set
+* Otherwise we skip along
+*/
+export function savePhoneIfSet(req, res, next) {
+	if (!_.isEmpty(req.body.phone)) {
+		// TODO Save phone #
+	}
+
+	next();
+}
+
+/**
 * Middleware to submit a confirmation
 *
-* Stores the confirmation data in a Confirmation object, but if the phone field
-* is supplied, we go through the Hacker -> User to set this field.
+* Stores the confirmation data in a Confirmation object
 */
 export function submitConfirmation(req, res, next) {
+	
 
 }
