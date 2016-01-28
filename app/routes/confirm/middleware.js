@@ -66,15 +66,15 @@ export function submitConfirmation(req, res, next) {
 		'hackerId'
 	);
 
-
 	// Create and save the confirmation object
 	Confirmation.new(confirmAttrs).saveIt().then(function(confirmation) {
 		req.log.info({ confirmation: confirmation }, 'Confirmation submitted');
 		req.confirmation = confirmation;
 		next();
 	}, function(err) {
+		req.log.info({ error: err }, 'Error submitting confirmation');
 		res.json({
-			err: err
+			error: err.message
 		});
 	});
 }

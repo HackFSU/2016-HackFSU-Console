@@ -40,13 +40,15 @@ export default class Confirmation extends Parse.Object {
 		query.get(this.hackerId).then((hacker) => {
 			console.log(hacker);
 			this.set('hacker', hacker);
-			this.save().then(function(confirm) {
-				promiseSave.resolve(confirm);
-			}, function(err) {
-				promiseSave.reject(err);
+			return this.save();
+		})
+		.then((confirm) => {
+			promiseSave.resolve(confirm);
+		}, (err) => {
+			promiseSave.reject({
+				code: 101,
+				message: 'Hacker with supplied ID not found.'
 			});
-		}, function(err) {
-			throw new Error(`Error finding the hacker by ID supplied: ${err}`);
 		});
 
 		return promiseSave;

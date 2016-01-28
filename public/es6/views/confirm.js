@@ -33,7 +33,7 @@
 					if (res.error) {
 						console.log(res.error);
 						$('#error-messages').empty();
-						$('#error-messages').append('<p><strong>Uh oh!</strong> ' + capitalizeFirstLetter(res.error) + '</p>');
+						$('#error-messages').append('<p><strong>Uh oh!</strong> ' + res.error + '</p>');
 						$('#errors').show();
 						$('html, body').animate({
 							scrollTop: 0
