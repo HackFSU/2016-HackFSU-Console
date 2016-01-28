@@ -34,9 +34,12 @@ router.route('/:id')
 // POST /confirm/:id
 // Create new help request
 .post(
-	//middleware.validateConfirmation,
+	middleware.validateConfirmation,
+	middleware.submitConfirmation,
 	function(req, res, next) {
-		res.json(req.helpReq);
+		res.json({
+			worked: true
+		});
 	}
 );
 

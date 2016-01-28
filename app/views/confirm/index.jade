@@ -29,9 +29,9 @@ block content
 				div#help-form
 					
 					.one_fourth
-						label(for='name') Waiver *
+						label(for='waiver') Waiver *
 					.one_half
-							input#waiver(type='text' placeholder="Please sign your name" data-validation='required' name='waiver')
+							input#waiver(type='text' placeholder="Please sign your name" data-validation='required' name='waiver-signature')
 							.help-block By signing your name above, on this day of <span style="text-decoration: underline">#{date}</span>, you hereby agree to the terms of our 
 								a(href="/docs/release-of-liability.pdf" target="_blank") Release of Liability 
 								| waiver.
@@ -41,7 +41,7 @@ block content
 					// We only show this field is they didnt supply it in registration
 					if phoneNotSet
 						.one_fourth
-							label(for='description') Phone *
+							label(for='phone') Phone *
 						.one_half
 							input#phone(name='phone' placeholder='867-5309' data-validation='required')
 							.help-block Our records indicate you didn't supply your phone number
