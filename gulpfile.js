@@ -144,5 +144,5 @@ gulp.task('watch', ['build'], function() {
 	], ['jshint:app']);
 	gulp.watch([
 		dirs.public.es6 + '/**/*.js'
-	], ['build:app']);
+	], ['build']);
 });

@@ -2,9 +2,19 @@ extends ../_layouts/bootstrap
 block vars
 	- title = 'Admin | Hackers'
 
+block localCSS
+	link(rel='stylesheet' type='text/css' href='/bower_components/datatables/media/css/dataTables.bootstrap.min.css')
+
 block localJS
+	script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+	script(src='/bower_components/datatables/media/js/dataTables.bootstrap.min.js')
 	script(src='/js/views/admin/hackers.js')
 
 block content
-	h1 title
-	h2 TODO
+	h1 Hacker management
+	
+	#view-toggle
+	
+	table#view.table.table-striped.table-bordered
+		thead
+			tr
