@@ -32,8 +32,10 @@ router.route('/:id')
 		phoneNotSet: true,
 		hackerId: req.params.id
 	});
-})
-// POST /confirm/:id
+});
+
+router.route('/')
+// POST /confirm
 // Create new help request
 .post(
 	middleware.validateConfirmation,
