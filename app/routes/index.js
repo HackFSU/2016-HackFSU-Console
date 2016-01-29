@@ -49,10 +49,17 @@ export default function(app) {
 	app.use('/admin', admin);
 	app.use('/confirm', confirm);
 
+	/**
+	 * Random pages/shortcuts
+	 */
 	app.get('/no', function(req, res) {
 		res.render('index/no', {
 			notReady: !!req.query.notReady
 		});
+	});
+
+	app.get('/login', function(req, res) {
+		res.redirect('/user/login');
 	});
 
 
