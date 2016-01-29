@@ -31,3 +31,19 @@
 .view-table {
 	display: block;
 }
+
+.view {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 2em;
+	margin-bottom: 2em;
+}
+.view .loading-message {
+	display: block;
+}
+.view .view-container {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 2em;
+	margin-bottom: 2em;
+}

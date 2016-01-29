@@ -8,6 +8,25 @@ block localJS
 block content
 	h1 Stats
 	
-	h4#loadingMessage Loading...
+	.view.view-totals
+		h3 Totals
+		.loading-message Loading...
+		.view-container
+			table.table.table-striped.table-hover.table-bordered
+				tbody
 		
+	.view.view-shirts
+		h3 T-Shirts
+		.loading-message Loading...
+		.view-container
+			table.table.table-striped.table-hover.table-bordered
+				thead
+					tr
+						td: b Shirt Size
+						td: b Count
+				tbody
+			
+	.view.view-anons
+		h3 Anon Stats
+		.loading-message Loading...
 	
