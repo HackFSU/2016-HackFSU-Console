@@ -19,6 +19,8 @@
 		'School': 'school',
 		'Major': 'major',
 
+		'Status': 'status',
+
 		'GitHub': 'github',
 		'Want Job': 'wantjob',
 
@@ -83,6 +85,7 @@
 				email: rowData.user.email,
 				diet: rowData.user.diet,
 				shirtSize: rowData.user.shirtSize,
+				status: rowData.status || '',
 				school: rowData.school,
 				major: rowData.major,
 				firstHackathon: rowData.firstHackathon? 'Y' : 'N',

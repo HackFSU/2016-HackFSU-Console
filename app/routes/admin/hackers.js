@@ -34,6 +34,7 @@ router.route('/data')
 			'wantjob',
 			'comments',
 			'yesno18',
+			'status',
 			'user.firstName',
 			'user.lastName',
 			'user.github',
