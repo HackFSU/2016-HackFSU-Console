@@ -49,6 +49,11 @@ export default function(app) {
 	app.use('/admin', admin);
 	app.use('/confirm', confirm);
 
+	app.get('/no', function(req, res) {
+		res.render('index/no');
+	});
+
+
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
 		var err = new Error('Not Found');
