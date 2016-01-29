@@ -31,7 +31,9 @@
 
 		'Diet': 'diet',
 		'Comments': 'comments',
-		'Hate': 'hate'
+		'Hate': 'hate',
+
+		'Resume': 'resume'
 	};
 
 	// make header
@@ -116,6 +118,7 @@
 				wantjob: rowData.wantjob? rowData.wantjob.join(', ') : '',
 				wants: rowData.wants? rowData.wants.join(', ') : '',
 				comments: rowData.comments? rowData.comments.trim() : '',
+				resume: rowData.resume? rowData.resume.url : ''
 			};
 
 			// handle missing yesno18, do not assume anything if not there

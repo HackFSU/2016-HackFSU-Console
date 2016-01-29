@@ -42,7 +42,8 @@ router.route('/data')
 			'user.phone',
 			'user.email',
 			'user.diet',
-			'user.shirtSize'
+			'user.shirtSize',
+			'resume'
 		]);
 		query.find().then(function(results) {
 			res.locals.hackerData = results;
