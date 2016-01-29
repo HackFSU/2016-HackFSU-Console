@@ -17,6 +17,11 @@ const router = express.Router();
 
 router.all('*', acl.use('Admin')); // switch back to 'Admin' when ready
 
+
+router.get('/', function(req, res) {
+	res.render('admin/index');
+});
+
 router.use('/hackers', hackers);
 router.use('/schools', schools);
 

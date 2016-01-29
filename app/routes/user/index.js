@@ -16,7 +16,7 @@ const router = express.Router();
 router.route('/')
 .get(
 	function(req, res) {
-		res.redirect('./profile' + (req.query.accessDenied ? '?accessDenied=true' : ''));
+		res.redirect('/user/login');
 	}
 );
 
@@ -48,13 +48,22 @@ router.route('/login')
 
 router.get('/logout', function(req, res) {
 	req.session.destroy();
-	res.redirect('./login');
+	res.redirect('/user/login');
 });
 
 
 router.route('/profile')
 .get(
 	acl.use('User'),
+	function(req, res, next) {
+		// TODO remove this, this is just temporary
+		if(!res.locals.acl.canAccess.Admin) {
+			req.session.destroy();
+			res.redirect('/no?notReady=true');
+			return;
+		}
+		next();
+	},
 	middleware.loadUserData,
 	function(req, res) {
 		res.render('user/profile', {

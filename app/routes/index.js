@@ -50,7 +50,9 @@ export default function(app) {
 	app.use('/confirm', confirm);
 
 	app.get('/no', function(req, res) {
-		res.render('index/no');
+		res.render('index/no', {
+			notReady: !!req.query.notReady
+		});
 	});
 
 
