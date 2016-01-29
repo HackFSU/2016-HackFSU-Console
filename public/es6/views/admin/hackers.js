@@ -36,7 +36,7 @@
 	// make header
 	Object.keys(columns).forEach(function(name, i) {
 		viewHeader.append(`<th>${name}</th>`);
-		viewToggle.prepend(`<div class="btn btn-default btn-xs active" data-col="${i}">${name}</div>`);
+		viewToggle.append(`<div class="btn btn-primary btn-sm" data-col="${i}">${name}</div>`);
 	});
 
 
@@ -44,16 +44,36 @@
 		ajax: getData,
 		scrollX: true,
 		columns: structureCols(columns),
+		dom: '<"view-top"<"col-sm-6"l><"col-sm-6"fBr>><"view-table"t><"view-bottom"ip>',
+		buttons: ['excel']
 	});
 
 	viewToggle.children().click(function(e) {
 		toggleCol($(this).data('col'));
 	});
 
+	let viewTop = $('.view-top');
+
+	// style excel button
+	viewTop.find('a.buttons-excel')
+		.removeClass('btn-default')
+		.addClass('btn-success')
+		.find('span').text('Export Excel');
+
+
 	function toggleCol(i) {
-		var col = viewTable.column(i);
+		let col = viewTable.column(i);
+		let toggle = viewToggle.find(`[data-col="${i}"]`);
+
 		col.visible(!col.visible());
-		viewToggle.find(`[data-col="${i}"]`).toggleClass('active', col.visible());
+
+		if(!col.visible()) {
+			toggle.removeClass('btn-primary');
+			toggle.addClass('btn-default');
+		} else {
+			toggle.addClass('btn-primary');
+			toggle.removeClass('btn-default');
+		}
 	}
 
 	function getData(data, cb) {
@@ -76,8 +96,9 @@
 
 	function preprocess(data) {
 		let finalRows = [];
+		let newRow;
 		data.forEach(function(rowData, i) {
-			finalRows.push({
+			newRow = {
 				firstName: rowData.user.firstName,
 				lastName: rowData.user.lastName,
 				github: rowData.user.github,
@@ -93,10 +114,20 @@
 				year: rowData.year,
 				wantjob: rowData.wantjob? rowData.wantjob.join(', ') : '',
 				comments: rowData.comments? rowData.comments.trim() : '',
-				yesno18: rowData.yesno18 === false? 'N' : ''
-			});
+			};
 
-			// delete original
+			// handle missing yesno18, do not assume anything if not there
+			if(rowData.yesno18 === false) {
+				newRow.yesno18 = 'N';
+			} else if(rowData.yesno18 === true) {
+				newRow.yesno18 = 'Y';
+			} else {
+				newRow.yesno18 = '';
+			}
+
+
+			// save new & delete original
+			finalRows.push(newRow);
 			data[i] = null;
 		});
 

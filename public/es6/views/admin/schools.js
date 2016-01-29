@@ -29,11 +29,18 @@
 			[25, 50, 100, 200, -1],
 			[25, 50, 100, 200, 'All']
 		],
-		iDisplayLength: 25
+		iDisplayLength: 25,
+		dom: '<"view-top"<"col-sm-6"l><"col-sm-6"fBr>><"view-table"t><"view-bottom"ip>',
+		buttons: ['excel']
 	});
 
+	let viewTop = $('.view-top');
 
-
+	// style excel button
+	viewTop.find('a.buttons-excel')
+		.removeClass('btn-default')
+		.addClass('btn-success')
+		.find('span').text('Export Excel');
 
 
 })();
