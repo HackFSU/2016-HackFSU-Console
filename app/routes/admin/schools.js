@@ -25,8 +25,7 @@ router.route('/data')
 			'school'
 		]);
 		query.find().then(function(results) {
-			res.locals.results = results;
-			next();
+			next(results);
 		}, function(err) {
 			req.log.error(err);
 			res.status(500);
@@ -34,6 +33,32 @@ router.route('/data')
 				error: err,
 			});
 		});
+	},
+	function(results, req, res, next) {
+		let counts = {};
+		let list = [];
+
+		// get counts
+		results.forEach(function(obj) {
+			let value = obj.get('school');
+			if(!counts[value]) {
+				counts[value] = 0;
+			}
+			++counts[value];
+		});
+
+		// build list
+		for(let value in counts) {
+			if(counts.hasOwnProperty(value)) {
+				list.push({
+					count: counts[value],
+					value: value
+				});
+			}
+		}
+
+		res.locals.results = list;
+		next();
 	},
 	function(req, res) {
 		res.json({
