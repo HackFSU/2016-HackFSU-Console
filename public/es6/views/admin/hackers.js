@@ -105,7 +105,7 @@
 				firstName: rowData.user.firstName,
 				lastName: rowData.user.lastName,
 				github: rowData.user.github,
-				phone: formatPhone(rowData.user.phone),
+				phone: rowData.user.phone? rowData.user.phone.replace(/[^\d]/g,'') : '',
 				email: rowData.user.email,
 				diet: rowData.user.diet,
 				shirtSize: rowData.user.shirtSize,
@@ -141,13 +141,6 @@
 		};
 	}
 
-	function formatPhone(str) {
-		let clean =  str.replace(/^[0-9]/g, '');
-		if(clean.length !== 9) {
-			return clean;
-		}
-		return `(${clean.substring(0,3)}) ${clean.substring(3,6)}-${clean.substring(6)}`;
-	}
 
 	function structureCols(colLinks) {
 		let cols = [];
