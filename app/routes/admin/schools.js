@@ -48,8 +48,7 @@ router.route('/data')
 			if(!schools[name]) {
 				schools[name] = {
 					count: 0,
-					statuses: {},
-					checkedIn: 0,
+					statuses: {}
 				};
 			}
 			schools[name].count += 1;

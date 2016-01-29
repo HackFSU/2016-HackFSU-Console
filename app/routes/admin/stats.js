@@ -10,7 +10,7 @@ import Parse from 'parse/node';
 import Hacker from 'app/models/Hacker';
 import AnonStat from 'app/models/AnonStat';
 import Mentor from 'app/models/Mentor';
-import Confirmation from 'app/models/confirmation';
+import Confirmation from 'app/models/Confirmation';
 import User from 'app/models/User';
 import Update from 'app/models/Update';
 
