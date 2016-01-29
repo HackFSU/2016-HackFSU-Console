@@ -1,27 +1,21 @@
 /**
- * Update model
- *
- *
- */
+* Update model
+* TODO
+*/
+
 'use strict';
 
-export default function (app) {
-    const PARSE_CLASSNAME = 'Update';
+import _ from 'lodash';
+import Parse from 'parse/node';
+import validate from 'lib/validate';
 
-    const Parse = app.Parse;
-    const _ = app._;
-    const validate = app.validate;
+const PARSE_CLASSNAME = 'Update';
 
-    class Update extends Parse.Object {
-        constructor(o) {
-            super(PARSE_CLASSNAME);
-
-            o = validate(o, _.isObject);
-            this.title = validate(o.title, _.isString);
-            this.subtitle = validate(o.subtitle, _.isString);
-        }
-    }
-
-    app.model.Update = Update;
-    Parse.Object.registerSubclass(PARSE_CLASSNAME, Update);
+export default class Update extends Parse.Object {
+	constructor(o) {
+		super(PARSE_CLASSNAME);
+	}
 }
+
+
+Parse.Object.registerSubclass(PARSE_CLASSNAME, Update);

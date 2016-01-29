@@ -12,6 +12,7 @@ import express from 'express';
 import { acl } from 'app/routes/util';
 import hackers from 'app/routes/admin/hackers';
 import schools from 'app/routes/admin/schools';
+import stats from 'app/routes/admin/stats';
 
 const router = express.Router();
 
@@ -24,6 +25,7 @@ router.get('/', function(req, res) {
 
 router.use('/hackers', hackers);
 router.use('/schools', schools);
+router.use('/stats', stats);
 
 /**
  * Acl debugging, load it if you get confused about the acl

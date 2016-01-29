@@ -23,6 +23,7 @@ export default class HelpRequest extends Parse.Object {
 		helpReq.set('name', o.name);
 		helpReq.set('location', o.location);
 		helpReq.set('description', o.description);
+		// claimedBy = realtion to mentor (undef if not claimed)
 
 		return helpReq;
 	}

@@ -3,6 +3,7 @@
  *
  * Anonymous statistics collected from hackers. Parse only stores the integer
  * ids for each entry and not the names themselves. Names are in the store.
+ * TODO make a new() function
  */
 'use strict';
 
@@ -16,12 +17,15 @@ export default class AnonStat extends Parse.Object {
 	constructor(o) {
 		super(PARSE_CLASSNAME);
 
-		validate(o, _.isObject);
-		validate(o.name, _.isString);
-		validate(o.option, _.isString);
+		if(o) {
+			validate(o, _.isObject);
+			validate(o.name, _.isString);
+			validate(o.option, _.isString);
 
-		this.set('name', o.name);
-		this.set('option', o.option);
+			this.set('name', o.name);
+			this.set('option', o.option);
+		}
+
 	}
 
 }
