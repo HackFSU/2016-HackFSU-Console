@@ -30,6 +30,7 @@ router.route('/data')
 			'firstHackathon',
 			'hate',
 			'major',
+			'wants',
 			'year',
 			'wantjob',
 			'comments',

@@ -23,6 +23,7 @@
 
 		'GitHub': 'github',
 		'Want Job': 'wantjob',
+		'Interested In' : 'wants',
 
 		'>18?': 'yesno18',
 		'First?': 'firstHackathon',
@@ -44,7 +45,7 @@
 		ajax: getData,
 		scrollX: true,
 		columns: structureCols(columns),
-		dom: '<"view-top"<"col-sm-6"l><"col-sm-6"fBr>><"view-table"t><"view-bottom"ip>',
+		dom: '<"view-top"<"col-sm-6"l><"col-sm-6"fBr>><"view-table"t><"view-bottom"<"col-sm-6"i><"col-sm-6"p>>',
 		buttons: ['excel']
 	});
 
@@ -113,6 +114,7 @@
 				hate: rowData.hate? rowData.hate.trim() : '',
 				year: rowData.year,
 				wantjob: rowData.wantjob? rowData.wantjob.join(', ') : '',
+				wants: rowData.wants? rowData.wants.join(', ') : '',
 				comments: rowData.comments? rowData.comments.trim() : '',
 			};
 

@@ -30,7 +30,7 @@
 			[25, 50, 100, 200, 'All']
 		],
 		iDisplayLength: 25,
-		dom: '<"view-top"<"col-sm-6"l><"col-sm-6"fBr>><"view-table"t><"view-bottom"ip>',
+		dom: '<"view-top"<"col-sm-6"l><"col-sm-6"fBr>><"view-table"t><"view-bottom"<"col-sm-6"i><"col-sm-6"p>>',
 		buttons: ['excel']
 	});
 
