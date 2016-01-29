@@ -8,6 +8,7 @@
 import express from 'express';
 import Parse from 'parse/node';
 import Hacker from 'app/models/Hacker';
+import _ from 'lodash';
 
 const router = express.Router();
 
@@ -22,7 +23,8 @@ router.route('/data')
 		let query = new Parse.Query(Hacker);
 		query.limit(10000);
 		query.select([
-			'school'
+			'school',
+			'status'
 		]);
 		query.find().then(function(results) {
 			next(results);
@@ -35,24 +37,46 @@ router.route('/data')
 		});
 	},
 	function(results, req, res, next) {
-		let counts = {};
+		let schools = {};
 		let list = [];
+		let statusNames = {};
 
 		// get counts
 		results.forEach(function(obj) {
-			let value = obj.get('school');
-			if(!counts[value]) {
-				counts[value] = 0;
+			let name = obj.get('school');
+			let status = obj.get('status');
+			if(!schools[name]) {
+				schools[name] = {
+					count: 0,
+					statuses: {},
+					checkedIn: 0,
+				};
 			}
-			++counts[value];
+			schools[name].count += 1;
+
+			// append status (allow any status name)
+			if(status) {
+				// spaces -> underscores
+				status = status.replace(/\s/g, '_');
+
+				if(typeof statusNames[status] !== 'number') {
+					statusNames[status] = 0; // default
+				}
+				if(!schools[name].statuses[status]) {
+					schools[name].statuses[status] = 0;
+				}
+				schools[name].statuses[status] += 1;
+			}
+
 		});
 
 		// build list
-		for(let value in counts) {
-			if(counts.hasOwnProperty(value)) {
+		for(let name in schools) {
+			if(schools.hasOwnProperty(name)) {
 				list.push({
-					count: counts[value],
-					value: value
+					count: schools[name].count,
+					name: name,
+					statuses: _.defaults(schools[name].statuses, statusNames)
 				});
 			}
 		}
