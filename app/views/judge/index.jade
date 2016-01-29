@@ -1,5 +1,10 @@
 extends ../_layouts/standard.jade
 
-block content
-	h1 judge
+block localCSS
+	link(rel="stylesheet" href="/css/judge.css")
 
+block content
+	#confirm-page.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed.singleLineText.margin-left-7.margin-right-15 Judge
+			.title-separator.margin-left-7
