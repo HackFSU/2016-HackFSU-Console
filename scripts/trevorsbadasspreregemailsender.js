@@ -46,7 +46,7 @@ query.find({
 
 		emailer(email, (error, response) => {
 			if (error) {
-				throw Error;
+				throw new Error();
 			}
 
 			console.log(response);
@@ -55,6 +55,6 @@ query.find({
 	},
 	error: (error) => {
 		console.log(error);
-		throw Error;
+		throw new Error();
 	}
 });

@@ -17,11 +17,13 @@
 }
 
 #application .one_fourth > label, #mentor .one_fourth > label,
-#help .one_fourth > label, #login .one_fourth > label, #availability-blurb {
+#help .one_fourth > label, #login .one_fourth > label,
+#confirm .one_fourth > label, #availability-blurb {
 	color: #8bd1c9;
 }
 
-#application .one_fourth, #mentor .one_fourth, #help .one_fourth, #login .one_fourth {
+#application .one_fourth, #mentor .one_fourth, #help .one_fourth, #login .one_fourth,
+#confirm .one_fourth {
 	text-align: right;
 	margin-right: 3%;
 }
@@ -43,7 +45,7 @@
 
 #error-messages {
 	margin-top: 10px;
-	margin-bottom: -20px;
+	margin-bottom: -50px;
 	color: #ef626c;
 	padding: 20px;
 	border: 3px solid #ef626c;
@@ -63,7 +65,7 @@
 	height: 7em;
 }
 
-#mentor-blurb {
+#mentor-blurb, #confirm-blurb {
 	margin: 60px 7%;
 }
 
@@ -93,12 +95,14 @@
 		font-size: 1em;
 	}
 
-	#application .one_fourth, #mentor .one_fourth, #help .one_fourth, #login .one_fourth {
+	#application .one_fourth, #mentor .one_fourth, #help .one_fourth,
+	#login .one_fourth, #confirm .one_fourth {
 		text-align: left;
 	}
 
 	#application button[type="submit"], #mentor button[type="submit"],
-	#help button[type="submit"], #login button[type="submit"] {
+	#help button[type="submit"], #login button[type="submit"],
+	#confirm button[type="submit"] {
 		width: 100%;
 	}
 
@@ -106,8 +110,12 @@
 		margin-bottom: 50px;
 	}
 
-	#mentor-blurb {
+	#mentor-blurb, #confirm-blurb {
 		margin-left: 0;
+	}
+
+	#confirm #submit {
+		margin-top: 30px;
 	}
 
 	#availability {
@@ -1051,6 +1059,14 @@ a.domi-logo > img {
 	a.domi-logo > img {
 		padding-bottom: 0;
 	}
+}
+
+/**
+* Confirmation page
+*/
+#mlh-data-sharing {
+	font-size: 0.8em;
+	margin-bottom: -25px;
 }
 
 

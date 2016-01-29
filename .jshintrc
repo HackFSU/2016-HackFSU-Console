@@ -15,7 +15,7 @@
 	"plusplus"      : false,
 	"singleGroups"  : true,
 	"undef"         : true,
-	"unused"        : "vars",
+	"unused"        : false,
 
 	"strict"        : true,
 	"maxparams"     : false,
