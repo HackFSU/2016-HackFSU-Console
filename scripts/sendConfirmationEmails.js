@@ -18,11 +18,15 @@ Parse.Cloud.useMasterKey();
 
 let Hacker = Parse.Object.extend('Hacker');
 let query = new Parse.Query(Hacker);
+query.include('user');
 query.limit(1000);
 query.find().then(function(hackers) {
+	let i = 0;
 	_.each(hackers, function(hacker) {
+		console.log(i);
+		i++;
 		let to = [{
-			email: hacker.get('email'),
+			email: hacker.get('user').get('email'),
 			type: 'to'
 		}];
 		let email = {
@@ -44,13 +48,13 @@ query.find().then(function(hackers) {
 
 		console.log(hacker.id);
 
-		// emailer(email, function(err, res) {
-		// 	if (err) {
-		// 		throw new Error(err);
-		// 	}
-		// 	else {
-		// 		console.log(res);
-		// 	}
-		// });
+		emailer(email, function(err, res) {
+			if (err) {
+				throw new Error(err);
+			}
+			else {
+				console.log(res);
+			}
+		});
 	});
 });
