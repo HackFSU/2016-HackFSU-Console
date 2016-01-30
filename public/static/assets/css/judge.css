@@ -1106,3 +1106,12 @@ table#helpreqs td {
 	color: #fff;
 	box-shadow: none;
 }
+.judgehack1 {
+	color:#303030;
+	font-weight:100;
+}
+.judgehack2 {
+	color:#303030;
+	font-family:'Uni Sans', sans-serif;
+	font-weight:700;
+}

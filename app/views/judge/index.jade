@@ -1,10 +1,74 @@
 extends ../_layouts/standard.jade
 
+block localJS
+	script(src='/js/nouislider.min.js' type='text/javascript')
+	script(src='/js/judging.js' type='text/javascript')
+
 block localCSS
-	link(rel="stylesheet" href="/css/judge.css")
+	link(rel="stylesheet" href="/assets/css/nouislider.css")
+	link(rel="stylesheet" href="/assets/css/judge.css")
 
 block content
 	#confirm-page.clear.services.section.block
 		.block.content-960.center-relative
-			h2.section-title-fixed.singleLineText.margin-left-7.margin-right-15 Judge
-			.title-separator.margin-left-7
+			h2.section-title Total Points: #[span#judgingpoints 3]
+			.title-separator
+			.one_third
+				.hero.judgehack1 Hack #[span.judgehack2 #1]
+			.two_third.last
+				#jslider1
+				#jslidervalue1 0.00
+			.one_third
+				.hero.judgehack1 Hack #[span.judgehack2 #2]
+			.two_third.last
+				#jslider2
+				#jslidervalue2 0.00
+			.one_third
+				.hero.judgehack1 Hack #[span.judgehack2 #3]
+			.two_third.last
+				#jslider3
+				#jslidervalue3 0.00
+			.hero.judgehack1(style='text-align:center;') Categories
+			br
+			.judgehack2 Best New-Comer Team #[span.judgehack1 (required)]
+			select
+				option 1
+				option 2
+				option 3
+			br
+			br
+			.judgehack2 Best Veteran Team #[span.judgehack1 (required)]
+			select
+				option 1
+				option 2
+				option 3
+			br
+			br
+			.judgehack2 Most Ridiculous
+			select
+				option 1
+				option 2
+				option 3
+			br
+			br
+			.judgehack2 Design
+			select
+				option 1
+				option 2
+				option 3
+			br
+			br
+			.judgehack2 Hardware
+			select
+				option 1
+				option 2
+				option 3
+			br
+			br
+			.judgehack2 Mobile
+			select
+				option 1
+				option 2
+				option 3
+			br
+			br
