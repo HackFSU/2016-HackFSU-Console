@@ -33,21 +33,29 @@ noUiSlider.create(jslider3, {
 });
 
 var BASE = 3;
-var total = BASE - (parseInt(jslider1.noUiSlider.get()) + parseInt(jslider2.noUiSlider.get()) + parseInt(jslider3.noUiSlider.get()));
+var last = null;
+var total = BASE;
+var lastTotal = BASE;
 
 jslider1.noUiSlider.on('update', function() {
-	document.getElementById("jslidervalue1").innerHTML = jslider1.noUiSlider.get();
+	last = jslider1.getAttribute('id');
+	lastTotal = total;
 	total = BASE - (parseInt(jslider1.noUiSlider.get()) + parseInt(jslider2.noUiSlider.get()) + parseInt(jslider3.noUiSlider.get()));
+	console.log(lastTotal);
 });
 
 jslider2.noUiSlider.on('update', function() {
-	document.getElementById("jslidervalue2").innerHTML = jslider2.noUiSlider.get();
+	last = jslider2.getAttribute('id');
+	lastTotal = total;
 	total = BASE - (parseInt(jslider1.noUiSlider.get()) + parseInt(jslider2.noUiSlider.get()) + parseInt(jslider3.noUiSlider.get()));
+	console.log(lastTotal);
 });
 
 jslider3.noUiSlider.on('update', function() {
-	document.getElementById("jslidervalue3").innerHTML = jslider3.noUiSlider.get();
+	last = jslider3.getAttribute('id');
+	lastTotal = total;
 	total = BASE - (parseInt(jslider1.noUiSlider.get()) + parseInt(jslider2.noUiSlider.get()) + parseInt(jslider3.noUiSlider.get()));
+	console.log(lastTotal);
 });
 
 jslider1.noUiSlider.on('change', function() {
@@ -60,6 +68,10 @@ jslider1.noUiSlider.on('change', function() {
 		jslider1.removeAttribute("disabled");
 		jslider2.removeAttribute("disabled");
 		jslider3.removeAttribute("disabled");
+	}
+	if(total < 0) {
+		document.getElementById(last).noUiSlider.set(lastTotal);
+		document.getElementById("judgingpoints").innerHTML = 0;
 	}
 });
 
@@ -74,6 +86,10 @@ jslider2.noUiSlider.on('change', function() {
 		jslider2.removeAttribute("disabled");
 		jslider3.removeAttribute("disabled");
 	}
+	if(total < 0) {
+		document.getElementById(last).noUiSlider.set(lastTotal);
+		document.getElementById("judgingpoints").innerHTML = 0;
+	}
 });
 
 jslider3.noUiSlider.on('change', function() {
@@ -86,5 +102,9 @@ jslider3.noUiSlider.on('change', function() {
 		jslider1.removeAttribute("disabled");
 		jslider2.removeAttribute("disabled");
 		jslider3.removeAttribute("disabled");
+	}
+	if(total < 0) {
+		document.getElementById(last).noUiSlider.set(lastTotal);
+		document.getElementById("judgingpoints").innerHTML = 0;
 	}
 });
