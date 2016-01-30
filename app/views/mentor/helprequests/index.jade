@@ -8,17 +8,10 @@ block localCSS
 		
 block localJS
 	script(src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js")
+	script(src='/socket.io/socket.io.js')
 	script(src="/js/helpreqs.js")
 
 block content
-	script(src='/socket.io/socket.io.js')
-	script.
-			var socket = io.connect('http://localhost:5003');
-			socket.on('news', function (data) {
-				console.log(data);
-				socket.emit('another event', { my: 'data' });
-			});
-
 	#help-request-page.clear.services.section.block
 		.block.content-960.center-relative
 			h2.section-title-fixed.singleLineText Help Requests
