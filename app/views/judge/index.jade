@@ -1,10 +1,87 @@
 extends ../_layouts/standard.jade
 
-block localCSS
-	link(rel="stylesheet" href="/css/judge.css")
+block localJS
+	script(src='/js/nouislider.min.js' type='text/javascript')
+	script(src='/js/judging.js' type='text/javascript')
 
+block localCSS
+	link(rel="stylesheet" href="/assets/css/nouislider.css")
+	link(rel="stylesheet" href="/assets/css/judge.css")
+
+//judge screen 1
 block content
-	#confirm-page.clear.services.section.block
+	#judge1.clear.services.section.block
 		.block.content-960.center-relative
-			h2.section-title-fixed.singleLineText.margin-left-7.margin-right-15 Judge
-			.title-separator.margin-left-7
+				.hellojudge.happy.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1;' />HAPPY 
+				br
+				br
+				.hellojudge.judging.section-title-fixed.singleLineText JUDGING 
+				br
+				br
+				br
+				.hellojudge.p BELOW IS A LIST OF HACKS THAT YOU WILL BE JUDGING:
+					br
+					br
+					p Project #
+					p Project #
+					p Project #
+				button#submit.judge-btn.judge-btn-form(type='submit') LET'S BEGIN >>
+				
+				h2.section-title Total Points: #[span#judgingpoints 3]
+				.title-separator
+				.one_third
+					.hero.judgehack1 Hack #[span.judgehack2 #1]
+				.two_third.last
+					#jslider1
+				.one_third
+					.hero.judgehack1 Hack #[span.judgehack2 #2]
+				.two_third.last
+					#jslider2
+				.one_third
+					.hero.judgehack1 Hack #[span.judgehack2 #3]
+				.two_third.last
+					#jslider3
+				.hero.judgehack1(style='text-align:center;') Categories
+				br
+				.judgehack2 Best New-Comer Team #[span.judgehack1 (required)]
+				select
+					option 1
+					option 2
+					option 3
+				br
+				br
+				.judgehack2 Best Veteran Team #[span.judgehack1 (required)]
+				select
+					option 1
+					option 2
+					option 3
+				br
+				br
+				.judgehack2 Most Ridiculous
+				select
+					option 1
+					option 2
+					option 3
+				br
+				br
+				.judgehack2 Design
+				select
+					option 1
+					option 2
+					option 3
+				br
+				br
+				.judgehack2 Hardware
+				select
+					option 1
+					option 2
+					option 3
+				br
+				br
+				.judgehack2 Mobile
+				select
+					option 1
+					option 2
+					option 3
+				br
+				br
