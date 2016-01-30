@@ -12,77 +12,89 @@ block localCSS
 block content
 	#judge1.clear.services.section.block
 		.block.content-960.center-relative
-				.hellojudge.happy.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1;' />HAPPY 
-				br
-				br
-				.hellojudge.judging.section-title-fixed.singleLineText JUDGING 
-				br
-				br
-				br
-				.hellojudge.p BELOW IS A LIST OF HACKS THAT YOU WILL BE JUDGING:
+				#judgemain
+					.hellojudge.happy.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1;' />HAPPY 
 					br
 					br
-					p Project #
-					p Project #
-					p Project #
-				button#submit.judge-btn.judge-btn-form(type='submit') LET'S BEGIN >>
+					.hellojudge.judging.section-title-fixed.singleLineText JUDGING 
+					br
+					br
+					br
+					.hellojudge.p BELOW IS A LIST OF HACKS THAT YOU WILL BE JUDGING:
+						br
+						br
+						p Project #
+						p Project #
+						p Project #
+					button#beginjudge.judge-btn.judge-btn-form(type='submit') LET'S BEGIN >>
 				
 				//screen 2
-				h2.section-title Total Points: #[span#judgingpoints 3]
-				.title-separator
-				.one_third
-					.hero.judgehack1 Hack #[span.judgehack2 #1]
-				.two_third.last
-					#jslider1
-				.one_third
-					.hero.judgehack1 Hack #[span.judgehack2 #2]
-				.two_third.last
-					#jslider2
-				.one_third
-					.hero.judgehack1 Hack #[span.judgehack2 #3]
-				.two_third.last
-					#jslider3
-				.hero.judgehack1(style='text-align:center;') Categories
-				br
-				.judgehack2 Best New-Comer Team #[span.judgehack1 (required)]
-				select
-					option 1
-					option 2
-					option 3
-				br
-				br
-				.judgehack2 Best Veteran Team #[span.judgehack1 (required)]
-				select
-					option 1
-					option 2
-					option 3
-				br
-				br
-				.judgehack2 Most Ridiculous
-				select
-					option 1
-					option 2
-					option 3
-				br
-				br
-				.judgehack2 Design
-				select
-					option 1
-					option 2
-					option 3
-				br
-				br
-				.judgehack2 Hardware
-				select
-					option 1
-					option 2
-					option 3
-				br
-				br
-				.judgehack2 Mobile
-				select
-					option 1
-					option 2
-					option 3
-				br
-				br
+				#judge2
+					h2.section-title Total Points: #[span#judgingpoints 3]
+					.title-separator
+					.one_third
+						.hero.judgehack1 Hack #[span.judgehack2 #1]
+					.two_third.last
+						#jslider1
+					br
+					br
+					br
+					.one_third
+						.hero.judgehack1 Hack #[span.judgehack2 #2]
+					.two_third.last
+						#jslider2
+					br
+					br
+					br
+					.one_third
+						.hero.judgehack1 Hack #[span.judgehack2 #3]
+					.two_third.last
+						#jslider3
+					.clear
+					br
+					br
+					br
+					.hero.judgehack1 Categories
+					br
+					.judgehack2 Best New-Comer Team #[span.judgehack1 (required)]
+					select
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2 Best Veteran Team #[span.judgehack1 (required)]
+					select
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2 Most Ridiculous
+					select
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2 Design
+					select
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2 Hardware
+					select
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2 Mobile
+					select
+						option 1
+						option 2
+						option 3
+					br
+					br

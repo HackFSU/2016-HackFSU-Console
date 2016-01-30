@@ -1079,7 +1079,7 @@ table#helpreqs td {
 }
 
 #judge2 {
-	margin-top:200px;
+	margin-top:-200px;
 	margin-bottom: 50px;
 	min-height: 600px;
 }

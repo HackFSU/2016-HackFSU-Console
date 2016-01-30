@@ -1,5 +1,12 @@
 'use strict';
 
+$('#judge2').hide();
+
+$('#beginjudge').click(function() {
+	$('#judgemain').toggle();
+	$('#judge2').fadeIn("slow");
+	window.scrollTo(0, 0);
+});
 
 var jslider1 = document.getElementById('jslider1');
 var jslider2 = document.getElementById('jslider2');
