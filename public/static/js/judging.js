@@ -1,4 +1,5 @@
-"use strict";
+'use strict';
+
 
 var jslider1 = document.getElementById('jslider1');
 var jslider2 = document.getElementById('jslider2');
