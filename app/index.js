@@ -98,4 +98,21 @@ export default function() {
 
 	// Start the server
 	boot(app);
+
+	// Allow Socket.io to be used by any route
+	app.use(function(req, res, next) {
+		req.io = app.io;
+	});
+
+	/**
+	* Testing for Socket.io
+	* NOTE: Remove when testing is finished.
+	*/
+	app.io.on('connection', function(socket) {
+		socket.emit('news', { hello: 'world '});
+		socket.on('another event', function(data) {
+			log.info({ data: data }, 'Socket.io Data');
+		});
+	});
+
 }

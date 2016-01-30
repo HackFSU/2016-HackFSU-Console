@@ -5,27 +5,16 @@
 'use strict';
 
 import http from 'http';
+import socketio from 'socket.io';
 
-function normalizePort(val) {
-	const port = parseInt(val, 10);
-
-	if(isNaN(port)) {
-		// named pipe
-		return val;
-	}
-
-	if(port >= 0) {
-		// port number
-		return port;
-	}
-
-	return false;
-}
 
 export default function(app) {
 	const server = http.createServer(app);
 	const port = normalizePort(app.get('port'));
 	const log = app.get('log') || console;
+
+	// Setup Socketi.io
+	app.io = socketio(server);
 
 	server.on('error', onError);
 	server.on('listening', onListening);
@@ -62,4 +51,20 @@ export default function(app) {
 			'port ' + addr.port;
 		log.info('Listening on ' + bind);
 	}
+}
+
+function normalizePort(val) {
+	const port = parseInt(val, 10);
+
+	if(isNaN(port)) {
+		// named pipe
+		return val;
+	}
+
+	if(port >= 0) {
+		// port number
+		return port;
+	}
+
+	return false;
 }
