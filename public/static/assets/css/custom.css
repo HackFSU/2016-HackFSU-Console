@@ -986,7 +986,6 @@ h3#partners {
 
 #sponsor-logos img {
 	max-width: 325px;
-	content: attr(target) "blank";
 }
 
 #tier2 {
