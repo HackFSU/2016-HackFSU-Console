@@ -513,7 +513,7 @@ input, textarea, select, option {
 	color: #303030;
 }
 textarea, select {
-	border: 0.2em solid #d2ebfc;
+	border: 0.4em solid #d2ebfc;
 }
 input:focus {
 	border-bottom: 0.2em solid #eecdb5;
