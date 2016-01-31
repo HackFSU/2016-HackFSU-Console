@@ -30,13 +30,6 @@ router.route('/')
 .get(
 	middleware.getAllHelpRequests,
 	function(req, res, next) {
-
-		req.io.on('connection', function(socket) {
-			socket.on('new help request', function(data) {
-				req.log.info('New Help Request submitted');
-			});
-		});
-
 		res.render('mentor/helprequests/index', {
 			title: 'Help Requests',
 			helpReqs: req.helpReqs

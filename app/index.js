@@ -104,14 +104,10 @@ export default function() {
 		req.io = app.io;
 	});
 
-	/**
-	* Testing for Socket.io
-	* NOTE: Remove when testing is finished.
-	*/
 	app.io.on('connection', function(socket) {
-		socket.emit('news', { hello: 'world '});
-		socket.on('another event', function(data) {
-			log.info({ data: data }, 'Socket.io Data');
+		socket.emit('news', 'test');
+		socket.on('news', function(data) {
+			console.log('data');
 		});
 	});
 
