@@ -29,6 +29,10 @@ router.route('/')
 	});
 })
 
+.post(function(req, res, next) {
+	res.send('ok');
+});
+
 // INSERT: pull assigned hack #s here for judges
 
 
