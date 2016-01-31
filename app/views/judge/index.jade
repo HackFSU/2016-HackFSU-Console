@@ -56,50 +56,51 @@ block content
 					.hero.judgehack1.categoryTitle Categories
 					br
 					br
-					.judgehack2.categories Best New-Comer Team #[span.judgehack1 (required)]
-					select.optionheight
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2.categories Best Veteran Team #[span.judgehack1 (required)]
-					select.optionheight
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2.categories Most Ridiculous
-					select.optionheight
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2.categories Design
-					select.optionheight
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2.categories Hardware
-					select.optionheight
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2.categories Mobile
-					select.optionheight
-						option 1
-						option 2
-						option 3
-					br
-					br
-					br
-					button#endjudge.judge-btn.judge-btn-form(type='submit') SAVE
+					form#judgeform(method='post' action='' autocomplete='off' name='judgeform')
+						.judgehack2.categories Best New-Comer Team #[span.judgehack1 (required)]
+						select.optionheight(name='newcomer')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2.categories Best Veteran Team #[span.judgehack1 (required)]
+						select.optionheight(name='veteran')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2.categories Most Ridiculous
+						select.optionheight(name='ridiculous')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2.categories Design
+						select.optionheight(name='design')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2.categories Hardware
+						select.optionheight(name='hardware')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2.categories Mobile
+						select.optionheight(name='mobile')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						br
+						button#endjudge.judge-btn.judge-btn-form(type='submit') SAVE
 				
 				//screen 3
 				#judge3.clear.services.thankyousection.block

@@ -20,7 +20,8 @@ $('#beginjudge').click(function() {
 $('#judgerefresh').click(function() {
 	location.reload();
 });
-$('#judgesave').click(function(e) {
+
+$('#endjudge').click(function(e) {
 	var form = $('#judgeform');
 	var data = form.serialize();
 	data += '&hack1=' + parseInt(jslider1.noUiSlider.get());
@@ -34,14 +35,11 @@ $('#judgesave').click(function(e) {
 			console.log(data);
 		}
 	});
-	e.preventDefault();
-});
-
-$('#endjudge').click(function() {
 	$('#judgemain').hide();
 	$('#judge2').hide();
 	$('#judge3').fadeIn("slow");
 	window.scrollTo(0, 0);
+	e.preventDefault();
 });
 
 noUiSlider.create(jslider1, {
