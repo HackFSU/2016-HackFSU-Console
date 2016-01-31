@@ -10,6 +10,7 @@ var total = BASE;
 var lastTotal = BASE;
 
 $('#judge2').hide();
+$('#judge3').hide();
 
 $('#beginjudge').click(function() {
 	$('#judgemain').toggle();
@@ -34,6 +35,13 @@ $('#judgesave').click(function(e) {
 		}
 	});
 	e.preventDefault();
+});
+
+$('#endjudge').click(function() {
+	$('#judgemain').hide();
+	$('#judge2').hide();
+	$('#judge3').fadeIn("slow");
+	window.scrollTo(0, 0);
 });
 
 noUiSlider.create(jslider1, {
