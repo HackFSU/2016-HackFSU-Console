@@ -56,45 +56,48 @@ block content
 					br
 					.hero.judgehack1 Categories
 					br
-					.judgehack2 Best New-Comer Team #[span.judgehack1 (required)]
-					select
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2 Best Veteran Team #[span.judgehack1 (required)]
-					select
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2 Most Ridiculous
-					select
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2 Design
-					select
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2 Hardware
-					select
-						option 1
-						option 2
-						option 3
-					br
-					br
-					.judgehack2 Mobile
-					select
-						option 1
-						option 2
-						option 3
-					br
-					br
+					form#judgeform(name='judgeform' method='post' action='' autocomplete='off')
+						.judgehack2 Best New-Comer Team #[span.judgehack1 (required)]
+						select(name='newcomer')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2 Best Veteran Team #[span.judgehack1 (required)]
+						select(name='veteran')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2 Most Ridiculous
+						select(name='ridiculous')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2 Design
+						select(name='design')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2 Hardware
+						select(name='hardware')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						.judgehack2 Mobile
+						select(name='mobile')
+							option(value='1') 1
+							option(value='2') 2
+							option(value='3') 3
+						br
+						br
+						button#judgesave.btn.btn-form(type='submit') SAVE
+					button#judgerefresh.btn.btn-form REFRESH
