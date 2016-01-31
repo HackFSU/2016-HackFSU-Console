@@ -31,7 +31,7 @@ router.route('/list')
 				data: results
 			});
 		}, function(err) {
-			req.log.error(err);
+			req.log.error('[/admin/updates/list] Error retrieving updates', err);
 			res.status(500);
 			res.json({
 				error: err,
@@ -44,7 +44,7 @@ router.route('/send')
 .post(
 	function(req, res, next) {
 		req.checkBody('title').notEmpty();
-		req.checkBody('subtitle').notEmpty();
+		req.checkBody('subtitle');
 		req.checkBody('sendPush').isBoolean();
 
 		if(req.validationErrors()) {
@@ -59,11 +59,12 @@ router.route('/send')
 		Update.new(
 			req.body.title,
 			req.body.subtitle,
-			!!req.body.sendPush
+			req.body.sendPush === 'true'
 		).then(function() {
 			res.json({});
 		}).catch(function(err) {
-			res.status(500);
+			req.log.error('[/admin/updates/send] Error saving update', err);
+			req.status(500);
 			res.json({
 				error: err
 			});

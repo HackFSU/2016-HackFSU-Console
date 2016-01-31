@@ -48,7 +48,11 @@
 		scrollX: true,
 		columns: structureCols(columns),
 		dom: '<"view-top"<"col-sm-6"l><"col-sm-6"fBr>><"view-table"t><"view-bottom"<"col-sm-6"i><"col-sm-6"p>>',
-		buttons: ['excel']
+		buttons: ['excel'],
+		aLengthMenu: [
+			[25, 50, 100, 200, -1],
+			[25, 50, 100, 200, 'All']
+		],
 	});
 
 	viewToggle.children().click(function(e) {

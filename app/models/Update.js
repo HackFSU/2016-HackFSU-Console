@@ -16,33 +16,46 @@ export default class Update extends Parse.Object {
 		super(PARSE_CLASSNAME);
 	}
 
-	static sendPush(title, subtitle) {
+	static sendPush(deviceType, title, subtitle) {
 		return new Promise(function(resolve, reject) {
-			Parse.Push({
+			let query = new Parse.Query(Parse.Installation);
+			query.equalTo('deviceType', deviceType);
+			query.equalTo('channels', 'updates');
+			Parse.Push.send({
+				where: query,
 				data: {
 					title: title,
-					subtitle: subtitle
-				},
-				channels: ['updates']
+					alert: deviceType === 'ios'? title + (subtitle? '\n' + subtitle : '') : subtitle
+				}
 			}).then(resolve, reject);
 		});
 	}
+
 
 	static new(title, subtitle, sendPush) {
 		return new Promise(function(resolve, reject) {
 			let update = new Update();
 
+			if(!subtitle) {
+				subtitle = '';
+			}
+
 			update.set('title', validate(title, _.isString));
 			update.set('subtitle', validate(subtitle, _.isString));
 
-			if(sendPush) {
-				Update.sendPush(title, subtitle)
-				.then(resolve)
-				.catch(reject);
-				return;
-			}
 
-			resolve();
+
+			update.save()
+			.then(function() {
+				if(sendPush) {
+					Update.sendPush('ios', title, subtitle)
+					.then(Update.sendPush('android', title, subtitle))
+					.then(resolve)
+					.catch(reject);
+					return;
+				}
+				resolve();
+			}, reject);
 		});
 	}
 
