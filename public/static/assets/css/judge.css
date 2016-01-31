@@ -347,6 +347,7 @@ a:link {
 }
 
 body {
+	font-family: 'Uni Sans', sans-serif;
 	background: #a8d3f1;
 }
 
@@ -476,17 +477,17 @@ body {
 h2.section-title {
 	letter-spacing: normal;
 }
-
+/*
 .section-title-fixed {
 	font-family: 'Uni Sans', sans-serif;
 	font-size: 70px;
 	font-weight: 700;
 	line-height: 55px;
 	color: #303030;
-}
+}*/
 
 .title-separator {
-	border-color: #303030;
+	border-color: #fff;
 	margin-top: 20px;
 	max-width: 200px;
 }
@@ -496,14 +497,15 @@ input, textarea, select, option {
 	box-shadow: none;
 	outline: none;
 	border-radius: none;
-	border-bottom: 0.2em solid #8bd1c9;
+	border-bottom: 0.2em solid #d2ebfc;
+	/*border-bottom: 0.2em solid #8bd1c9;*/
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 	border-top-right-radius: 0;
 	border-top-left-radius: 0;
 	padding: 5px;
 	line-height: 20px;
-	width: 100%;
+	width: 90%;
 	resize: none;
 	font-weight: 400;
 	font-size: 16px;
@@ -511,7 +513,7 @@ input, textarea, select, option {
 	color: #303030;
 }
 textarea, select {
-	border: 0.2em solid #8bd1c9;
+	border: 0.2em solid #d2ebfc;
 }
 input:focus {
 	border-bottom: 0.2em solid #eecdb5;
@@ -1065,10 +1067,18 @@ table#helpreqs td {
 }
 
 .p {
-	font-size: 2em;
-	margin-bottom: 1.5em !important;
+	font-size: 2.5em;
+	margin-bottom: .5em !important;
+	color:#fff;
+	line-height: 100%;
+}
+
+.plist {
+	font-size: 2.5em;
+	margin-bottom: 1em !important;
 	color:#fff;
 	line-height: 120%;
+	font-weight:600;
 }
 
 #judge1 {
@@ -1082,6 +1092,13 @@ table#helpreqs td {
 	margin-top:-200px;
 	margin-bottom: 50px;
 	min-height: 600px;
+}
+
+#judge3 {
+	margin-top:80px;
+	margin-bottom: 50px;
+	min-height: 600px;
+	text-align:center;
 }
 
 .judge-btn {
@@ -1142,11 +1159,44 @@ table#helpreqs td {
 
 
 .judgehack1 {
-    color:#303030 ;
+		color: #fff;
+    /*color:#303030 ;*/
     font-weight:100;
 }
 .judgehack2 {
-    color:#303030 ;
+		color:#fff;
+    /*color:#303030;*/
     font-family:'Uni Sans', sans-serif;
-    font-weight:700;
+    font-weight:600;
+}
+.judges {
+		color:#fff;
+		font-size: 70px;
+		font-weight: 700;
+		letter-spacing: 0px;
+		line-height: 55px;
+	    text-align: left;
+	    font-family: 'Uni Sans', sans-serif;
+}
+
+.categoryTitle{
+	font-size: 4.5em;
+}
+
+.categories{
+	font-size:2em;
+	margin-bottom: .5em;
+	font-weight: 600;
+}
+
+.optionheight{
+	height: 40px;
+}
+
+.nextround {
+	text-transform:initial;
+}
+
+.thankyousection {
+	padding-top: 50px;
 }
