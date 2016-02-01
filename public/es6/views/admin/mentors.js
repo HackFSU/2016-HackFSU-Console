@@ -113,10 +113,16 @@
 				affiliation: rowData.affiliation
 			};
 
+			// grab data for times
+			saveTimes(rowData.times, newRow.firstName + ' ' + newRow.lastName);
+
 			// save new & delete original
 			finalRows.push(newRow);
 			data[i] = null;
 		});
+
+		// Build the row table
+		makeTimeView();
 
 		return {
 			data: finalRows
@@ -142,5 +148,68 @@
 		return cols;
 	}
 
+	/**
+	 * Handle time totals
+	 */
+	let viewTimes = $('table#times');
+	let timeData = {
+		// timeName: {count, names[]}
+	};
+
+	function saveTimes(times, mentorName) {
+		times.forEach(function(timeName) {
+			if(!timeData[timeName]) {
+				timeData[timeName] = {
+					count: 0,
+					names: []
+				};
+			}
+
+			timeData[timeName].count += 1;
+			timeData[timeName].names.push(mentorName);
+		});
+	}
+
+	// gets rows from timeData obj
+	function structureTimeData() {
+		let rows = [];
+		for(let timeName in timeData) {
+			if(timeData.hasOwnProperty(timeName)) {
+				timeData[timeName].names.sort(sortAlphabetically);
+
+				rows.push({
+					timeName: timeName,
+					count: timeData[timeName].count,
+					names: timeData[timeName].names.join(', ')
+				});
+			}
+		}
+
+		return rows;
+	}
+
+	function sortAlphabetically(a, b) {
+		a = a.toLowerCase();
+		b = b.toLowerCase();
+		if(a < b) {
+			return -1;
+		}
+		if(a > b) {
+			return 1;
+		}
+		return 0;
+	}
+
+	function makeTimeView() {
+		let timeRows = structureTimeData();
+		timeRows.forEach(function(rowData) {
+			let row = viewTimes.find('tr[data-time="'+rowData.timeName+'"]');
+			if(row.length) {
+				row.append(`<td>${rowData.count}</td>`);
+				row.append(`<td>${rowData.names}</td>`);
+			}
+			console.log('row', row);
+		});
+	}
 
 })();

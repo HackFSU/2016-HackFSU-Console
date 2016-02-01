@@ -18,8 +18,21 @@ block localJS
 block content
 	h1 Mentor Management
 	
-	#view-toggle.btn-group
+	table#times.table.table-striped.table-bordered
+		thead
+			tr
+				td(colspan='3'): b Availability Breakdown
+		tbody
+			tr(data-time='sat-mid-morn'): td Saturday Midnight - Morning
+			tr(data-time='sat-morn-mid'): td Saturday Morning - Midday
+			tr(data-time='sat-mid-eve'): td Saturday Midday - Evening
+			tr(data-time='sat-eve-mid'): td Saturday Evening - Midnight
+			tr(data-time='sun-mid-morn'): td Sunday Midnight - Morning
 	
+	br
+	br
+	
+	#view-toggle.btn-group
 	table#view.table.table-striped.table-bordered
 		thead
 			tr
