@@ -96,6 +96,7 @@
 	function preprocess(data) {
 		let finalRows = [];
 		let newRow;
+		console.log('Got ' + data.length, data);
 		data.forEach(function(rowData, i) {
 			newRow = {
 				firstName: rowData.user.firstName,
@@ -208,7 +209,6 @@
 				row.append(`<td>${rowData.count}</td>`);
 				row.append(`<td>${rowData.names}</td>`);
 			}
-			console.log('row', row);
 		});
 	}
 
