@@ -30,7 +30,6 @@ router.route('/')
 .get(
 	middleware.getAllHelpRequests,
 	function(req, res, next) {
-		req.log.info({ h: req.helpReqs }, 'Helps');
 		res.render('mentor/helprequests/index', {
 			title: 'Help Requests',
 			helpReqs: req.helpReqs
