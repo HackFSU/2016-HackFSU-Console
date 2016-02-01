@@ -2,6 +2,24 @@ extends ../_layouts/bootstrap
 block vars
 	- title = 'Admin | Mentors'
 
+block localCSS
+	link(rel='stylesheet' type='text/css' href='/bower_components/datatables/media/css/dataTables.bootstrap.min.css')
+
+block localJS
+	script(src='/bower_components/jszip/dist/jszip.min.js')
+	script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+	script(src='/bower_components/datatables/media/js/dataTables.bootstrap.min.js')
+	script(src='/bower_components/datatables-buttons/js/dataTables.buttons.js')
+	script(src='/bower_components/datatables-buttons/js/buttons.bootstrap.js')
+	script(src='/bower_components/datatables-buttons/js/buttons.html5.js')
+	script(src='/bower_components/datatables-buttons/js/buttons.flash.js')
+	script(src='/js/views/admin/mentors.js')
+
 block content
-	h1 title
-	h2 TODO
+	h1 Mentor Management
+	
+	#view-toggle.btn-group
+	
+	table#view.table.table-striped.table-bordered
+		thead
+			tr

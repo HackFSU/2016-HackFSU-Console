@@ -36,7 +36,8 @@ router.route('/list')
 			'user.shirtSize',
 			'user.phone',
 			'user.diet',
-			'user.comment'
+			'user.comment',
+			'user.github'
 		]);
 		query.find().then(function(results) {
 			res.json({
