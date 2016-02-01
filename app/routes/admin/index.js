@@ -14,6 +14,7 @@ import hackers from 'app/routes/admin/hackers';
 import schools from 'app/routes/admin/schools';
 import stats from 'app/routes/admin/stats';
 import updates from 'app/routes/admin/updates';
+import mentors from 'app/routes/admin/mentors';
 
 const router = express.Router();
 
@@ -28,6 +29,7 @@ router.use('/hackers', hackers);
 router.use('/schools', schools);
 router.use('/stats', stats);
 router.use('/updates', updates);
+router.use('/mentors', mentors);
 
 /**
  * Acl debugging, load it if you get confused about the acl
