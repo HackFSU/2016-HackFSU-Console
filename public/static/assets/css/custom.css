@@ -1028,6 +1028,10 @@ a.domi-logo > img {
 	padding-bottom: 40px;
 }
 
+a.seminole-dining-logo > img {
+	padding-bottom: 35px;
+}
+
 .mlh-logo {
 	padding-top: 45px !important;
 }
@@ -1056,6 +1060,10 @@ a.domi-logo > img {
 	}
 
 	a.domi-logo > img {
+		padding-bottom: 0;
+	}
+
+	a.seminole-dining-logo > img {
 		padding-bottom: 0;
 	}
 }
