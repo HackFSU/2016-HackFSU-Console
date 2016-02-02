@@ -1028,6 +1028,14 @@ a.domi-logo > img {
 	padding-bottom: 40px;
 }
 
+a.seminole-dining-logo > img {
+	padding-bottom: 35px;
+}
+
+a.soylent-logo > img {
+	max-width: 150px !important;
+}
+
 .mlh-logo {
 	padding-top: 45px !important;
 }
@@ -1058,6 +1066,14 @@ a.domi-logo > img {
 	a.domi-logo > img {
 		padding-bottom: 0;
 	}
+
+	a.seminole-dining-logo > img {
+		padding-bottom: 0;
+	}
+
+	a.soylent-logo > img {
+		max-width: 200px !important;
+	}
 }
 
 /**
@@ -1073,7 +1089,12 @@ a.domi-logo > img {
 * Stuff for helpreqs
 */
 #helpreq-section {
-	margin-top: -50px;
+	margin-top: -25px;
+	margin-bottom: 75px;
+}
+
+#helpreq-section .dataTables_wrapper .dataTables_filter input {
+	margin-bottom: 15px !important;
 }
 
 table#helpreqs {
@@ -1104,4 +1125,10 @@ table#helpreqs td {
 	background-color: #8bd1c9;
 	color: #fff;
 	box-shadow: none;
+}
+
+@media screen and (max-width: 960px) {
+	#helpreq-section {
+		margin-top: 0
+	}
 }
