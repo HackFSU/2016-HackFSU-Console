@@ -5,6 +5,7 @@
 
 import User from 'app/models/User';
 import { acl } from 'app/routes/util';
+import _ from 'lodash';
 
 const userRoleId = acl.role('User').id;
 
@@ -78,6 +79,78 @@ export function loadUserData(req, res, next) {
 	})
 	.catch(function(err) {
 		req.log.error(err);
+		res.json({
+			error: err
+		});
+	});
+}
+
+
+export function redirectLoggedIn(req, res, next) {
+	if(req.session.user &&
+	res.locals.acl &&
+	res.locals.acl.canAccess.User) {
+		res.redirect('./profile' + (req.query.accessDenied ? '?accessDenied=true' : ''));
+		return;
+	}
+	// Not a logged in with a valid user
+	next();
+}
+
+export function validateSignup(req, res, next) {
+	req.checkBody('email').isEmail();
+	req.checkBody('password').notEmpty();
+	req.checkBody('firstName').notEmpty();
+	req.checkBody('lastName').notEmpty();
+	req.checkBody('shirtSize').isShirtSize();
+	req.checkBody('phone').notEmpty();
+
+	req.sanitizeBody('phone').toPhoneString();
+
+	if(req.validationErrors()) {
+		res.json({
+			error: req.validationErrors()
+		});
+		return;
+	}
+
+	next();
+}
+
+export function signupNewUser(req, res, next) {
+	User.new({
+		email: req.body.email.toLowerCase(),
+		password: req.body.password,
+		firstName: _.startCase(req.body.firstName),
+		lastName: _.startCase(req.body.lastName),
+		shirtSize: req.body.shirtSize,
+		phone: req.body.phone
+	}).save().then(function() {
+		next();
+	}, function(err) {
+		req.log.error('[/user/signup] Unable to create user with ' + req.body.email.toLowerCase(), err);
+		res.status(500);
+		res.json({
+			error: err
+		});
+	});
+}
+
+export function checkEmailUsed(req, res, next) {
+	User.checkEmailUsed(req.body.email)
+	.then(function(inUse) {
+		if(inUse){
+			res.json({
+				error: `Email "${req.body.email}" already in use.`,
+				emailInUse:inUse
+			});
+		} else {
+			next();
+		}
+	})
+	.catch(function(err) {
+		req.log.error('[/user/signup] Error checking for email ' + req.body.email, err);
+		res.status(500);
 		res.json({
 			error: err
 		});
