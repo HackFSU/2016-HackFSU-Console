@@ -30,7 +30,7 @@ export default class User extends Parse.User {
 		user.set('username', o.email);
 		user.set('password', validate(o.password, _.isString));
 		user.set('shirtSize', validate(o.shirtSize, _.isString));
-		//user.set('roleKey', acl.getRoleId('User'));
+		user.set('roleKey', acl.role('User').id);
 
 		// optional
 		user.set('diet', validate(o.diet, _.isString, true));
@@ -45,6 +45,20 @@ export default class User extends Parse.User {
 	*/
 	getName() {
 		return `${this.get('firstName')} ${this.get('lastName')}`;
+	}
+
+	static checkEmailUsed(email) {
+		return new Promise(function(resolve, reject) {
+			let query = new Parse.Query(User);
+			query.limit(1);
+			query.equalTo('email', validate(email, _.isString));
+			query.find()
+			.then(function(results) {
+				resolve(results.length > 0);
+			}, function(err) {
+				reject(err);
+			});
+		});
 	}
 
 
