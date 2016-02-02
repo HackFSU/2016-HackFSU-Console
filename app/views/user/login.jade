@@ -10,7 +10,7 @@ block content
 	#login-page.clear.services.section.block
 		if accessDenied
 			.access-denied
-				h3 Access Denied
+				#denied.section-title-fixed.singleLineText Access Denied
 			br
 	
 		.block.content-960.center-relative
@@ -42,3 +42,6 @@ block content
 						button#submit.btn.btn-form(type='submit') SUBMIT
 					.one_fourth.last
 					.clear
+				#errors(style='display: none;')
+					.three_fourth.margin-left-15
+						#error-messages

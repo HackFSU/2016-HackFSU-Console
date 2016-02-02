@@ -28,6 +28,13 @@
 	margin-right: 3%;
 }
 
+#denied {
+	font-size: 2.5em;
+	color: #ef626c;
+	font-weight:700;
+	margin-left:50px;
+}
+
 #confirmation {
 	min-height: 400px;
 }
