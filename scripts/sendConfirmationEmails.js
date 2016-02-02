@@ -20,6 +20,11 @@ let Hacker = Parse.Object.extend('Hacker');
 let query = new Parse.Query(Hacker);
 query.include('user');
 query.limit(1000);
+// I got this date value by looking at the first confirmation (confirmed almost
+// immediately after emails were sent), so this is the oldest regsitration after
+// confirmation emails were sent.
+// FOR REFERENCE: Most recent date = 2016-02-02T02:10:24.628Z
+query.greaterThan('createdAt', new Date("2016-02-01T21:38:21.038Z"));
 query.find().then(function(hackers) {
 	let i = 0;
 	_.each(hackers, function(hacker) {
