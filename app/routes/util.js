@@ -133,3 +133,22 @@ export function stdServerErrorResponse(req, res, logMessage) {
 		});
 	};
 }
+
+
+// Generates middleware for easy redirects
+export function redirectRoles(roleNames, redirectUrl) {
+	let checkKey = 0;
+
+	// get the final checkKey
+	roleNames.forEach(function(roleName) {
+		checkKey = acl.addKeys(checkKey, acl.role(roleName).id);
+	});
+
+	return function(req, res, next) {
+		if(req.session.user && acl.checkKeys(checkKey, req.session.user.roleKey)) {
+			res.redirect(redirectUrl);
+		} else {
+			next();
+		}
+	};
+}

@@ -84,7 +84,7 @@ export default function(app) {
 	if(app.get('env') === 'development') {
 		app.use(function(err, req, res, next) {
 			res.status(err.status || 500);
-			req.log.error('[leaked]', err, err.stack);
+			req.log.error(`[leaked @ ${req.originalUrl}]`, err, err.stack);
 			res.render('error', {
 				message: err.message,
 				error: err

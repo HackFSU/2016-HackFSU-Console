@@ -4,7 +4,7 @@
 'use strict';
 
 import express from 'express';
-import { acl } from 'app/routes/util';
+import { acl, redirectRoles } from 'app/routes/util';
 import * as signup from 'app/routes/judge/signup';
 import * as user from 'app/routes/user/middleware';
 import moment from 'moment';
@@ -12,11 +12,15 @@ import moment from 'moment';
 let router = express.Router();
 
 router.route('/')
-.get(function(req, res) {
-	res.render('judge/index', {
-		date: moment().format("MMMM DD, YYYY"),
-	});
-})
+.get(
+	redirectRoles(['Judge'], '/judge/hacks'),
+	redirectRoles(['User'], '/judge/userSignup'),
+	function(req, res) {
+		res.render('judge/index', {
+			date: moment().format("MMMM DD, YYYY"),
+		});
+	}
+)
 .post(
 	user.validateSignup,
 	user.checkEmailUsed,
@@ -40,6 +44,15 @@ router.route('/userSignup')
 	signup.save,
 	function(req, res) {
 		res.json({});
+	}
+);
+
+// page where the judgin happens
+router.route('/hacks')
+.get(
+	acl.use('Judge'),
+	function(req, res) {
+		res.render('judge/hacks');
 	}
 );
 
