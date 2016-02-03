@@ -1,7 +1,7 @@
 /*
 * Script to email confirmed hackers extra info
 *
-* Latest sent email: 2016-02-03T16:06:49.342Z
+* Latest sent email: 2016-02-03T18:06:44.071Zp
 * ^ Use greaterThan
 */
 
@@ -23,7 +23,7 @@ let Confirmation = Parse.Object.extend('Confirmation');
 let query = new Parse.Query(Confirmation);
 query.include('hacker');
 query.limit(1000);
-query.greaterThan('createdAt', new Date('2016-02-02T05:26:30.468Z'));
+query.greaterThan('createdAt', new Date('2016-02-03T16:06:49.342Z'));
 query.find().then(function(confirms) {
 	let i = 0;
 	_.each(confirms, function(confirm) {
