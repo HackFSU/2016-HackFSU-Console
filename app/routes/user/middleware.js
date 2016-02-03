@@ -22,7 +22,6 @@ export function validateLogin(req, res, next) {
 		});
 		return;
 	}
-
 	next();
 }
 
@@ -53,7 +52,8 @@ export function loginUser(req, res, next) {
 			});
 		});
 	})
-	.catch(function() {
+	.catch(function(err) {
+		req.log.error('Error!', err);
 		res.json({
 			error: 'Invalid Credentials'
 		});

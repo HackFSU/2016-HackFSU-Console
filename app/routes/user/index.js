@@ -29,7 +29,6 @@ router.route('/login')
 		req.session.destroy();
 
 		res.render('user/login', {
-			title: 'Login',
 			accessDenied: !!req.query.accessDenied
 		});
 	}

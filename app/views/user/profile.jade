@@ -11,5 +11,16 @@ block content
 	
 	h1: a(href='/admin/') >>>>>> ADMIN PAGES <<<<<<
 
+	if acl.isRole.User
+		h4 is role #{user.firstName}
+	if acl.canAccess.User
+		h4 can access #{user.firstName}
+		
+	if acl.canAccess.Mentor
+		a(href='/help') Look at help requests
+
 	h3 Trevor format this
 	p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
+	
+	
+	h4= user.firstName

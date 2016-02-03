@@ -2,14 +2,20 @@
  * Handles user login
  */
 
-(function($) {
+(function() {
 	'use strict';
 
-	let errorMessages = $('#error-messages');
-	let submitBtn = $('button[type="submit"]');
+	const POST_URL = '/user/login';
+	const FORM_SELECTOR = '#login';
+
+	let errorView = $('#errors');
+	let errorMessages = errorView.find('#error-messages');
+	let form = $(FORM_SELECTOR);
+	let submitBtn = form.find('#submit');
+	let confirmation = $('#confirmation');
 
 	$.validate({
-		form: '#login',
+		form: FORM_SELECTOR,
 		modules: 'html5, security',
 		borderColorOnError: '#ef626c',
 		errorElementClass: 'form-error',
@@ -20,51 +26,70 @@
 			submitBtn.shakeIt();
 			setTimeout(function() {
 				$('html, body').animate({
-					scrollTop: $('.has-error').offset().top - 120
+					scrollTop: $('.has-error').eq(0).offset().top - 60
 				}, 500);
 			}, 500);
 		},
 		onSuccess: function(form) {
-			console.log('logging in...');
-
 			submitBtn.prop('disabled', true);
 
 			let formData = $(form).serialize();
+			let initialButtonText = submitBtn.text();
 
-			submit(formData)
+			submitBtn.text('...');
+
+			saveResult(formData)
 			.then(function() {
-				// success, redirect
-				console.log('success');
 				window.location.href = '/user/profile';
 			})
 			.catch(function(err) {
-				console.log(formData, err);
+				console.error(err);
+				showError(typeof err === 'string'? err : 'Server error, check console.');
 				submitBtn.prop('disabled', false);
+				submitBtn.text(initialButtonText);
 			});
 
 			return false;
 		}
 	});
 
-
-	function submit(data) {
+	function saveResult(data) {
 		return new Promise(function(resolve, reject) {
 			$.ajax({
 				type: 'POST',
-				url: '/user/login',
+				url: POST_URL,
 				data: data,
 				success: function(res) {
 					if(res.error) {
 						reject(res.error);
-						return;
+					} else {
+						resolve();
 					}
-					resolve(res);
 				},
 				error: function(err) {
 					reject(err);
+					return;
 				}
 			});
 		});
 	}
 
-})(jQuery);
+
+	function showError(err) {
+		errorMessages.empty();
+		errorMessages.append(`
+			<p>
+				<strong>Uh oh!</strong> ${capitalizeFirstLetter(err)}
+			</p>
+		`);
+		errorView.show();
+		$('html, body').animate({
+			scrollTop: 0
+		}, 500);
+	}
+
+	function capitalizeFirstLetter(string) {
+		string = String(string);
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+})();

@@ -8,17 +8,14 @@ block localJS
 		
 block content
 	#login-page.clear.services.section.block
-		if accessDenied
-			.access-denied
-				#denied.section-title-fixed.singleLineText Access Denied
-			br
-	
 		.block.content-960.center-relative
 			h2.section-title-fixed.singleLineText.margin-left-7 Login
 			.title-separator.margin-left-7
-			#errors(style='display: none;')
+			#errors(style='display: #{accessDenied? "block" :"none"};')
 				.three_fourth.margin-left-7
 					#error-messages
+						if accessDenied
+							p <strong>Oh no!</strong> Access Denied
 				.one_fourth.last
 				.clear
 			form#login(method='post' autocomplete='off')
@@ -42,6 +39,4 @@ block content
 						button#submit.btn.btn-form(type='submit') SUBMIT
 					.one_fourth.last
 					.clear
-				#errors(style='display: none;')
-					.three_fourth.margin-left-15
-						#error-messages
+				
