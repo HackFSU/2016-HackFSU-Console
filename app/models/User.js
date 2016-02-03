@@ -41,6 +41,22 @@ export default class User extends Parse.User {
 	}
 
 	/**
+	* Returns a single User based on ID
+	*/
+	static find(id) {
+		let promiseFind = new Parse.Promise();
+
+		let query = new Parse.Query(User);
+		query.get(id).then(function(user) {
+			promiseFind.resolve(user);
+		}, function(err) {
+			promiseFind.reject(err);
+		});
+
+		return promiseFind;
+	}
+
+	/**
 	* Returns the User's name, formatted as 'FIRST LAST'
 	*/
 	getName() {

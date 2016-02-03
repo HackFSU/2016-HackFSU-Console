@@ -23,8 +23,8 @@ query.limit(1000);
 // I got this date value by looking at the first confirmation (confirmed almost
 // immediately after emails were sent), so this is the oldest regsitration after
 // confirmation emails were sent.
-// FOR REFERENCE: Most recent date = 2016-02-03T00:23:43.539Z
-query.greaterThan('createdAt', new Date("2016-02-02T17:58:26.685Z"));
+// FOR REFERENCE: Most recent date = 2016-02-03T03:49:59.569Z
+query.greaterThan('createdAt', new Date("2016-02-03T02:09:55.522Z"));
 query.find().then(function(hackers) {
 	let i = 0;
 	_.each(hackers, function(hacker) {
