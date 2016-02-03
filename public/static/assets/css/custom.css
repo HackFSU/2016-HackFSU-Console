@@ -1153,16 +1153,16 @@ table#helpreqs td {
 /*	PROFILE	*/
 
 .userprofile{
-	margin-left: auto;
+	margin-left: 7%;
 	font-family: 'Uni Sans';
 	line-height: 100%;
-	padding-top: 50px;
+	padding-top: 40px;
 	margin-bottom: 5%;
 	/*padding-bottom: 150px;
 	height:100%;*/
 }
 .userprofile h1{
-	font-size:3.5em !important;
+	font-size:2.7em !important;
 	margin-bottom: 0;
 	line-height: 100%;
 	font-weight:600;
@@ -1170,7 +1170,7 @@ table#helpreqs td {
 }
 
 .userprofile h2{
-	font-size:3em !important;
+	font-size:2em !important;
 	margin-bottom: .5em;
 	line-height: 100%;
 	color: #303030;
@@ -1181,7 +1181,7 @@ table#helpreqs td {
 }
 
 .userprofile p {
-	font-size: 2em;
+	font-size: 1.5em;
 	line-height: 120%;
 }
 
@@ -1204,11 +1204,11 @@ table#helpreqs td {
 
 .adminlink {
 	color: #ef626c;
-	font-size: 1.2em;
+	font-size: 1em;
 	margin-bottom: .5em;
 	font-weight:700;
 	text-decoration: none;
-	margin-left: 60%;
+	margin-right: 10%;
 	line-height: 100%;
 	text-align: right;
 }

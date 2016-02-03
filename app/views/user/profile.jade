@@ -13,11 +13,10 @@ block content
 		.block.content-960.center-relative
 				h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
 					| Welcome to HackFSU 2016
-					.title-separator(style='border-color: #303030')
+				.title-separator(style='border-color: #303030')
 				.adminlink 
 					a(href='/admin') ADMIN PAGES
 				br 
-				br
 				br
 				//- if acl.isRole.User
 				//- 	h4 is role #{user.firstName}
@@ -43,9 +42,7 @@ block content
 					br
 					strong Email: 
 					| #{user.email}
-				br
-				br
-				br
+
 				.clear
 				//- p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
 				//- 
