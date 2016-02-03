@@ -7,6 +7,7 @@
 import HelpRequest from 'app/models/HelpRequest';
 import Mentor from 'app/models/Mentor';
 import HelpRequestAssignedTo from 'app/models/HelpRequestAssignedTo';
+import Parse from 'parse/node';
 
 
 /**
@@ -22,6 +23,23 @@ export function getAllHelpRequests(req, res, next) {
 	});
 }
 
+
+/**
+* Returns the current mentor (the one using the page) based on session params.
+*/
+export function getCurrentMentor(req, res, next) {
+	Mentor.findByUser(req.session.user.userId)
+	.then(function(mentor) {
+		req.log.info({ current_mentor: mentor }, 'Current Mentor');
+		req.mentor = mentor;
+		next();
+	}, function(err) {
+		res.status(500);
+		res.json({
+			error: err
+		});
+	});
+}
 
 /**
 * Returns HelpRequest object with id from URI params

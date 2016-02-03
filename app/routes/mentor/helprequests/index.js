@@ -13,7 +13,7 @@ import * as middleware from 'app/routes/mentor/helprequests/middleware';
 
 let router = express.Router();
 
-//router.use(acl.use('Mentor'));
+router.use(acl.use('Mentor'));
 
 // Log the request body for all requests
 router.use(function(req, res, next) {
@@ -33,10 +33,12 @@ router.route('/')
 */
 .get(
 	middleware.getAllHelpRequests,
+	middleware.getCurrentMentor,
 	function(req, res, next) {
 		res.render('mentor/helprequests/index', {
 			title: 'Help Requests',
-			helpReqs: req.helpReqs
+			helpReqs: req.helpReqs,
+			mentor: req.mentor
 		});
 	}
 );
