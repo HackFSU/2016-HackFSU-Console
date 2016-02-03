@@ -33,6 +33,7 @@ export default function() {
 		app.locals.pretty = false;
 		app.set('maxAge', 86400000); 	// One day
 	}
+	app.locals.runLevel = app.get('env');
 
 	app.set('port', process.env.PORT || 5003);
 
@@ -89,6 +90,10 @@ export default function() {
 	app.use(function(req, res, next) {
 		// Allow middleware to use the log
 		req.log = log;
+
+		// Allow Socket.io to be used by any route
+		req.io = app.io;
+
 		next();
 	});
 
@@ -98,11 +103,6 @@ export default function() {
 
 	// Start the server
 	boot(app);
-
-	// Allow Socket.io to be used by any route
-	app.use(function(req, res, next) {
-		req.io = app.io;
-	});
 
 	app.io.on('connection', function(socket) {
 		socket.emit('news', 'test');

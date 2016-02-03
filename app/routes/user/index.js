@@ -1,7 +1,6 @@
 /**
  * Handles /user/* routing
  *
- * TODO /user/logout
  * TODO /user/resetpassword
  */
 'use strict';

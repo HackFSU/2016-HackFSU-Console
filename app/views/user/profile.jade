@@ -7,32 +7,26 @@ block content
 	if accessDenied
 		.access-denied
 			h1.accessdeniedstyle Access Denied
-			
-			
+
 	.userprofile.clear.services.block
 		.block.content-960.center-relative
 				h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
 					| Welcome to HackFSU 2016
 				.title-separator(style='border-color: #303030')
-				.adminlink 
-					a(href='/admin') ADMIN PAGES
-				br 
+				if acl.canAccess.Admin
+					.adminlink 
+						a(href='/admin') ADMIN PAGES
 				br
-				//- if acl.isRole.User
-				//- 	h4 is role #{user.firstName}
-				//- if acl.canAccess.User
-				//- 	h4 can access #{user.firstName}
-				//- 	
-				//- if acl.canAccess.Mentor
-				//- 	a(href='/help') Look at help requests
+				br
+				
 				h2= user.firstName + " " + user.lastName
 				br
 				p
 					strong GitHub: 
-					| #{user.github} 
+					| #{user.github}
 					br
 					strong Phone: 
-					| #{user.phone} 
+					| #{user.phone}
 					br
 					strong Diet: 
 					| #{user.diet} 
@@ -44,5 +38,20 @@ block content
 					| #{user.email}
 
 				.clear
-				//- p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
-				//- 
+				
+				if runLevel === 'development'
+					.debug
+						h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
+							| Debug
+						.title-separator(style='border-color: #303030')
+						if !acl.isRole.Judge && (!acl.isRole.Hacker || acl.canAccess.Admin)
+							h1: a(href='/judge/userSignup') Sign up to become a Judge
+					
+						h3 ACL
+						p !{JSON.stringify(acl, undefined, 2).replace(/\n/g, '<br>'))}
+						
+						br
+						br
+						
+						h3 User Data
+						p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}

@@ -33,7 +33,8 @@
 		'Comments': 'comments',
 		'Hate': 'hate',
 
-		'Resume': 'resume'
+		'Resume': 'resume',
+		'Created At': 'createdAt'
 	};
 
 	// make header
@@ -122,7 +123,8 @@
 				wantjob: rowData.wantjob? rowData.wantjob.join(', ') : '',
 				wants: rowData.wants? rowData.wants.join(', ') : '',
 				comments: rowData.comments? rowData.comments.trim() : '',
-				resume: rowData.resume? rowData.resume.url : ''
+				resume: rowData.resume? rowData.resume.url : '',
+				createdAt: rowData.createdAt
 			};
 
 			// handle missing yesno18, do not assume anything if not there

@@ -23,11 +23,17 @@ router.route('/')
 // GET /register
 // Shows the registration form
 .get(function(req, res, next) {
-	res.render('registration/index');
+	//res.render('registration/index');
+	res.redirect('/#register');
 })
 // POST /register
 // Create new registration
 .post(
+	function(req, res, next) {
+		res.json({
+			error: 'Registration is closed.'
+		});
+	},
 	middleware.validateRegistration,
 	middleware.signUpHacker,
 	middleware.sendConfirmationEmail,
