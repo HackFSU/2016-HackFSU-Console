@@ -5,6 +5,8 @@
 'use strict';
 
 import HelpRequest from 'app/models/HelpRequest';
+import Mentor from 'app/models/Mentor';
+import HelpRequestAssignedTo from 'app/models/HelpRequestAssignedTo';
 
 
 /**
@@ -17,5 +19,63 @@ export function getAllHelpRequests(req, res, next) {
 		next();
 	}, function(err) {
 		res.json(err);
+	});
+}
+
+
+/**
+* Returns HelpRequest object with id from URI params
+*/
+export function getHelpRequest(req, res, next) {
+	HelpRequest.find(req.params.id).then(function(helpReq) {
+		req.helpReq = helpReq;
+		req.log.info({ helpReq: helpReq }, `Retrieved HelpRequest with ID #${helpReq.id}`);
+		next();
+	}, function(err) {
+		res.status(500);
+		res.json({
+			error: err
+		});
+	});
+}
+
+
+/**
+* Returns Mentor object with id (mid) from URI params
+*/
+export function getMentor(req, res, next) {
+	Mentor.find(req.params.mid).then(function(mentor) {
+		req.mentor = mentor;
+		req.log.info({ mentor: mentor }, `Retrieved Mentor with ID #${mentor.id}`);
+		next();
+	}, function(err) {
+		res.status(500);
+		res.json({
+			error: err
+		});
+	});
+}
+
+
+/**
+* Creates a new HelpRequestAssignedTo object
+*/
+export function createHelpRequestAssignedTo(req, res, next) {
+	HelpRequestAssignedTo.new(req.helpReq, req.mentor).save()
+	.then(function(helpReqAssignedTo) {
+		req.helpReqAssignedTo = helpReqAssignedTo;
+
+		req.log.info({
+			helpReqAssignedTo: helpReqAssignedTo
+		}, `Successfully created relation HelpRequestAssignedTo from HelpRequest` +
+	 	  `#${req.helpReq.id} to Mentor #${req.mentor.id}`
+		);
+
+		next();
+	}, function(err) {
+		res.status(500);
+		res.json({
+			error: err
+		});
 	});
 }

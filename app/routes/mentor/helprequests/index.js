@@ -8,9 +8,12 @@
 'use strict';
 
 import express from 'express';
+import { acl } from 'app/routes/util';
 import * as middleware from 'app/routes/mentor/helprequests/middleware';
 
 let router = express.Router();
+
+router.use(acl.use('Mentor'));
 
 // Log the request body for all requests
 router.use(function(req, res, next) {
@@ -20,6 +23,7 @@ router.use(function(req, res, next) {
 
 	next();
 });
+
 
 router.route('/')
 /**
@@ -36,5 +40,27 @@ router.route('/')
 		});
 	}
 );
+
+
+router.route('/:id/mentors/:mid')
+/**
+* POST /mentor/helprequests/:id/mentors/:mid
+*
+* Assigns a help request to the selected mentor
+*/
+.get(
+	middleware.getHelpRequest,
+	middleware.getMentor,
+	middleware.createHelpRequestAssignedTo,
+	function(req, res, next) {
+		res.status(201);
+		res.json({
+			data: {
+				helpReqAssignedTo: req.helpReqAssignedTo
+			}
+		});
+	}
+);
+
 
 export default router;
