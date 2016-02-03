@@ -7,40 +7,45 @@ block content
 	if accessDenied
 		.access-denied
 			h1.accessdeniedstyle Access Denied
-		br
-	
+			
+			
 	.userprofile.clear.services.block
 		.block.content-960.center-relative
-			.adminlink 
-				a(href='/admin') ADMIN PAGES 
-			br
-			br
-			//- if acl.isRole.User
-			//- 	h4 is role #{user.firstName}
-			//- if acl.canAccess.User
-			//- 	h4 can access #{user.firstName}
-			//- 	
-			//- if acl.canAccess.Mentor
-			//- 	a(href='/help') Look at help requests
-			h1= user.firstName + " " + user.lastName
-			br
-			p
-				strong GitHub: 
-				| #{user.github} 
+				h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
+					| Welcome to HackFSU 2016
+					.title-separator(style='border-color: #303030')
+				.adminlink 
+					a(href='/admin') ADMIN PAGES
+				br 
 				br
-				strong Phone: 
-				| #{user.phone} 
 				br
-				strong Diet: 
-				| #{user.diet} 
+				//- if acl.isRole.User
+				//- 	h4 is role #{user.firstName}
+				//- if acl.canAccess.User
+				//- 	h4 can access #{user.firstName}
+				//- 	
+				//- if acl.canAccess.Mentor
+				//- 	a(href='/help') Look at help requests
+				h2= user.firstName + " " + user.lastName
 				br
-				strong Shirt Size: 
-				| #{user.shirtSize}
+				p
+					strong GitHub: 
+					| #{user.github} 
+					br
+					strong Phone: 
+					| #{user.phone} 
+					br
+					strong Diet: 
+					| #{user.diet} 
+					br
+					strong Shirt Size: 
+					| #{user.shirtSize}
+					br
+					strong Email: 
+					| #{user.email}
 				br
-				strong Email: 
-				| #{user.email}
-				
-			//- p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
-			//- 
-			
-			
+				br
+				br
+				.clear
+				//- p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
+				//- 
