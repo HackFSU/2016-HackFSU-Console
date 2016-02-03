@@ -31,6 +31,7 @@ export function loginUser(req, res, next) {
 	.then(function(userId) {
 		User.fetchSimple(userId, 'roleKey')
 		.then(function(user) {
+			console.log('User', user);
 			// make sure at least counted as a user
 			if(typeof user.roleKey === 'undefined') {
 				req.log.error('[session] missing roleKey', userId);

@@ -36,7 +36,7 @@ export function save(req, res, next) {
 	})
 	.save()
 	.then(function(obj) {
-		req.log.info('[judge] New Judge saved', obj.id);
+		req.log.info(`[judge] New Judge ${obj.id} saved for User #{userId}`);
 		next();
 	}, function(err) {
 		req.log.error('[/judge/userSignup] Unable to save new Judge', err);

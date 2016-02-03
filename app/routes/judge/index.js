@@ -23,9 +23,6 @@ router.route('/')
 	user.signupNewUser,
 	signup.validate,
 	signup.save,
-	user.addUserRole(function(req, res) {
-		return res.locals.user.objectId;
-	}, 'Judge'),
 	function(req, res) {
 		res.json({});
 	}
