@@ -11,10 +11,10 @@ block content
 	
 	.userprofile.clear.services.block
 		.block.content-960.center-relative
-			button.adminlink.btn-admin
+			.adminlink 
 				a(href='/admin') ADMIN PAGES 
-					br
-					br
+			br
+			br
 			//- if acl.isRole.User
 			//- 	h4 is role #{user.firstName}
 			//- if acl.canAccess.User
@@ -23,11 +23,24 @@ block content
 			//- if acl.canAccess.Mentor
 			//- 	a(href='/help') Look at help requests
 			h1= user.firstName + " " + user.lastName
-
-			
-			
-			h3 Trevor format this
-			p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
-			
+			br
+			p
+				strong GitHub: 
+				| #{user.github} 
+				br
+				strong Phone: 
+				| #{user.phone} 
+				br
+				strong Diet: 
+				| #{user.diet} 
+				br
+				strong Shirt Size: 
+				| #{user.shirtSize}
+				br
+				strong Email: 
+				| #{user.email}
+				
+			//- p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
+			//- 
 			
 			
