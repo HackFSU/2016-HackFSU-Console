@@ -1139,3 +1139,53 @@ table#helpreqs td {
 		margin-top: 0
 	}
 }
+
+
+/*	PROFILE	*/
+
+.userprofile{
+	margin-left: 80px;
+	font-family: 'Uni Sans';
+	line-height: 100%;
+	padding-top: 100px;
+}
+.userprofile h1{
+	font-size:2.5em !important;
+	margin-bottom: .5em;
+}
+
+.userprofile h3 {
+	font-size: 1.5em;
+}
+
+.userprofile p {
+	font-size: 3em;
+	line-height: 100%;
+	color: #aaa;
+}
+
+.userprofile a {
+	color: #ef626c;
+	font-size: 2em;
+	margin-bottom: .5em;
+	font-weight:700;
+	text-decoration: none;
+}
+
+.accessdeniedstyle {
+	color: #ef626c;
+	font-size: 3em;
+	margin-bottom: .5em;
+	font-weight:700;
+	text-decoration: none;
+}
+
+.adminlink {
+	color: #ef626c;
+	font-size: 1.2em;
+	margin-bottom: .5em;
+	font-weight:700;
+	text-decoration: none;
+	margin-left: 70%;
+	line-height: 100%;
+}

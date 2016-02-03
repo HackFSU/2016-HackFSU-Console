@@ -6,21 +6,28 @@ block content
 	.clear.services.section.block
 	if accessDenied
 		.access-denied
-			h3 Access Denied
+			h1.accessdeniedstyle Access Denied
 		br
 	
-	h1: a(href='/admin/') >>>>>> ADMIN PAGES <<<<<<
+	.userprofile.clear.services.block
+		.block.content-960.center-relative
+			button.adminlink.btn-admin
+				a(href='/admin') ADMIN PAGES 
+					br
+					br
+			//- if acl.isRole.User
+			//- 	h4 is role #{user.firstName}
+			//- if acl.canAccess.User
+			//- 	h4 can access #{user.firstName}
+			//- 	
+			//- if acl.canAccess.Mentor
+			//- 	a(href='/help') Look at help requests
+			h1= user.firstName + " " + user.lastName
 
-	if acl.isRole.User
-		h4 is role #{user.firstName}
-	if acl.canAccess.User
-		h4 can access #{user.firstName}
-		
-	if acl.canAccess.Mentor
-		a(href='/help') Look at help requests
-
-	h3 Trevor format this
-	p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
-	
-	
-	h4= user.firstName
+			
+			
+			h3 Trevor format this
+			p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
+			
+			
+			
