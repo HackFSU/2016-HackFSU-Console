@@ -13,9 +13,9 @@ block content
 			.title-separator.margin-left-7
 			#confirmation(style='display: none;').margin-left-7.margin-right-15
 					p 
-						| Thanks for signing up! You can now login at 
+						| Thanks for signing up to become a judge! Once an administrator accepts your request you will be able to judge hacks. You can now login at 
 						a(href='/login') hackfsu.com/login
-						| .
+						|  and check your status on your profile page.
 				.clear
 			#errors(style='display: none;')
 				.three_fourth.margin-left-7
@@ -25,7 +25,9 @@ block content
 			form#signup(method='post' action='' autocomplete='off')
 				.one
 					#signup-blurb
-						| TODO - Judge signup blurb
+						| Sign up for a judge account here! If you already have an account, 
+						a(href='/user/login') login
+						|  first and then request to become a judge from your profile page.
 						
 				.clear
 				div#signup-form

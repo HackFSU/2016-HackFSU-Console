@@ -103,6 +103,37 @@ export default class User extends Parse.User {
 	}
 
 
+	/**
+	 * Returns Parse.Object instance version from given flat object
+	 * Useful for creating instances from a query.include()
+	 */
+	static createInstance(data) {
+		let obj = new User();
+
+		obj.id = data.objectId;
+		for(let prop in data) {
+			if(data.hasOwnProperty(prop)) {
+				obj.set(prop, data[prop]);
+			}
+		}
+		return obj;
+	}
+
+	addRoleAndSave(roleName) {
+		return new Promise((resolve, reject) => {
+			let newRoleKey = acl.addKeys(this.get('roleKey'), acl.role(roleName).id);
+			this.set('roleKey', newRoleKey);
+			this.save().then(resolve, reject);
+		});
+	}
+
+	removeRoleAndSave(roleName) {
+		return new Promise((resolve, reject) => {
+			let newRoleKey = acl.removeKey(this.get('roleKey'), acl.role(roleName).id);
+			this.set('roleKey', newRoleKey);
+			this.save().then(resolve, reject);
+		});
+	}
 
 }
 

@@ -38,10 +38,10 @@ export function loginUser(req, res, next) {
 				user.roleKey = userRoleId;
 			}
 
-			// save ids in session data
+			// save ids in session data, make sure it at least has user role
 			req.session.user = {
 				userId: userId,
-				roleKey: user.roleKey
+				roleKey: acl.addKeys(user.roleKey, acl.role('User').id)
 			};
 
 			req.log.info(`[session] login ${userId} : ${user.roleKey}`);
@@ -177,7 +177,7 @@ export function addUserRole(getUserId, roleName) {
 		// Get the current rolekey
 		User.fetchSimple(userId, ['roleKey'])
 		.then(function(user) {
-			let newKey = acl.addKey(user.roleKey, roleId);
+			let newKey = acl.addKeys(user.roleKey, roleId);
 			user.__obj.set('roleKey', newKey);
 			user.__obj.save()
 			.then(function() {

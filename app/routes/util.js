@@ -119,3 +119,17 @@ export function queryFind(queryMaker, numPages, errorHandler) {
 		.catch(errorHandler);
 	};
 }
+
+
+// Generates a closure for standard server error handling
+export function stdServerErrorResponse(req, res, logMessage) {
+	return function(err) {
+		logMessage = `[${req.baseUrl}] ${logMessage}`;
+		req.log.error(logMessage, err, err? err.stack : '<no stack>');
+		res.status(500);
+		res.json({
+			error: err,
+			message: logMessage
+		});
+	};
+}

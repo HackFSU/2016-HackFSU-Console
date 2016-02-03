@@ -10,6 +10,17 @@ block content
 		br
 	
 	h1: a(href='/admin/') >>>>>> ADMIN PAGES <<<<<<
-
-	h3 Trevor format this
-	p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
+	if !acl.isRole.Judge && (!acl.isRole.Hacker || acl.canAccess.Admin)
+		h1: a(href='/judge/userSignup') Sign up to become a Judge
+		
+	
+	
+	.debug
+		h3 ACL
+		p !{JSON.stringify(acl, undefined, 2).replace(/\n/g, '<br>'))}
+		
+		br
+		br
+		
+		h3 User Data
+		p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}

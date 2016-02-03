@@ -41,12 +41,12 @@ store.links = {
  * TODO: put in MySQL db
  */
 store.roles = [
-	'User',
-	'Hacker',
-	'Mentor',
-	'Admin',
-	'Super Admin',
-	'Judge'
+	'User',				// 000001 => 1
+	'Hacker',			// 000010 => 2
+	'Mentor',			// 000100 => 4
+	'Admin',			// 001000 => 8
+	'Super Admin',		// 010000 => 16
+	'Judge'				// 100000 => 32
 ];
 
 store.schools = schools;
