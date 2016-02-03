@@ -82,6 +82,7 @@ export default function(app) {
 	if(app.get('env') === 'development') {
 		app.use(function(err, req, res, next) {
 			res.status(err.status || 500);
+			req.log.error('[leaked]', err);
 			res.render('error', {
 				message: err.message,
 				error: err
@@ -94,9 +95,11 @@ export default function(app) {
 	app.use(function(err, req, res, next) {
 		res.status(err.status || 500);
 
-		if (err.status === 404) {
+		if(err.status === 404) {
 			err.message = '404 IT\'S A TRAP';
 			err.starwars = true;
+		} else {
+			req.log.error('[leaked]', err);
 		}
 
 		res.render('error', {
