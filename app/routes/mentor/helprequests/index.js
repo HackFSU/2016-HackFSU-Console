@@ -13,7 +13,7 @@ import * as middleware from 'app/routes/mentor/helprequests/middleware';
 
 let router = express.Router();
 
-router.use(acl.use('Mentor'));
+//router.use(acl.use('Mentor'));
 
 // Log the request body for all requests
 router.use(function(req, res, next) {
@@ -48,7 +48,7 @@ router.route('/:id/mentors/:mid')
 *
 * Assigns a help request to the selected mentor
 */
-.get(
+.post(
 	middleware.getHelpRequest,
 	middleware.getMentor,
 	middleware.createHelpRequestAssignedTo,
