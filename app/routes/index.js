@@ -16,6 +16,7 @@ import user from 'app/routes/user';
 import help from 'app/routes/help';
 import admin from 'app/routes/admin';
 import confirm from 'app/routes/confirm';
+import judge from 'app/routes/judge';
 
 export default function(app) {
 
@@ -49,6 +50,7 @@ export default function(app) {
 	app.use('/user', user);
 	app.use('/admin', admin);
 	app.use('/confirm', confirm);
+	app.use('/judge', judge);
 
 	/**
 	 * Random pages/shortcuts
@@ -82,6 +84,7 @@ export default function(app) {
 	if(app.get('env') === 'development') {
 		app.use(function(err, req, res, next) {
 			res.status(err.status || 500);
+			req.log.error(`[leaked @ ${req.originalUrl}]`, err, err.stack);
 			res.render('error', {
 				message: err.message,
 				error: err
@@ -94,9 +97,11 @@ export default function(app) {
 	app.use(function(err, req, res, next) {
 		res.status(err.status || 500);
 
-		if (err.status === 404) {
+		if(err.status === 404) {
 			err.message = '404 IT\'S A TRAP';
 			err.starwars = true;
+		} else {
+			req.log.error('[leaked]', err, err.stack);
 		}
 
 		res.render('error', {

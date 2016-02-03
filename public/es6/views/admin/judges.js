@@ -1,9 +1,12 @@
 /**
- * Manages mentor data for /admin/mentors
+ * Manages Judge data for /admin/judges
  */
 
 (function() {
 	'use strict';
+
+	const GET_DATA_URL = '/admin/judges/list';
+	const POST_ACCEPT_URL = '/admin/judges/accept';
 
 	let viewTable = $('table#view');
 	let viewHeader = viewTable.find('thead tr');
@@ -15,19 +18,9 @@
 		'Email': 'email',
 		'Phone': 'phone',
 
-		'GitHub': 'github',
+		'Status': 'status',
 
-		'Affiliation': 'affiliation',
-		'Availability': 'times',
-		'Skills': 'skills',
-
-		'First?': 'firstHackathon',
-		'Shirt': 'shirtSize',
-
-		'Diet': 'diet',
-		'Comments': 'comments',
-
-		'Created At': 'createdAt'
+		'Actions': 'actions'
 	};
 
 	// make header
@@ -80,12 +73,13 @@
 	function getData(data, cb) {
 		$.ajax({
 			method: 'GET',
-			url: '/admin/mentors/list',
+			url: GET_DATA_URL,
 			success: function(res) {
 				if(res.error) {
 					console.error(res.error);
 					cb({});
 				}
+				// console.log('Got response from', GET_DATA_URL);
 				cb(preprocess(res.data));
 			},
 			error: function(error) {
@@ -98,35 +92,28 @@
 	function preprocess(data) {
 		let finalRows = [];
 		let newRow;
-		console.log('Got ' + data.length, data);
 		data.forEach(function(rowData, i) {
+			// console.log('Preparing row', rowData);
 			newRow = {
 				firstName: rowData.user.firstName,
 				lastName: rowData.user.lastName,
-				github: rowData.user.github? rowData.user.github : '',
+				github: rowData.user.github,
 				phone: rowData.user.phone? rowData.user.phone.replace(/[^\d]/g,'') : '',
 				email: rowData.user.email,
-				diet: rowData.user.diet,
-				shirtSize: rowData.user.shirtSize,
-
-				firstHackathon: rowData.firstHackathon? 'Y' : 'N',
-				comments: rowData.comments? rowData.comments.trim() : '',
-				times: rowData.times? rowData.times.join(', ') : '',
-				skills: rowData.skills? rowData.skills.trim() : '',
-				affiliation: rowData.affiliation,
-				createdAt: rowData.createdAt
+				status: rowData.status,
+				objectId: rowData.objectId,
+				actions: ''
 			};
 
-			// grab data for times
-			saveTimes(rowData.times, newRow.firstName + ' ' + newRow.lastName);
+			// Accept Button
+			newRow.actions += createActionBtnHtml('Accept', newRow.status === 'pending', rowData.objectId);
 
 			// save new & delete original
 			finalRows.push(newRow);
 			data[i] = null;
 		});
 
-		// Build the row table
-		makeTimeView();
+		// console.log('Data preproces complete', finalRows);
 
 		return {
 			data: finalRows
@@ -152,66 +139,92 @@
 		return cols;
 	}
 
-	/**
-	 * Handle time totals
-	 */
-	let viewTimes = $('table#times');
-	let timeData = {
-		// timeName: {count, names[]}
+
+
+
+
+	// BUTTON ACTIONS
+
+
+	let buttonActions = {
+		'Accept': createPromiseAction(function(btn) {
+			return post(POST_ACCEPT_URL, {
+				judgeId: btn.data('judgeId')
+			});
+		})
 	};
 
-	function saveTimes(times, mentorName) {
-		times.forEach(function(timeName) {
-			if(!timeData[timeName]) {
-				timeData[timeName] = {
-					count: 0,
-					names: []
-				};
-			}
+	window.preformButtonAction = function(btn, actionName) {
+		console.log('Action', actionName);
+		if(buttonActions[actionName]) {
+			buttonActions[actionName](btn);
+		} else {
+			throw new Error(`Invalid Button Action ${actionName}`);
+		}
+	};
 
-			timeData[timeName].count += 1;
-			timeData[timeName].names.push(mentorName);
-		});
+	function createActionBtnHtml(actionName, enable, judgeId) {
+		return `
+		<button
+			data-judge-id="${judgeId}"
+			onclick="preformButtonAction(this, '${actionName}')"
+			class="btn btn-primary btn-sm"
+			${enable? '' : 'disabled'}
+		>${actionName}</button>`;
 	}
 
-	// gets rows from timeData obj
-	function structureTimeData() {
-		let rows = [];
-		for(let timeName in timeData) {
-			if(timeData.hasOwnProperty(timeName)) {
-				timeData[timeName].names.sort(sortAlphabetically);
+	function createPromiseAction(promise) {
+		let btnClass = 'btn-primary';
 
-				rows.push({
-					timeName: timeName,
-					count: timeData[timeName].count,
-					names: timeData[timeName].names.join(', ')
-				});
-			}
-		}
+		return function(btn) {
+			btn = $(btn);
 
-		return rows;
+			let actionText = btn.text();
+			btn.prop('disabled', true);
+			btn.text('...');
+
+			promise(btn)
+			.then(function() {
+				console.log('Btn Action Succss', actionText);
+				btn.removeClass(btnClass);
+				btn.addClass('btn-success');
+				btn.text('DONE!');
+			})
+			.catch(function(err) {
+				// action failure
+				console.error('Btn Action Error', actionText, err);
+				btn.text('ERROR!');
+				btn.removeClass(btnClass);
+				btn.addClass('btn-danger');
+
+				// enable retry
+				setTimeout(function() {
+					btn.text(actionText);
+					btn.addClass(btnClass);
+					btn.removeClass('btn-danger');
+					btn.prop('disabled', false);
+				}, 3000);
+			});
+		};
 	}
 
-	function sortAlphabetically(a, b) {
-		a = a.toLowerCase();
-		b = b.toLowerCase();
-		if(a < b) {
-			return -1;
-		}
-		if(a > b) {
-			return 1;
-		}
-		return 0;
-	}
 
-	function makeTimeView() {
-		let timeRows = structureTimeData();
-		timeRows.forEach(function(rowData) {
-			let row = viewTimes.find('tr[data-time="'+rowData.timeName+'"]');
-			if(row.length) {
-				row.append(`<td>${rowData.count}</td>`);
-				row.append(`<td>${rowData.names}</td>`);
-			}
+	// post promise wrapper
+	function post(url, data) {
+		return new Promise(function(resolve, reject) {
+			$.ajax({
+				method: 'POST',
+				url: url,
+				data: data,
+				success: function(res) {
+					if(res.error) {
+						reject(res.error);
+					} else {
+						resolve(res);
+					}
+				},
+				error: reject
+			});
 		});
 	}
 

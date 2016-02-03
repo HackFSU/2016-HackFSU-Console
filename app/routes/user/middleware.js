@@ -22,7 +22,6 @@ export function validateLogin(req, res, next) {
 		});
 		return;
 	}
-
 	next();
 }
 
@@ -37,10 +36,10 @@ export function loginUser(req, res, next) {
 				user.roleKey = userRoleId;
 			}
 
-			// save ids in session data
+			// save ids in session data, make sure it at least has user role
 			req.session.user = {
 				userId: userId,
-				roleKey: user.roleKey
+				roleKey: acl.addKeys(user.roleKey, acl.role('User').id)
 			};
 
 			req.log.info(`[session] login ${userId} : ${user.roleKey}`);
@@ -53,7 +52,8 @@ export function loginUser(req, res, next) {
 			});
 		});
 	})
-	.catch(function() {
+	.catch(function(err) {
+		req.log.error('Error!', err);
 		res.json({
 			error: 'Invalid Credentials'
 		});
@@ -125,7 +125,11 @@ export function signupNewUser(req, res, next) {
 		lastName: _.startCase(req.body.lastName),
 		shirtSize: req.body.shirtSize,
 		phone: req.body.phone
-	}).save().then(function() {
+	}).save().then(function(obj) {
+		res.locals.user = {
+			objectId: obj.id
+		};
+		req.log.info('[user] New User saved', obj.id);
 		next();
 	}, function(err) {
 		req.log.error('[/user/signup] Unable to create user with ' + req.body.email.toLowerCase(), err);
@@ -155,4 +159,39 @@ export function checkEmailUsed(req, res, next) {
 			error: err
 		});
 	});
+}
+
+
+/**
+ * Middleware creator to update a user key.
+ * @param getUserId - function to return the userId of the user to update
+ * @param roleName - the name of the role to add to the user
+ */
+export function addUserRole(getUserId, roleName) {
+	let roleId = acl.role(roleName).id;
+
+	return function(req, res, next) {
+		let userId = getUserId(req, res);
+
+		// Get the current rolekey
+		User.fetchSimple(userId, ['roleKey'])
+		.then(function(user) {
+			let newKey = acl.addKeys(user.roleKey, roleId);
+			user.__obj.set('roleKey', newKey);
+			user.__obj.save()
+			.then(function() {
+				req.log.info(`[user] User ${userId} roleKey ${user.roleKey} => ${newKey}`);
+				next();
+			}, function(err) {
+				throw new Error(err);
+			});
+		})
+		.catch(function(err) {
+			req.log.error('[user] Error updating user roleKey', err);
+			res.status(500);
+			res.json({
+				error: err
+			});
+		});
+	};
 }

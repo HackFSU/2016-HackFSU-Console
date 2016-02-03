@@ -1,7 +1,6 @@
 /**
  * Handles /user/* routing
  *
- * TODO /user/logout
  * TODO /user/resetpassword
  */
 'use strict';
@@ -29,7 +28,6 @@ router.route('/login')
 		req.session.destroy();
 
 		res.render('user/login', {
-			title: 'Login',
 			accessDenied: !!req.query.accessDenied
 		});
 	}
