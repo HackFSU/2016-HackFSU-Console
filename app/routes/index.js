@@ -16,8 +16,7 @@ import user from 'app/routes/user';
 import help from 'app/routes/help';
 import admin from 'app/routes/admin';
 import confirm from 'app/routes/confirm';
-import judge from 'app/routes/judge'
-
+import judge from 'app/routes/judge';
 
 export default function(app) {
 

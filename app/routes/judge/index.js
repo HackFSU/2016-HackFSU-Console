@@ -1,5 +1,4 @@
-/**
-* Judge routes
+/*Judge routes
 */
 
 'use strict';
