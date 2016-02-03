@@ -22,17 +22,12 @@ export default class Judge extends Parse.Object {
 
 		validate(o, _.isPlainObject);
 
-		let user;
-		if(o.userId) {
-			// user already exists
-			user = new User();
-			user.id = validate(o.userId, _.isString);
-		} else {
-			validate(o.user, _.isObject);
-			user = User.new(o.user);
-		}
+		// setup user relation
+		let user = new User();
+		user.id = validate(o.userId, _.isString);
 
 		// Judge attributes
+		judge.set('waiverSignature', validate(o.waiverSignature, _.isString));
 		judge.set('mlhcoc', validate(o.mlhcoc, _.isBoolean));
 		judge.set('user', user);
 

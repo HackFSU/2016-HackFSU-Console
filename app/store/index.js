@@ -37,7 +37,7 @@ store.links = {
 
 /**
  * ACL role names.
- * DO NOT CHANGE THE ORDER!
+ * DO NOT CHANGE THE ORDER! Only add new roles to end of array
  * TODO: put in MySQL db
  */
 store.roles = [
@@ -45,7 +45,8 @@ store.roles = [
 	'Hacker',
 	'Mentor',
 	'Admin',
-	'Super Admin'
+	'Super Admin',
+	'Judge'
 ];
 
 store.schools = schools;

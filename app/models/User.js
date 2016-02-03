@@ -93,6 +93,7 @@ export default class User extends Parse.User {
 				cols.forEach(function(c) {
 					result[c] = user.get(c);
 				});
+				result.__obj = user;
 				resolve(result);
 
 			}, function(err) {

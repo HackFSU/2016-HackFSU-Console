@@ -26,8 +26,10 @@ export const acl = new Acl(
 
 acl.role('Hacker').canAccess('User');
 acl.role('Mentor').canAccess('User');
-acl.role('Admin').canAccess(['User', 'Hacker', 'Mentor']);
+acl.role('Judge').canAccess('User');
+acl.role('Admin').canAccess(['User', 'Hacker', 'Mentor', 'Judge']);
 acl.role('Super Admin').canAccess('Admin', true);
+
 
 if(process.env.env === 'development')  {
 	acl.verbose = true;
