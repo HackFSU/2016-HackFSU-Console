@@ -25,7 +25,9 @@
 		'Shirt': 'shirtSize',
 
 		'Diet': 'diet',
-		'Comments': 'comments'
+		'Comments': 'comments',
+
+		'Created At': 'createdAt'
 	};
 
 	// make header
@@ -111,7 +113,8 @@
 				comments: rowData.comments? rowData.comments.trim() : '',
 				times: rowData.times? rowData.times.join(', ') : '',
 				skills: rowData.skills? rowData.skills.trim() : '',
-				affiliation: rowData.affiliation
+				affiliation: rowData.affiliation,
+				createdAt: rowData.createdAt
 			};
 
 			// grab data for times
