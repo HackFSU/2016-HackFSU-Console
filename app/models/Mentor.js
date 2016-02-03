@@ -49,12 +49,37 @@ export default class Mentor extends Parse.Object {
 		return mentor;
 	}
 
+	/**
+	* Returns a single Mentor based on ID
+	*/
 	static find(id) {
 		let promiseFind = new Parse.Promise();
 
 		let query = new Parse.Query(Mentor);
-		query.limit(500);
 		query.get(id).then(function(mentor) {
+			promiseFind.resolve(mentor);
+		}, function(err) {
+			promiseFind.reject(err);
+		});
+
+		return promiseFind;
+	}
+
+	/**
+	* Finds a Mentor by the associated user
+	*/
+	static findByUser(uid) {
+		let promiseFind = new Parse.Promise();
+
+		User.find(uid)
+		.then(function(user) {
+			console.log(user);
+			let query = new Parse.Query(Mentor);
+			query.equalTo('user', user);
+			query.include('user');
+			return query.first();
+		})
+		.then(function(mentor) {
 			promiseFind.resolve(mentor);
 		}, function(err) {
 			promiseFind.reject(err);
