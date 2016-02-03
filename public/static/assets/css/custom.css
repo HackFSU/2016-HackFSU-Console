@@ -28,6 +28,13 @@
 	margin-right: 3%;
 }
 
+#denied {
+	font-size: 2.5em;
+	color: #ef626c;
+	font-weight:700;
+	margin-left:50px;
+}
+
 #confirmation {
 	min-height: 400px;
 }
@@ -351,6 +358,7 @@ a:link {
 body {
 	background: #fff ;
 }
+
 
 .main-menu-fixbg {
 	background-color: #303030;
@@ -818,6 +826,13 @@ button[type="submit"]:disabled {
 	font-family: 'Uni Sans';
 }
 
+.userprofile.footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
 @-webkit-keyframes blink {
 	0% {
 		opacity: .2;
@@ -912,7 +927,7 @@ a.schedule-link:visited {
 }
 
 .events-more {
-	font-size: 20px;
+	font-size: 0.85em;
 }
 
 span.schedule-date {
@@ -987,7 +1002,6 @@ h3#partners {
 
 #sponsor-logos img {
 	max-width: 325px;
-	content: attr(target) "blank";
 }
 
 #tier2 {
@@ -1030,6 +1044,14 @@ a.domi-logo > img {
 	padding-bottom: 40px;
 }
 
+a.seminole-dining-logo > img {
+	padding-bottom: 35px;
+}
+
+a.soylent-logo > img {
+	max-width: 150px !important;
+}
+
 .mlh-logo {
 	padding-top: 45px !important;
 }
@@ -1060,6 +1082,14 @@ a.domi-logo > img {
 	a.domi-logo > img {
 		padding-bottom: 0;
 	}
+
+	a.seminole-dining-logo > img {
+		padding-bottom: 0;
+	}
+
+	a.soylent-logo > img {
+		max-width: 200px !important;
+	}
 }
 
 /**
@@ -1075,7 +1105,12 @@ a.domi-logo > img {
 * Stuff for helpreqs
 */
 #helpreq-section {
-	margin-top: -50px;
+	margin-top: -25px;
+	margin-bottom: 75px;
+}
+
+#helpreq-section .dataTables_wrapper .dataTables_filter input {
+	margin-bottom: 15px !important;
 }
 
 table#helpreqs {
@@ -1106,4 +1141,74 @@ table#helpreqs td {
 	background-color: #8bd1c9;
 	color: #fff;
 	box-shadow: none;
+}
+
+@media screen and (max-width: 960px) {
+	#helpreq-section {
+		margin-top: 0
+	}
+}
+
+
+/*	PROFILE	*/
+
+.userprofile{
+	margin-left: 7%;
+	font-family: 'Uni Sans';
+	line-height: 100%;
+	padding-top: 40px;
+	margin-bottom: 5%;
+	/*padding-bottom: 150px;
+	height:100%;*/
+}
+.userprofile h1{
+	font-size:2.7em !important;
+	margin-bottom: 0;
+	line-height: 100%;
+	font-weight:600;
+	color: #303030;
+}
+
+.userprofile h2{
+	font-size:2em !important;
+	margin-bottom: .5em;
+	line-height: 100%;
+	color: #303030;
+}
+.userprofile h3 {
+	font-size: 1.5em;
+	line-height: 100%;
+}
+
+.userprofile p {
+	font-size: 1.5em;
+	line-height: 120%;
+}
+
+.userprofile a {
+	color: #ef626c;
+	font-size: 2em;
+	margin-bottom:.5em !important;
+	font-weight:700;
+	text-decoration: none;
+	line-height: 100%;
+}
+
+.accessdeniedstyle {
+	color: #ef626c;
+	font-size: 3em;
+	margin-bottom: .5em;
+	font-weight:700;
+	text-decoration: none;
+}
+
+.adminlink {
+	color: #ef626c;
+	font-size: 1em;
+	margin-bottom: .5em;
+	font-weight:700;
+	text-decoration: none;
+	margin-right: 10%;
+	line-height: 100%;
+	text-align: right;
 }

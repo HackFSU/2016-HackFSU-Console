@@ -5,8 +5,10 @@
 
 import Acl from 'lib/acl';
 import store from 'app/store';
+import expressValidator from 'express-validator';
+import _ from 'lodash';
 
-/*
+/**
  * Setup ACL
  * TODO: get role names/ids from db
  */
@@ -30,3 +32,25 @@ acl.role('Super Admin').canAccess('Admin', true);
 if(process.env.env === 'development')  {
 	acl.verbose = true;
 }
+
+
+/**
+ * Validatior w/ custom functions
+ */
+export const validator = expressValidator({
+	customSanitizers: {
+		toPhoneString: function(value) {
+			return String(value).replace(/[^0-9]/g, '');
+		}
+	},
+	customValidators: {
+		isArray: function(value) {
+			return Array.isArray(value);
+		},
+
+		isShirtSize: function(value) {
+			return _.isString(value) &&
+				store.shirtSizes.hasOwnProperty(value);
+		},
+	}
+});

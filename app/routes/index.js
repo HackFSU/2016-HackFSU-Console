@@ -5,8 +5,9 @@
 'use strict';
 
 import bodyParser from 'body-parser';
-import validator from 'express-validator';
 import session from 'express-session';
+
+import { validator } from 'app/routes/util';
 
 import home from 'app/routes/home';
 import register from 'app/routes/register';
@@ -26,7 +27,7 @@ export default function(app) {
 			extended: false
 		}),
 		bodyParser.json(),
-		validator()
+		validator
 	);
 
 	app.use(session({
@@ -62,6 +63,10 @@ export default function(app) {
 
 	app.get('/login', function(req, res) {
 		res.redirect('/user/login');
+	});
+
+	app.get('/signup', function(req, res) {
+		res.redirect('/user/signup');
 	});
 
 

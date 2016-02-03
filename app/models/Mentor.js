@@ -50,6 +50,45 @@ export default class Mentor extends Parse.Object {
 	}
 
 	/**
+	* Returns a single Mentor based on ID
+	*/
+	static find(id) {
+		let promiseFind = new Parse.Promise();
+
+		let query = new Parse.Query(Mentor);
+		query.get(id).then(function(mentor) {
+			promiseFind.resolve(mentor);
+		}, function(err) {
+			promiseFind.reject(err);
+		});
+
+		return promiseFind;
+	}
+
+	/**
+	* Finds a Mentor by the associated user
+	*/
+	static findByUser(uid) {
+		let promiseFind = new Parse.Promise();
+
+		User.find(uid)
+		.then(function(user) {
+			console.log(user);
+			let query = new Parse.Query(Mentor);
+			query.equalTo('user', user);
+			query.include('user');
+			return query.first();
+		})
+		.then(function(mentor) {
+			promiseFind.resolve(mentor);
+		}, function(err) {
+			promiseFind.reject(err);
+		});
+
+		return promiseFind;
+	}
+
+	/**
 	* The main signUp function for saving a Mentor. Use this instead of
 	* mentor.save()! This does extra work required to save a mentor, i.e.,
 	* creating the associated User account (for future

@@ -1,6 +1,12 @@
 (function($) {
 	'use strict';
 
+	let socket = io.connect('http://localhost:5003');
+	socket.on('news', function (data) {
+		console.log(data);
+		socket.emit('another event', { my: 'data' });
+	});
+
 	let $errorMessages = $('#error-messages');
 	let $submitBtn = $('button[type="submit"]');
 
@@ -44,6 +50,10 @@
 					else {
 						// Just in case the error messages were displayed, remove them
 						$('#errors').remove();
+
+						// Emmit socket.io event on new help req submitted
+						socket.emit('new help request');
+
 						$('#help').fadeTo(1000, 0, function() {
 							$('#help').remove();
 							$('html, body').animate({

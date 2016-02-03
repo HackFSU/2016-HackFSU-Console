@@ -6,10 +6,43 @@ block content
 	.clear.services.section.block
 	if accessDenied
 		.access-denied
-			h3 Access Denied
-		br
-	
-	h1: a(href='/admin/') >>>>>> ADMIN PAGES <<<<<<
+			h1.accessdeniedstyle Access Denied
+			
+			
+	.userprofile.clear.services.block
+		.block.content-960.center-relative
+				h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
+					| Welcome to HackFSU 2016
+				.title-separator(style='border-color: #303030')
+				.adminlink 
+					a(href='/admin') ADMIN PAGES
+				br 
+				br
+				//- if acl.isRole.User
+				//- 	h4 is role #{user.firstName}
+				//- if acl.canAccess.User
+				//- 	h4 can access #{user.firstName}
+				//- 	
+				//- if acl.canAccess.Mentor
+				//- 	a(href='/help') Look at help requests
+				h2= user.firstName + " " + user.lastName
+				br
+				p
+					strong GitHub: 
+					| #{user.github} 
+					br
+					strong Phone: 
+					| #{user.phone} 
+					br
+					strong Diet: 
+					| #{user.diet} 
+					br
+					strong Shirt Size: 
+					| #{user.shirtSize}
+					br
+					strong Email: 
+					| #{user.email}
 
-	h3 Trevor format this
-	p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
+				.clear
+				//- p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
+				//- 

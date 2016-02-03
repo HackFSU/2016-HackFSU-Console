@@ -8,9 +8,12 @@
 'use strict';
 
 import express from 'express';
+import { acl } from 'app/routes/util';
 import * as middleware from 'app/routes/mentor/helprequests/middleware';
 
 let router = express.Router();
+
+router.use(acl.use('Mentor'));
 
 // Log the request body for all requests
 router.use(function(req, res, next) {
@@ -21,6 +24,7 @@ router.use(function(req, res, next) {
 	next();
 });
 
+
 router.route('/')
 /**
 * GET /mentor/helprequests
@@ -29,13 +33,36 @@ router.route('/')
 */
 .get(
 	middleware.getAllHelpRequests,
+	middleware.getCurrentMentor,
 	function(req, res, next) {
-		req.log.info({ h: req.helpReqs }, 'Helps');
 		res.render('mentor/helprequests/index', {
 			title: 'Help Requests',
-			helpReqs: req.helpReqs
+			helpReqs: req.helpReqs,
+			mentor: req.mentor
 		});
 	}
 );
+
+
+router.route('/:id/mentors/:mid')
+/**
+* POST /mentor/helprequests/:id/mentors/:mid
+*
+* Assigns a help request to the selected mentor
+*/
+.post(
+	middleware.getHelpRequest,
+	middleware.getMentor,
+	middleware.createHelpRequestAssignedTo,
+	function(req, res, next) {
+		res.status(201);
+		res.json({
+			data: {
+				helpReqAssignedTo: req.helpReqAssignedTo
+			}
+		});
+	}
+);
+
 
 export default router;

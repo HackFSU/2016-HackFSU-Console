@@ -23,17 +23,12 @@ router.route('/')
 router.route('/login')
 .get(
 	acl.use(), // make locals.acl
+	middleware.redirectLoggedIn,
 	function(req, res) {
-		if(req.session.user && res.locals.acl.canAccess.User) {
-			res.redirect('./profile' + (req.query.accessDenied ? '?accessDenied=true' : ''));
-			return;
-		}
-
 		// Not a valid user
 		req.session.destroy();
 
 		res.render('user/login', {
-			title: 'Login',
 			accessDenied: !!req.query.accessDenied
 		});
 	}
@@ -70,6 +65,24 @@ router.route('/profile')
 			title: 'Profile',
 			accessDenied: !!req.query.accessDenied,
 		});
+	}
+);
+
+
+router.route('/signup')
+.get(
+	acl.use(),
+	middleware.redirectLoggedIn,
+	function(req, res) {
+		res.render('user/signup');
+	}
+)
+.post(
+	middleware.validateSignup,
+	middleware.checkEmailUsed,
+	middleware.signupNewUser,
+	function(req, res) {
+		res.json({});
 	}
 );
 
