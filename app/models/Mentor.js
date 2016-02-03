@@ -49,6 +49,20 @@ export default class Mentor extends Parse.Object {
 		return mentor;
 	}
 
+	static find(id) {
+		let promiseFind = new Parse.Promise();
+
+		let query = new Parse.Query(Mentor);
+		query.limit(500);
+		query.get(id).then(function(mentor) {
+			promiseFind.resolve(mentor);
+		}, function(err) {
+			promiseFind.reject(err);
+		});
+
+		return promiseFind;
+	}
+
 	/**
 	* The main signUp function for saving a Mentor. Use this instead of
 	* mentor.save()! This does extra work required to save a mentor, i.e.,

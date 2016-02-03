@@ -32,7 +32,7 @@ export default class HelpRequest extends Parse.Object {
 
 		let query = new Parse.Query(HelpRequest);
 		query.limit(500);
-		query.find().then(function(helpReq) {
+		query.get(id).then(function(helpReq) {
 			promiseFind.resolve(helpReq);
 		}, function(err) {
 			promiseFind.reject(err);
