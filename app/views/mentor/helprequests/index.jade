@@ -32,7 +32,10 @@ block content
 								td= req.get('location')
 								td= req.get('description')
 								td
-									button.btn.btn-help(type='') Assign to Me
+									button.btn.btn-help Assign to Me
+									div(id="assign-#{req.id}")
+										input(id="hr-#{req.id}" type="hidden" name="helpreq" value="#{req.id}")
+										input(id="m-#{mentor.id}" type="hidden" name="mentor" value="#{mentor.id}")
 						if helpReqs.length === 0
 							tr 
 								td(colspan="4") No help requests
