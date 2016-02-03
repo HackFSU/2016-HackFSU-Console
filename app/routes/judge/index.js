@@ -67,4 +67,4 @@ router.route('/hacks')
 	}
 );
 
-// export default router;
+export default router;
