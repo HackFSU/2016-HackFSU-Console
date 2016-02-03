@@ -257,6 +257,15 @@ a:link {
 	font-size: 3em;
 }
 
+.hero .register-closed {
+	opacity: 0.6;
+	border: 0.15em solid #f2f2f2;
+	border-radius: 4px;
+	padding: 0 0.25em;
+	line-height: normal;
+	color: #f2f2f2;
+}
+
 .hero.topRight .register {
 	border: 0.15em solid #fff;
 	border-radius: 4px;
