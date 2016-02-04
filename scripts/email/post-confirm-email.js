@@ -1,7 +1,7 @@
 /*
 * Script to email confirmed hackers extra info
 *
-* Latest sent email: 2016-02-03T18:06:44.071Zp
+* Latest sent email: 2016-02-04T17:37:43.609Z
 * ^ Use greaterThan
 */
 

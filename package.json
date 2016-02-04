@@ -38,5 +38,8 @@
     "socketio": "^1.0.0",
     "validator": "^4.4.0",
     "yargs": "^3.29.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0"
   }
 }
