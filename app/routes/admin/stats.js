@@ -13,6 +13,8 @@ import Mentor from 'app/models/Mentor';
 import Confirmation from 'app/models/Confirmation';
 import User from 'app/models/User';
 import Update from 'app/models/Update';
+import _ from 'lodash';
+import { queryFind } from 'app/routes/util';
 
 const router = express.Router();
 
@@ -23,27 +25,18 @@ router.route('/')
 
 router.route('/shirts')
 .get(
-	function(req, res, next) {
+	queryFind(function() {
 		let query = new Parse.Query(User);
-		query.limit(10000);
 		query.select([
 			'shirtSize'
 		]);
-		query.find().then(function(results) {
-			next(results);
-		}, function(err) {
-			req.log.error(err);
-			res.status(500);
-			res.json({
-				error: err,
-			});
-		});
-	},
-	function(results, req, res, next) {
+		return query;
+	}, 2),
+	function(req, res, next) {
 		let counts = {};
 
 		// get counts
-		results.forEach(function(obj) {
+		res.locals.queryResults.forEach(function(obj) {
 			let name = obj.get('shirtSize');
 			if(!counts[name]) {
 				counts[name] = 0;
@@ -58,28 +51,19 @@ router.route('/shirts')
 
 router.route('/anonstats')
 .get(
-	function(req, res, next) {
+	queryFind(function() {
 		let query = new Parse.Query(AnonStat);
-		query.limit(10000);
 		query.select([
 			'name',
 			'option'
 		]);
-		query.find().then(function(results) {
-			next(results);
-		}, function(err) {
-			req.log.error(err);
-			res.status(500);
-			res.json({
-				error: err,
-			});
-		});
-	},
-	function(results, req, res, next) {
+		return query;
+	}, 2),
+	function(req, res) {
 		let counts = {};
 
 		// get counts
-		results.forEach(function(obj) {
+		res.locals.queryResults.forEach(function(obj) {
 			let name = obj.get('name');
 			let option = obj.get('option');
 

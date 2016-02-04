@@ -12,6 +12,7 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var sourcemaps = require('gulp-sourcemaps');
 var fs = require('fs-extra');
+var header = require('gulp-header');
 
 /**
  * Command Line Arguments
@@ -27,19 +28,20 @@ var argv = require('yargs')
 
 	.argv;
 
+var pkg = require('./package.json');
 
 // Project directories
 var dirs = {
 	lib: __dirname + '/lib',
 	app: __dirname + '/app',
 	public: {
+		__dirname: __dirname + '/public',
 		build: __dirname + '/public/build',
 		static: __dirname + '/public/static',
 		es6: __dirname + '/public/es6',
 	},
 	scripts: __dirname + '/scripts'
 };
-
 
 /**
  * Clean build folders
@@ -103,6 +105,7 @@ gulp.task('build', ['clean:app'], function() {
 	.pipe(babel({
 		presets: ['es2015']
 	}))
+	.pipe(header(fs.readFileSync(dirs.public.__dirname + '/header.js'), { pkg: pkg }))
 	.pipe(sourcemaps.write('./'))
 	.pipe(gulp.dest(dirs.public.build + '/js'));
 });

@@ -8,6 +8,7 @@
 import express from 'express';
 import Parse from 'parse/node';
 import Hacker from 'app/models/Hacker';
+import { queryFind } from 'app/routes/util';
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ router.route('/')
 
 router.route('/data')
 .get(
-	function(req, res, next) {
+	queryFind(function() {
 		let query = new Parse.Query(Hacker);
 		query.limit(10000);
 		query.include([
@@ -45,20 +46,11 @@ router.route('/data')
 			'user.shirtSize',
 			'resume'
 		]);
-		query.find().then(function(results) {
-			res.locals.hackerData = results;
-			next();
-		}, function(err) {
-			req.log.error(err);
-			res.status(500);
-			res.json({
-				error: err,
-			});
-		});
-	},
+		return query;
+	}, 2),
 	function(req, res) {
 		res.json({
-			data: res.locals.hackerData
+			data: res.locals.queryResults
 		});
 	}
 );

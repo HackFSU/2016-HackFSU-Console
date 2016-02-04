@@ -1,7 +1,7 @@
 /**
- * /admin/hackers/*
+ * /admin/schools/*
  *
- * Handles hacker Administration
+ * Handles school stats
  */
 'use strict';
 

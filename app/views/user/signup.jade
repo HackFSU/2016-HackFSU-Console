@@ -1,21 +1,22 @@
 extend ../_layouts/standard
 block vars
-	- title = 'Judge | Sign up'
+	- title = 'Sign up'
 
 block localJS
 	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
-	script(src='/js/views/judge/index.js')
+	script(src='/js/views/user/signup.js')
 
 block content
-	.clear.services.section.block
+	#mentor-page.clear.services.section.block
 		.block.content-960.center-relative
-			h2.section-title-fixed.singleLineText.margin-left-7 Judge Sign up
+			h2.section-title-fixed.singleLineText.margin-left-7 Account Sign up
 			.title-separator.margin-left-7
 			#confirmation(style='display: none;').margin-left-7.margin-right-15
 					p 
-						| Thanks for signing up to become a judge! Once an administrator accepts your request you will be able to judge hacks. You can now login at 
+						| Thanks for signing up! You can now login at 
 						a(href='/login') hackfsu.com/login
-						|  and check your status on your profile page.
+						| .
+					p.strong See you this Spring!
 				.clear
 			#errors(style='display: none;')
 				.three_fourth.margin-left-7
@@ -25,9 +26,13 @@ block content
 			form#signup(method='post' action='' autocomplete='off')
 				.one
 					#signup-blurb
-						| Sign up for a judge account here! If you already have an account, 
-						a(href='/user/login') login
-						|  first and then request to become a judge from your profile page.
+						| You can use this page to sign up for a normal account and then choose your role after you log in. If you already know what you want to do, you can do both at the same time with our 
+						a(href='/register') hacker
+						| , 
+						a(href='/mentor') mentor
+						| , and 
+						a(href='/judge') judge
+						|  registration pages!
 						
 				.clear
 				div#signup-form
@@ -95,24 +100,6 @@ block content
 						label(for='diet') Dietary restrictions?
 					.one_half
 						input#diet(type='text' name='diet' placeholder='Vegan, vegetarian, etc.')
-					.one_fourth.last
-					.clear
-					
-					.one_fourth
-						label(for="mlhcoc") Code of Conduct *
-					.one_half
-						input#mlhcoc(type='checkbox' value='true' data-validation='required' name='mlhcoc')
-						label(for='mlhcoc') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
-					.one_fourth.last
-					.clear
-					
-					.one_fourth
-						label(for='waiver') Waiver *
-					.one_half
-							input#waiver(type='text' placeholder="Please sign your name" data-validation='required' name='waiverSignature')
-							.help-block By signing your name above, on this day of <span style="text-decoration: underline">#{date}</span>, you hereby agree to the terms of our 
-								a(href="/docs/release-of-liability.pdf" target="_blank") Release of Liability 
-								| waiver.
 					.one_fourth.last
 					.clear
 
