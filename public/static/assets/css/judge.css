@@ -513,7 +513,7 @@ input, textarea, select, option {
 	color: #303030;
 }
 textarea, select {
-	border: 0.2em solid #d2ebfc;
+	border: 0.3em solid #d2ebfc;
 }
 input:focus {
 	border-bottom: 0.2em solid #eecdb5;
@@ -1030,11 +1030,13 @@ table#helpreqs td {
 	padding: 10px;
 }
 
+
+/* judges */
 .judge-btn-help {
 	background-color: transparent;
 	border-radius: 3px;
 	border: 0.2em solid #8bd1c9;
-	padding: 10px;
+	/*padding: 10px;*/
 	outline: 0;
 	font-weight: 600;
 	transition: 200ms all;
@@ -1052,29 +1054,31 @@ table#helpreqs td {
 
 
 .hellojudge.judging {
-	font-size: 7em !important;
-	margin-bottom: 0.05em !important;
+	font-size: 5.6em !important;
+	margin-bottom: 0em !important;
 	color:#fff;
 	line-height: 20%;
+	width: 100%;
 }
 
 .hellojudge.happy{
-	font-size: 9em;
-	margin-bottom: 0.1em !important;
+	font-size: 7em;
+	margin-bottom: 0em !important;
 	font-weight:300;
 	color:#fff;
 	line-height: 20%;
+	width: 100%;
 }
 
 .p {
 	font-size: 2.5em;
-	margin-bottom: .5em !important;
+	margin-bottom: .01em !important;
 	color:#fff;
 	line-height: 100%;
 }
 
 .plist {
-	font-size: 2.5em;
+	font-size: 2em;
 	margin-bottom: 1em !important;
 	color:#fff;
 	line-height: 120%;
@@ -1082,10 +1086,11 @@ table#helpreqs td {
 }
 
 #judge1 {
-	margin-top:140px;
+	margin-top:100px;
 	margin-bottom: 50px;
 	min-height: 600px;
 	text-align:center;
+	width:100%;
 }
 
 #judge2 {
@@ -1094,8 +1099,12 @@ table#helpreqs td {
 	min-height: 600px;
 }
 
+#judge2 h2 {
+	font-size: 3em;
+}
+
 #judge3 {
-	margin-top:80px;
+	margin-top:auto;;
 	margin-bottom: 50px;
 	min-height: 600px;
 	text-align:center;
@@ -1103,7 +1112,7 @@ table#helpreqs td {
 
 .judge-btn {
 	display: inline-block;
-	padding: 6px 12px;
+	/*padding: 6px 12px;*/
 	margin-bottom: 0;
 	font-size: 16px;
 	font-weight: 300;
@@ -1133,8 +1142,8 @@ table#helpreqs td {
 					box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
 }
 .judge-btn-form {
-	width: 40%;
-		height: 4em;
+	width: 30%;
+		height: 3em;
 		margin-top: 10px;
 		background-color: #fff;
 		border-radius: 10px;
@@ -1180,21 +1189,22 @@ table#helpreqs td {
 }
 
 .categoryTitle{
-	font-size: 4.5em;
+	font-size: 3.5em;
 }
 
 .categories{
-	font-size:2em;
+	font-size:1.8em;
 	margin-bottom: .5em;
 	font-weight: 600;
 }
 
 .optionheight{
-	height: 40px;
+	height: 30px;
 }
 
 .nextround {
 	text-transform:initial;
+	font-size:2em;
 }
 
 .thankyousection {

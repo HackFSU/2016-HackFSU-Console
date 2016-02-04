@@ -1,18 +1,19 @@
 /**
- * Handles user login
+ * For /judge
+ * Handles non-user judge signup
  */
 
 (function() {
 	'use strict';
 
-	const POST_URL = '/user/login';
-	const FORM_SELECTOR = '#login';
+	const POST_URL = '/judge';
+	const FORM_SELECTOR = '#signup';
 
 	let errorView = $('#errors');
 	let errorMessages = errorView.find('#error-messages');
+	let confirmation = $('#confirmation');
 	let form = $(FORM_SELECTOR);
 	let submitBtn = form.find('#submit');
-	let confirmation = $('#confirmation');
 
 	$.validate({
 		form: FORM_SELECTOR,
@@ -40,7 +41,16 @@
 
 			saveResult(formData)
 			.then(function() {
-				window.location.href = '/user/profile';
+				errorView.remove();
+				form.fadeTo(1000, 0, function() {
+					form.remove();
+					$('html, body').animate({
+						scrollTop: 0
+					}, 500);
+					confirmation.fadeIn(1000, function() {
+						return;
+					});
+				});
 			})
 			.catch(function(err) {
 				console.error(err);

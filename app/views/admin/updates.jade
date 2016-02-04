@@ -1,6 +1,6 @@
 extends ../_layouts/bootstrap
 block vars
-	- title = 'Admin | Mentors'
+	- title = 'Admin | Updates'
 
 block localCSS
 	link(rel='stylesheet' type='text/css' href='/bower_components/datatables/media/css/dataTables.bootstrap.min.css')
@@ -13,26 +13,41 @@ block localJS
 	script(src='/bower_components/datatables-buttons/js/buttons.bootstrap.js')
 	script(src='/bower_components/datatables-buttons/js/buttons.html5.js')
 	script(src='/bower_components/datatables-buttons/js/buttons.flash.js')
-	script(src='/js/views/admin/mentors.js')
+	script(src='/bower_components/moment/min/moment.min.js')
+	script(src='/js/views/admin/updates.js')
+	
 
 block content
-	h1 Mentor Management
+	h1 Updates
 	
-	table#times.table.table-striped.table-bordered
-		thead
-			tr
-				td(colspan='3'): b Availability Breakdown
-		tbody
-			tr(data-time='sat-mid-morn'): td Saturday Midnight - Morning
-			tr(data-time='sat-morn-mid'): td Saturday Morning - Midday
-			tr(data-time='sat-mid-eve'): td Saturday Midday - Evening
-			tr(data-time='sat-eve-mid'): td Saturday Evening - Midnight
-			tr(data-time='sun-mid-morn'): td Sunday Midnight - Morning
+	br
+	
+	
+	form
+		h3 Create
+		.form-group
+			label(for='title') Title *
+			input#title.form-control
+		.form-group
+			label(for='subtitle') Subtitle
+			input#subtitle.form-control
+		.form-group
+			input#send-push(type='checkbox' checked)
+			label(for='send-push') Send Push?
+			
+		
+		button.btn.btn-primary.form-control(type='submit') Send
+		
 	
 	br
 	br
+	br
 	
-	#view-toggle.btn-group
-	table#view.table.table-striped.table-bordered
-		thead
-			tr
+	.view-updates
+		h3 Updates
+		table.table.table-striped.table-hover.table-bordered
+			thead
+				tr
+					td Date
+					td Title
+					td Subtitle

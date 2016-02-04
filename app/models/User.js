@@ -30,7 +30,7 @@ export default class User extends Parse.User {
 		user.set('username', o.email);
 		user.set('password', validate(o.password, _.isString));
 		user.set('shirtSize', validate(o.shirtSize, _.isString));
-		//user.set('roleKey', acl.getRoleId('User'));
+		user.set('roleKey', acl.role('User').id);
 
 		// optional
 		user.set('diet', validate(o.diet, _.isString, true));
@@ -41,10 +41,40 @@ export default class User extends Parse.User {
 	}
 
 	/**
+	* Returns a single User based on ID
+	*/
+	static find(id) {
+		let promiseFind = new Parse.Promise();
+
+		let query = new Parse.Query(User);
+		query.get(id).then(function(user) {
+			promiseFind.resolve(user);
+		}, function(err) {
+			promiseFind.reject(err);
+		});
+
+		return promiseFind;
+	}
+
+	/**
 	* Returns the User's name, formatted as 'FIRST LAST'
 	*/
 	getName() {
 		return `${this.get('firstName')} ${this.get('lastName')}`;
+	}
+
+	static checkEmailUsed(email) {
+		return new Promise(function(resolve, reject) {
+			let query = new Parse.Query(User);
+			query.limit(1);
+			query.equalTo('email', validate(email, _.isString));
+			query.find()
+			.then(function(results) {
+				resolve(results.length > 0);
+			}, function(err) {
+				reject(err);
+			});
+		});
 	}
 
 
@@ -79,6 +109,7 @@ export default class User extends Parse.User {
 				cols.forEach(function(c) {
 					result[c] = user.get(c);
 				});
+				result.__obj = user;
 				resolve(result);
 
 			}, function(err) {
@@ -88,6 +119,37 @@ export default class User extends Parse.User {
 	}
 
 
+	/**
+	 * Returns Parse.Object instance version from given flat object
+	 * Useful for creating instances from a query.include()
+	 */
+	static createInstance(data) {
+		let obj = new User();
+
+		obj.id = data.objectId;
+		for(let prop in data) {
+			if(data.hasOwnProperty(prop)) {
+				obj.set(prop, data[prop]);
+			}
+		}
+		return obj;
+	}
+
+	addRoleAndSave(roleName) {
+		return new Promise((resolve, reject) => {
+			let newRoleKey = acl.addKeys(this.get('roleKey'), acl.role(roleName).id);
+			this.set('roleKey', newRoleKey);
+			this.save().then(resolve, reject);
+		});
+	}
+
+	removeRoleAndSave(roleName) {
+		return new Promise((resolve, reject) => {
+			let newRoleKey = acl.removeKey(this.get('roleKey'), acl.role(roleName).id);
+			this.set('roleKey', newRoleKey);
+			this.save().then(resolve, reject);
+		});
+	}
 
 }
 

@@ -1,9 +1,12 @@
 /**
- * Manages hacker data for /admin/hackers
+ * Manages Judge data for /admin/judges
  */
 
 (function() {
 	'use strict';
+
+	const GET_DATA_URL = '/admin/judges/list';
+	const POST_ACCEPT_URL = '/admin/judges/accept';
 
 	let viewTable = $('table#view');
 	let viewHeader = viewTable.find('thead tr');
@@ -15,26 +18,9 @@
 		'Email': 'email',
 		'Phone': 'phone',
 
-		'Year': 'year',
-		'School': 'school',
-		'Major': 'major',
-
 		'Status': 'status',
 
-		'GitHub': 'github',
-		'Want Job': 'wantjob',
-		'Interested In' : 'wants',
-
-		'>18?': 'yesno18',
-		'First?': 'firstHackathon',
-		'Shirt': 'shirtSize',
-
-		'Diet': 'diet',
-		'Comments': 'comments',
-		'Hate': 'hate',
-
-		'Resume': 'resume',
-		'Created At': 'createdAt'
+		'Actions': 'actions'
 	};
 
 	// make header
@@ -87,12 +73,13 @@
 	function getData(data, cb) {
 		$.ajax({
 			method: 'GET',
-			url: '/admin/hackers/data',
+			url: GET_DATA_URL,
 			success: function(res) {
 				if(res.error) {
 					console.error(res.error);
 					cb({});
 				}
+				// console.log('Got response from', GET_DATA_URL);
 				cb(preprocess(res.data));
 			},
 			error: function(error) {
@@ -106,41 +93,27 @@
 		let finalRows = [];
 		let newRow;
 		data.forEach(function(rowData, i) {
+			// console.log('Preparing row', rowData);
 			newRow = {
 				firstName: rowData.user.firstName,
 				lastName: rowData.user.lastName,
 				github: rowData.user.github,
 				phone: rowData.user.phone? rowData.user.phone.replace(/[^\d]/g,'') : '',
 				email: rowData.user.email,
-				diet: rowData.user.diet,
-				shirtSize: rowData.user.shirtSize,
-				status: rowData.status || '',
-				school: rowData.school,
-				major: rowData.major,
-				firstHackathon: rowData.firstHackathon? 'Y' : 'N',
-				hate: rowData.hate? rowData.hate.trim() : '',
-				year: rowData.year,
-				wantjob: rowData.wantjob? rowData.wantjob.join(', ') : '',
-				wants: rowData.wants? rowData.wants.join(', ') : '',
-				comments: rowData.comments? rowData.comments.trim() : '',
-				resume: rowData.resume? rowData.resume.url : '',
-				createdAt: rowData.createdAt
+				status: rowData.status,
+				objectId: rowData.objectId,
+				actions: ''
 			};
 
-			// handle missing yesno18, do not assume anything if not there
-			if(rowData.yesno18 === false) {
-				newRow.yesno18 = 'N';
-			} else if(rowData.yesno18 === true) {
-				newRow.yesno18 = 'Y';
-			} else {
-				newRow.yesno18 = '';
-			}
-
+			// Accept Button
+			newRow.actions += createActionBtnHtml('Accept', newRow.status === 'pending', rowData.objectId);
 
 			// save new & delete original
 			finalRows.push(newRow);
 			data[i] = null;
 		});
+
+		// console.log('Data preproces complete', finalRows);
 
 		return {
 			data: finalRows
@@ -166,5 +139,93 @@
 		return cols;
 	}
 
+
+
+
+
+	// BUTTON ACTIONS
+
+
+	let buttonActions = {
+		'Accept': createPromiseAction(function(btn) {
+			return post(POST_ACCEPT_URL, {
+				judgeId: btn.data('judgeId')
+			});
+		})
+	};
+
+	window.preformButtonAction = function(btn, actionName) {
+		console.log('Action', actionName);
+		if(buttonActions[actionName]) {
+			buttonActions[actionName](btn);
+		} else {
+			throw new Error(`Invalid Button Action ${actionName}`);
+		}
+	};
+
+	function createActionBtnHtml(actionName, enable, judgeId) {
+		return `
+		<button
+			data-judge-id="${judgeId}"
+			onclick="preformButtonAction(this, '${actionName}')"
+			class="btn btn-primary btn-sm"
+			${enable? '' : 'disabled'}
+		>${actionName}</button>`;
+	}
+
+	function createPromiseAction(promise) {
+		let btnClass = 'btn-primary';
+
+		return function(btn) {
+			btn = $(btn);
+
+			let actionText = btn.text();
+			btn.prop('disabled', true);
+			btn.text('...');
+
+			promise(btn)
+			.then(function() {
+				console.log('Btn Action Succss', actionText);
+				btn.removeClass(btnClass);
+				btn.addClass('btn-success');
+				btn.text('DONE!');
+			})
+			.catch(function(err) {
+				// action failure
+				console.error('Btn Action Error', actionText, err);
+				btn.text('ERROR!');
+				btn.removeClass(btnClass);
+				btn.addClass('btn-danger');
+
+				// enable retry
+				setTimeout(function() {
+					btn.text(actionText);
+					btn.addClass(btnClass);
+					btn.removeClass('btn-danger');
+					btn.prop('disabled', false);
+				}, 3000);
+			});
+		};
+	}
+
+
+	// post promise wrapper
+	function post(url, data) {
+		return new Promise(function(resolve, reject) {
+			$.ajax({
+				method: 'POST',
+				url: url,
+				data: data,
+				success: function(res) {
+					if(res.error) {
+						reject(res.error);
+					} else {
+						resolve(res);
+					}
+				},
+				error: reject
+			});
+		});
+	}
 
 })();

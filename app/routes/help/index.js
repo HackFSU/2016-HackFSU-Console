@@ -24,6 +24,9 @@ router.route('/')
 // GET /
 // Shows the help
 .get(function(req, res, next) {
+	req.app.io.on('connection', function(socket) {
+		socket.broadcast.emit('news', 'test 2');
+	});
 	res.render('help/index');
 })
 // POST /help

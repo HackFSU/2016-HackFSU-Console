@@ -1,0 +1,54 @@
+extend ../_layouts/standard
+block vars
+	- title = 'Judge | User Sign up'
+
+block localJS
+	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
+	script(src='/js/views/judge/userSignup.js')
+
+block content
+	.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed.singleLineText.margin-left-7 Judge Sign up
+			.title-separator.margin-left-7
+			#confirmation(style='display: none;').margin-left-7.margin-right-15
+					p
+						| You have successfully requested to become a judge! Once an administrator accepts your request you will be able to judge hacks. You may check your judge status on the 
+						a(href='/user/profile') profile page
+						| .
+				.clear
+			#errors(style='display: none;')
+				.three_fourth.margin-left-7
+					#error-messages
+				.one_fourth.last
+				.clear
+			form#signup(method='post' action='' autocomplete='off')
+				.one
+					#signup-blurb
+						| Request to become a judge!
+						
+				.clear
+				div#signup-form
+					.one_fourth
+						label(for="mlhcoc") Code of Conduct *
+					.one_half
+						input#mlhcoc(type='checkbox' value='true' data-validation='required' name='mlhcoc')
+						label(for='mlhcoc') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
+					.one_fourth.last
+					.clear
+					
+					.one_fourth
+						label(for='waiver') Waiver *
+					.one_half
+							input#waiver(type='text' placeholder="Please sign your name" data-validation='required' name='waiverSignature')
+							.help-block By signing your name above, on this day of <span style="text-decoration: underline">#{date}</span>, you hereby agree to the terms of our 
+								a(href="/docs/release-of-liability.pdf" target="_blank") Release of Liability 
+								| waiver.
+					.one_fourth.last
+					.clear
+
+					.one_fourth
+					.one_half
+						button#submit.btn.btn-form(type='submit') SUBMIT
+					.one_fourth.last
+					.clear

@@ -13,24 +13,26 @@ block content
 	#judge1.clear.services.section.block
 		.block.content-960.center-relative
 				#judgemain
-					.hellojudge.happy.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1;' />HAPPY 
+					.hellojudge.happy.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1; width:15%;' />HAPPY 
 					br
 					br
 					.hellojudge.judging.section-title-fixed.singleLineText JUDGING 
-					br
 					br
 					br
 					.plist BELOW IS A LIST OF HACKS THAT YOU WILL BE JUDGING:
 					.p Project #
 					.p Project #
 					.p Project #
-					button#beginjudge.judge-btn.judge-btn-form(type='submit') LET'S BEGIN >>
+					br
+					button#beginjudge.judge-btn.judge-btn-form(type='submit') LET'S BEGIN
 					br
 				//screen 2
 				#judge2
 					br
+					br
 					h2.judges Total Points: #[span#judgingpoints 3]
 					.title-separator
+					br
 					.one_third
 						.hero.judgehack1 Hack #[span.judgehack2 #1]
 					.two_third.last
@@ -52,56 +54,67 @@ block content
 					.clear
 					br
 					br
-					br
 					.hero.judgehack1.categoryTitle Categories
 					br
 					br
-					form#judgeform(method='post' action='' autocomplete='off' name='judgeform')
-						.judgehack2.categories Best New-Comer Team #[span.judgehack1 (required)]
-						select.optionheight(name='newcomer')
-							option(value='1') 1
-							option(value='2') 2
-							option(value='3') 3
-						br
-						br
-						.judgehack2.categories Best Veteran Team #[span.judgehack1 (required)]
-						select.optionheight(name='veteran')
-							option(value='1') 1
-							option(value='2') 2
-							option(value='3') 3
-						br
-						br
-						.judgehack2.categories Most Ridiculous
-						select.optionheight(name='ridiculous')
-							option(value='1') 1
-							option(value='2') 2
-							option(value='3') 3
-						br
-						br
-						.judgehack2.categories Design
-						select.optionheight(name='design')
-							option(value='1') 1
-							option(value='2') 2
-							option(value='3') 3
-						br
-						br
-						.judgehack2.categories Hardware
-						select.optionheight(name='hardware')
-							option(value='1') 1
-							option(value='2') 2
-							option(value='3') 3
-						br
-						br
-						.judgehack2.categories Mobile
-						select.optionheight(name='mobile')
-							option(value='1') 1
-							option(value='2') 2
-							option(value='3') 3
-						br
-						br
-						br
-						button#endjudge.judge-btn.judge-btn-form(type='submit') SAVE
-				
+					.judgehack2.categories Best New-Comer Team
+					select.optionheight
+						option None Selected
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2.categories Best Veteran Team
+					select.optionheight
+						option None Selected
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2.categories Best Collaborative Team
+					select.optionheight
+						option None Selected
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2.categories Most Ridiculous
+					select.optionheight
+						option None Selected
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2.categories Best Design
+					select.optionheight
+						option None Selected
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2.categories Best Hardware
+					select.optionheight
+						option None Selected
+						option 1
+						option 2
+						option 3
+					br
+					br
+					.judgehack2.categories Best Mobile
+					select.optionheight
+						option None Selected
+						option 1
+						option 2
+						option 3
+					br
+					br
+					button#endjudge.judge-btn.judge-btn-form(type='submit') SAVE
+
 				//screen 3
 				#judge3.clear.services.thankyousection.block
 					.block.content-960.center-relative
@@ -109,4 +122,5 @@ block content
 								br
 								br
 								.hellojudge.p.nextround The next round will begin in a few minutes. Sit tight  :D
+								br
 								button#judgerefresh.judge-btn.judge-btn-form REFRESH

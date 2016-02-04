@@ -17,7 +17,7 @@
 	display: block;
 }
 #view_filter,
-.view-top .dt-buttons
+.view-top .dt-buttons,
 .view-bottom > * {
 	display: inline-block;
 }
@@ -46,4 +46,7 @@
 	vertical-align: top;
 	margin-right: 2em;
 	margin-bottom: 2em;
+}
+.view-updates {
+	width: 100%;
 }

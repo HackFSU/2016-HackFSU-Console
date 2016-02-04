@@ -5,8 +5,9 @@
 'use strict';
 
 import bodyParser from 'body-parser';
-import validator from 'express-validator';
 import session from 'express-session';
+
+import { validator } from 'app/routes/util';
 
 import home from 'app/routes/home';
 import register from 'app/routes/register';
@@ -15,7 +16,7 @@ import user from 'app/routes/user';
 import help from 'app/routes/help';
 import admin from 'app/routes/admin';
 import confirm from 'app/routes/confirm';
-import judge from 'app/routes/judge'
+import judge from 'app/routes/judge';
 
 export default function(app) {
 
@@ -26,7 +27,7 @@ export default function(app) {
 			extended: false
 		}),
 		bodyParser.json(),
-		validator()
+		validator
 	);
 
 	app.use(session({
@@ -64,6 +65,10 @@ export default function(app) {
 		res.redirect('/user/login');
 	});
 
+	app.get('/signup', function(req, res) {
+		res.redirect('/user/signup');
+	});
+
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
@@ -79,6 +84,7 @@ export default function(app) {
 	if(app.get('env') === 'development') {
 		app.use(function(err, req, res, next) {
 			res.status(err.status || 500);
+			req.log.error(`[leaked @ ${req.originalUrl}]`, err, err.stack);
 			res.render('error', {
 				message: err.message,
 				error: err
@@ -91,9 +97,11 @@ export default function(app) {
 	app.use(function(err, req, res, next) {
 		res.status(err.status || 500);
 
-		if (err.status === 404) {
+		if(err.status === 404) {
 			err.message = '404 IT\'S A TRAP';
 			err.starwars = true;
+		} else {
+			req.log.error('[leaked]', err, err.stack);
 		}
 
 		res.render('error', {
