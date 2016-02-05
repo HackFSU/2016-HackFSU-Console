@@ -1070,6 +1070,22 @@ table#helpreqs td {
 	width: 100%;
 }
 
+@media screen and (max-width: 839px) {
+	.hellojudge.judging {
+		line-height: 90% !important;
+		font-size: 4em !important;
+	}
+	.judge-btn-form {
+		font-size: 1.0em !important;
+	}
+}
+
+@media screen and (max-width: 373px) {
+	.judge-btn-form {
+		font-size: 0.8em !important;
+	}
+}
+
 .p {
 	font-size: 2.5em;
 	margin-bottom: .01em !important;
