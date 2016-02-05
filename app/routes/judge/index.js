@@ -1,6 +1,6 @@
+/*Judge routes
+*/
 
-/* routing
- */
 'use strict';
 
 import express from 'express';
@@ -10,6 +10,16 @@ import * as user from 'app/routes/user/middleware';
 import moment from 'moment';
 
 let router = express.Router();
+
+// Do we need this?
+// // Log the request body for all requests
+// router.use(function(req, res, next) {
+// 	if (req.app.get('env') === 'development' && req.body) {
+// 		req.log.debug({ reqBody: req.body });
+// 	}
+//
+// 	next();
+// });
 
 router.route('/')
 .get(

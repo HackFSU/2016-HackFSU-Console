@@ -140,6 +140,7 @@
 		font-size: 2em !important;
 	}
 
+
 	.hero.date {
 		font-size: 2.5em !important;
 		margin-bottom: 0.25em !important;
@@ -364,8 +365,7 @@ a:link {
 }
 
 body {
-	background: #fff;
-	height: 100%;
+	background: #fff ;
 }
 
 
@@ -1051,6 +1051,11 @@ a.state-farm-logo > img {
 
 a.domi-logo > img {
 	padding-bottom: 40px;
+}
+
+.ibm_logo > img {
+	max-width: 140px !important;
+	height: auto;
 }
 
 a.seminole-dining-logo > img {

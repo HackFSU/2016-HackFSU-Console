@@ -18,6 +18,15 @@ router.use(function(req, res, next) {
 	next();
 });
 
+router.get('/:code', function(req, res, next) {
+	if (req.params.code === 'a2656af3d7e9781cc6bd13542e6cd1f29e0e5999df1e0489434d5a6fe5df8b0b') {
+		res.render('registration/index');
+	}
+	else {
+		res.redirect('/#register');
+	}
+});
+
 // Routes for /register
 router.route('/')
 // GET /register
@@ -29,11 +38,11 @@ router.route('/')
 // POST /register
 // Create new registration
 .post(
-	function(req, res, next) {
-		res.json({
-			error: 'Registration is closed.'
-		});
-	},
+	// function(req, res, next) {
+	// 	res.json({
+	// 		error: 'Registration is closed.'
+	// 	});
+	// },
 	middleware.validateRegistration,
 	middleware.signUpHacker,
 	middleware.sendConfirmationEmail,
