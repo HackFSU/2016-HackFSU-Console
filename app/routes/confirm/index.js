@@ -6,7 +6,6 @@
 
 import express from 'express';
 import * as middleware from './middleware';
-import moment from 'moment';
 
 
 let router = express.Router();
@@ -20,6 +19,20 @@ router.use(function(req, res, next) {
 	next();
 });
 
+// Routes for /confirm/:email
+// NOTE: This will ONLY be available for day-of checkins in which the hacker
+// hasn't already confirmed. This way, they can easily confirm with just their
+// email.
+router.route(/\/([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)/)
+.get(
+	function(req, res, next) {
+		req.params.email = req.params[0];
+		next();
+	},
+	middleware.checkPhoneSet,
+	middleware.renderConfirmationPage
+);
+
 // Routes for /confirm/:id
 router.route('/:id')
 // GET /
@@ -27,14 +40,7 @@ router.route('/:id')
 // TODO: Implement the phoneNotSet feature
 .get(
 	middleware.checkPhoneSet,
-	function(req, res, next) {
-		res.render('confirm/index', {
-			title: 'Confirm Your Attendance!',
-			date: moment().format("MMMM DD, YYYY"),
-			phoneNotSet: req.phoneNotSet,
-			hackerId: req.params.id
-		});
-	}
+	middleware.renderConfirmationPage
 );
 
 router.route('/')
@@ -48,11 +54,5 @@ router.route('/')
 		res.json(req.confirmation);
 	}
 );
-
-// Routes for /confirm/:email
-// NOTE: This will ONLY be available for day-of checkins in which the hacker
-// hasn't already confirmed. This way, they can easily confirm with just their
-// email.
-// TODO: Implement this
 
 export default router;

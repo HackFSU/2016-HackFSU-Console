@@ -7,6 +7,21 @@
 import _ from 'lodash';
 import Hacker from 'app/models/Hacker';
 import Confirmation from 'app/models/Confirmation';
+import moment from 'moment';
+
+
+/**
+* Middleware to display confirmation page
+*/
+export function renderConfirmationPage(req, res, next) {
+	res.render('confirm/index', {
+		title: 'Confirm Your Attendance!',
+		date: moment().format("MMMM DD, YYYY"),
+		phoneNotSet: req.phoneNotSet,
+		hackerId: req.params.id
+	});
+}
+
 
 
 /**
@@ -16,9 +31,21 @@ import Confirmation from 'app/models/Confirmation';
 *
 * NOTE: This also has a nice side-effect of disabling the confirmation form if
 * someone tries an invalid ID.
+*
+* Recently added: Now accept email instead of ID for day-of readiness.
 */
 export function checkPhoneSet(req, res, next) {
-	Hacker.find(req.params.id).then((hacker) => {
+	let promiseFind;
+	req.log.info({ params: req.params }, 'URI Params');
+
+	if (!!req.params.id) {
+		promiseFind = Hacker.find(req.params.id);
+	}
+	else if (!!req.params.email) {
+		promiseFind = Hacker.findByEmail(req.params.email);
+	}
+
+	promiseFind.then((hacker) => {
 		const phone = hacker.get('user').get('phone');
 		req.phoneNotSet = _.isEmpty(phone);
 		next();
