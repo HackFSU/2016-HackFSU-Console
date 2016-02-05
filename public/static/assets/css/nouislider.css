@@ -154,3 +154,19 @@
 [disabled] .noUi-handle {
 	cursor: not-allowed;
 }
+
+#jslider1{
+	margin-left: auto !important;
+	margin-right: auto !important;
+	width: 90%;
+}
+#jslider2{
+	margin-left: auto !important;
+	margin-right: auto !important;
+	width: 90%;
+}
+#jslider3{
+	margin-left: auto !important;
+	margin-right: auto !important;
+	width: 90%;
+}

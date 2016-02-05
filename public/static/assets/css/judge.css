@@ -150,11 +150,11 @@ color: #a8d3f1;
 	}
 
 	#titlePiece {
-		display: none;
+		display: block;
 	}
 
 	#titlePiece2 {
-		display: none;
+		display: block;
 	}
 
 	.margin-right-15 {
@@ -510,7 +510,7 @@ input, textarea, select, option {
 	font-weight: 400;
 	font-size: 16px;
 	font-family: 'Open Sans', sans-serif;
-	color: #303030;
+	color: #fff;
 }
 textarea, select {
 	border: 0.3em solid #d2ebfc;
@@ -1036,7 +1036,7 @@ table#helpreqs td {
 	background-color: transparent;
 	border-radius: 3px;
 	border: 0.2em solid #8bd1c9;
-	/*padding: 10px;*/
+	padding-top: 10px;
 	outline: 0;
 	font-weight: 600;
 	transition: 200ms all;
@@ -1061,16 +1061,18 @@ table#helpreqs td {
 	width: 100%;
 }
 
-.hellojudge.happy{
-	font-size: 7em;
+
+@media screen and (max-width: 839px) {
+	.hellojudge.happy{
+	font-size: 5em !important;
 	margin-bottom: 0em !important;
 	font-weight:300;
 	color:#fff;
-	line-height: 20%;
+	/*line-height: 20%;*/
 	width: 100%;
-}
+	padding-bottom: 0px;
+	}
 
-@media screen and (max-width: 839px) {
 	.hellojudge.judging {
 		line-height: 90% !important;
 		font-size: 4em !important;
@@ -1094,7 +1096,7 @@ table#helpreqs td {
 }
 
 .plist {
-	font-size: 2em;
+	font-size: 1.8em;
 	margin-bottom: 1em !important;
 	color:#fff;
 	line-height: 120%;
@@ -1102,21 +1104,21 @@ table#helpreqs td {
 }
 
 #judge1 {
-	margin-top:100px;
-	margin-bottom: 50px;
+	margin-top:10px;
+	margin-bottom: 0px;
 	min-height: 600px;
 	text-align:center;
 	width:100%;
 }
 
 #judge2 {
-	margin-top:-200px;
+	margin-top: -70px;
 	margin-bottom: 50px;
-	min-height: 600px;
+	/*min-height: 600px;*/
 }
 
 #judge2 h2 {
-	font-size: 3em;
+	font-size: 2.5em;
 }
 
 #judge3 {
@@ -1130,7 +1132,7 @@ table#helpreqs td {
 	display: inline-block;
 	/*padding: 6px 12px;*/
 	margin-bottom: 0;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 300;
 	color: #a8d3f1;
 	line-height: 1.42857143;
@@ -1158,13 +1160,13 @@ table#helpreqs td {
 					box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
 }
 .judge-btn-form {
-	width: 30%;
+	width: 50%;
 		height: 3em;
-		margin-top: 10px;
+		margin-top: 9px;
 		background-color: #fff;
 		border-radius: 10px;
 		border: 0.2em solid #fff;
-		padding: 0;
+		padding-top:.49em;
 		/*margin-left: 1.5em;*/
 		outline: 0;
 		font-weight: 600;
@@ -1172,7 +1174,7 @@ table#helpreqs td {
 		-webkit-transition: 200ms all;
 		-moz-transition: 200ms all;
 		-o-transition: 200ms all;
-		margin-bottom: 100px;
+		/*margin-bottom: 100px;*/
 		font-size: 1.8em;
 }
 .judge-btn-form:hover:not(:disabled) {
@@ -1182,15 +1184,17 @@ table#helpreqs td {
 	box-shadow: none;
 }
 
+#judge2 .section {
+	padding-top: 0px;
+}
 
 .judgehack1 {
-		color: #fff;
-    /*color:#303030 ;*/
+	color: #fff;
     font-weight:100;
+	font-size: 2.5em;
 }
 .judgehack2 {
-		color:#fff;
-    /*color:#303030;*/
+	color:#fff;
     font-family:'Uni Sans', sans-serif;
     font-weight:600;
 }
@@ -1203,6 +1207,11 @@ table#helpreqs td {
 	    text-align: left;
 	    font-family: 'Uni Sans', sans-serif;
 }
+
+#judge2 h2 {
+	font-size:2.8em;
+}
+
 
 .categoryTitle{
 	font-size: 3.5em;
@@ -1226,26 +1235,6 @@ table#helpreqs td {
 	padding-top: 50px;
 }
 
-@media screen and (max-width: 320px) {
-	#sponsor-logos {
-		margin-top: -70px;
-	}
-	.apple-logo img {
-		margin: 110px;
-	}
-
-	a.state-farm-logo > img {
-		max-width: 350px !important;
-	}
-
-	a.jmi-logo > img {
-		margin-left: 0px;
-		padding-bottom: 0px;
-		padding-right: 0px;
-		max-width: 300px !important;
-	}
-
-	a.domi-logo > img {
-		padding-bottom: 0;
-	}
+#judge-btn option {
+	color: #fff;
 }
