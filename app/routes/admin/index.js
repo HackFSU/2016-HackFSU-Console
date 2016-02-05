@@ -20,7 +20,7 @@ import users from 'app/routes/admin/users';
 
 const router = express.Router();
 
-router.all('*', acl.use()); // switch back to 'Admin' when ready
+router.all('*', acl.use('Admin')); // switch back to 'Admin' when ready
 
 
 router.get('/', function(req, res) {
