@@ -13,9 +13,7 @@ block content
 			.title-separator.margin-left-7
 			#confirmation(style='display: none;').margin-left-7.margin-right-15
 					p 
-						| Thanks for signing up to become a judge! Once an administrator accepts your request you will be able to judge hacks. You can now login at 
-						a(href='/login') hackfsu.com/login
-						|  and check your status on your profile page.
+						| Judge successfully added.
 				.clear
 			#errors(style='display: none;')
 				.three_fourth.margin-left-7
@@ -23,14 +21,7 @@ block content
 				.one_fourth.last
 				.clear
 			form#signup(method='post' action='' autocomplete='off')
-				.one
-					#signup-blurb
-						| Sign up for a judge account here! If you already have an account, 
-						a(href='/user/login') login
-						|  first and then request to become a judge from your profile page.
-						
-				.clear
-				div#signup-form
+				div#signup-form.margin-left-7
 					.one_fourth
 						label(for='email') Email *
 					.one_half
@@ -49,70 +40,6 @@ block content
 						label(for='lastName') Last Name *
 					.one_half
 						input#lastName(type='text' placeholder='Lovelace' name='lastName' data-validation='required')
-					.one_fourth.last
-					.clear
-							
-					.one_fourth
-						label(for='password') Password *
-					.one_half
-						input#password(type='password' name='password' placeholder='Password' data-validation='length' data-validation-length='min8' data-validation-help="Must be 8 or more characters")
-						.clear
-					.one_fourth.last
-					.clear
-						
-					.one_fourth
-							label(for='passwordconfirm') Confirm Password *
-					.one_half
-							input#passwordconfirm(type='password' name='passwordconfirm' placeholder='Confirm password' data-validation='confirmation' data-validation-confirm='password')
-					.one_fourth.last
-					.clear
-							
-					.one_fourth
-						label(for='shirtSize') Shirt Size *
-					.one_half
-						select#shirtSize(name='shirtSize' value='shirtSize' data-validation='required')
-							option(selected='true' disabled='true') Pick your size
-							each val, key in store.shirtSizes
-								option(value='#{key}')= val
-					.one_fourth.last
-					.clear
-						
-					.one_fourth
-						label(for='phone') Phone Number *
-					.one_half
-						input#phone(type='text' name='phone' placeholder='850-867-5309' data-validation='required')
-					.one_fourth.last
-					.clear
-					
-					.one_fourth
-						label(for='github') GitHub Username
-					.one_half
-						input#github(type='text' name='github' placeholder='ada95' data-validation-help="Please enter JUST your username. Don't include the URL part!")
-					.one_fourth.last
-					.clear
-					
-					.one_fourth
-						label(for='diet') Dietary restrictions?
-					.one_half
-						input#diet(type='text' name='diet' placeholder='Vegan, vegetarian, etc.')
-					.one_fourth.last
-					.clear
-					
-					.one_fourth
-						label(for="mlhcoc") Code of Conduct *
-					.one_half
-						input#mlhcoc(type='checkbox' value='true' data-validation='required' name='mlhcoc')
-						label(for='mlhcoc') I will abide by the <a target="_blank" href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a> for the duration of the event.
-					.one_fourth.last
-					.clear
-					
-					.one_fourth
-						label(for='waiver') Waiver *
-					.one_half
-							input#waiver(type='text' placeholder="Please sign your name" data-validation='required' name='waiverSignature')
-							.help-block By signing your name above, on this day of <span style="text-decoration: underline">#{date}</span>, you hereby agree to the terms of our 
-								a(href="/docs/release-of-liability.pdf" target="_blank") Release of Liability 
-								| waiver.
 					.one_fourth.last
 					.clear
 
