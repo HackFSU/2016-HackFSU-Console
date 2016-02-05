@@ -50,13 +50,18 @@ router.route('/profile')
 .get(
 	acl.use('User'),
 	function(req, res, next) {
-		// TODO remove this, this is just temporary
-		if(!res.locals.acl.canAccess.Admin) {
-			req.session.destroy();
-			res.redirect('/no?notReady=true');
-			return;
+		// redirect non-admin roles to respective pages
+		let uAcl = res.locals.acl;
+		if(uAcl.isRole.Admin) {
+	next();
+	return;
 		}
-		next();
+
+		// Uncomment this when it is ready to auto redirect judges
+	// if(uAcl.isRole.Judge) {
+	//     res.redirect('/judge');
+	//     return;
+	// }
 	},
 	middleware.loadUserData,
 	function(req, res) {

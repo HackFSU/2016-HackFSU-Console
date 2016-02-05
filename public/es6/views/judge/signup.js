@@ -6,7 +6,7 @@
 (function() {
 	'use strict';
 
-	const POST_URL = '/judge';
+	const POST_URL = '/judge/signup';
 	const FORM_SELECTOR = '#signup';
 
 	let errorView = $('#errors');

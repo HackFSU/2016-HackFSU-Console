@@ -11,26 +11,30 @@ import moment from 'moment';
 
 let router = express.Router();
 
-// Do we need this?
-// // Log the request body for all requests
-// router.use(function(req, res, next) {
-// 	if (req.app.get('env') === 'development' && req.body) {
-// 		req.log.debug({ reqBody: req.body });
-// 	}
-//
-// 	next();
-// });
-
+/**
+ * Main judge page, where judges judge hacks
+ */
 router.route('/')
 .get(
-	redirectRoles(['Judge'], '/judge/hacks'),
-	redirectRoles(['User'], '/judge/userSignup'),
+	acl.use('Judge'),
 	function(req, res) {
 		res.render('judge/index', {
 			date: moment().format("MMMM DD, YYYY"),
 		});
 	}
-)
+);
+
+/**
+ * Admin page to create judge accounts.
+ * Still need to be accepted in /admin/judges to complete process
+ */
+router.route('/signup')
+.all(acl.use('Admin')) // We will make their accounts!
+.get(function(req, res) {
+	res.render('judge/signup', {
+		date: moment().format("MMMM DD, YYYY"),
+	});
+})
 .post(
 	user.validateSignup,
 	user.checkEmailUsed,
@@ -42,8 +46,12 @@ router.route('/')
 	}
 );
 
+// For applying to become a judge for the current user
 router.route('/userSignup')
-.all(acl.use('User'))
+.all(
+	redirectRoles('Judge', '/judge'), // no need for them to be here
+	acl.use('Admin') // switch to Mentor when ready
+)
 .get(function(req, res) {
 	res.render('judge/userSignup', {
 		date: moment().format("MMMM DD, YYYY"),
@@ -57,13 +65,5 @@ router.route('/userSignup')
 	}
 );
 
-// page where the judgin happens
-router.route('/hacks')
-.get(
-	acl.use('Judge'),
-	function(req, res) {
-		res.render('judge/hacks');
-	}
-);
 
 export default router;

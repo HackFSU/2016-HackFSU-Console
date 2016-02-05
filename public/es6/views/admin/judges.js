@@ -106,7 +106,12 @@
 			};
 
 			// Accept Button
-			newRow.actions += createActionBtnHtml('Accept', newRow.status === 'pending', rowData.objectId);
+			if(newRow.status === 'pending') {
+				newRow.actions += createActionBtnHtml(
+					'Accept', newRow.status === 'pending', rowData.objectId
+				);
+			}
+
 
 			// save new & delete original
 			finalRows.push(newRow);

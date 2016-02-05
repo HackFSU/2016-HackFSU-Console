@@ -22,8 +22,8 @@ export function validate(req, res, next) {
 export function save(req, res, next) {
 	let userId;
 
-	// Grab the userId from current or stored user
-	if(req.session && req.session.user) {
+	// Grab the userId from current or stored user (allow admin creation)
+	if(req.session && req.session.user && !(res.locals.user && res.locals.acl.canAccess.Admin)) {
 		userId = req.session.user.userId;
 	} else if(res.locals.user) {
 		userId = res.locals.user.objectId;
