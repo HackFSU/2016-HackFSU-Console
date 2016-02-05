@@ -1053,6 +1053,11 @@ a.domi-logo > img {
 	padding-bottom: 40px;
 }
 
+.ibm_logo > img {
+	max-width: 140px !important;
+	height: auto;
+}
+
 a.seminole-dining-logo > img {
 	padding-bottom: 35px;
 }
@@ -1226,4 +1231,8 @@ table#helpreqs td {
 .debug {
 	margin-top: 200px;
 	margin-bottom: 100px;
+}
+
+.eventinfop {
+	font-size: 22px;
 }
