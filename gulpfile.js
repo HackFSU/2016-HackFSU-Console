@@ -13,6 +13,7 @@ var jshint = require('gulp-jshint');
 var sourcemaps = require('gulp-sourcemaps');
 var fs = require('fs-extra');
 var header = require('gulp-header');
+require('app-module-path/register');	// allows app/* require() access
 
 /**
  * Command Line Arguments
