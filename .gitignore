@@ -4,6 +4,7 @@ bower_components
 public/build
 scripts/build
 test
+wifikeys
 
 # Misc system-specific files
 npm-debug.log
