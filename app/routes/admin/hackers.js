@@ -25,7 +25,8 @@ router.route('/list')
 		let query = new Parse.Query(Hacker);
 		query.limit(10000);
 		query.include([
-			'user'
+			'user',
+			'user.wifiCred'
 		]);
 		query.select([
 			'school',
@@ -46,7 +47,9 @@ router.route('/list')
 			'user.email',
 			'user.diet',
 			'user.shirtSize',
-			'resume'
+			'resume',
+			'user.wifiCred.password',
+			'user.wifiCred.username'
 		]);
 		return query;
 	}, 2),

@@ -39,6 +39,8 @@
 		'Resume': 'resume',
 		'Created At': 'createdAt',
 
+		'Wifi Creds': 'wifiCreds',
+
 		'Actions': 'actions'
 	};
 
@@ -130,7 +132,8 @@
 				comments: rowData.comments? rowData.comments.trim() : '',
 				resume: rowData.resume? rowData.resume.url : '',
 				createdAt: rowData.createdAt,
-				actions: ''
+				actions: '',
+				wifiCreds: ''
 			};
 
 			// handle missing yesno18, do not assume anything if not there
@@ -140,6 +143,11 @@
 				newRow.yesno18 = 'Y';
 			} else {
 				newRow.yesno18 = '';
+			}
+
+			let cred = rowData.user.wifiCred;
+			if(cred) {
+				newRow.wifiCreds = `${cred.username} : ${cred.password}`;
 			}
 
 
