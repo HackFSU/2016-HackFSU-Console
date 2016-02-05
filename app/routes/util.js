@@ -38,6 +38,7 @@ if(process.env.env === 'development')  {
 
 /**
  * Validatior w/ custom functions
+ * Can be used just like normal
  */
 export const validator = expressValidator({
 	customSanitizers: {
@@ -61,6 +62,7 @@ export const validator = expressValidator({
 /**
  * Merge one or more queries into one call
  * Results unioned and put into req.locals.queryChainResults
+ * Returns middleware that calls next() after queries are completed
  */
 export function queryFind(queryMaker, numPages, errorHandler) {
 	let queries = [];
@@ -85,15 +87,8 @@ export function queryFind(queryMaker, numPages, errorHandler) {
 		}
 
 		if(!errorHandler) {
-			errorHandler = function(err) {
-				req.log.error('[queryChain] Parse Error', err);
-				res.status(500);
-				res.json({
-					error: err
-				});
-			};
+			errorHandler = stdServerErrorResponse(req, res, 'Parse Error');
 		}
-
 
 		let queryPromises = [];
 		queries.forEach(function(query, i) {
@@ -135,9 +130,16 @@ export function stdServerErrorResponse(req, res, logMessage) {
 }
 
 
-// Generates middleware for easy redirects
+/**
+ * Generates middleware for easy redirects
+ * Users that match a role in roleNames[] will be redirected to redirectUrl
+ */
 export function redirectRoles(roleNames, redirectUrl) {
 	let checkKey = 0;
+
+    if(typeof roleNames === 'string') {
+        roleNames = [roleNames];
+    }
 
 	// get the final checkKey
 	roleNames.forEach(function(roleName) {

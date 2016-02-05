@@ -5,7 +5,7 @@ block localJS
 
 block content
 	// Home
-	#dry-home.home.section.relative
+	#dry-home.home.section.relative(style='max-height:595px;')
 		.block.content-960.center-relative
 			// Home text slider
 			.hero.topRight
@@ -23,6 +23,140 @@ block content
 		// Background Slider Holder
 		ul#supersized
 	// Services
+
+	#eventinfo.clear.services.section.block(style='margin-top:-60px;')
+		.block.content-960.center-relative
+			h2.section-title Event Info
+			.title-separator
+			.two_third.last The weekend is here! Stay up to date with what's going on during the event with the tools below.
+
+			.two_third
+				img(src='/assets/img/woodward-dirac.png')
+			.one_third.last
+				ul.schedule-list
+					li.schedule-title-list.eventinfop Park at Woodward garage
+					li.schedule-title-list.eventinfop Follow the green line to Dirac Science Library
+				br
+				br
+				strong.eventinfop Main Venue Address:
+				p.eventinfop 110 N Woodward Ave, Tallahassee, FL 32301
+				p.eventinfop #[a(href='https://www.google.com/maps/place/Dirac+Science+Library/@30.445011,-84.3021495,17z' target='_blank') Google Maps]
+			.clear
+
+			h4.schedule-day Mobile Apps
+			p Download the HackFSU '16 mobile app to receive instant notifications about what's going on during the event.
+			br
+			.one_half
+				a(href='https://itunes.apple.com/us/app/hackfsu/id847979625?mt=8' target='_blank')
+					img(src='/assets/img/app_store_link.png')
+			.one_half.last
+				a(href='https://play.google.com/store/apps/details?id=com.hackfsu.android.hackfsu&hl=en' target='_blank')
+					img(src='/assets/img/play_store_link.png')
+			.clear
+
+			h4.schedule-day Attendees Page
+			.one.last
+				| If you haven't yet joined the HackFSU '16 attendees #[a(href='https://www.facebook.com/groups/485794934941476/' target='_blank') Facebook group], do so now!
+			.clear
+
+			h4.schedule-day Contact Info
+			.two_third.last
+				p If you need to get in contact with us, just send us a message on #[a(href='https://www.facebook.com/hackfsu' target='_blank') Facebook]!
+			.clear
+		.clear
+
+	#schedule.section
+		.block.content-960.center-relative
+			h2.section-title Schedule
+			.title-separator
+			br
+			.one
+				h4.schedule-day Thursday 
+					span.schedule-date 4<sup>th</sup>
+				.one_fourth.schedule-smaller
+					p.schedule-time 6 PM - 12 AM
+				.three_fourth.last
+					p.schedule-title iOS Workshop By Apple Engineers
+			.clear
+			hr
+			.one.last(style='margin-bottom:-5px')
+				h4.schedule-day Friday 
+					span.schedule-date 5<sup>th</sup>
+				.one_fourth
+					p.schedule-time 9 PM
+					p.schedule-time 10 PM
+					p.schedule-time 11 PM
+					p.schedule-time 11:55 PM
+				.three_fourth.last
+					p.schedule-title Registration #[span.schedule-date Dirac Science Library]
+					p.schedule-title Snack
+					p.schedule-title Opening Ceremony #[span.schedule-date HCB 101]
+					p.schedule-title Team Building
+			.clear
+			.one.last
+				h4.schedule-day Saturday 
+					span.schedule-date 6<sup>th</sup>
+				.one_fourth
+					p.schedule-time 12 AM
+					p.schedule-time 1:30 AM
+					p.schedule-time 3 AM
+					p.schedule-time 4:30 AM
+					p.schedule-time 6:45 AM
+					p.schedule-time 8 AM
+					p.schedule-time 9 AM
+					p.schedule-time 10 AM
+					p.schedule-time 1 PM
+					p.schedule-time 2 PM
+					p.schedule-time 5 PM
+					p.schedule-time 7:30 PM
+					p.schedule-time 8:30 PM
+				.three_fourth.last
+					p.schedule-title Hacking Begins
+					p.schedule-title Git Workshop
+					p.schedule-title ExpressJS Workshop
+					p.schedule-title Snack
+					p.schedule-title Hack & Tell
+					p.schedule-title Breakfast
+					p.schedule-title Ionic Framework Workshop
+					p.schedule-title Brand Building Workshop
+					p.schedule-title Lunch
+					p.schedule-title PRPL Workshop
+					p.schedule-title Design Competition
+					p.schedule-title Dinner
+					p.schedule-title Woman In Tech Discussion
+			.clear
+			.one.last(style='margin-bottom:-5px')
+				h4.schedule-day Sunday 
+					span.schedule-date 7<sup>th</sup>
+				.one_fourth
+					p.schedule-time 2:30 AM
+					p.schedule-time 6 AM
+					p.schedule-time 6:30 AM
+					p.schedule-time 8 AM
+					p.schedule-time 10:45 AM
+					p.schedule-time 12:30 PM
+				.three_fourth.last
+					p.schedule-title Snack
+					p.schedule-title Finish Hacking
+					p.schedule-title Breakfast
+					p.schedule-title Project Expo Begins #[span.schedule-date Dirac Science Library]
+					p.schedule-title Closing Ceremony #[span.schedule-date Moore Auditorium]
+					p.schedule-title Farewell
+			.clear
+			hr
+			.one.schedule-events(style='margin-top:-10px')
+				h4.schedule-day Discussions &amp; Events
+				ul.schedule-list
+					li.schedule-title-list Women in Tech
+					li.schedule-title-list Brand Building Workshop
+					li.schedule-title-list Design a Brand Competition
+					li.schedule-title-list Building a Web Server with JavaScript
+					li.schedule-title-list Ionic Framework Workshop
+				br
+				span.events-more More to be announced!
+	.clear
+	br
+	br
 
 	#about.clear.services.section.block
 		.block.content-960.center-relative
@@ -45,64 +179,6 @@ block content
 		br
 		br
 
-	#schedule.section
-		.block.content-960.center-relative
-			h2.section-title Schedule
-			.title-separator
-			br
-			.one
-				h4.schedule-day Thursday 
-					span.schedule-date 4<sup>th</sup>
-				.one_fourth.schedule-smaller
-					p.schedule-time 6 PM - 12 AM
-				.three_fourth.last
-					p.schedule-title iOS Workshop 
-					span.events-more Limited spots available, attendance by sign up only.
-					br
-					span.events-more Sign up form will be sent out to Tallahassee students through the email you registered with.
-			.clear
-			hr
-			.one_half(style='margin-bottom:-5px')
-				h4.schedule-day Friday 
-					span.schedule-date 5<sup>th</sup>
-				.one_fourth
-					p.schedule-time 9 PM
-					p.schedule-time.schedule-range &nbsp;
-					p.schedule-time 11 PM
-					p.schedule-time 12 AM
-				.three_fourth.last
-					p.schedule-title Check-In
-					p.schedule-title Sponsor Expo
-					p.schedule-title Opening Ceremony
-					p.schedule-title Hacking Starts
-			.one_half.last(style='margin-bottom:-5px')
-				h4.schedule-day Sunday 
-					span.schedule-date 7<sup>th</sup>
-				.one_fourth
-					p.schedule-time 6 AM
-					p.schedule-time 8 AM
-					p.schedule-time 11 AM
-					p.schedule-time 1 PM
-				.three_fourth.last
-					p.schedule-title Hacking Ends
-					p.schedule-title Hack Expo Begins
-					p.schedule-title Closing Ceremony
-					p.schedule-title Departure
-			.clear
-			hr
-			.one.schedule-events(style='margin-top:-10px')
-				h4.schedule-day Discussions &amp; Events
-				ul.schedule-list
-					li.schedule-title-list Women in Tech
-					li.schedule-title-list Brand Building Workshop
-					li.schedule-title-list Design a Brand Competition
-					li.schedule-title-list Building a Web Server with JavaScript
-					li.schedule-title-list Ionic Framework Workshop
-				br
-				span.events-more More to be announced!
-	.clear
-	br
-	br
 	#faq.clear.services.section.block
 		.block.content-960.center-relative
 			h2.section-title <img id='titlePiece' src='/assets/img/titlepieces1.png' />FAQ
@@ -204,8 +280,8 @@ block content
 						img(src="/assets/img/sponsors/seminole-dining-logo.png")
 					a.logo(href="https://www.codeschool.com/hackfsu2016" target="_blank")
 						img(src="/assets/img/sponsors/code_school_web.png")
-					a.logo.ibm_logo(href="https://www.ibm.com" target="_blank")
-						img(src="/assets/img/sponsors/ibm_logo.png")
+					//- a.logo.ibm_logo(href="https://www.ibm.com" target="_blank")
+					//- 	img(src="/assets/img/sponsors/ibm_logo.png")
 					a.logo(href="http://strategicdigitalservices.net/" target="_blank")
 						img(src="/assets/img/sponsors/sds_logo.png")
 					a.logo.soylent-logo(href="https://www.soylent.com" target="_blank")

@@ -94,6 +94,9 @@ export default function() {
 		// Allow Socket.io to be used by any route
 		req.io = app.io;
 
+		// Allow jade to see bare baseUrl for nav
+		res.locals.urlPath = req.originalUrl.replace(/(\?.*)|(#.*)/g, '');
+
 		next();
 	});
 
