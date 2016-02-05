@@ -9,6 +9,16 @@ var last = null;
 var total = BASE;
 var lastTotal = BASE;
 
+var sliderConfig = {
+	start: [0],
+	range: {
+		'min': [0],
+		'max': [3]
+	},
+	step: 1,
+	connect: 'lower'
+};
+
 $('#judge2').hide();
 $('#judge3').hide();
 
@@ -42,35 +52,11 @@ $('#endjudge').click(function(e) {
 	e.preventDefault();
 });
 
-noUiSlider.create(jslider1, {
-	start: [0],
-	range: {
-		'min': [0],
-		'max': [3]
-	},
-	step: 1,
-	connect: 'lower'
-});
+noUiSlider.create(jslider1, sliderConfig);
 
-noUiSlider.create(jslider2, {
-	start: [0],
-	range: {
-		'min': [0],
-		'max': [3]
-	},
-	step: 1,
-	connect: 'lower'
-});
+noUiSlider.create(jslider2, sliderConfig);
 
-noUiSlider.create(jslider3, {
-	start: [0],
-	range: {
-		'min': [0],
-		'max': [3]
-	},
-	step: 1,
-	connect: 'lower'
-});
+noUiSlider.create(jslider3, sliderConfig);
 
 jslider1.noUiSlider.on('update', function() {
 	last = jslider1.getAttribute('id');
