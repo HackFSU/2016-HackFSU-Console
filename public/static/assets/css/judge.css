@@ -1082,6 +1082,9 @@ table#helpreqs td {
 	}
 }
 
+
+/* Apple Ipad*/
+
 @media screen and (max-width: 373px) {
 	.judge-btn-form {
 		font-size: 0.8em !important;
@@ -1161,21 +1164,22 @@ table#helpreqs td {
 }
 .judge-btn-form {
 	width: 50%;
-		height: 3em;
-		margin-top: 9px;
-		background-color: #fff;
-		border-radius: 10px;
-		border: 0.2em solid #fff;
-		padding-top:.49em;
-		/*margin-left: 1.5em;*/
-		outline: 0;
-		font-weight: 600;
-		transition: 200ms all;
-		-webkit-transition: 200ms all;
-		-moz-transition: 200ms all;
-		-o-transition: 200ms all;
-		/*margin-bottom: 100px;*/
-		font-size: 1.8em;
+	height: 3em;
+	margin-top: auto;
+	background-color: #fff;
+	border-radius: 10px;
+	border: 0.2em solid #fff;
+	padding-top:auto;
+	padding-bottom: auto;
+	/*margin-left: 1.5em;*/
+	outline: 0;
+	font-weight: 600;
+	transition: 200ms all;
+	-webkit-transition: 200ms all;
+	-moz-transition: 200ms all;
+	-o-transition: 200ms all;
+	/*margin-bottom: 100px;*/
+	font-size: 1.8em;
 }
 .judge-btn-form:hover:not(:disabled) {
 	background-color: #a8d3f1;
@@ -1214,7 +1218,7 @@ table#helpreqs td {
 
 
 .categoryTitle{
-	font-size: 3.5em;
+	font-size: 3em;
 }
 
 .categories{

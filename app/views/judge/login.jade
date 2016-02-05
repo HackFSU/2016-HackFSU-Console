@@ -1,0 +1,42 @@
+extend ../_layouts/standard
+block vars
+	- title = 'Judge Log in'
+
+block localJS
+	script(src='/bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js')
+	script(src='/js/views/user/login.js')
+		
+block content
+	#login-page.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed.singleLineText.margin-left-7 Login
+			.title-separator.margin-left-7
+			//- #errors(style='display: #{accessDenied? "block" :"none"};')
+			//- 	.three_fourth.margin-left-7
+			//- 		#error-messages
+			//- 			if accessDenied
+			//- 				h3 <strong>Oh no!</strong> Access Denied
+			//- 	.one_fourth.last
+			//- 	.clear
+			form#login(method='post' autocomplete='off')
+				div#mentor-form
+					.one_fourth
+						label(for='email') Email *
+					.one_half
+						input#email(type='text' name='email' data-validation='email')
+					.one_fourth.last
+					.clear
+					
+					.one_fourth
+						label(for='password') Password *
+					.one_half
+						input#password(type='password' name='password' data-validation='required')
+					.one_fourth.last
+					.clear
+				
+					.one_fourth
+					.one_half
+						button#submit.btn.btn-form(type='submit') SUBMIT
+					.one_fourth.last
+					.clear
+.clear
