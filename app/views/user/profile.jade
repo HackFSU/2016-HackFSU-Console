@@ -1,4 +1,4 @@
-extend ../_layouts/standard
+extend ../_layouts/user
 block vars
 	- title = 'Profile'
 	
@@ -13,13 +13,38 @@ block content
 				h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
 					| Welcome to HackFSU 2016
 				.title-separator(style='border-color: #303030')
-				if acl.canAccess.Admin
-					.adminlink 
-						a(href='/admin') ADMIN PAGES
+			
 				br
 				br
 				
 				h2= user.firstName + " " + user.lastName
+				br
+				
+				p
+					-	var roles = [];
+					-	if(acl.isRole.Hacker) {
+					-		roles.push('a Hacker');
+					-	}
+					-	if(acl.isRole.Mentor) {
+					-		roles.push('a Mentor');
+					-	}
+					-	if(acl.isRole.Judge) {
+					-		roles.push('a Judge');
+					-	}
+					-	if(acl.isRole.Admin) {
+					-		roles.push('an Admin');
+					-	}
+					-
+					-	if(!roles.length) {
+					-		roles.push('a User');
+					-	}
+					-
+					-	if(roles.length > 1) {
+					-		roles[roles.length-1] = 'and ' + roles[roles.length-1]; 
+					-	}
+				
+					strong You are #{roles.join(", ")}
+				
 				br
 				p
 					strong GitHub: 
