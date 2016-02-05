@@ -1,0 +1,47 @@
+extends ../_layouts/standard
+
+block vars
+	- title = 'Check In'
+
+block localCSS
+	link(rel="stylesheet" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css")
+		
+block localJS
+	script(src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js")
+	script(src='/socket.io/socket.io.js')
+	script(src='/js/checkin.js')
+
+block content
+	#checkin-page.clear.services.section.block
+		.block.content-960.center-relative
+			h2.section-title-fixed.singleLineText Check In
+			.title-separator
+			
+			#checkin-section
+				table#checkin.dataTable
+					thead
+						tr
+							th Name
+							th School
+							th Email
+							th Actions
+					tbody
+						//- each req in helpReqs
+						//- 	tr 
+						//- 		td= req.get('name')
+						//- 		td= req.get('location')
+						//- 		td= req.get('description')
+						//- 		td
+						//- 			button.btn.btn-help Assign to Me
+						//- 			div(id="assign-#{req.id}")
+						//- 				input(id="hr-#{req.id}" type="hidden" name="helpreq" value="#{req.id}")
+						//- 				input(id="m-#{mentor.id}" type="hidden" name="mentor" value="#{mentor.id}")
+						//- if helpReqs.length === 0
+						//- 	tr 
+						//- 		td(colspan="4") No help requests
+						tr
+							td full name
+							td school name
+							td email address
+							td
+								button.btn.btn-help Check In

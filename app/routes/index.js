@@ -17,6 +17,7 @@ import help from 'app/routes/help';
 import admin from 'app/routes/admin';
 import confirm from 'app/routes/confirm';
 import judge from 'app/routes/judge';
+import checkin from 'app/routes/checkin';
 
 export default function(app) {
 
@@ -51,6 +52,7 @@ export default function(app) {
 	app.use('/admin', admin);
 	app.use('/confirm', confirm);
 	app.use('/judge', judge);
+	app.use('/checkin', checkin);
 
 	/**
 	 * Random pages/shortcuts
