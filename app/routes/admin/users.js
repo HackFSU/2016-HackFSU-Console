@@ -1,58 +1,41 @@
 /**
- * /admin/hackers/*
+ * /admin/user/*
  *
- * Handles hacker Administration
+ * Basic user admin page
  */
 'use strict';
 
 import express from 'express';
 import Parse from 'parse/node';
-import Hacker from 'app/models/Hacker';
+import User from 'app/models/User';
 import { queryFind } from 'app/routes/util';
 import WifiCred from 'app/models/WifiCred';
-import User from 'app/models/User';
 
 const router = express.Router();
 
 router.route('/')
 .get(function(req, res) {
-	res.render('admin/hackers');
+	res.render('admin/users');
 });
 
 router.route('/list')
 .get(
 	queryFind(function() {
-		let query = new Parse.Query(Hacker);
-		query.limit(10000);
+		let query = new Parse.Query(User);
 		query.include([
-			'user',
-			'user.wifiCred'
+			'wifiCred'
 		]);
 		query.select([
-			'school',
-			'major',
-			'firstHackathon',
-			'hate',
-			'major',
-			'wants',
-			'year',
-			'wantjob',
-			'comments',
-			'yesno18',
-			'status',
-			'user.firstName',
-			'user.lastName',
-			'user.github',
-			'user.phone',
-			'user.email',
-			'user.diet',
-			'user.shirtSize',
-			'resume',
-			'user.wifiCred.password',
-			'user.wifiCred.username'
+			'firstName',
+			'lastName',
+			'email',
+			'github',
+			'phone',
+			'wifiCred.username',
+			'wifiCred.password'
 		]);
 		return query;
-	}, 2),
+	}),
 	function(req, res) {
 		res.json({
 			data: res.locals.queryResults
@@ -60,7 +43,7 @@ router.route('/list')
 	}
 );
 
-router.route('/checkin')
+router.route('/giveWifiCreds')
 .post(
 	// validate
 	function(req, res, next) {
@@ -77,14 +60,13 @@ router.route('/checkin')
 
 	// load the user data
 	queryFind(function(req, res) {
-		let query = new Parse.Query(Hacker);
+		let query = new Parse.Query(User);
 		query.equalTo('objectId', req.body.objectId);
 		query.include([
-			'user'
+			'wifiCred'
 		]);
 		query.select([
-			'status',
-			'user.email'
+			'wifiCred.uername'
 		]);
 		return query;
 	}),
@@ -93,39 +75,27 @@ router.route('/checkin')
 	function(req, res, next) {
 		if(!res.locals.queryResults.length) {
 			res.json({
-				error: `Invalid hacker "${req.body.objectId}"`
+				error: `Invalid objectId "${req.body.objectId}"`
 			});
 			return;
 		}
 
-		// got a hacker!
-		let hacker = res.locals.hacker = res.locals.queryResults[0];
+		// got obj
+		let user = res.locals.user = res.locals.queryResults[0];
 
-		if(hacker.get('status') === 'checked in') {
-			// Already checked in, stop and return success
+		if(user.get('wifiCred')) {
+			// Already have keys, stop and return success
 			res.json({
-				message: 'Already checked in'
+				message: 'Already have keys'
 			});
 			return;
 		}
-
-		// build user instance obj
-		let userData = hacker.get('user');
-		let user = res.locals.user = new User();
-		user.id = userData.objectId;
-		user.set('email', userData.email);
-
 		next();
 	},
 
-	// Get a free key and assign it to the user (non-fsu only)
+	// Get a free key and assign it to the user (allow fsu)
 	function(req, res, next) {
 		let email = res.locals.email = res.locals.user.get('email');
-		if(email.match(/^.*@.*fsu\.edu$/i)) {
-			// is fsu student, doesnt need a creds
-			next();
-			return;
-		}
 
 		WifiCred.getUnassigned()
 		.then(function(cred) {
@@ -137,7 +107,7 @@ router.route('/checkin')
 		})
 		.catch(function(err) {
 			// keep the request going, but log it
-			req.log.error('[checkin] Cannot get wifi cred:', err);
+			req.log.error('[users] Cannot get wifi cred:', err);
 			next();
 		});
 
@@ -147,19 +117,16 @@ router.route('/checkin')
 	function(req, res, next) {
 		let objs = [
 			res.locals.user,
-			res.locals.hacker
 		];
 
 		if(res.locals.cred) {
 			objs.push(res.locals.cred);
 		}
 
-		res.locals.hacker.set('status', 'checked in');
-
 		Parse.Object.saveAll(objs).then(function() {
 			next();
 		}, function(err) {
-			req.log.error('[checkin] Unable to save.', err);
+			req.log.error('[users] Unable to save.', err);
 			res.status(500);
 			res.json({
 				error: err
@@ -173,7 +140,7 @@ router.route('/checkin')
 
 	// Send a success!
 	function(req, res) {
-		req.log.info(`[hackers] Hacker ${res.locals.hacker.id} checked in`);
+		req.log.info(`[users] User ${res.locals.user.id} given wifi keys`);
 		res.json({});
 	}
 );

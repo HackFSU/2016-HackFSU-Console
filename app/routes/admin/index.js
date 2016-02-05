@@ -16,6 +16,7 @@ import stats from 'app/routes/admin/stats';
 import updates from 'app/routes/admin/updates';
 import mentors from 'app/routes/admin/mentors';
 import judges from 'app/routes/admin/judges';
+import users from 'app/routes/admin/users';
 
 const router = express.Router();
 
@@ -32,6 +33,7 @@ router.use('/stats', stats);
 router.use('/updates', updates);
 router.use('/mentors', mentors);
 router.use('/judges', judges);
+router.use('/users', users);
 
 /**
  * Acl debugging, load it if you get confused about the acl

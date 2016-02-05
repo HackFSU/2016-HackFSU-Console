@@ -6,8 +6,11 @@
 'use strict';
 
 import express from 'express';
-import { acl } from 'app/routes/util';
+import { acl, queryFind } from 'app/routes/util';
 import * as middleware from 'app/routes/user/middleware';
+import Parse from 'parse/node';
+import User from 'app/models/User';
+import store from 'app/store';
 
 
 const router = express.Router();
@@ -53,18 +56,51 @@ router.route('/profile')
 		// redirect non-admin roles to respective pages
 		let uAcl = res.locals.acl;
 		if(uAcl.isRole.Admin) {
-	next();
-	return;
+			next();
+			return;
 		}
 
 		// Uncomment this when it is ready to auto redirect judges
-	// if(uAcl.isRole.Judge) {
-	//     res.redirect('/judge');
-	//     return;
-	// }
+		// if(uAcl.isRole.Judge) {
+		//     res.redirect('/judge');
+		//     return;
+		// }
+
+		next();
 	},
-	middleware.loadUserData,
+	queryFind(function(req) {
+		let query = new Parse.Query(User);
+		query.equalTo('objectId', req.session.user.userId);
+		query.include([
+			'wifiCred'
+		]);
+		query.select([
+			'firstName',
+			'lastName',
+			'github',
+			'phone',
+			'diet',
+			'shirtSize',
+			'email',
+			'wifiCred.username',
+			'wifiCred.password'
+		]);
+		return query;
+	}),
 	function(req, res) {
+		// Flatten user object
+		let userInstance = res.locals.queryResults[0];
+		res.locals.user = {
+			firstName: userInstance.get('firstName'),
+			lastName: userInstance.get('lastName'),
+			github: userInstance.get('github'),
+			phone: userInstance.get('phone'),
+			diet: userInstance.get('diet'),
+			shirtSize: store.shirtSizes[userInstance.get('shirtSize')],
+			email: userInstance.get('email'),
+			wifiCred: userInstance.get('wifiCred'),
+		};
+
 		res.render('user/profile', {
 			title: 'Profile',
 			accessDenied: !!req.query.accessDenied,
