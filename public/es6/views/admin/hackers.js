@@ -5,6 +5,9 @@
 (function() {
 	'use strict';
 
+	const GET_HACKER_LIST_URL = '/admin/hackers/list';
+	const POST_CHECKIN_URL = '/admin/hackers/checkin';
+
 	let viewTable = $('table#view');
 	let viewHeader = viewTable.find('thead tr');
 	let viewToggle = $('#view-toggle');
@@ -34,7 +37,9 @@
 		'Hate': 'hate',
 
 		'Resume': 'resume',
-		'Created At': 'createdAt'
+		'Created At': 'createdAt',
+
+		'Actions': 'actions'
 	};
 
 	// make header
@@ -87,7 +92,7 @@
 	function getData(data, cb) {
 		$.ajax({
 			method: 'GET',
-			url: '/admin/hackers/data',
+			url: GET_HACKER_LIST_URL,
 			success: function(res) {
 				if(res.error) {
 					console.error(res.error);
@@ -124,7 +129,8 @@
 				wants: rowData.wants? rowData.wants.join(', ') : '',
 				comments: rowData.comments? rowData.comments.trim() : '',
 				resume: rowData.resume? rowData.resume.url : '',
-				createdAt: rowData.createdAt
+				createdAt: rowData.createdAt,
+				actions: ''
 			};
 
 			// handle missing yesno18, do not assume anything if not there
@@ -136,6 +142,12 @@
 				newRow.yesno18 = '';
 			}
 
+
+			if(newRow.status === 'confirmed') {
+				newRow.actions += createActionBtnHtml(
+					'Check In', newRow.status === 'confirmed', rowData.objectId
+				);
+			}
 
 			// save new & delete original
 			finalRows.push(newRow);
@@ -164,6 +176,91 @@
 			}
 		}
 		return cols;
+	}
+
+	// BUTTON ACTIONS
+
+
+	let buttonActions = {
+		'Check In': createPromiseAction(function(btn) {
+			return post(POST_CHECKIN_URL, {
+				objectId: btn.data('objectId')
+			});
+		})
+	};
+
+	window.preformButtonAction = function(btn, actionName) {
+		console.log('Action', actionName);
+		if(buttonActions[actionName]) {
+			buttonActions[actionName](btn);
+		} else {
+			throw new Error(`Invalid Button Action ${actionName}`);
+		}
+	};
+
+	function createActionBtnHtml(actionName, enable, objectId) {
+		return `
+		<button
+			data-object-id="${objectId}"
+			onclick="preformButtonAction(this, '${actionName}')"
+			class="btn btn-primary btn-sm"
+			${enable? '' : 'disabled'}
+		>${actionName}</button>`;
+	}
+
+	function createPromiseAction(promise) {
+		let btnClass = 'btn-primary';
+
+		return function(btn) {
+			btn = $(btn);
+
+			let actionText = btn.text();
+			btn.prop('disabled', true);
+			btn.text('...');
+
+			promise(btn)
+			.then(function() {
+				console.log('Btn Action Succss', actionText);
+				btn.removeClass(btnClass);
+				btn.addClass('btn-success');
+				btn.text('DONE!');
+			})
+			.catch(function(err) {
+				// action failure
+				console.error('Btn Action Error', actionText, err);
+				btn.text('ERROR!');
+				btn.removeClass(btnClass);
+				btn.addClass('btn-danger');
+
+				// enable retry
+				setTimeout(function() {
+					btn.text(actionText);
+					btn.addClass(btnClass);
+					btn.removeClass('btn-danger');
+					btn.prop('disabled', false);
+				}, 3000);
+			});
+		};
+	}
+
+
+	// post promise wrapper
+	function post(url, data) {
+		return new Promise(function(resolve, reject) {
+			$.ajax({
+				method: 'POST',
+				url: url,
+				data: data,
+				success: function(res) {
+					if(res.error) {
+						reject(res.error);
+					} else {
+						resolve(res);
+					}
+				},
+				error: reject
+			});
+		});
 	}
 
 

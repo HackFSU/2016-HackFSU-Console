@@ -33,9 +33,10 @@ fs.readFile(IN_FILE, 'utf8', function(err, data) {
 	let lines = data.split('\n');
 	lines.forEach(function(line) {
 		let tabIndex = line.indexOf('\t');
-		let cred = new WifiCred();
-		cred.set('username', line.substring(0, tabIndex));
-		cred.set('password', line.substring(tabIndex+1));
+		let cred = WifiCred.new({
+			username: line.substring(0, tabIndex),
+			password: line.substring(tabIndex+1)
+		});
 		creds.push(cred);
 	});
 

@@ -32,26 +32,14 @@ export default class WifiCred extends Parse.Object {
 	static getUnassigned() {
 		return new Promise(function(resolve, reject) {
 			let query = new Parse.Query(WifiCred);
-			query.equalTo('assigned', false);
+			query.notEqualTo('assigned', true);
 			query.first().then(function(wifiCred) {
 				if(!wifiCred) {
 					reject('No more unassigned keys');
 					return;
 				}
-				resolve({
-					cred: wifiCred,
-					username: wifiCred.get('username'),
-					password: wifiCred.get('password')
-				});
+				resolve(wifiCred);
 			}, reject);
-		});
-	}
-
-	// Sets 'assigned' to value and then saves obj
-	setAssigned(value) {
-		return new Promise((resolve, reject) => {
-			this.set('assigned', value);
-			this.save().then(resolve, reject);
 		});
 	}
 
