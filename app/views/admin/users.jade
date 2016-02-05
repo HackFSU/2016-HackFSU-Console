@@ -1,6 +1,6 @@
 extends ../_layouts/bootstrap
 block vars
-	- title = 'Admin | Judges'
+	- title = 'Admin | Hackers'
 
 block localCSS
 	link(rel='stylesheet' type='text/css' href='/bower_components/datatables/media/css/dataTables.bootstrap.min.css')
@@ -13,18 +13,14 @@ block localJS
 	script(src='/bower_components/datatables-buttons/js/buttons.bootstrap.js')
 	script(src='/bower_components/datatables-buttons/js/buttons.html5.js')
 	script(src='/bower_components/datatables-buttons/js/buttons.flash.js')
-	script(src='/js/views/admin/judges.js')
+	script(src='/js/views/admin/users.js')
 
 block content
-	h1 Judge Management
-	
-	p 
-		| If you want to signup a judge, go to 
-		a(href='/judge/signup') hackfsu.com/judge/signup
-		| .
-		
+	h1 User Management
+	p Includes the base user for all Hackers/Mentors/Judges/Admins etc. 
+
 	#view-toggle.btn-group
-	
+
 	table#view.table.table-striped.table-bordered
 		thead
 			tr
