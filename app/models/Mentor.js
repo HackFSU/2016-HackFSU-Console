@@ -49,6 +49,31 @@ export default class Mentor extends Parse.Object {
 		return mentor;
 	}
 
+	static newWithUser(o) {
+		let mentor = new Mentor();
+		o = validate(o, _.isObject);
+
+		// These are the attributes that are stored in the user accoun
+
+		// Make user instance from id
+		let user = new User();
+		user.id = validate(o.userId, _.isString);
+		user.set('objectId', user.id);
+
+		// Mentor attributes
+		mentor.set('affiliation', validate(o.affiliation, _.isString));
+		mentor.set('firstHackathon', validate(o.firstHackathon, _.isBoolean));
+		mentor.set('skills', validate(o.skills, _.isString));
+		mentor.set('comments', validate(o.comments, _.isString));
+		mentor.set('times', validate(o.times, function(times) {
+			return _.isArray(times) || times === undefined;
+		}));
+		mentor.set('mlhcoc', validate(o.mlhcoc, _.isBoolean));
+		mentor.set('user', user);
+
+		return mentor;
+	}
+
 	/**
 	* Returns a single Mentor based on ID
 	*/

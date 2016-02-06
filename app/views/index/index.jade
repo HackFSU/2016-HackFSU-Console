@@ -1,4 +1,4 @@
-extend ../_layouts/index
+extend ../_layouts/user
 block localJS
 	script(src='/js/maps.js' type='text/javascript')
 	script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAPFA-G6fLqiXxbhnZayxz7ahMZWoMM9X8&callback=initMap')
@@ -44,7 +44,7 @@ block content
 			.clear
 
 			h4.schedule-day Mobile Apps
-			p Download the HackFSU '16 mobile app to receive instant notifications about what's going on during the event.
+			p Download the HackFSU '16 mobile app to receive instant notifications about what's going on during the event. Hey guys this it git!
 			br
 			.one_half
 				a(href='https://itunes.apple.com/us/app/hackfsu/id847979625?mt=8' target='_blank')
@@ -280,8 +280,8 @@ block content
 						img(src="/assets/img/sponsors/seminole-dining-logo.png")
 					a.logo(href="https://www.codeschool.com/hackfsu2016" target="_blank")
 						img(src="/assets/img/sponsors/code_school_web.png")
-					//- a.logo.ibm_logo(href="https://www.ibm.com" target="_blank")
-					//- 	img(src="/assets/img/sponsors/ibm_logo.png")
+					a.logo.ibm_logo(href="http://www.ibm.com/BlueMix" target="_blank")
+						img(src="/assets/img/sponsors/ibm_logo.png")
 					a.logo(href="http://strategicdigitalservices.net/" target="_blank")
 						img(src="/assets/img/sponsors/sds_logo.png")
 					a.logo.soylent-logo(href="https://www.soylent.com" target="_blank")

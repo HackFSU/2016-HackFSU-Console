@@ -1,53 +1,28 @@
 /**
- * Manages hacker data for /admin/hackers
+ * /mentor/helprequests
+ * Manages help request loading/assignment
  */
-
 (function() {
 	'use strict';
 
-	const GET_HACKER_LIST_URL = '/admin/hackers/list';
-	const POST_CHECKIN_URL = '/admin/hackers/checkin';
+	const GET_LIST_URL = '/mentor/helprequests/list';
+	const POST_ASSIGN_TO_ME_URL =  '/mentor/helprequests/assignToMe';
+	const TABLE_REFRESH_RATE = 30*1000; // 30s
 
-	let viewTable = $('table#view');
+	let viewTable = $('table#helpreqs');
 	let viewHeader = viewTable.find('thead tr');
-	let viewToggle = $('#view-toggle');
 	let columns = {
-		'First N': 'firstName',
-		'Last N': 'lastName',
-
-		'Email': 'email',
-		'Phone': 'phone',
-
-		'Year': 'year',
-		'School': 'school',
-		'Major': 'major',
-
-		'Status': 'status',
-
-		'GitHub': 'github',
-		'Want Job': 'wantjob',
-		'Interested In' : 'wants',
-
-		'>18?': 'yesno18',
-		'First?': 'firstHackathon',
-		'Shirt': 'shirtSize',
-
-		'Diet': 'diet',
-		'Comments': 'comments',
-		'Hate': 'hate',
-
-		'Resume': 'resume',
 		'Created At': 'createdAt',
-
-		'Wifi Creds': 'wifiCreds',
-
+		'Name': 'name',
+		'Description': 'description',
+		'Location': 'location',
+		'Assigned To': 'assignedMentorName',
 		'Actions': 'actions'
 	};
 
 	// make header
 	Object.keys(columns).forEach(function(name, i) {
 		viewHeader.append(`<th>${name}</th>`);
-		viewToggle.append(`<div class="btn btn-primary btn-sm" data-col="${i}">${name}</div>`);
 	});
 
 
@@ -56,45 +31,20 @@
 		scrollX: true,
 		columns: structureCols(columns),
 		dom: '<"view-top"<"col-sm-6"l><"col-sm-6"fBr>><"view-table"t><"view-bottom"<"col-sm-6"i><"col-sm-6"p>>',
-		buttons: ['excel'],
 		aLengthMenu: [
 			[25, 50, 100, 200, -1],
 			[25, 50, 100, 200, 'All']
 		],
+		order: [
+			[4, 'asc'],
+			[0, 'desc']
+		]
 	});
-
-	viewToggle.children().click(function(e) {
-		toggleCol($(this).data('col'));
-	});
-
-	let viewTop = $('.view-top');
-
-	// style excel button
-	viewTop.find('a.buttons-excel')
-		.removeClass('btn-default')
-		.addClass('btn-success')
-		.find('span').text('Export Excel');
-
-
-	function toggleCol(i) {
-		let col = viewTable.column(i);
-		let toggle = viewToggle.find(`[data-col="${i}"]`);
-
-		col.visible(!col.visible());
-
-		if(!col.visible()) {
-			toggle.removeClass('btn-primary');
-			toggle.addClass('btn-default');
-		} else {
-			toggle.addClass('btn-primary');
-			toggle.removeClass('btn-default');
-		}
-	}
 
 	function getData(data, cb) {
 		$.ajax({
 			method: 'GET',
-			url: GET_HACKER_LIST_URL,
+			url: GET_LIST_URL,
 			success: function(res) {
 				if(res.error) {
 					console.error(res.error);
@@ -114,46 +64,21 @@
 		let newRow;
 		data.forEach(function(rowData, i) {
 			newRow = {
-				firstName: rowData.user.firstName,
-				lastName: rowData.user.lastName,
-				github: rowData.user.github,
-				phone: rowData.user.phone? rowData.user.phone.replace(/[^\d]/g,'') : '',
-				email: rowData.user.email,
-				diet: rowData.user.diet,
-				shirtSize: rowData.user.shirtSize,
-				status: rowData.status || '',
-				school: rowData.school,
-				major: rowData.major,
-				firstHackathon: rowData.firstHackathon? 'Y' : 'N',
-				hate: rowData.hate? rowData.hate.trim() : '',
-				year: rowData.year,
-				wantjob: rowData.wantjob? rowData.wantjob.join(', ') : '',
-				wants: rowData.wants? rowData.wants.join(', ') : '',
-				comments: rowData.comments? rowData.comments.trim() : '',
-				resume: rowData.resume? rowData.resume.url : '',
-				createdAt: rowData.createdAt,
+				name: '' + rowData.name,
+				description: '' + rowData.description,
+				location: '' +rowData.location,
+				assignedMentorName: '',
 				actions: '',
-				wifiCreds: ''
+				createdAt: moment(rowData.createdAt).local().format('M/D HH:mm')
 			};
 
-			// handle missing yesno18, do not assume anything if not there
-			if(rowData.yesno18 === false) {
-				newRow.yesno18 = 'N';
-			} else if(rowData.yesno18 === true) {
-				newRow.yesno18 = 'Y';
+
+			let mentor = rowData.assignedMentor;
+			if(mentor && mentor.user) {
+				newRow.assignedMentorName = `${mentor.user.firstName} ${mentor.user.lastName}`;
 			} else {
-				newRow.yesno18 = '';
-			}
-
-			let cred = rowData.user.wifiCred;
-			if(cred) {
-				newRow.wifiCreds = `${cred.username} : ${cred.password}`;
-			}
-
-
-			if(newRow.status === 'confirmed') {
 				newRow.actions += createActionBtnHtml(
-					'Check In', newRow.status === 'confirmed', rowData.objectId
+					'Assign to me', !mentor, rowData.objectId
 				);
 			}
 
@@ -190,9 +115,9 @@
 
 
 	let buttonActions = {
-		'Check In': createPromiseAction(function(btn) {
-			return post(POST_CHECKIN_URL, {
-				objectId: btn.data('objectId')
+		'Assign to me': createPromiseAction(function(btn) {
+			return post(POST_ASSIGN_TO_ME_URL, {
+				helpRequestId: btn.data('objectId')
 			});
 		})
 	};
@@ -270,6 +195,12 @@
 			});
 		});
 	}
+
+	// auto refresh table
+	setInterval(function() {
+		console.log('==== table refreshing ====');
+		viewTable.ajax.reload();
+	}, TABLE_REFRESH_RATE);
 
 
 })();

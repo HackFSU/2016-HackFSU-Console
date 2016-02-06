@@ -61,15 +61,30 @@ block content
 					br
 					strong Email: 
 					| #{user.email}
-
+					
+					if user.wifiCred
+						br
+						br
+						strong FSUGuest WiFi Username: 
+						span.open-sans= user.wifiCred.username
+						br
+						strong FSUGuest Wifi Password: 
+						span.open-sans= user.wifiCred.password
+						
+						
+						
 				.clear
+				
+				p
+					if !acl.isRole.Hacker && !acl.isRole.Mentor
+						strong: a(href='/mentor/userSignup') Become a mentor!
 				
 				if runLevel === 'development'
 					.debug
 						h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
 							| Debug
 						.title-separator(style='border-color: #303030')
-						if !acl.isRole.Judge && (!acl.isRole.Hacker || acl.canAccess.Admin)
+						//- if !acl.isRole.Judge && (!acl.isRole.Hacker || acl.canAccess.Admin)
 							h1: a(href='/judge/userSignup') Sign up to become a Judge
 					
 						h3 ACL

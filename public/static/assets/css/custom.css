@@ -159,11 +159,11 @@
 	}
 
 	#titlePiece {
-		display: none;
+		/*display: none;*/
 	}
 
 	#titlePiece2 {
-		display: none;
+		/*display: none;*/
 	}
 
 	.margin-right-15 {
@@ -1235,4 +1235,9 @@ table#helpreqs td {
 
 .eventinfop {
 	font-size: 22px;
+}
+
+
+.open-sans {
+	font-family: 'Open Sans';
 }

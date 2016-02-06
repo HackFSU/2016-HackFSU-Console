@@ -65,20 +65,20 @@ export const validator = expressValidator({
  * Returns middleware that calls next() after queries are completed
  */
 export function queryFind(queryMaker, numPages, errorHandler) {
-	let queries = [];
-
-	if(!numPages || numPages < 1) {
-		numPages = 1;
-	}
-
-	for(let i = 0; i < numPages; ++i) {
-		let query = queryMaker();
-		query.skip(i*1000);
-		query.limit(1000);
-		queries.push(query);
-	}
-
 	return function(req, res, next) {
+		let queries = [];
+
+		if(!numPages || numPages < 1) {
+			numPages = 1;
+		}
+
+		for(let i = 0; i < numPages; ++i) {
+			let query = queryMaker(req, res);
+			query.skip(i*1000);
+			query.limit(1000);
+			queries.push(query);
+		}
+
 		res.locals.queryResults = [];
 
 		if(queries.length === 0) {

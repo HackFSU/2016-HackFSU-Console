@@ -1,12 +1,13 @@
 /**
- * Manages hacker data for /admin/hackers
+ * Manages user data for /admin/users
  */
 
 (function() {
 	'use strict';
 
-	const GET_HACKER_LIST_URL = '/admin/hackers/list';
-	const POST_CHECKIN_URL = '/admin/hackers/checkin';
+	const GET_USERS_LIST_URL = '/admin/users/list';
+	const POST_GIVE_WIFI_CREDS_URL = '/admin/users/giveWifiCreds';
+	const POST_MAKE_ADMIN_URL = '/admin/users/makeAdmin';
 
 	let viewTable = $('table#view');
 	let viewHeader = viewTable.find('thead tr');
@@ -14,33 +15,12 @@
 	let columns = {
 		'First N': 'firstName',
 		'Last N': 'lastName',
-
 		'Email': 'email',
 		'Phone': 'phone',
-
-		'Year': 'year',
-		'School': 'school',
-		'Major': 'major',
-
-		'Status': 'status',
-
 		'GitHub': 'github',
-		'Want Job': 'wantjob',
-		'Interested In' : 'wants',
-
-		'>18?': 'yesno18',
-		'First?': 'firstHackathon',
-		'Shirt': 'shirtSize',
-
-		'Diet': 'diet',
-		'Comments': 'comments',
-		'Hate': 'hate',
-
-		'Resume': 'resume',
 		'Created At': 'createdAt',
-
 		'Wifi Creds': 'wifiCreds',
-
+		'Roles' : 'roles',
 		'Actions': 'actions'
 	};
 
@@ -94,7 +74,7 @@
 	function getData(data, cb) {
 		$.ajax({
 			method: 'GET',
-			url: GET_HACKER_LIST_URL,
+			url: GET_USERS_LIST_URL,
 			success: function(res) {
 				if(res.error) {
 					console.error(res.error);
@@ -114,46 +94,30 @@
 		let newRow;
 		data.forEach(function(rowData, i) {
 			newRow = {
-				firstName: rowData.user.firstName,
-				lastName: rowData.user.lastName,
-				github: rowData.user.github,
-				phone: rowData.user.phone? rowData.user.phone.replace(/[^\d]/g,'') : '',
-				email: rowData.user.email,
-				diet: rowData.user.diet,
-				shirtSize: rowData.user.shirtSize,
-				status: rowData.status || '',
-				school: rowData.school,
-				major: rowData.major,
-				firstHackathon: rowData.firstHackathon? 'Y' : 'N',
-				hate: rowData.hate? rowData.hate.trim() : '',
-				year: rowData.year,
-				wantjob: rowData.wantjob? rowData.wantjob.join(', ') : '',
-				wants: rowData.wants? rowData.wants.join(', ') : '',
-				comments: rowData.comments? rowData.comments.trim() : '',
-				resume: rowData.resume? rowData.resume.url : '',
+				firstName: rowData.firstName,
+				lastName: rowData.lastName,
+				github: rowData.github? rowData.github : '',
+				phone: rowData.phone? rowData.phone.replace(/[^\d]/g,'') : '',
+				email: rowData.email,
 				createdAt: rowData.createdAt,
+				roles: rowData.roles.join(', '),
 				actions: '',
-				wifiCreds: ''
+				wifiCreds: '',
 			};
 
-			// handle missing yesno18, do not assume anything if not there
-			if(rowData.yesno18 === false) {
-				newRow.yesno18 = 'N';
-			} else if(rowData.yesno18 === true) {
-				newRow.yesno18 = 'Y';
-			} else {
-				newRow.yesno18 = '';
-			}
 
-			let cred = rowData.user.wifiCred;
+			let cred = rowData.wifiCred;
 			if(cred) {
 				newRow.wifiCreds = `${cred.username} : ${cred.password}`;
+			} else {
+				newRow.actions += createActionBtnHtml(
+					'Give Wifi', !cred, rowData.objectId
+				);
 			}
 
-
-			if(newRow.status === 'confirmed') {
+			if(newRow.roles.indexOf('Admin') === -1) {
 				newRow.actions += createActionBtnHtml(
-					'Check In', newRow.status === 'confirmed', rowData.objectId
+					'Make Admin', true, rowData.objectId
 				);
 			}
 
@@ -190,12 +154,30 @@
 
 
 	let buttonActions = {
-		'Check In': createPromiseAction(function(btn) {
-			return post(POST_CHECKIN_URL, {
+		'Give Wifi': createPromiseAction(function(btn) {
+			return post(POST_GIVE_WIFI_CREDS_URL, {
 				objectId: btn.data('objectId')
 			});
-		})
+		}),
+		'Make Admin': createPromiseAction(function(btn) {
+			return confirmPost(POST_MAKE_ADMIN_URL, {
+				objectId: btn.data('objectId')
+			});
+		}),
 	};
+
+	function confirmPost(url, data) {
+		return new Promise(function(resolve, reject) {
+			let conf = confirm('Are you SURE you want to make this user an admin?');
+			if(conf) {
+				post(url, data)
+				.then(resolve)
+				.catch(reject);
+			} else {
+				reject('Did not want to do it');
+			}
+		});
+	}
 
 	window.preformButtonAction = function(btn, actionName) {
 		console.log('Action', actionName);
