@@ -7,6 +7,7 @@
 
 	const GET_USERS_LIST_URL = '/admin/users/list';
 	const POST_GIVE_WIFI_CREDS_URL = '/admin/users/giveWifiCreds';
+	const POST_MAKE_ADMIN_URL = '/admin/users/makeAdmin';
 
 	let viewTable = $('table#view');
 	let viewHeader = viewTable.find('thead tr');
@@ -19,6 +20,7 @@
 		'GitHub': 'github',
 		'Created At': 'createdAt',
 		'Wifi Creds': 'wifiCreds',
+		'Roles' : 'roles',
 		'Actions': 'actions'
 	};
 
@@ -98,8 +100,9 @@
 				phone: rowData.phone? rowData.phone.replace(/[^\d]/g,'') : '',
 				email: rowData.email,
 				createdAt: rowData.createdAt,
+				roles: rowData.roles.join(', '),
 				actions: '',
-				wifiCreds: ''
+				wifiCreds: '',
 			};
 
 
@@ -109,6 +112,12 @@
 			} else {
 				newRow.actions += createActionBtnHtml(
 					'Give Wifi', !cred, rowData.objectId
+				);
+			}
+
+			if(newRow.roles.indexOf('Admin') === -1) {
+				newRow.actions += createActionBtnHtml(
+					'Make Admin', true, rowData.objectId
 				);
 			}
 
@@ -149,8 +158,26 @@
 			return post(POST_GIVE_WIFI_CREDS_URL, {
 				objectId: btn.data('objectId')
 			});
-		})
+		}),
+		'Make Admin': createPromiseAction(function(btn) {
+			return confirmPost(POST_MAKE_ADMIN_URL, {
+				objectId: btn.data('objectId')
+			});
+		}),
 	};
+
+	function confirmPost(url, data) {
+		return new Promise(function(resolve, reject) {
+			let conf = confirm('Are you SURE you want to make this user an admin?');
+			if(conf) {
+				post(url, data)
+				.then(resolve)
+				.catch(reject);
+			} else {
+				reject('Did not want to do it');
+			}
+		});
+	}
 
 	window.preformButtonAction = function(btn, actionName) {
 		console.log('Action', actionName);
