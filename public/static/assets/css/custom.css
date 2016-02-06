@@ -873,7 +873,10 @@ button[type="submit"]:disabled {
 
 .schedule-day {
 	font-size: 30px;
-	margin-bottom: 5px;
+}
+
+#schedule p.schedule-title {
+	margin-left: 5px;
 }
 
 #schedule p, #schedule li {
@@ -904,8 +907,7 @@ p.schedule-time {
 #schedule .one_half,
 #schedule .three_fourth,
 #schedule .one_fourth {
-	margin-bottom: 20px;
-	margin-top: 20px;
+	margin-bottom: 0;
 }
 
 #schedule .schedule-events {
