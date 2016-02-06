@@ -1,5 +1,5 @@
 /**
- * /admin/judges/*
+ * /admin/judging/judges/*
  *
  * Handles Judge Administration
  */
@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.route('/')
 .get(function(req, res) {
-	res.render('admin/judges');
+	res.render('judge/judges');
 });
 
 /**

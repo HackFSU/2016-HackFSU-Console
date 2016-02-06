@@ -31,11 +31,6 @@ acl.role('Admin').canAccess(['User', 'Hacker', 'Mentor', 'Judge']);
 acl.role('Super Admin').canAccess('Admin', true);
 
 
-if(process.env.env === 'development')  {
-	acl.verbose = true;
-}
-
-
 /**
  * Validatior w/ custom functions
  * Can be used just like normal

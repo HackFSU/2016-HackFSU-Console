@@ -5,8 +5,8 @@
 (function() {
 	'use strict';
 
-	const GET_DATA_URL = '/admin/judges/list';
-	const POST_ACCEPT_URL = '/admin/judges/accept';
+	const GET_DATA_URL = '/judge/judges/list';
+	const POST_ACCEPT_URL = '/judge/judges/accept';
 
 	let viewTable = $('table#view');
 	let viewHeader = viewTable.find('thead tr');

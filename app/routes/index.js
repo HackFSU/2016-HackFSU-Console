@@ -7,7 +7,7 @@
 import bodyParser from 'body-parser';
 import session from 'express-session';
 
-import { validator } from 'app/routes/util';
+import { validator, acl } from 'app/routes/util';
 
 import home from 'app/routes/home';
 import register from 'app/routes/register';
@@ -20,6 +20,16 @@ import judge from 'app/routes/judge';
 import checkin from 'app/routes/checkin';
 
 export default function(app) {
+
+	// setup acl
+	if(process.env.ACL === 'false') {
+		console.log('\n==== ACL ENFORCEMENT DISABLED ====\n');
+		acl.setEnforce(false);
+	}
+
+	if(process.env.env === 'development')  {
+		acl.verbose = true;
+	}
 
 	// parse body for post reqs only
 	app.post('*',

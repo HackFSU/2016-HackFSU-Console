@@ -9,6 +9,11 @@ import * as signup from 'app/routes/judge/signup';
 import * as user from 'app/routes/user/middleware';
 import moment from 'moment';
 
+import judgeJudges from 'app/routes/judge/judges';
+import judgeHacks from 'app/routes/judge/hacks';
+import judgeResults from 'app/routes/judge/results';
+
+
 let router = express.Router();
 
 /**
@@ -64,6 +69,10 @@ router.route('/userSignup')
 		res.json({});
 	}
 );
+
+router.use('/judges', acl.use('Admin'), judgeJudges);
+router.use('/hacks', acl.use('Admin'), judgeHacks);
+router.use('/results', acl.use('Admin'), judgeResults);
 
 
 export default router;
