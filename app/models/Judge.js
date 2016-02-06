@@ -31,6 +31,7 @@ export default class Judge extends Parse.Object {
 		judge.set('mlhcoc', validate(o.mlhcoc, _.isBoolean));
 		judge.set('user', user);
 		judge.set('status', 'pending'); // will change when accepted by admin
+		// rounds[JudgeRound refs] 
 
 		return judge;
 	}

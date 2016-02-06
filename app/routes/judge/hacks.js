@@ -1,5 +1,5 @@
 /**
- * /admin/judging/hacks/*
+ * /admin/judge/hacks/*
  *
  * Handles Hack Administration
  */
@@ -10,6 +10,7 @@ import Parse from 'parse/node';
 
 const router = express.Router();
 
-// TODO
+
+
 
 export default router;
