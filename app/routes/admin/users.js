@@ -35,7 +35,7 @@ router.route('/list')
 			'wifiCred.password'
 		]);
 		return query;
-	}),
+	}, 2),
 	function(req, res) {
 		res.json({
 			data: res.locals.queryResults
@@ -69,7 +69,7 @@ router.route('/giveWifiCreds')
 			'wifiCred.uername'
 		]);
 		return query;
-	}),
+	}, 2),
 
 	// make sure a user has been found
 	function(req, res, next) {

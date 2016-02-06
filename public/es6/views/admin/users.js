@@ -94,7 +94,7 @@
 			newRow = {
 				firstName: rowData.firstName,
 				lastName: rowData.lastName,
-				github: rowData.github,
+				github: rowData.github? rowData.github : '',
 				phone: rowData.phone? rowData.phone.replace(/[^\d]/g,'') : '',
 				email: rowData.email,
 				createdAt: rowData.createdAt,
