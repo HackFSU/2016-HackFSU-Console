@@ -71,7 +71,13 @@ block content
 						strong FSUGuest Wifi Password: 
 						span.open-sans= user.wifiCred.password
 						
+						
+						
 				.clear
+				
+				p
+					if !acl.isRole.Hacker && !acl.isRole.Mentor
+						strong: a(href='/mentor/userSignup') Become a mentor!
 				
 				if runLevel === 'development'
 					.debug

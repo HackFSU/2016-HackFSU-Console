@@ -13,29 +13,40 @@ block header
 			ul.right.montserrat-font
 				- var linkUrl;
 				
-				li
-					a(href='/') HOME
-					if acl && acl.isRole.User
-						- linkUrl = '/user/profile';
+				- linkUrl = '/';
+				li(class=(urlPath === linkUrl? 'active': ''))
+					a(href='#{linkUrl}') HOME
+				
+				if !acl || (acl && !acl.isRole.Mentor)
+					- linkUrl = '/help';
+					li(class=(urlPath === linkUrl? 'active': ''))
+						a(href='#{linkUrl}') HELP ME!
+				
+				if acl && acl.isRole.User
+					- linkUrl = '/user/profile';
+					li(class=(urlPath === linkUrl? 'active': ''))
+						a(href='#{linkUrl}') PROFILE
+					
+					//- if acl.canAccess.Judge
+						- linkUrl = '/judge'
 						li(class=(urlPath === linkUrl? 'active': ''))
-							a(href='#{linkUrl}') PROFILE
-						
-						//- if acl.canAccess.Judge
-							- linkUrl = '/judge'
-							li(class=(urlPath === linkUrl? 'active': ''))
-								a(href='${linkUrl}') JUDGE
-						
-						//- if acl.canAccess.Mentor
-							- linkUrl = '/mentor/helprequests';
-							li(class=(urlPath === linkUrl? 'active': ''))
-								a(href='#{linkUrl}') HELP REQUESTS
-						
-						if acl.canAccess.Admin
-							- linkUrl = '/admin';
-							li(class=(urlPath === linkUrl? 'active': ''))
-								a(href='#{linkUrl}') ADMIN
-						
-						- linkUrl = '/user/logout';
+							a(href='${linkUrl}') JUDGE
+					
+					if acl.canAccess.Mentor
+						- linkUrl = '/mentor/helprequests';
 						li(class=(urlPath === linkUrl? 'active': ''))
-							a(href='#{linkUrl}') LOGOUT
+							a(href='#{linkUrl}') HELP REQUESTS
+					
+					if acl.canAccess.Admin
+						- linkUrl = '/admin';
+						li(class=(urlPath === linkUrl? 'active': ''))
+							a(href='#{linkUrl}') ADMIN
+					
+					- linkUrl = '/user/logout';
+					li(class=(urlPath === linkUrl? 'active': ''))
+						a(href='#{linkUrl}') LOGOUT
+				else
+					- linkUrl = '/login';
+					li(class=(urlPath === linkUrl? 'active': ''))
+						a(href='#{linkUrl}') LOGIN
 			.clear

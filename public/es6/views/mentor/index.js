@@ -1,3 +1,7 @@
+/**
+ * Handles /mentor for mentor signup
+ */
+
 (function($) {
 	'use strict';
 
