@@ -98,7 +98,7 @@ export function signUpMentor(req, res, next) {
 	// Sign the new mentor up
 	Mentor.new(req.mentor).signUp()
 	.then(function(mentor) {
-		req.log.info({ mentor: mentor }, 'Mentor Created');
+		req.log.info('Mentor Created');
 		req.mentor = mentor;
 		next();
 	}, function(err) {
@@ -148,5 +148,80 @@ export function sendConfirmationEmail(req, res, next) {
 			req.log.info({ type: 'Mandrill'}, `Confirmation email sent to "${req.mentor.get('user').get('email')}"`);
 			next();
 		}
+	});
+}
+
+
+
+
+export function validateMentorUserSignup(req, res, next) {
+	// Sanitize some of the request first
+	// Trim every param in the request
+	_.each(req.body, function(val, key) {
+		// .trim() for some reason destroys arrays
+		if (!_.isArray(req.body[key])) {
+			req.sanitizeBody(key).trim();
+		}
+	});
+	req.sanitizeBody('mlhcoc').toBoolean();
+	// Coerce single values into array
+	req.body.times = _.isArray(req.body.times) || _.isEmpty(req.body.times) ?
+		req.body.times :
+		[ req.body.times ];
+
+	// TODO: Add sanitizer to remove url part of github (if accidentally supplied)
+
+
+	// Let's validate the request
+	req.checkBody('affiliation', 'Invalid affiliation').notEmpty().isAscii();
+	req.checkBody('firstHackathon', 'Invalid first hackathon selection')
+		.notEmpty().isBoolean();
+	req.checkBody('skills', 'Invalid skills').notEmpty().isAscii();
+	req.checkBody('comments', 'Invalid comment').optional({ checkFalsy: true }).isAscii();
+	_.each(req.body.times, function(val, key) {
+		req.checkBody(['times', key], 'Invalid times option')
+			.optional({ checkFalsy: true})
+			.isAscii();
+	});
+	req.checkBody('mlhcoc', 'Invalid code of conduct parameter').notEmpty().isBoolean();
+
+	if (req.validationErrors()) {
+		res.json({
+			error: req.validationErrors()
+		});
+	}
+	else {
+		next();
+	}
+}
+
+
+/**
+* Middleware function to sign up a new mentor.
+* We create a new Mentor object with the mentor request data.
+* If we receive an error when signing up the mentor, we send an error response
+* and we don't continue on.
+*/
+export function signUpUserMentor(req, res, next) {
+	// Sign the new mentor up
+	Mentor.newWithUser({
+		userId: req.session.user.userId,
+		affiliation: req.body.affiliation,
+		skills: req.body.skills,
+		comments: req.body.comments,
+		times: req.body.times,
+		mlhcoc: req.body.mlhcoc,
+		firstHackathon: req.body.firstHackathon === 'true'
+	})
+	.save()
+	.then(function(mentor) {
+		req.log.info('Mentor Created', mentor.id);
+		req.mentor = mentor;
+		next();
+	}, function(err) {
+		// Uh oh... :(
+		res.json({
+			error: err.message
+		});
 	});
 }

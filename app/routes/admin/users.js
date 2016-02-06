@@ -8,7 +8,7 @@
 import express from 'express';
 import Parse from 'parse/node';
 import User from 'app/models/User';
-import { queryFind } from 'app/routes/util';
+import { acl, queryFind, stdServerErrorResponse } from 'app/routes/util';
 import WifiCred from 'app/models/WifiCred';
 
 const router = express.Router();
@@ -32,10 +32,20 @@ router.route('/list')
 			'github',
 			'phone',
 			'wifiCred.username',
-			'wifiCred.password'
+			'wifiCred.password',
+			'roleKey'
 		]);
 		return query;
-	}),
+	}, 2),
+
+	// add role data
+	function(req, res, next) {
+		res.locals.queryResults.forEach(function(user) {
+			user.set('roles', acl.listRoles(user.get('roleKey')));
+		});
+		next();
+	},
+
 	function(req, res) {
 		res.json({
 			data: res.locals.queryResults
@@ -69,7 +79,7 @@ router.route('/giveWifiCreds')
 			'wifiCred.uername'
 		]);
 		return query;
-	}),
+	}, 2),
 
 	// make sure a user has been found
 	function(req, res, next) {
@@ -144,6 +154,59 @@ router.route('/giveWifiCreds')
 		res.json({});
 	}
 );
+
+
+
+
+router.route('/makeAdmin')
+.post(
+	// validate
+	function(req, res, next) {
+		req.checkBody('objectId').notEmpty();
+
+		if(req.validationErrors()) {
+			res.json({
+				error: req.validationErrors()
+			});
+			return;
+		}
+		next();
+	},
+
+	// load the user data
+	queryFind(function(req, res) {
+		let query = new Parse.Query(User);
+		query.equalTo('objectId', req.body.objectId);
+		query.select([
+			'roleKey'
+		]);
+		return query;
+	}, 2),
+
+	// save with a new role key
+	function(req, res, next) {
+		if(!res.locals.queryResults.length) {
+			// bad id
+			res.json({
+				error: 'Invalid objectId ' + req.body.objectId
+			});
+			return;
+		}
+
+		let user = res.locals.queryResults[0];
+		user.set('roleKey', acl.addKeys(user.get('roleKey'), acl.role('Admin').id));
+		user.save().then(function() {
+			next();
+		}, stdServerErrorResponse);
+	},
+
+	function(req, res) {
+		req.log.info(`[users] New admin ${req.body.objectId}`);
+		res.json({});
+	}
+);
+
+
 
 
 

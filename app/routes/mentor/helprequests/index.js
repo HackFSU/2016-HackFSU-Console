@@ -36,7 +36,6 @@ router.route('/')
 	middleware.getCurrentMentor,
 	function(req, res, next) {
 		res.render('mentor/helprequests/index', {
-			title: 'Help Requests',
 			helpReqs: req.helpReqs,
 			mentor: req.mentor
 		});
@@ -61,8 +60,11 @@ router.route('/:id/mentors/:mid')
 				helpReqAssignedTo: req.helpReqAssignedTo
 			}
 		});
+
 	}
 );
+
+
 
 
 export default router;
