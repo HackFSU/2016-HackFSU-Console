@@ -4,12 +4,13 @@ block vars
 	- title = 'Mentor | Help Requests'
 
 block localCSS
-	link(rel="stylesheet" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css")
+	link(rel='stylesheet' type='text/css' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
 		
 block localJS
-	script(src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js")
-	script(src='/socket.io/socket.io.js')
-	script(src="/js/helpreqs.js")
+	script(src='/bower_components/moment/min/moment.min.js')
+	script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+	//- script(src='/socket.io/socket.io.js')
+	script(src="/js/views/mentor/helprequests.js")
 
 block content
 	#help-request-page.clear.services.section.block
@@ -17,27 +18,13 @@ block content
 			h2.section-title-fixed.singleLineText Help Requests
 			.title-separator
 			
-			p Hey mentors, go out out and help people! Ignore the 'ASSIGN' thing for now, that should be up soon though.
+			p Hey mentors, go out out and help people! When you are about to go help somone, assign the request to yourself so that the other mentors know it is being handled. The table auto-refreshes every 30 seconds.
+			
+			br
+			br
+			br
 			
 			#helpreq-section
 				table#helpreqs.dataTable
 					thead
 						tr
-							th Name
-							th Location
-							th Description
-							th Actions
-					tbody
-						each req in helpReqs
-							tr 
-								td= req.get('name')
-								td= req.get('location')
-								td= req.get('description')
-								td
-									button.btn.btn-help Assign to Me
-									div(id="assign-#{req.id}")
-										input(id="hr-#{req.id}" type="hidden" name="helpreq" value="#{req.id}")
-										input(id="m-#{mentor.id}" type="hidden" name="mentor" value="#{mentor.id}")
-						if helpReqs.length === 0
-							tr 
-								td(colspan="4") No help requests
