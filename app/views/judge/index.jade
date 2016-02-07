@@ -19,11 +19,9 @@ block content
 				b.p You have not been assigned hacks. Go to the judge organizer table to get another round of hacks.
 			else
 				#judgemain
-					.hellojudge.happy.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1; padding-left:.1em;' />HAPPY 
-					br
-					br
+					.hellojudge.happy.section-title-fixed.singleLineText(style='color:white;line-height:80px;') 
+						<img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1;' />HAPPY 
 					.hellojudge.judging.section-title-fixed.singleLineText JUDGING 
-					br
 					br
 					.plist BELOW IS A LIST OF HACKS THAT YOU WILL BE JUDGING:
 					
@@ -45,6 +43,9 @@ block content
 						span#judgingpoints 3
 						
 					.title-separator
+					br
+
+					p#outofpoints.p(style='font-size:1.5em;')
 					br
 					
 					- var i = 0;
@@ -77,9 +78,9 @@ block content
 				//screen 3
 				#judge3.clear.services.thankyousection.block
 					.block.content-960.center-relative
-								.hellojudge.judging.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1;' /> THANK YOU! 
-								br
-								br
-								.hellojudge.p.nextround You have completed this round. Go to the judge organizer table to get another round of hacks.
-								br
-								button#judgerefresh.judge-btn.judge-btn-form REFRESH
+						.hellojudge.judging.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1; width:40% !important; height:auto;' />THANK YOU! 
+						br
+
+						.hellojudge.p.nextround Please go to the Judges Help Table to receive your next round of hacks. Then, hit refresh :D
+						br
+						button#judgerefresh.judge-btn.judge-btn-form REFRESH

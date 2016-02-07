@@ -149,13 +149,13 @@ color: #a8d3f1;
 		margin-left: 0 !important;
 	}
 
-	/*#titlePiece {
-		display: none;
+	#titlePiece {
+		display: block;
 	}
 
 	#titlePiece2 {
-		display: none;
-	}*/
+		display: block;
+	}
 
 	.margin-right-15 {
 		margin-right: 0 !important;
@@ -413,8 +413,8 @@ body {
 
 #titlePiece {
 	width: 2em;
-	margin-left: -1.1em;
-	margin-top: -1.6em;
+	margin-left: -0.1em;
+	margin-top: -0.6em;
 	position: absolute;
 }
 
@@ -510,7 +510,7 @@ input, textarea, select, option {
 	font-weight: 400;
 	font-size: 16px;
 	font-family: 'Open Sans', sans-serif;
-	color: #303030;
+	color: #fff;
 }
 textarea, select {
 	border: 0.3em solid #d2ebfc;
@@ -1036,7 +1036,7 @@ table#helpreqs td {
 	background-color: transparent;
 	border-radius: 3px;
 	border: 0.2em solid #8bd1c9;
-	/*padding: 10px;*/
+	padding-top: 10px;
 	outline: 0;
 	font-weight: 600;
 	transition: 200ms all;
@@ -1061,13 +1061,34 @@ table#helpreqs td {
 	width: 100%;
 }
 
-.hellojudge.happy{
-	font-size: 7em;
+
+@media screen and (max-width: 839px) {
+	.hellojudge.happy{
+	font-size: 4.5em !important;
 	margin-bottom: 0em !important;
 	font-weight:300;
 	color:#fff;
-	line-height: 20%;
+	/*line-height: 20%;*/
 	width: 100%;
+	padding-bottom: 0px;
+	}
+
+	.hellojudge.judging {
+		line-height: 80% !important;
+		font-size: 3.8em !important;
+	}
+	.judge-btn-form {
+		font-size: 1.0em !important;
+	}
+}
+
+
+/* Apple Ipad*/
+
+@media screen and (max-width: 373px) {
+	.judge-btn-form {
+		font-size: 0.8em !important;
+	}
 }
 
 .p {
@@ -1078,7 +1099,7 @@ table#helpreqs td {
 }
 
 .plist {
-	font-size: 2em;
+	font-size: 1.5em;
 	margin-bottom: 1em !important;
 	color:#fff;
 	line-height: 120%;
@@ -1086,27 +1107,27 @@ table#helpreqs td {
 }
 
 #judge1 {
-	margin-top:100px;
-	margin-bottom: 50px;
+	margin-top:10px;
+	margin-bottom: 0px;
 	min-height: 600px;
 	text-align:center;
 	width:100%;
 }
 
 #judge2 {
-	margin-top:-200px;
+	margin-top: -70px;
 	margin-bottom: 50px;
-	min-height: 600px;
+	/*min-height: 600px;*/
 }
 
 #judge2 h2 {
-	font-size: 3em;
+	font-size: 2.5em;
 }
 
 #judge3 {
-	margin-top:auto;;
+	margin-top:auto;
 	margin-bottom: 50px;
-	min-height: 600px;
+	min-height: 400px;
 	text-align:center;
 }
 
@@ -1114,7 +1135,7 @@ table#helpreqs td {
 	display: inline-block;
 	/*padding: 6px 12px;*/
 	margin-bottom: 0;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 300;
 	color: #a8d3f1;
 	line-height: 1.42857143;
@@ -1142,22 +1163,23 @@ table#helpreqs td {
 					box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
 }
 .judge-btn-form {
-	width: 30%;
-		height: 3em;
-		margin-top: 10px;
-		background-color: #fff;
-		border-radius: 10px;
-		border: 0.2em solid #fff;
-		padding: 0;
-		/*margin-left: 1.5em;*/
-		outline: 0;
-		font-weight: 600;
-		transition: 200ms all;
-		-webkit-transition: 200ms all;
-		-moz-transition: 200ms all;
-		-o-transition: 200ms all;
-		margin-bottom: 100px;
-		font-size: 1.8em;
+	width: 50%;
+	height: 3em;
+	margin-top: auto;
+	background-color: #fff;
+	border-radius: 10px;
+	border: 0.2em solid #fff;
+	padding-top:auto;
+	padding-bottom: auto;
+	/*margin-left: 1.5em;*/
+	outline: 0;
+	font-weight: 600;
+	transition: 200ms all;
+	-webkit-transition: 200ms all;
+	-moz-transition: 200ms all;
+	-o-transition: 200ms all;
+	/*margin-bottom: 100px;*/
+	font-size: 1.8em;
 }
 .judge-btn-form:hover:not(:disabled) {
 	background-color: #a8d3f1;
@@ -1166,15 +1188,17 @@ table#helpreqs td {
 	box-shadow: none;
 }
 
+#judge2 .section {
+	padding-top: 0px;
+}
 
 .judgehack1 {
-		color: #fff;
-    /*color:#303030 ;*/
+	color: #fff;
     font-weight:100;
+	font-size: 2.5em;
 }
 .judgehack2 {
-		color:#fff;
-    /*color:#303030;*/
+	color:#fff;
     font-family:'Uni Sans', sans-serif;
     font-weight:600;
 }
@@ -1188,8 +1212,13 @@ table#helpreqs td {
 	    font-family: 'Uni Sans', sans-serif;
 }
 
+#judge2 h2 {
+	font-size:2.8em;
+}
+
+
 .categoryTitle{
-	font-size: 3.5em;
+	font-size: 3em;
 }
 
 .categories{
@@ -1199,13 +1228,18 @@ table#helpreqs td {
 }
 
 .optionheight{
+	background-color: #A8D3F1;
 }
 
 .nextround {
-	text-transform:initial;
-	font-size:2em;
+	font-size: 24px;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .thankyousection {
-	padding-top: 50px;
+	padding-top: 30px;
+}
+
+#judge-btn option {
+	color: #fff;
 }
