@@ -127,7 +127,7 @@ export function queryFind(queryMaker, numPages, errorHandler, errorIfEmpty) {
 export function stdServerErrorResponse(req, res, logMessage) {
 	return function(err) {
 		logMessage = `[${req.baseUrl}] ${logMessage}`;
-		req.log.error(logMessage, err, err && err.stack? err.stack : '<no stack>');
+		req.log.error(logMessage, err && err.stack? err.stack : '<no stack>');
 		res.status(500);
 		res.json({
 			error: err,
