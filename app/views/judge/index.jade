@@ -39,96 +39,7 @@ block content
 
 					p#outofpoints.p(style='font-size:1.5em;')
 					br
-//- 					.one_third
-//- 						.judgehack1 Hack #[span.judgehack2 #1]
-//- 					.two_third.last
-//- 						#jslider1
-//- 					.clear
-//- 					br
-//- 					.one_third
-//- 						.judgehack1 Hack #[span.judgehack2 #2]
-//- 					.two_third.last
-//- 						#jslider2
-//- 					.clear
-//- 					br
-//- 					.one_third
-//- 						.judgehack1 Hack #[span.judgehack2 #3]
-//- 					.two_third.last
-//- 						#jslider3
-//- 					.clear
-//- 					br
-//- 					br
-//- 					.hero.judgehack1.categoryTitle Categories
-//- 					br
-//- 					br
-//- 					.one_half
-//- 						.judgehack2.categories Best New-Comer Team
-//- 						select.optionheight
-//- 							option(selected disabled) None Selected
-//- 							option 1
-//- 							option 2
-//- 							option 3
-//- 						br
-//- 						br
-//- 					.one_half.last
-//- 						.judgehack2.categories Best Veteran Team
-//- 						select.optionheight
-//- 							option(selected disabled) None Selected
-//- 							option 1
-//- 							option 2
-//- 							option 3
-//- 						br
-//- 						br
-//- 					.clear
-//- 					.one_half
-//- 						.judgehack2.categories Best Collaborative Team
-//- 						select.optionheight
-//- 							option(selected disabled) None Selected
-//- 							option 1
-//- 							option 2
-//- 							option 3
-//- 						br
-//- 						br
-//- 					.one_half.last
-//- 						.judgehack2.categories Most Ridiculous
-//- 						select.optionheight
-//- 							option(selected disabled) None Selected
-//- 							option 1
-//- 							option 2
-//- 							option 3
-//- 						br
-//- 						br
-//- 					.clear
-//- 					.one_half
-//- 						.judgehack2.categories Best Design
-//- 						select.optionheight
-//- 							option(selected disabled) None Selected
-//- 							option 1
-//- 							option 2
-//- 							option 3
-//- 						br
-//- 						br
-//- 					.one_half.last
-//- 						.judgehack2.categories Best Hardware
-//- 						select.optionheight
-//- 							option(selected disabled) None Selected
-//- 							option 1
-//- 							option 2
-//- 							option 3
-//- 						br
-//- 						br
-//- 					.clear
-//- 					.one_half.last
-//- 						.judgehack2.categories Best Mobile
-//- 						select.optionheight
-//- 							option(selected disabled) None Selected
-//- 							option 1
-//- 							option 2
-//- 							option 3
-//- 						br
-//- 						br
-//- 					.clear
-//- =======
+
 					
 					for hack in hacks
 						.one_third
@@ -201,8 +112,13 @@ block content
 				//screen 3
 				#judge3.clear.services.thankyousection.block
 					.block.content-960.center-relative
-								.hellojudge.judging.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1; width:40% !important; height:auto;' />THANK YOU! 
-								br
-								.hellojudge.p.nextround Please go to the Judges Help Table to receive your next round of hacks. Then, hit refresh :D
-								br
-								button#judgerefresh.judge-btn.judge-btn-form REFRESH
+						.hellojudge.judging.section-title-fixed.singleLineText 
+							img#titlePiece(src='/assets/img/titlepieces1.png' style='z-index:-1; width:40% !important; height:auto;')
+							| THANK YOU!
+							br
+						.hellojudge.p.nextround Please go to the Judges Help Table to receive your next round of hacks.
+							| Then, hit refresh.
+						br
+						br
+						button#judgerefresh.judge-btn.judge-btn-form REFRESH 
+						
