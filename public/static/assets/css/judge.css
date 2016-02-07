@@ -413,8 +413,8 @@ body {
 
 #titlePiece {
 	width: 2em;
-	margin-left: -1.1em;
-	margin-top: -1.6em;
+	margin-left: -0.1em;
+	margin-top: -0.6em;
 	position: absolute;
 }
 
@@ -1064,7 +1064,7 @@ table#helpreqs td {
 
 @media screen and (max-width: 839px) {
 	.hellojudge.happy{
-	font-size: 5em !important;
+	font-size: 4.5em !important;
 	margin-bottom: 0em !important;
 	font-weight:300;
 	color:#fff;
@@ -1074,8 +1074,8 @@ table#helpreqs td {
 	}
 
 	.hellojudge.judging {
-		line-height: 90% !important;
-		font-size: 4em !important;
+		line-height: 80% !important;
+		font-size: 3.8em !important;
 	}
 	.judge-btn-form {
 		font-size: 1.0em !important;
@@ -1099,7 +1099,7 @@ table#helpreqs td {
 }
 
 .plist {
-	font-size: 1.8em;
+	font-size: 1.5em;
 	margin-bottom: 1em !important;
 	color:#fff;
 	line-height: 120%;
@@ -1127,7 +1127,7 @@ table#helpreqs td {
 #judge3 {
 	margin-top:auto;
 	margin-bottom: 50px;
-	min-height: 500px;
+	min-height: 400px;
 	text-align:center;
 }
 
@@ -1232,12 +1232,12 @@ table#helpreqs td {
 }
 
 .nextround {
-	text-transform:initial;
-	font-size:2em;
+	font-size: 24px;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .thankyousection {
-	padding-top: 50px;
+	padding-top: 30px;
 }
 
 #judge-btn option {
