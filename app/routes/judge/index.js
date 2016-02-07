@@ -99,12 +99,50 @@ router.route('/')
 		}
 
 		req.log.info({hacks: hacks},'hacks for judge');
+		let jround = res.locals.jround;
 
 		res.render('judge/index', {
-			hacks: hacks
+			hacks: hacks,
+			roundId: jround? jround.id : '-1'
 		});
 
-		req.log.info('donee');
+	}
+)
+.post(
+	function(req, res, next) {
+		let data = res.locals.data = JSON.parse(req.body.data);
+		if(!data.roundId ||
+		!data.nominations ||
+		!data.points) {
+			res.json({
+				error: 'Invalid'
+			});
+		}
+
+		// console.log('body', data);
+		next();
+	},
+
+	function(req, res, next) {
+		let jround = new JudgeRound();
+		jround.id = res.locals.data.roundId;
+		jround.set('objectId', jround.id);
+		jround.set('nominations', res.locals.data.nominations);
+		jround.set('points', res.locals.data.points);
+		jround.set('status', 'completed');
+		jround.save().then(function() {
+			console.log('FUCKIN SUBMITED');
+			next();
+		}, function(err) {
+			res.status(500);
+			res.json({
+				error: err
+			});
+		});
+	},
+
+	function(req, res) {
+		res.json({});
 	}
 );
 

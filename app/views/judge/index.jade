@@ -18,7 +18,7 @@ block content
 			if !hacks || hacks.length === 0
 				b.p You have not been assigned hacks. Go to the judge organizer table to get another round of hacks.
 			else
-				#judgemain
+				#judgemain(data-round-id="#{roundId}")
 					.hellojudge.happy.section-title-fixed.singleLineText(style='color:white;line-height:80px;') 
 						<img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1;' />HAPPY 
 					.hellojudge.judging.section-title-fixed.singleLineText JUDGING 
