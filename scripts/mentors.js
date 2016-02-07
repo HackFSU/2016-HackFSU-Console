@@ -8,9 +8,9 @@ var _ = require('lodash');
 var Parse = require('parse/node');
 
 Parse.initialize(
-	'7MgItVIkvSmADkIdIVPmEbIOOZQ84ilW224wXsgS',
-	'IEVQHLSvq5dWfd1A1d37kk69EHHEOvDkUitPGEDl',
-	'nwceDKx3iqtph3SAxaj41LxDavXsujwKWy2yJo3n'
+	'',
+	'',
+	''
 );
 Parse.Cloud.useMasterKey();
 

@@ -9,6 +9,8 @@ let router = express.Router();
 
 import * as middleware from 'app/routes/mentor/middleware';
 import helprequests from 'app/routes/mentor/helprequests';
+import { acl, redirectRoles } from 'app/routes/util';
+import * as userMiddleware from 'app/routes/user/middleware';
 
 // Mount helpreqs to /mentor
 router.use('/helprequests', helprequests);
@@ -39,6 +41,28 @@ router.route('/')
 	middleware.sendConfirmationEmail,
 	function(req, res, next) {
 		res.json(req.mentor);
+	}
+);
+
+/**
+ * User mentor signup
+ */
+router.route('/userSignup')
+.all(
+	acl.use('User'),
+	redirectRoles('Mentor', '/mentor/helprequests')
+)
+.get(function(req, res) {
+	res.render('mentor/userSignup');
+})
+.post(
+	middleware.validateMentorUserSignup,
+	middleware.signUpUserMentor,
+	userMiddleware.addUserRole(function(req) {
+		return req.session.user.userId;
+	}, 'Mentor'),
+	function(req, res, next) {
+		res.json({});
 	}
 );
 

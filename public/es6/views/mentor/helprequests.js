@@ -1,33 +1,28 @@
 /**
- * Manages user data for /admin/users
+ * /mentor/helprequests
+ * Manages help request loading/assignment
  */
-
 (function() {
 	'use strict';
 
-	const GET_USERS_LIST_URL = '/admin/users/list';
-	const POST_GIVE_WIFI_CREDS_URL = '/admin/users/giveWifiCreds';
-	const POST_MAKE_ADMIN_URL = '/admin/users/makeAdmin';
+	const GET_LIST_URL = '/mentor/helprequests/list';
+	const POST_ASSIGN_TO_ME_URL =  '/mentor/helprequests/assignToMe';
+	const TABLE_REFRESH_RATE = 30*1000; // 30s
 
-	let viewTable = $('table#view');
+	let viewTable = $('table#helpreqs');
 	let viewHeader = viewTable.find('thead tr');
-	let viewToggle = $('#view-toggle');
 	let columns = {
-		'First N': 'firstName',
-		'Last N': 'lastName',
-		'Email': 'email',
-		'Phone': 'phone',
-		'GitHub': 'github',
 		'Created At': 'createdAt',
-		'Wifi Creds': 'wifiCreds',
-		'Roles' : 'roles',
+		'Name': 'name',
+		'Description': 'description',
+		'Location': 'location',
+		'Assigned To': 'assignedMentorName',
 		'Actions': 'actions'
 	};
 
 	// make header
 	Object.keys(columns).forEach(function(name, i) {
 		viewHeader.append(`<th>${name}</th>`);
-		viewToggle.append(`<div class="btn btn-primary btn-sm" data-col="${i}">${name}</div>`);
 	});
 
 
@@ -36,45 +31,20 @@
 		scrollX: true,
 		columns: structureCols(columns),
 		dom: '<"view-top"<"col-sm-6"l><"col-sm-6"fBr>><"view-table"t><"view-bottom"<"col-sm-6"i><"col-sm-6"p>>',
-		buttons: ['excel'],
 		aLengthMenu: [
 			[25, 50, 100, 200, -1],
 			[25, 50, 100, 200, 'All']
 		],
+		order: [
+			[4, 'asc'],
+			[0, 'desc']
+		]
 	});
-
-	viewToggle.children().click(function(e) {
-		toggleCol($(this).data('col'));
-	});
-
-	let viewTop = $('.view-top');
-
-	// style excel button
-	viewTop.find('a.buttons-excel')
-		.removeClass('btn-default')
-		.addClass('btn-success')
-		.find('span').text('Export Excel');
-
-
-	function toggleCol(i) {
-		let col = viewTable.column(i);
-		let toggle = viewToggle.find(`[data-col="${i}"]`);
-
-		col.visible(!col.visible());
-
-		if(!col.visible()) {
-			toggle.removeClass('btn-primary');
-			toggle.addClass('btn-default');
-		} else {
-			toggle.addClass('btn-primary');
-			toggle.removeClass('btn-default');
-		}
-	}
 
 	function getData(data, cb) {
 		$.ajax({
 			method: 'GET',
-			url: GET_USERS_LIST_URL,
+			url: GET_LIST_URL,
 			success: function(res) {
 				if(res.error) {
 					console.error(res.error);
@@ -94,30 +64,21 @@
 		let newRow;
 		data.forEach(function(rowData, i) {
 			newRow = {
-				firstName: rowData.firstName,
-				lastName: rowData.lastName,
-				github: rowData.github? rowData.github : '',
-				phone: rowData.phone? rowData.phone.replace(/[^\d]/g,'') : '',
-				email: rowData.email,
-				createdAt: rowData.createdAt,
-				roles: rowData.roles.join(', '),
+				name: '' + rowData.name,
+				description: '' + rowData.description,
+				location: '' +rowData.location,
+				assignedMentorName: '',
 				actions: '',
-				wifiCreds: '',
+				createdAt: moment(rowData.createdAt).local().format('M/D HH:mm')
 			};
 
 
-			let cred = rowData.wifiCred;
-			if(cred) {
-				newRow.wifiCreds = `${cred.username} : ${cred.password}`;
+			let mentor = rowData.assignedMentor;
+			if(mentor && mentor.user) {
+				newRow.assignedMentorName = `${mentor.user.firstName} ${mentor.user.lastName}`;
 			} else {
 				newRow.actions += createActionBtnHtml(
-					'Give Wifi', !cred, rowData.objectId
-				);
-			}
-
-			if(newRow.roles.indexOf('Admin') === -1) {
-				newRow.actions += createActionBtnHtml(
-					'Make Admin', true, rowData.objectId
+					'Assign to me', !mentor, rowData.objectId
 				);
 			}
 
@@ -154,30 +115,12 @@
 
 
 	let buttonActions = {
-		'Give Wifi': createPromiseAction(function(btn) {
-			return post(POST_GIVE_WIFI_CREDS_URL, {
-				objectId: btn.data('objectId')
+		'Assign to me': createPromiseAction(function(btn) {
+			return post(POST_ASSIGN_TO_ME_URL, {
+				helpRequestId: btn.data('objectId')
 			});
-		}),
-		'Make Admin': createPromiseAction(function(btn) {
-			return confirmPost(POST_MAKE_ADMIN_URL, {
-				objectId: btn.data('objectId')
-			});
-		}),
+		})
 	};
-
-	function confirmPost(url, data) {
-		return new Promise(function(resolve, reject) {
-			let conf = confirm('Are you SURE you want to make this user an admin?');
-			if(conf) {
-				post(url, data)
-				.then(resolve)
-				.catch(reject);
-			} else {
-				reject('Did not want to do it');
-			}
-		});
-	}
 
 	window.preformButtonAction = function(btn, actionName) {
 		console.log('Action', actionName);
@@ -252,6 +195,12 @@
 			});
 		});
 	}
+
+	// auto refresh table
+	setInterval(function() {
+		console.log('==== table refreshing ====');
+		viewTable.ajax.reload();
+	}, TABLE_REFRESH_RATE);
 
 
 })();

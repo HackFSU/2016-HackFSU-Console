@@ -18,13 +18,8 @@ router.use(function(req, res, next) {
 	next();
 });
 
-router.get('/:code', function(req, res, next) {
-	if (req.params.code === 'a2656af3d7e9781cc6bd13542e6cd1f29e0e5999df1e0489434d5a6fe5df8b0b') {
-		res.render('registration/index');
-	}
-	else {
-		res.redirect('/#register');
-	}
+router.get('/late', function(req, res, next) {
+	res.render('registration/index');
 });
 
 // Routes for /register

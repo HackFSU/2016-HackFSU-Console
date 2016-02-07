@@ -53,6 +53,7 @@ export default class HelpRequest extends Parse.Object {
 
 		return promiseFindAll;
 	}
+
 }
 
 
