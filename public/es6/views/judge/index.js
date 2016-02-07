@@ -8,7 +8,8 @@
 	const SUBMIT_URL = '/judge';
 
 	let submitBtn = $('#endjudge');
-	let categoryOptions = $('select.categories');
+	let categoryOptions = $('select.category');
+	let sliders = $('#jslider1, #jslider2, #jslider3');
 
 	submitBtn.click(function(ev) {
 		ev.preventDefault();
@@ -32,6 +33,24 @@
 			}
 		});
 
+		sliders.forEach(function(sl) {
+			sl = $(sl);
+			let id = sl.data('hackId');
+			let val = sl.noUiSlider.get();
+			if(val > 0) {
+				for(let i = 0; i < val; ++i) {
+					data.points.push(id);
+				}
+			}
+		});
+
+		console.log('DATA', data);
+
+
+		// $('#judgemain').hide();
+		// $('#judge2').hide();
+		// $('#judge3').fadeIn("slow");
+		// window.scrollTo(0, 0);
 	});
 
 

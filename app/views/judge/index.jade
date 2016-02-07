@@ -5,7 +5,7 @@ block vars
 block localJS
 	script(src='/js/nouislider.min.js' type='text/javascript')
 	script(src='/js/judging.js' type='text/javascript')
-	script(type='text/javascript'src='/js/views/judge/index.js')
+	script(src='/js/views/judge/index.js' type='text/javascript')
 
 block localCSS
 	link(rel="stylesheet" href="/assets/css/nouislider.css")
@@ -26,7 +26,7 @@ block content
 					.plist BELOW IS A LIST OF HACKS THAT YOU WILL BE JUDGING:
 					
 					for hack in hacks
-						b.p #{hack.tableNumberz} #{hack.name}
+						b.p #{hack.tableNumber} #{hack.name}
 						br
 						
 				
@@ -50,14 +50,13 @@ block content
 					
 					- var i = 0;
 					for hack in hacks
+						- i = i + 1;
 						.one_third
 							.hero.judgehack1 Hack
-								span.judgehack2 ##{++i}
+								span.judgehack2 #{hack.tableNumber} #{hack.name}
 						.two_third.last
-							.hack-jslider(data-hack-id='#{hack.objectId}')
-						br
-						br
-						br
+							div(id='jslider#{i}' data-hack-id='#{hack.objectId}')
+						.clear
 						
 				
 					.hero.judgehack1.categoryTitle Categories
