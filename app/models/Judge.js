@@ -30,8 +30,7 @@ export default class Judge extends Parse.Object {
 		judge.set('waiverSignature', validate(o.waiverSignature, _.isString));
 		judge.set('mlhcoc', validate(o.mlhcoc, _.isBoolean));
 		judge.set('user', user);
-		judge.set('status', 'pending'); // will change when accepted by admin
-		// rounds[JudgeRound refs] 
+		judge.set('status', 'pending'); // others: 'accepted' : 'judging'
 
 		return judge;
 	}

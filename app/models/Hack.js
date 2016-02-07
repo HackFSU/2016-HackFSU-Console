@@ -25,6 +25,7 @@ export default class Hack extends Parse.Object {
 		hack.set('tableNumber', validate(o.tableNumber, _.isNumber));
 		hack.set('categories', validate(o.categories, _.isArray));
 		hack.set('team', validate(o.team, _.isArray));
+		hack.set('judgedBy', []);
 
 		return hack;
 	}
@@ -32,4 +33,4 @@ export default class Hack extends Parse.Object {
 }
 
 
- Parse.Object.registerSubclass(PARSE_CLASSNAME, Hack);
+Parse.Object.registerSubclass(PARSE_CLASSNAME, Hack);

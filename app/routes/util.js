@@ -59,7 +59,7 @@ export const validator = expressValidator({
  * Results unioned and put into req.locals.queryChainResults
  * Returns middleware that calls next() after queries are completed
  */
-export function queryFind(queryMaker, numPages, errorHandler) {
+export function queryFind(queryMaker, numPages, errorHandler, errorIfEmpty) {
 	return function(req, res, next) {
 		let queries = [];
 
@@ -88,6 +88,9 @@ export function queryFind(queryMaker, numPages, errorHandler) {
 
 		if(!errorHandler) {
 			errorHandler = stdServerErrorResponse(req, res, 'Parse Error');
+		} else {
+			// createit
+			errorHandler = errorHandler(req, res);
 		}
 
 		let queryPromises = [];
@@ -108,6 +111,10 @@ export function queryFind(queryMaker, numPages, errorHandler) {
 				all = _.union(all, result);
 			});
 
+			if(errorIfEmpty && all.length === 0) {
+				throw new Error('No results');
+			}
+
 			res.locals.queryResults = all;
 			next();
 		})
@@ -120,7 +127,7 @@ export function queryFind(queryMaker, numPages, errorHandler) {
 export function stdServerErrorResponse(req, res, logMessage) {
 	return function(err) {
 		logMessage = `[${req.baseUrl}] ${logMessage}`;
-		req.log.error(logMessage, err, err? err.stack : '<no stack>');
+		req.log.error(logMessage, err, err && err.stack? err.stack : '<no stack>');
 		res.status(500);
 		res.json({
 			error: err,
@@ -148,6 +155,31 @@ export function redirectRoles(roleNames, redirectUrl) {
 
 	return function(req, res, next) {
 		if(req.session.user && acl.checkKeys(checkKey, req.session.user.roleKey)) {
+			res.redirect(redirectUrl);
+		} else {
+			next();
+		}
+	};
+}
+
+/**
+ * Redirects those that are not of the given role names
+ * i.e, if acl.isRole.ROLES is ever false they are redirected
+ */
+export function redirectNot(roleNames, redirectUrl) {
+	let checkKey = 0;
+
+	if(typeof roleNames === 'string') {
+		roleNames = [roleNames];
+	}
+
+	// get the final checkKey
+	roleNames.forEach(function(roleName) {
+		checkKey = acl.addKeys(checkKey, acl.role(roleName).id);
+	});
+
+	return function(req, res, next) {
+		if(req.session.user && !acl.checkKeys(checkKey, req.session.user.roleKey)) {
 			res.redirect(redirectUrl);
 		} else {
 			next();

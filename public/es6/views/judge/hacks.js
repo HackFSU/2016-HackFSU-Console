@@ -129,6 +129,7 @@
 
 
 	let buttonActions = {
+
 	};
 
 	function confirmPost(url, data) {
@@ -208,6 +209,9 @@
 				data: data,
 				success: function(res) {
 					if(res.error) {
+						if(typeof res.error === 'string') {
+							alert(res.error);
+						}
 						reject(res.error);
 					} else {
 						resolve(res);
