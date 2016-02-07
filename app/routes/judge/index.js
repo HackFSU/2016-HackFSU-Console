@@ -17,7 +17,7 @@ import judgeResults from 'app/routes/judge/results';
 import Parse from 'parse/node';
 import JudgeRound from 'app/models/JudgeRound';
 import Judge from 'app/models/Judge';
-import User from 'app/models/user';
+import User from 'app/models/User';
 
 
 let router = express.Router();
