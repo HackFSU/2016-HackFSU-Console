@@ -16,10 +16,15 @@ export function save(req, res, next) {
 		userId = res.locals.user.objectId;
 	}
 
-	Judge.new({
+	let judge = Judge.new({
 		userId: userId
-	})
-	.save()
+	});
+
+	if(res.locals.forceAccepted) {
+		judge.set('status', 'accepted');
+	}
+
+	judge.save()
 	.then(function(obj) {
 		Judge.accept(obj.id).then(function() {
 			req.log.info({ judge: obj }, `New Judge saved`);
