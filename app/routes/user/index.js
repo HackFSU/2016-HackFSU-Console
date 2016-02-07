@@ -53,7 +53,7 @@ router.route('/profile')
 .get(
 	acl.use('User'),
 
-	// // refresh roleKey
+	// refresh roleKey
 	// queryFind(function(req, res) {
 	// 	let query = new Parse.Query(User);
 	// 	query.equalTo('objectId', req.session.user.userId);
@@ -92,22 +92,6 @@ router.route('/profile')
 	// },
 	// acl.use('User'),
 
-	function(req, res, next) {
-		// redirect non-admin roles to respective pages
-		let uAcl = res.locals.acl;
-		if(uAcl.isRole.Admin) {
-			next();
-			return;
-		}
-
-		// Uncomment this when it is ready to auto redirect judges
-		// if(uAcl.isRole.Judge) {
-		//     res.redirect('/judge');
-		//     return;
-		// }
-
-		next();
-	},
 	queryFind(function(req) {
 		let query = new Parse.Query(User);
 		query.equalTo('objectId', req.session.user.userId);
@@ -130,6 +114,7 @@ router.route('/profile')
 	function(req, res) {
 		// Flatten user object
 		let userInstance = res.locals.queryResults[0];
+
 		res.locals.user = {
 			firstName: userInstance.get('firstName'),
 			lastName: userInstance.get('lastName'),

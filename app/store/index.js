@@ -83,6 +83,16 @@ store.jobGoals = {
 	2: 'fullTime'
 };
 
+store.hackCategories = [
+	'Best New-Comer Team',
+	'Best Veteran Team',
+	'Best Collaborative Team',
+	'Most Ridiculous',
+	'Best Design',
+	'Best Hardware',
+	'Best Mobile'
+];
+
 
 
 /*****************************************************************************

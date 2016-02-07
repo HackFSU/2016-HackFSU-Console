@@ -27,9 +27,9 @@ export default function(app) {
 		acl.setEnforce(false);
 	}
 
-	if(process.env.env === 'development')  {
-		acl.verbose = true;
-	}
+	// if(process.env.env === 'development')  {
+	// 	acl.verbose = true;
+	// }
 
 	// parse body for post reqs only
 	app.post('*',
