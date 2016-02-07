@@ -5,6 +5,7 @@ block vars
 block localJS
 	script(src='/js/nouislider.min.js' type='text/javascript')
 	script(src='/js/judging.js' type='text/javascript')
+	script(type='text/javascript'src='/js/views/judge/index.js')
 
 block localCSS
 	link(rel="stylesheet" href="/assets/css/nouislider.css")
@@ -27,23 +28,30 @@ block content
 					.plist BELOW IS A LIST OF HACKS THAT YOU WILL BE JUDGING:
 					
 					for hack in hacks
-						.p #{hack.tableNumber} #{hack.name}
+						b.p #{hack.tableNumberz} #{hack.name}
+						br
 						
 				
 					br
 					button#beginjudge.judge-btn.judge-btn-form(type='submit') LET'S BEGIN
 					br
+					
+					
 				//screen 2
 				#judge2
 					br
 					br
-					h2.judges Total Points: #[span#judgingpoints 3]
+					h2.judges Total Points: 
+						span#judgingpoints 3
+						
 					.title-separator
 					br
 					
+					- var i = 0;
 					for hack in hacks
 						.one_third
-							.hero.judgehack1 Hack #[span.judgehack2 #1]
+							.hero.judgehack1 Hack
+								span.judgehack2 ##{++i}
 						.two_third.last
 							.hack-jslider(data-hack-id='#{hack.objectId}')
 						br
@@ -54,59 +62,17 @@ block content
 					.hero.judgehack1.categoryTitle Categories
 					br
 					br
-					.judgehack2.categories Best New-Comer Team
-					select.optionheight
-						option None Selected
-						for hack in hacks
-							option(value='#{hack.objectId}') #{hack.name}
-							
-					br
-					br
-					.judgehack2.categories Best Veteran Team
-					select.optionheight
-						option None Selected
-						for hack in hacks
-							option(value='#{hack.objectId}') #{hack.name}
-					br
-					br
-					.judgehack2.categories Best Collaborative Team
-					select.optionheight
-						option None Selected
-						for hack in hacks
-							option(value='#{hack.objectId}') #{hack.name}
-					br
-					br
-					.judgehack2.categories Most Ridiculous
-					select.optionheight
-						option None Selected
-						for hack in hacks
-							option(value='#{hack.objectId}') #{hack.name}
-					br
-					br
-					.judgehack2.categories Best Design
-					select.optionheight
-						option None Selected
-						for hack in hacks
-							option(value='#{hack.objectId}') #{hack.name}
-					br
-					br
-					.judgehack2.categories Best Hardware
-					select.optionheight
-						option None Selected
-						for hack in hacks
-							option(value='#{hack.objectId}') #{hack.name}
-					br
-					br
+					for category in store.hackCategories
+						.judgehack2.categories #{category}
+						select.optionheight.category(name='#{category}')
+							option(value='-1') None Selected
+							for hack in hacks
+								option(value='#{hack.objectId}') #{hack.name}
+								
+						br
+						br
 					
-					.judgehack2.categories Best Mobile
-					select.optionheight
-						option None Selected
-						for hack in hacks
-							option(value='#{hack.objectId}') #{hack.name}
-							
-					br
-					br
-					button#endjudge.judge-btn.judge-btn-form(type='submit') SAVE
+					button#endjudge.judge-btn.judge-btn-form(type='button') SAVE
 
 				//screen 3
 				#judge3.clear.services.thankyousection.block
@@ -114,6 +80,6 @@ block content
 								.hellojudge.judging.section-title-fixed.singleLineText <img id='titlePiece' src='/assets/img/titlepieces1.png' style='z-index:-1;' /> THANK YOU! 
 								br
 								br
-								.hellojudge.p.nextround The next round will begin in a few minutes. Sit tight  :D
+								.hellojudge.p.nextround You have completed this round. Go to the judge organizer table to get another round of hacks.
 								br
 								button#judgerefresh.judge-btn.judge-btn-form REFRESH

@@ -4,7 +4,7 @@
 'use strict';
 
 import express from 'express';
-import { acl, redirectRoles, redirectNot } from 'app/routes/util';
+import { acl, redirectRoles, redirectNot, queryFind } from 'app/routes/util';
 import * as signup from 'app/routes/judge/signup';
 import * as user from 'app/routes/user/middleware';
 import moment from 'moment';
@@ -13,6 +13,11 @@ import * as middleware from 'app/routes/judge/middleware';
 import judgeJudges from 'app/routes/judge/judges';
 import judgeHacks from 'app/routes/judge/hacks';
 import judgeResults from 'app/routes/judge/results';
+
+import Parse from 'parse/node';
+import JudgeRound from 'app/models/JudgeRound';
+import Judge from 'app/models/Judge';
+import User from 'app/models/user';
 
 
 let router = express.Router();
@@ -23,14 +28,83 @@ let router = express.Router();
  */
 router.route('/')
 .get(
-	acl.use('User'),
-	redirectNot('Judge', '/judge/userSignup'),
-	// acl.use('Judge'), // TODO figure out why Admins cant access this page
+	acl.use('Judge'),
+
+	queryFind(function(req) {
+		let query = new Parse.Query(User);
+		query.equalTo('objectId', req.session.user.userId);
+		return query;
+	}),
+
+	// Grab the user
+	function(req, res, next) {
+		let user = res.locals.user = res.locals.queryResults[0];
+		req.log.info('USER', user);
+		next();
+	},
+
+	queryFind(function(req,res) {
+		let query = new Parse.Query(Judge);
+		query.equalTo('user', res.locals.user);
+		return query;
+	}),
+
+	function(req, res, next) {
+		if(!res.locals.queryResults) {
+			req.log.info('NO JUDGE');
+			res.locals.judge = '';
+			next();
+			return;
+		}
+		let judge = res.locals.judge = res.locals.queryResults[0];
+		// req.log.info('JUDGE', judge);
+		next();
+	},
+
+	queryFind(function(req, res) {
+		let query = new Parse.Query(JudgeRound);
+		query.equalTo('judge', res.locals.judge);
+		query.equalTo('status', 'in progress');
+		query.include([
+			'hacks'
+		]);
+		return query;
+	}),
+	function(req, res, next) {
+		if(!res.locals.queryResults) {
+			req.log.info('NO ROUND');
+			next();
+			return;
+		}
+		let jround = res.locals.jround = res.locals.queryResults[0];
+		// req.log.info('ROUND', jround);
+		next();
+	},
 
 	function(req, res) {
+		let hacks = [];
+
+		// req.log.info(res.locals,'????');
+
+		if(res.locals.queryResults.length) {
+			let pHacks = res.locals.jround.get('hacks');
+			pHacks.forEach(function(h) {
+				hacks.push({
+					name: h.get('name'),
+					tableNumber: h.get('tableNumber'),
+					objectId: h.id
+				});
+			});
+
+		}
+
+		req.log.info({hacks: hacks},'hacks for judge');
+
 		res.render('judge/index', {
-			date: moment().format("MMMM DD, YYYY"),
+			hacks: hacks
 		});
+
+		req.log.info('donee');
 	}
 );
 

@@ -59,7 +59,12 @@ export const validator = expressValidator({
  * Results unioned and put into req.locals.queryChainResults
  * Returns middleware that calls next() after queries are completed
  */
-export function queryFind(queryMaker, numPages, errorHandler, errorIfEmpty) {
+ /**
+  * Merge one or more queries into one call
+  * Results unioned and put into req.locals.queryChainResults
+  * Returns middleware that calls next() after queries are completed
+  */
+export function queryFind(queryMaker, numPages, errorHandler) {
 	return function(req, res, next) {
 		let queries = [];
 
@@ -69,11 +74,6 @@ export function queryFind(queryMaker, numPages, errorHandler, errorIfEmpty) {
 
 		for(let i = 0; i < numPages; ++i) {
 			let query = queryMaker(req, res);
-
-			if(!query) {
-				throw new Error('[util] queryMaker does not return a query!');
-			}
-
 			query.skip(i*1000);
 			query.limit(1000);
 			queries.push(query);
@@ -88,9 +88,6 @@ export function queryFind(queryMaker, numPages, errorHandler, errorIfEmpty) {
 
 		if(!errorHandler) {
 			errorHandler = stdServerErrorResponse(req, res, 'Parse Error');
-		} else {
-			// createit
-			errorHandler = errorHandler(req, res);
 		}
 
 		let queryPromises = [];
@@ -111,10 +108,6 @@ export function queryFind(queryMaker, numPages, errorHandler, errorIfEmpty) {
 				all = _.union(all, result);
 			});
 
-			if(errorIfEmpty && all.length === 0) {
-				throw new Error('No results');
-			}
-
 			res.locals.queryResults = all;
 			next();
 		})
@@ -127,7 +120,7 @@ export function queryFind(queryMaker, numPages, errorHandler, errorIfEmpty) {
 export function stdServerErrorResponse(req, res, logMessage) {
 	return function(err) {
 		logMessage = `[${req.baseUrl}] ${logMessage}`;
-		req.log.error(logMessage, err && err.stack? err.stack : '<no stack>');
+		req.log.error(logMessage, err, err? err.stack : '<no stack>');
 		res.status(500);
 		res.json({
 			error: err,
