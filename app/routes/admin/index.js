@@ -15,7 +15,6 @@ import schools from 'app/routes/admin/schools';
 import stats from 'app/routes/admin/stats';
 import updates from 'app/routes/admin/updates';
 import mentors from 'app/routes/admin/mentors';
-import judges from 'app/routes/admin/judges';
 import users from 'app/routes/admin/users';
 
 const router = express.Router();
@@ -32,8 +31,12 @@ router.use('/schools', schools);
 router.use('/stats', stats);
 router.use('/updates', updates);
 router.use('/mentors', mentors);
-router.use('/judges', judges);
 router.use('/users', users);
+
+// Redirect for old links
+router.use('/judges', function(req, res) {
+	res.redirect('/judge/judges');
+});
 
 /**
  * Acl debugging, load it if you get confused about the acl

@@ -5,8 +5,9 @@
 (function() {
 	'use strict';
 
-	const GET_DATA_URL = '/admin/judges/list';
-	const POST_ACCEPT_URL = '/admin/judges/accept';
+	const GET_DATA_URL = '/judge/judges/list';
+	const POST_ACCEPT_URL = '/judge/judges/accept';
+	const POST_GIVE_ROUND_URL = '/judge/judges/giveRound';
 
 	let viewTable = $('table#view');
 	let viewHeader = viewTable.find('thead tr');
@@ -110,6 +111,10 @@
 				newRow.actions += createActionBtnHtml(
 					'Accept', newRow.status === 'pending', rowData.objectId
 				);
+			} else {
+				newRow.actions += createActionBtnHtml(
+					'Give Round', newRow.status !== 'pending', rowData.objectId
+				);
 			}
 
 
@@ -146,14 +151,17 @@
 
 
 
-
-
 	// BUTTON ACTIONS
 
 
 	let buttonActions = {
 		'Accept': createPromiseAction(function(btn) {
 			return post(POST_ACCEPT_URL, {
+				judgeId: btn.data('judgeId')
+			});
+		}),
+		'Give Round': createPromiseAction(function(btn) {
+			return post(POST_GIVE_ROUND_URL, {
 				judgeId: btn.data('judgeId')
 			});
 		})

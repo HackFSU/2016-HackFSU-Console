@@ -101,20 +101,20 @@
 		console.log('Got ' + data.length, data);
 		data.forEach(function(rowData, i) {
 			newRow = {
-				firstName: rowData.user.firstName,
-				lastName: rowData.user.lastName,
-				github: rowData.user.github? rowData.user.github : '',
+				firstName: '' + rowData.user.firstName,
+				lastName: '' + rowData.user.lastName,
+				github: '' + rowData.user.github,
 				phone: rowData.user.phone? rowData.user.phone.replace(/[^\d]/g,'') : '',
-				email: rowData.user.email,
-				diet: rowData.user.diet,
-				shirtSize: rowData.user.shirtSize,
+				email: '' + rowData.user.email,
+				diet: '' + rowData.user.diet,
+				shirtSize: '' + rowData.user.shirtSize,
 
 				firstHackathon: rowData.firstHackathon? 'Y' : 'N',
 				comments: rowData.comments? rowData.comments.trim() : '',
 				times: rowData.times? rowData.times.join(', ') : '',
 				skills: rowData.skills? rowData.skills.trim() : '',
-				affiliation: rowData.affiliation,
-				createdAt: rowData.createdAt
+				affiliation: '' + rowData.affiliation,
+				createdAt: moment(rowData.createdAt).local().format('YY-MM-DD HH:mm')
 			};
 
 			// grab data for times

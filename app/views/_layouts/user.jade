@@ -27,10 +27,10 @@ block header
 					li(class=(urlPath === linkUrl? 'active': ''))
 						a(href='#{linkUrl}') PROFILE
 					
-					//- if acl.canAccess.Judge
-						- linkUrl = '/judge'
+					if acl.canAccess.Judge
+						- linkUrl = '/judge';
 						li(class=(urlPath === linkUrl? 'active': ''))
-							a(href='${linkUrl}') JUDGE
+							a(href='#{linkUrl}') JUDGE
 					
 					if acl.canAccess.Mentor
 						- linkUrl = '/mentor/helprequests';

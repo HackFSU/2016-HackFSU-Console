@@ -52,6 +52,46 @@ router.get('/logout', function(req, res) {
 router.route('/profile')
 .get(
 	acl.use('User'),
+
+	// refresh roleKey
+	queryFind(function(req, res) {
+		let query = new Parse.Query(User);
+		query.equalTo('objectId', req.session.user.userId);
+		query.select([
+			'roleKey'
+		]);
+		return query;
+	}),
+	function(req, res, next) {
+		if(!res.locals.queryResults.length) {
+			// invalid user
+			res.session.destroy();
+			next();
+			return;
+		}
+
+		let user = res.locals.queryResults[0];
+		let gotKey = user.get('roleKey');
+
+		if(gotKey === req.session.user.roleKey) {
+			// no need to update, move along
+			next();
+			return;
+		}
+
+		// update it
+		let userRoleId = acl.role('User').id;
+		if(typeof gotKey === 'undefined') {
+			req.log.error('[session] missing roleKey for', user.id);
+			gotKey = userRoleId;
+		}
+
+		// update session copy
+		req.session.user.roleKey = acl.addKeys(gotKey, userRoleId);
+		next();
+	},
+
+	acl.use('User'),
 	function(req, res, next) {
 		// redirect non-admin roles to respective pages
 		let uAcl = res.locals.acl;

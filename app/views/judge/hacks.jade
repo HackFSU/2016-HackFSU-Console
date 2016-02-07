@@ -1,6 +1,6 @@
 extends ../_layouts/bootstrap
 block vars
-	- title = 'Admin | Hackers'
+	- title = 'Judge | Submitted Hacks'
 
 block localCSS
 	link(rel='stylesheet' type='text/css' href='/bower_components/datatables/media/css/dataTables.bootstrap.min.css')
@@ -13,14 +13,13 @@ block localJS
 	script(src='/bower_components/datatables-buttons/js/buttons.bootstrap.js')
 	script(src='/bower_components/datatables-buttons/js/buttons.html5.js')
 	script(src='/bower_components/datatables-buttons/js/buttons.flash.js')
-	script(src='/bower_components/moment/min/moment.min.js')
-	script(src='/js/views/admin/hackers.js')
+	script(src='/js/views/judge/hacks.js')
 
 block content
-	h1 Hacker Management
-	
+	h1 Submitted Hacks Management
+
 	#view-toggle.btn-group
-	
+
 	table#view.table.table-striped.table-bordered
 		thead
 			tr

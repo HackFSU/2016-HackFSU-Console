@@ -4,20 +4,29 @@
 'use strict';
 
 import express from 'express';
-import { acl, redirectRoles } from 'app/routes/util';
+import { acl, redirectRoles, redirectNot } from 'app/routes/util';
 import * as signup from 'app/routes/judge/signup';
 import * as user from 'app/routes/user/middleware';
 import moment from 'moment';
 import * as middleware from 'app/routes/judge/middleware';
 
+import judgeJudges from 'app/routes/judge/judges';
+import judgeHacks from 'app/routes/judge/hacks';
+import judgeResults from 'app/routes/judge/results';
+
+
 let router = express.Router();
+
 
 /**
  * Main judge page, where judges judge hacks
  */
 router.route('/')
 .get(
-	acl.use('Judge'),
+	acl.use('User'),
+	redirectNot('Judge', '/judge/userSignup'),
+	// acl.use('Judge'), // TODO figure out why Admins cant access this page
+
 	function(req, res) {
 		res.render('judge/index', {
 			date: moment().format("MMMM DD, YYYY"),
@@ -51,7 +60,7 @@ router.route('/signup')
 router.route('/userSignup')
 .all(
 	redirectRoles('Judge', '/judge'), // no need for them to be here
-	acl.use('Admin') // switch to Mentor when ready
+	acl.use('Mentor') // switch to Mentor when ready
 )
 .get(function(req, res) {
 	res.render('judge/userSignup', {
@@ -64,6 +73,10 @@ router.route('/userSignup')
 		res.json({});
 	}
 );
+
+router.use('/judges', acl.use('Admin'), judgeJudges);
+router.use('/hacks', acl.use('Admin'), judgeHacks);
+router.use('/results', acl.use('Admin'), judgeResults);
 
 
 export default router;

@@ -9,7 +9,7 @@ import WifiCred from 'app/models/WifiCred';
 import path from 'path';
 import fs from 'fs-extra';
 
-const IN_FILE = path.resolve(__dirname + '/../wifikeys/keys.txt');
+const IN_FILE = path.resolve(__dirname + '/../data/keys.txt');
 
 // setup parse
 Parse.initialize(

@@ -28,7 +28,7 @@ export default class Judge extends Parse.Object {
 
 		// Judge attributes
 		judge.set('user', user);
-		judge.set('status', 'accepted'); // will change when accepted by admin
+		judge.set('status', 'pending'); // will change when accepted by admin
 
 		return judge;
 	}
