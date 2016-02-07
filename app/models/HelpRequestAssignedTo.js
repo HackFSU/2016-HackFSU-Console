@@ -1,6 +1,6 @@
 /**
 * HelpRequestAssignedTo model
-*
+* *DEPRECATED*
 */
 
 'use strict';

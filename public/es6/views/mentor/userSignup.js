@@ -51,7 +51,7 @@
 						return;
 					});
 				});
-				window.location.href = '/user/logout';
+				window.location.href = '/user/profile';
 			})
 			.catch(function(err) {
 				console.error(err);

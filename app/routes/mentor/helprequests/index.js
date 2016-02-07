@@ -8,7 +8,7 @@
 'use strict';
 
 import express from 'express';
-import { acl, queryFind, stdServerErrorResponse } from 'app/routes/util';
+import { acl, queryFind, stdServerErrorResponse, redirectNot } from 'app/routes/util';
 import HelpRequest from 'app/models/HelpRequest';
 import Mentor from 'app/models/Mentor';
 import User from 'app/models/User';
@@ -17,57 +17,10 @@ import Parse from 'parse/node';
 
 let router = express.Router();
 
-router.use(acl.use('Mentor'));
-
-// // Log the request body for all requests
-// router.use(function(req, res, next) {
-// 	if (req.app.get('env') === 'development' && req.body) {
-// 		req.log.debug({ reqBody: req.body });
-// 	}
-//
-// 	next();
-// });
-//
-//
-// router.route('/')
-// /**
-// * GET /mentor/helprequests
-// *
-// * Render a table with all of the help requests currently open and assigned
-// */
-// .get(
-// 	middleware.getAllHelpRequests,
-// 	middleware.getCurrentMentor,
-// 	function(req, res, next) {
-// 		res.render('mentor/helprequests/index', {
-// 			helpReqs: req.helpReqs,
-// 			mentor: req.mentor
-// 		});
-// 	}
-// );
-//
-//
-// router.route('/:id/mentors/:mid')
-// /**
-// * POST /mentor/helprequests/:id/mentors/:mid
-// *
-// * Assigns a help request to the selected mentor
-// */
-// .post(
-// 	middleware.getHelpRequest,
-// 	middleware.getMentor,
-// 	middleware.createHelpRequestAssignedTo,
-// 	function(req, res, next) {
-// 		res.status(201);
-// 		res.json({
-// 			data: {
-// 				helpReqAssignedTo: req.helpReqAssignedTo
-// 			}
-// 		});
-//
-// 	}
-// );
-
+router.use(
+	acl.use('Mentor'),
+	redirectNot('Mentor', '/mentor/userSignup')
+);
 
 router.route('/')
 .get(

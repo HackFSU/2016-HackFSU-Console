@@ -4,94 +4,99 @@ block vars
 	
 block content
 	.clear.services.section.block
-	if accessDenied
-		.access-denied
-			h1.accessdeniedstyle Access Denied
-
+	
 	.userprofile.clear.services.block
 		.block.content-960.center-relative
-				h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
-					| Welcome to HackFSU 2016
-				.title-separator(style='border-color: #303030')
+			h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
+				| Welcome to HackFSU 2016
+			.title-separator(style='border-color: #303030')
+		
+			br
+			br
 			
+			if accessDenied
+				#errors: #error-messages
+					h3 <strong>Oh no!</strong> Access Denied
 				br
 				br
-				
-				h2= user.firstName + " " + user.lastName
 				br
-				
-				p
-					-	var roles = [];
-					-	if(acl.isRole.Hacker) {
-					-		roles.push('a Hacker');
-					-	}
-					-	if(acl.isRole.Mentor) {
-					-		roles.push('a Mentor');
-					-	}
-					-	if(acl.isRole.Judge) {
-					-		roles.push('a Judge');
-					-	}
-					-	if(acl.isRole.Admin) {
-					-		roles.push('an Admin');
-					-	}
-					-
-					-	if(!roles.length) {
-					-		roles.push('a User');
-					-	}
-					-
-					-	if(roles.length > 1) {
-					-		roles[roles.length-1] = 'and ' + roles[roles.length-1]; 
-					-	}
-				
-					strong You are #{roles.join(", ")}
-				
 				br
-				p
-					strong GitHub: 
-					| #{user.github}
+			
+			h2= user.firstName + " " + user.lastName
+			br
+			
+			p
+				-	var roles = [];
+				-	if(acl.isRole.Hacker) {
+				-		roles.push('a Hacker');
+				-	}
+				-	if(acl.isRole.Mentor) {
+				-		roles.push('a Mentor');
+				-	}
+				-	if(acl.isRole.Judge) {
+				-		roles.push('a Judge');
+				-	}
+				-	if(acl.isRole.Admin) {
+				-		roles.push('an Admin');
+				-	}
+				-
+				-	if(!roles.length) {
+				-		roles.push('a User');
+				-	}
+				-
+				-	if(roles.length > 1) {
+				-		roles[roles.length-1] = 'and ' + roles[roles.length-1]; 
+				-	}
+			
+				strong You are #{roles.join(", ")}
+			
+			br
+			p
+				strong GitHub: 
+				| #{user.github}
+				br
+				strong Phone: 
+				| #{user.phone}
+				br
+				strong Diet: 
+				| #{user.diet} 
+				br
+				strong Shirt Size: 
+				| #{user.shirtSize}
+				br
+				strong Email: 
+				| #{user.email}
+				
+				if user.wifiCred
 					br
-					strong Phone: 
-					| #{user.phone}
 					br
-					strong Diet: 
-					| #{user.diet} 
+					strong FSUGuest WiFi Username: 
+					span.open-sans= user.wifiCred.username
 					br
-					strong Shirt Size: 
-					| #{user.shirtSize}
-					br
-					strong Email: 
-					| #{user.email}
+					strong FSUGuest Wifi Password: 
+					span.open-sans= user.wifiCred.password
 					
-					if user.wifiCred
-						br
-						br
-						strong FSUGuest WiFi Username: 
-						span.open-sans= user.wifiCred.username
-						br
-						strong FSUGuest Wifi Password: 
-						span.open-sans= user.wifiCred.password
-						
-						
-						
-				.clear
-				
-				p
-					if !acl.isRole.Hacker && !acl.isRole.Mentor
-						strong: a(href='/mentor/userSignup') Become a mentor!
-				
-				if runLevel === 'development'
-					.debug
-						h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
-							| Debug
-						.title-separator(style='border-color: #303030')
-						//- if !acl.isRole.Judge && (!acl.isRole.Hacker || acl.canAccess.Admin)
-							h1: a(href='/judge/userSignup') Sign up to become a Judge
 					
-						h3 ACL
-						p !{JSON.stringify(acl, undefined, 2).replace(/\n/g, '<br>'))}
-						
-						br
-						br
-						
-						h3 User Data
-						p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
+					
+			.clear
+			
+			p
+				if !acl.isRole.Hacker && !acl.isRole.Mentor
+					strong: a(href='/mentor/userSignup') Become a mentor!
+			
+			if runLevel === 'development'
+				.debug
+					h1.section-title <img id='titlePiece2' src='/assets/img/titlepieces1.png' /> 
+						| Debug
+					.title-separator(style='border-color: #303030')
+					//- if !acl.isRole.Judge && (!acl.isRole.Hacker || acl.canAccess.Admin)
+						h1: a(href='/judge/userSignup') Sign up to become a Judge
+				
+					h3 ACL
+					p !{JSON.stringify(acl, undefined, 2).replace(/\n/g, '<br>'))}
+					
+					br
+					br
+					
+					h3 User Data
+					p !{JSON.stringify(user, undefined, 2).replace(/\n/g, '<br>'))}
