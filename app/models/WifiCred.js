@@ -20,7 +20,6 @@ export default class WifiCred extends Parse.Object {
 
 		validate(o, _.isPlainObject);
 
-		// Judge attributes
 		wifiCred.set('username', validate(o.username, _.isString));
 		wifiCred.set('password', validate(o.password, _.isString));
 		wifiCred.set('assigned', false);

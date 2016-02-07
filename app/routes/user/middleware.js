@@ -26,7 +26,7 @@ export function validateLogin(req, res, next) {
 }
 
 export function loginUser(req, res, next) {
-	User.checkLogin(req.body.email, req.body.password)
+	User.checkLogin(req.body.email.toLowerCase(), req.body.password)
 	.then(function(userId) {
 		User.fetchSimple(userId, 'roleKey')
 		.then(function(user) {
