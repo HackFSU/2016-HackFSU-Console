@@ -172,6 +172,12 @@ router.route('/giveRound')
 	queryFind(function(req, res) {
 		let query = new Parse.Query(Hack);
 		query.notEqualTo('judgedBy', res.locals.judge);
+		if(process.env.expo !== 2) {
+			query.lessThanOrEqualTo('tableNumber', 39);
+		} else {
+			query.greaterThan('tableNumber', 39);
+		}
+
 		return query;
 	}, 1, unblockingErrorHandlerCreator),
 
