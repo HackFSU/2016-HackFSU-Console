@@ -24,7 +24,7 @@ export default class Hack extends Parse.Object {
 		hack.set('name', validate(o.name, _.isString));
 		hack.set('tableNumber', validate(o.tableNumber, _.isNumber));
 		hack.set('categories', validate(o.categories, _.isArray));
-		hack.set('teamMembers', validate(o.categories, _.isArray));
+		hack.set('team', validate(o.team, _.isArray));
 
 		return hack;
 	}
