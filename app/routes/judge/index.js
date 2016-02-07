@@ -8,6 +8,7 @@ import { acl, redirectRoles, redirectNot } from 'app/routes/util';
 import * as signup from 'app/routes/judge/signup';
 import * as user from 'app/routes/user/middleware';
 import moment from 'moment';
+import * as middleware from 'app/routes/judge/middleware';
 
 import judgeJudges from 'app/routes/judge/judges';
 import judgeHacks from 'app/routes/judge/hacks';
@@ -45,10 +46,10 @@ router.route('/signup')
 	});
 })
 .post(
+	middleware.setFakeJudgeBody,
 	user.validateSignup,
 	user.checkEmailUsed,
 	user.signupNewUser,
-	signup.validate,
 	signup.save,
 	function(req, res) {
 		res.json({});
@@ -67,7 +68,6 @@ router.route('/userSignup')
 	});
 })
 .post(
-	signup.validate,
 	signup.save,
 	function(req, res) {
 		res.json({});
