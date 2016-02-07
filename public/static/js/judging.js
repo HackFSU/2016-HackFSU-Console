@@ -75,10 +75,12 @@
 			jslider1.setAttribute("disabled", true);
 			jslider2.setAttribute("disabled", true);
 			jslider3.setAttribute("disabled", true);
+			document.getElementById("outofpoints").innerHTML = "All of your points have been allocated. If you need to change the values, please refresh the page.";
 		}else{
 			jslider1.removeAttribute("disabled");
 			jslider2.removeAttribute("disabled");
 			jslider3.removeAttribute("disabled");
+			document.getElementById("outofpoints").innerHTML = "";
 		}
 	});
 
@@ -100,10 +102,12 @@
 			jslider1.setAttribute("disabled", true);
 			jslider2.setAttribute("disabled", true);
 			jslider3.setAttribute("disabled", true);
+			document.getElementById("outofpoints").innerHTML = "All of your points have been allocated. If you need to change the values, please refresh the page.";
 		}else{
 			jslider1.removeAttribute("disabled");
 			jslider2.removeAttribute("disabled");
 			jslider3.removeAttribute("disabled");
+			document.getElementById("outofpoints").innerHTML = "";
 		}
 	});
 
@@ -125,10 +129,12 @@
 			jslider1.setAttribute("disabled", true);
 			jslider2.setAttribute("disabled", true);
 			jslider3.setAttribute("disabled", true);
+			document.getElementById("outofpoints").innerHTML = "All of your points have been allocated. If you need to change the values, please refresh the page.";
 		}else{
 			jslider1.removeAttribute("disabled");
 			jslider2.removeAttribute("disabled");
 			jslider3.removeAttribute("disabled");
+			document.getElementById("outofpoints").innerHTML = "";
 		}
 	});
 })(jQuery);
