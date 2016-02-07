@@ -11,7 +11,7 @@
 	let viewHeader = viewTable.find('thead tr');
 	let viewToggle = $('#view-toggle');
 	let columns = {
-		'Table #': 'tableNumber',
+		'Table': 'tableNumber',
 		'Name': 'name',
 		'Categories': 'categories',
 		'Team Members': 'team'
@@ -34,6 +34,9 @@
 			[25, 50, 100, 200, -1],
 			[25, 50, 100, 200, 'All']
 		],
+		order: [
+			[0, 'asc']
+		]
 	});
 
 	viewToggle.children().click(function(e) {

@@ -69,6 +69,11 @@ export function queryFind(queryMaker, numPages, errorHandler) {
 
 		for(let i = 0; i < numPages; ++i) {
 			let query = queryMaker(req, res);
+
+			if(!query) {
+				throw new Error('[util] queryMaker does not return a query!');
+			}
+
 			query.skip(i*1000);
 			query.limit(1000);
 			queries.push(query);
