@@ -27,7 +27,7 @@ block content
 					.plist BELOW IS A LIST OF HACKS THAT YOU WILL BE JUDGING:
 					
 					for hack in hacks
-						.p <strong> #{hack.tableNumber} </strong> #{hack.name}
+						.p <strong># #{hack.tableNumber} </strong> #{hack.name}
 						br
 				
 					br
@@ -41,9 +41,7 @@ block content
 					br
 					h2.judges Total Points: 
 						span#judgingpoints 3
-						
 					.title-separator
-					br
 
 					p#outofpoints.p(style='font-size:1.5em;')
 					br
@@ -52,7 +50,7 @@ block content
 					for hack in hacks
 						- i = i + 1;
 						.one_third
-							.hero.judgehack2 Hack #
+							.judgehack2 Hack #
 								span.judgehack2 #{hack.tableNumber}
 							.p #{hack.name}
 						.two_third.last

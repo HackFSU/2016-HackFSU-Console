@@ -1062,8 +1062,8 @@ table#helpreqs td {
 }
 
 #judge3 .hellojudge.judging{
-	font-size:6em !important;
-	margin-bottom: 0.4em !important;
+	font-size:5em !important;
+	margin-bottom: 0.3em !important;
 }
 
 
@@ -1099,7 +1099,7 @@ table#helpreqs td {
 .p {
 	font-size: 1.4em;
 	margin-bottom: .01em !important;
-	margin-left:2em;
+	margin-left:1.7em;
 	color:#fff;
 	line-height: 100%;
 	text-align: left;
@@ -1122,13 +1122,9 @@ table#helpreqs td {
 }
 
 #judge2 {
-	margin-top: -80px;
+	margin-top: -130px;
 	margin-bottom: 20px;
 	/*min-height: 600px;*/
-}
-
-#judge2 h2 {
-	font-size: 2.5em;
 }
 
 #judge3 {
@@ -1225,7 +1221,7 @@ table#helpreqs td {
 }
 
 #judge2 h2 {
-	font-size:2.8em;
+	font-size:2.5em;
 }
 
 
