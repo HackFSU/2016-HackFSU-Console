@@ -11,34 +11,34 @@ $('#judge2').hide();
 $('#judge3').hide();
 
 $('#beginjudge').click(function() {
-	$('#judgemain').toggle();
-	$('#judge2').fadeIn("slow");
+$('#judgemain').toggle();
+$('#judge2').fadeIn("slow");
 	window.scrollTo(0, 0);
 });
-$('#judgerefresh').click(function() {
-	location.reload();
+ $('#judgerefresh').click(function() {
+	 location.reload();
 });
 
-// $('#endjudge').click(function(e) {
-// 	var form = $('#judgeform');
-// 	var data = form.serialize();
-// 	data += '&hack1=' + parseInt(jslider1.noUiSlider.get());
-// 	data += '&hack2=' + parseInt(jslider2.noUiSlider.get());
-// 	data += '&hack3=' + parseInt(jslider3.noUiSlider.get());
-// 	$.ajax({
-// 		type: 'POST',
-// 		url: '/judge',
-// 		data: data,
-// 		success: function(res) {
-// 			console.log(data);
-// 		}
-// 	});
-// 	$('#judgemain').hide();
-// 	$('#judge2').hide();
-// 	$('#judge3').fadeIn("slow");
-// 	window.scrollTo(0, 0);
-// 	e.preventDefault();
-// });
+$('#endjudge').click(function(e) {
+	var form = $('#judgeform');
+	var data = form.serialize();
+	data += '&hack1=' + parseInt(jslider1.noUiSlider.get());
+	data += '&hack2=' + parseInt(jslider2.noUiSlider.get());
+	data += '&hack3=' + parseInt(jslider3.noUiSlider.get());
+	$.ajax({
+		type: 'POST',
+		url: '/judge',
+		data: data,
+		success: function(res) {
+			console.log(data);
+		}
+	});
+	$('#judgemain').hide();
+	$('#judge2').hide();
+	$('#judge3').fadeIn("slow");
+	window.scrollTo(0, 0);
+	e.preventDefault();
+});
 
 noUiSlider.create(jslider1, {
 	start: 0,
