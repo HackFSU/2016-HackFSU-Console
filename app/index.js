@@ -9,7 +9,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 // import morgan from 'morgan';
 import bunyan from 'bunyan';
-import Parse from 'parse/node';
+
+import db from 'config/db';
 import store from 'app/store';
 import routes from 'app/routes';
 import boot from 'app/boot';
@@ -43,6 +44,8 @@ export default function() {
 
 	// logging
 	let log = bunyan.createLogger({ name: 'HackFSU' });
+
+	// Log environment variables
 	log.info({
 		environment: dotenv.keys_and_values
 	}, 'Custom Environment Values');
@@ -55,15 +58,6 @@ export default function() {
 	// Give templates store access
 	app.locals.store = store;
 
-	// Initialize db (Parse)
-	Parse.initialize(
-		process.env.PARSE_APP_ID,
-		process.env.PARSE_JS_KEY,
-		process.env.PARSE_MASTER_KEY
-	);
-	Parse.Cloud.useMasterKey();
-
-	// TODO: MySQL db
 
 	/**
 	 * Request Managment
@@ -73,7 +67,8 @@ export default function() {
 	// To be run on every request
 	app.use(function(req, res, next) {
 		// Handle caching
-		if(req.url.match(/(\.(img|font|mp4))+$/)) {
+		const filesToCache = /(\.(img|font|mp4))+$/;
+		if(req.url.match(filesToCache)) {
 			res.setHeader('Cache-Control', 'public, max-age=' + app.get('maxAge'));
 		}
 		next();
@@ -83,8 +78,6 @@ export default function() {
 	app.use(express.static(path.join(__dirname, '../public/static')));
 	app.use(express.static(path.join(__dirname, '../public/build')));
 	app.use(express.static(path.join(__dirname, '../public/app')));
-	// Only use this for dev purposes
-	//app.use(express.static(path.join(__dirname, '../public/.legacy/app')));
 
 	// Prepare request for route managment
 	app.use(function(req, res, next) {
@@ -106,12 +99,5 @@ export default function() {
 
 	// Start the server
 	boot(app);
-
-	app.io.on('connection', function(socket) {
-		socket.emit('news', 'test');
-		socket.on('news', function(data) {
-			console.log('data');
-		});
-	});
 
 }

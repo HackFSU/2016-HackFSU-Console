@@ -7,7 +7,7 @@
     "start": "node server.js | bunyan",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "hackfsu.com",
+  "homepage": "http://hackfsu.com",
   "author": "HackFSU",
   "license": "ISC",
   "dependencies": {
@@ -33,11 +33,11 @@
     "moment": "^2.10.6",
     "morgan": "^1.6.1",
     "node-uuid": "^1.4.3",
-    "parse": "^1.6.8",
+    "pg": "^4.4.4",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.19.2",
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.4.4",
-    "socketio": "^1.0.0",
-    "validator": "^4.4.0",
     "yargs": "^3.29.0"
   },
   "devDependencies": {
