@@ -4,7 +4,7 @@
   "description": "HackFSU website",
   "repository": "https://github.com/HackFSU/hackfsu-console",
   "scripts": {
-    "start": "node server.js | bunyan",
+    "start": "node server.js | bunyan -o short",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "homepage": "http://hackfsu.com",

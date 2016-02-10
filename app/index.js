@@ -22,9 +22,6 @@ import boot from 'app/boot';
 
 export default function() {
 
-	// Load environment settings into the standard NodeJS process.env object.
-	dotenv.load();
-
 	// Log environment variables
 	log.info({
 		environment: dotenv.keys_and_values

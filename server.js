@@ -11,4 +11,9 @@
 
 require('app-module-path/register');	// allows app/* require() access
 require('babel-register');              // allows ES6
+
+// Dotenv is a module that loads environment variables into the process environment
+var dotenv = require('dotenv');
+dotenv.load();
+
 require('./app').default();				// boots up express app

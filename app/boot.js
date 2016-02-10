@@ -11,14 +11,13 @@
 
 import http from 'http';
 import socketio from 'socket.io';
-
+import log from 'config/log';
 
 export default function(app) {
 	const server = http.createServer(app);
 	const port = normalizePort(app.get('port'));
-	const log = app.get('log') || console;
 
-	// Setup Socketi.io
+	// Setup Socket.io server
 	app.io = socketio(server);
 
 	server.on('error', onError);
@@ -26,7 +25,7 @@ export default function(app) {
 	server.listen(port);
 
 	function onError(error) {
-		if(error.syscall !== 'listen') {
+		if (error.syscall !== 'listen') {
 			throw error;
 		}
 
