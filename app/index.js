@@ -1,5 +1,11 @@
 /**
-* Setup environment and launch
+* app/index.js
+*
+* Initializes Express app with app-wide settings, sets up routes, and boots the
+* HTTP server.
+*
+* EXPORTS:
+* 	default (function): configuration script for Express app
 */
 
 'use strict';
@@ -12,7 +18,7 @@ import bunyan from 'bunyan';
 
 import db from 'config/db';
 import store from 'app/store';
-import routes from 'app/routes';
+//import routes from 'app/routes';
 import boot from 'app/boot';
 
 export default function() {
@@ -20,17 +26,20 @@ export default function() {
 	 * Settings
 	 */
 
+	console.log(db);
+
 	// .env -> process.env
 	dotenv.load();
 
 	let app = express();
 
 	// Development settings
-	if(app.get('env') === 'development') {
+	if (app.get('env') === 'development') {
 		app.locals.pretty = true;
 		// app.use(morgan('dev'));
 		app.set('maxAge', 0);
-	} else if (app.get('env') === 'production') {
+	}
+	else if (app.get('env') === 'production') {
 		app.locals.pretty = false;
 		app.set('maxAge', 86400000); 	// One day
 	}
@@ -68,6 +77,7 @@ export default function() {
 	app.use(function(req, res, next) {
 		// Handle caching
 		const filesToCache = /(\.(img|font|mp4))+$/;
+
 		if(req.url.match(filesToCache)) {
 			res.setHeader('Cache-Control', 'public, max-age=' + app.get('maxAge'));
 		}
@@ -95,7 +105,7 @@ export default function() {
 
 
 	// Serve routed content
-	routes(app);
+	//routes(app);
 
 	// Start the server
 	boot(app);

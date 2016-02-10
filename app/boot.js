@@ -1,6 +1,11 @@
 /**
- * Handles the boot process of the configured express server
- */
+* app/boot.js
+*
+* Boots the HTTP & Socket.io servers based on configured Express app.
+*
+* EXPORTS:
+* 	default (function): Script to boot an Express app passed in as an argument.
+*/
 
 'use strict';
 
