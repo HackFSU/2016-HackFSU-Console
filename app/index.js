@@ -22,7 +22,10 @@ import boot from 'app/boot';
 import Test from 'app/models/Test';
 
 
-Test.findAll();
+Test.findAll()
+	.then(function(data) {
+		log.info({ data: data}, 'Results from Query');
+	});
 
 
 export default function() {

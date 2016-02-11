@@ -1,24 +1,18 @@
 import db from 'config/db';
 import Squel from 'squel';
+
+import Model from 'app/models/Model';
 import log from 'config/log';
 
-export default class Test {
+const CLASSNAME = 'Test';
+
+export default class Test extends Model {
 	constructor(attrs) {
+		super();
 		this._username = attrs.username;
 	}
 
 	static findAll() {
-		const query =
-			Squel.select()
-				.from('Test')
-				.toString();
-
-		db.query(query).then(function(data) {
-			log.info({ data: data }, 'Query Data');
-		});
-	}
-
-	save() {
-
+		return super.findAll(CLASSNAME);
 	}
 }
