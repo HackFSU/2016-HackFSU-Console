@@ -19,6 +19,11 @@ import log from 'config/log';
 //import routes from 'app/routes';
 import boot from 'app/boot';
 
+import Test from 'app/models/Test';
+
+
+Test.findAll();
+
 
 export default function() {
 
@@ -26,7 +31,6 @@ export default function() {
 	log.info({
 		environment: dotenv.keys_and_values
 	}, 'Custom Environment Values');
-
 
 	// Serve routed content
 	//routes(app);
