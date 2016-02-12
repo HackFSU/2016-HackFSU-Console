@@ -414,7 +414,7 @@ body {
 #titlePiece {
 	width: 2em;
 	margin-left: -0.1em;
-	margin-top: -0.6em;
+	margin-top: -1.2em;
 	position: absolute;
 }
 
@@ -505,7 +505,7 @@ input, textarea, select, option {
 	border-top-left-radius: 0;
 	padding: 5px;
 	line-height: 20px;
-	width: 90%;
+	width: 95%;
 	resize: none;
 	font-weight: 400;
 	font-size: 16px;
@@ -1057,14 +1057,19 @@ table#helpreqs td {
 	font-size: 5.6em !important;
 	margin-bottom: 0em !important;
 	color:#fff;
-	line-height: 20%;
+	line-height: 30%;
 	width: 100%;
+}
+
+#judge3 .hellojudge.judging{
+	font-size:5em !important;
+	margin-bottom: 0.3em !important;
 }
 
 
 @media screen and (max-width: 839px) {
 	.hellojudge.happy{
-	font-size: 4.5em !important;
+	font-size: 5em !important;
 	margin-bottom: 0em !important;
 	font-weight:300;
 	color:#fff;
@@ -1074,8 +1079,8 @@ table#helpreqs td {
 	}
 
 	.hellojudge.judging {
-		line-height: 80% !important;
-		font-size: 3.8em !important;
+		line-height: 25% !important;
+		font-size: 4em !important;
 	}
 	.judge-btn-form {
 		font-size: 1.0em !important;
@@ -1092,10 +1097,12 @@ table#helpreqs td {
 }
 
 .p {
-	font-size: 2.5em;
+	font-size: 1.4em;
 	margin-bottom: .01em !important;
+	margin-left:1.7em;
 	color:#fff;
 	line-height: 100%;
+	text-align: left;
 }
 
 .plist {
@@ -1115,13 +1122,9 @@ table#helpreqs td {
 }
 
 #judge2 {
-	margin-top: -70px;
-	margin-bottom: 50px;
+	margin-top: -130px;
+	margin-bottom: 20px;
 	/*min-height: 600px;*/
-}
-
-#judge2 h2 {
-	font-size: 2.5em;
 }
 
 #judge3 {
@@ -1195,12 +1198,17 @@ table#helpreqs td {
 .judgehack1 {
 	color: #fff;
     font-weight:100;
-	font-size: 2.5em;
+	font-size: 1.5em;
+	text-align: left;
+	margin-left: 1em;
 }
 .judgehack2 {
 	color:#fff;
     font-family:'Uni Sans', sans-serif;
     font-weight:600;
+	text-align: left;
+	font-size: 1.2em;
+	margin-left: 1em;
 }
 .judges {
 		color:#fff;
@@ -1213,18 +1221,21 @@ table#helpreqs td {
 }
 
 #judge2 h2 {
-	font-size:2.8em;
+	font-size:2.5em;
 }
 
 
 .categoryTitle{
 	font-size: 3em;
+	margin-left: 0 !important;
+	text-align: center;
 }
 
 .categories{
-	font-size:1.8em;
+	font-size:1.3em;
 	margin-bottom: .5em;
 	font-weight: 600;
+	margin-left: .5em;
 }
 
 .optionheight{
@@ -1234,6 +1245,7 @@ table#helpreqs td {
 .nextround {
 	font-size: 24px;
 	font-family: 'Open Sans', sans-serif;
+	margin:0;
 }
 
 .thankyousection {
@@ -1242,4 +1254,8 @@ table#helpreqs td {
 
 #judge-btn option {
 	color: #fff;
+}
+
+#hacknames {
+	text-align:left;
 }

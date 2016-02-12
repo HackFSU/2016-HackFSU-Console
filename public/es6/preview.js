@@ -21,7 +21,7 @@
 
 	if(video.is(':visible')) {
 		// Non-mobile, add video
-		video.after('<video src="/res/hackfsu15-loop.mp4" loop="true" autoplay="true"></video>');
+		video.after('<video src="/assets/res/hackfsu-sacred.mp4" loop="true" autoplay="true"></video>');
 	}
 
 	form.hackForm({

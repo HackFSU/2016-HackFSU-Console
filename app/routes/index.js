@@ -81,6 +81,10 @@ export default function(app) {
 		res.redirect('/user/signup');
 	});
 
+	app.get('/', function(req, res) {
+		res.render('itsover/index');
+	});
+
 
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
