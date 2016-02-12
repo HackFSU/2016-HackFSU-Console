@@ -1,0 +1,37 @@
+extends ../_layouts/bootstrap
+block vars
+	- title = 'Judge | Results'
+
+block localCSS
+	link(rel='stylesheet' type='text/css' href='/bower_components/datatables/media/css/dataTables.bootstrap.min.css')
+
+block localJS
+	script(src='/bower_components/jszip/dist/jszip.min.js')
+	script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+	script(src='/bower_components/datatables/media/js/dataTables.bootstrap.min.js')
+	script(src='/bower_components/datatables-buttons/js/dataTables.buttons.js')
+	script(src='/bower_components/datatables-buttons/js/buttons.bootstrap.js')
+	script(src='/bower_components/datatables-buttons/js/buttons.html5.js')
+	script(src='/bower_components/datatables-buttons/js/buttons.flash.js')
+	script(src='/js/views/judge/hacks.js')
+
+block content
+	h1 Results!
+
+	for cname in sortedScores
+		h3 #{cname}
+		table.table.table-striped.table-bordered
+			thead
+				tr
+					td Place
+					td Points
+					td Table Number
+					td Name
+			tbody
+				- var i = 0;
+				for row in sortedScores[cname]
+					tr
+						td #{++i}
+						td row[0]
+						td row[2].tableNumber
+						td row[2].name
