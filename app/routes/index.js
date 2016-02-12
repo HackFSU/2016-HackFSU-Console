@@ -6,10 +6,10 @@
 
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import subdomain from 'express-subdomain';
 
 import { validator, acl } from 'app/routes/util';
 
-import home from 'app/routes/home';
 import register from 'app/routes/register';
 import mentor from 'app/routes/mentor';
 import user from 'app/routes/user';
@@ -18,6 +18,7 @@ import admin from 'app/routes/admin';
 import confirm from 'app/routes/confirm';
 import judge from 'app/routes/judge';
 import checkin from 'app/routes/checkin';
+import site2016 from 'app/routes/site2016';
 
 export default function(app) {
 
@@ -54,7 +55,6 @@ export default function(app) {
 	/**
 	 * Mount paths
 	 */
-	app.use('/', home);
 	app.use('/register', register);
 	app.use('/mentor', mentor);
 	app.use('/help', help);
@@ -63,6 +63,11 @@ export default function(app) {
 	app.use('/confirm', confirm);
 	app.use('/judge', judge);
 	app.use('/checkin', checkin);
+
+	/**
+	* Subdomains
+	*/
+	app.use(subdomain('2016', site2016));
 
 	/**
 	 * Random pages/shortcuts
