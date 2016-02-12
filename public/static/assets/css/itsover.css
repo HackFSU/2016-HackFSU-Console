@@ -10,6 +10,22 @@
 	src: url('/assets/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
+#logo {
+	max-width: 165px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-bottom: -10px;
+}
+
+h1#logo-text {
+	margin-left: 10px;
+	font-family: 'Uni Sans', sans-serif;
+	font-weight: 700;
+	font-size: 4em;
+	display: inline-block;
+	vertical-align: middle;
+}
+
 
 #video-bg {
 		position: absolute;
@@ -28,14 +44,9 @@ body {
 	font-size: 16px;
 }
 
-h1 {
-	font-family: 'Uni Sans', sans-serif;
-	font-weight: 700;
-	font-size: 6em;
-}
 
 #vidForm {
-	margin-top: 2em;
+	margin-top: 3em;
 }
 
 
@@ -79,7 +90,7 @@ video {
 	text-align: center;
 	z-index:1005;
 	width: 575px;
-	top: 50%;
+	top: 35%;
 	left: 50%;
 	-webkit-transform: translate(-50%, -50%);
 					transform: translate(-50%, -50%);
@@ -96,7 +107,7 @@ video {
 	height: 100%;
 	z-index: 1004;
 
-	background-color: rgba(110, 110, 110, 0.85);
+	background-color: rgba(110, 110, 110, 0.3);
 }
 
 
@@ -129,22 +140,25 @@ li {
 }
 
 .video-btn {
-		height: 2.8em;
+	height: 3.5em;
+	width: 14em;
 	background-color: rgba(0, 0, 0, 0);
-	border-radius: 4px;
-	border: 0.15em solid rgba(255, 255, 255, 0.9);
+	border-radius: 0px;
+	border: 0.15em solid rgba(255, 255, 255, 0.8);
+	border-width: 3px;
 	padding: 0;
 	margin-left: 1.5em;
 	outline: 0;
 	transition: 200ms all;
 	padding: 10px;
-	letter-spacing: 1px;
+	letter-spacing: 0.5px;
+	font-weight: 500;
 }
 
 .video-btn:hover {
 		cursor: pointer;
 		border: 0.15em solid rgba(255, 255, 255, 1);
-		color: #303030;
+		color: rgba(48, 48, 48, 0.6);
 		background-color: #fff;
 }
 
@@ -161,9 +175,10 @@ p#description-text {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 	font-size: 1em;
-	text-align: left;
-	padding-top: 3em;
+	text-align: center;
+	padding-top: 2em;
 	line-height: 150%;
+	margin: 0 2em;
 }
 
 p#be-the-first {
@@ -198,7 +213,7 @@ p#be-the-first {
 @supports (object-fit: cover) {
 #video-bg > video {
 	top: 0; left: 0;
-	width: 100%; height: 100%;
+	width: 107%; height: 100%;
 	object-fit: cover;
 }
 }
@@ -283,7 +298,7 @@ p#be-the-first {
 		z-index: 1004;
 		background-color: #303030;
 
-		background-color: rgba(19, 19, 19, 0.7);
+		background-color: rgba(19, 19, 19, 0.3);
 	}
 		.video-overlay {
 			position: absolute;
@@ -347,7 +362,7 @@ p#be-the-first {
 		z-index: 1004;
 		background-color: #303030;
 
-		background-color: rgba(19, 19, 19, 0.7);
+		background-color: rgba(19, 19, 19, 0.3);
 	}
 
 	.mobileBG {
@@ -425,7 +440,7 @@ p#be-the-first {
 		z-index: 1004;
 		background-color: #303030;
 
-		background-color: rgba(19, 19, 19, 0.7);
+		background-color: rgba(19, 19, 19, 0.3);
 	}
 
 	.mobileBG {
