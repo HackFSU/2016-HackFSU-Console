@@ -14,37 +14,28 @@ html
 		meta(name='viewport' content='width=device-width')
 		
 
-		title HackFSU '16
+		title HackFSU '17
 
 		// Latest compiled and minified CSS
 		link(rel='stylesheet' type='text/css' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
 		link(rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800')
-		link(rel='stylesheet' type='text/css' href='/assets/css/preview.css')
+		link(rel='stylesheet' type='text/css' href='/assets/css/itsover.css')
 	body
 		.container: .video-cont: .image-bg: #video-bg
 			.video-color
 			.video-overlay
 					.logo-header
-							h1 HACKFSU '16
-							img(style='width: 52%; height:auto; padding-top:1em;' src='/assets/img/white_feather.png')
+							h1 HACKFSU '17
+							img(style='width: 52%; height:auto; padding-top:1em;' src='/assets/img/hackfsu-logo.png')
 					.content
 							#preview-content
 								p#description-text
-									| Hackathons bring out the creative in all of us. 
-									| Our team is hard at work to provide you with the 
-									| space and community to find your passion. 
-									| See you this Spring. 
+									| Thanks to everyone who came out to HackFSU '16. We can't wait to see you all 
+									| next Spring. But before we do, we're looking for the next group of organizers
+									| for HackFSU '17. If you think you have what it takes to bring next year's HackFSU
+									| to life, fill out the form below!
 								#vidForm
 									button.video-btn DIRECTOR SIGNUP
-
-							.hackform-success(style='display: none')
-								h2 Thanks! 
-								p 
-									| We will let you know when registration opens and 
-									| we cannot wait to see you this Spring! In the meantime, 
-									| check us out on 
-									a(href='#{store.links.twitter}' target='_blank') twitter
-									|  for other updates.
 											
 			#video
 			.mobileBG
