@@ -65,11 +65,6 @@ export default function(app) {
 	app.use('/checkin', checkin);
 
 	/**
-	* Subdomains
-	*/
-	app.use(subdomain('2016', site2016));
-
-	/**
 	 * Random pages/shortcuts
 	 */
 	app.get('/no', function(req, res) {
@@ -89,6 +84,11 @@ export default function(app) {
 	app.get('/', function(req, res) {
 		res.render('itsover/index');
 	});
+
+  /**
+  * Subdomains
+  */
+  app.use(subdomain('2016', site2016));
 
 
 	// catch 404 and forward to error handler
