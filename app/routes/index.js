@@ -6,6 +6,7 @@
 
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import _ from 'lodash';
 
 import { validator, acl } from 'app/routes/util';
 
@@ -54,19 +55,16 @@ export default function(app) {
   /**
   * Subdomains
   */
-  app.get('*', function(req, res, next) {
-    if(req.headers.host === '2016.hackfsu.com') {  //if it's a sub-domain
-      req.url = '/2016';  //append some text yourself
+  app.use(function(req, res, next) {
+    if (_.includes(req.subdomains, '2016')) {
+      return res.render('index/index', {
+        title: `HackFSU '16`
+      });
     }
 
     next();
   });
 
-  app.get('/2016', function(req, res, next) {
-    res.render('index/index', {
-      title: `HackFSU '16`
-    });
-  });
 
 	/**
 	 * Mount paths
