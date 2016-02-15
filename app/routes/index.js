@@ -56,6 +56,7 @@ export default function(app) {
   * Subdomains
   */
   app.use(function(req, res, next) {
+    console.log('Subdomains: ', req.subdomains);
     if (_.includes(req.subdomains, '2016')) {
       return res.render('index/index', {
         title: `HackFSU '16`
