@@ -56,7 +56,7 @@ export default function(app) {
   */
   app.get('*', function(req, res, next) {
     if(req.headers.host === '2016.hackfsu.com') {  //if it's a sub-domain
-      req.url = '/2016' + req.url;  //append some text yourself
+      req.url = '/2016';  //append some text yourself
     }
 
     next();
