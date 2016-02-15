@@ -6,7 +6,7 @@
 
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import subdomain from 'subdomain';
+import subdomain from 'express-subdomain';
 
 import { validator, acl } from 'app/routes/util';
 
@@ -55,16 +55,11 @@ export default function(app) {
   /**
   * Subdomains
   */
-  app.use(subdomain({
-    base: 'hackfsu.com',
-    removeWWW: true,
-    prefix: '2016'
-  }));
+  app.use(subdomain('2016', site2016));
 
 	/**
 	 * Mount paths
 	 */
-  app.use('/2016', site2016);
 	app.use('/register', register);
 	app.use('/mentor', mentor);
 	app.use('/help', help);
