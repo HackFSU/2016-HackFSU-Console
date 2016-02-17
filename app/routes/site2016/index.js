@@ -17,6 +17,7 @@ router.set('view engine', 'jade');
 router.locals.store = store;
 
 router.get('/', function(req, res) {
+  console.log('wtf');
 	res.render('index/index');
 });
 
