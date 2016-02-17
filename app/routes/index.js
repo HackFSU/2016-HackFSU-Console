@@ -6,6 +6,7 @@
 
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import _ from 'lodash';
 import subdomain from 'express-subdomain';
 
 import { validator, acl } from 'app/routes/util';
@@ -52,6 +53,9 @@ export default function(app) {
 		saveUninitialized: false
 	}));
 
+  app.use(subdomain('2016', site2016));
+
+
 	/**
 	 * Mount paths
 	 */
@@ -85,10 +89,6 @@ export default function(app) {
 		res.render('itsover/index');
 	});
 
-  /**
-  * Subdomains
-  */
-  app.use(subdomain('2016', site2016));
 
 
 	// catch 404 and forward to error handler
