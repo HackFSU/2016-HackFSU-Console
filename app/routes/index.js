@@ -56,7 +56,7 @@ export default function(app) {
   /**
   * Subdomains
   */
-  app.use(subdomain('2016'), site2016);
+  app.use(subdomain('2016', site2016));
 
 
 	/**
