@@ -53,10 +53,6 @@ export default function(app) {
 		saveUninitialized: false
 	}));
 
-  /**
-  * Subdomains
-  */
-  app.use(subdomain('2016', site2016));
 
 
 	/**
