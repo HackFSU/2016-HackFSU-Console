@@ -20,6 +20,7 @@ import confirm from 'app/routes/confirm';
 import judge from 'app/routes/judge';
 import checkin from 'app/routes/checkin';
 import site2016 from 'app/routes/site2016';
+import site2015 from 'app/routes/site2015';
 
 export default function(app) {
 
@@ -54,6 +55,7 @@ export default function(app) {
 	}));
 
   app.use(subdomain('2016', site2016));
+  app.use(subdomain('2015', site2015));
 
 
 	/**
