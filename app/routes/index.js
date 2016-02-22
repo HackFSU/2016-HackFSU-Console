@@ -54,9 +54,14 @@ export default function(app) {
 		saveUninitialized: false
 	}));
 
-  app.use(subdomain('2016', site2016));
-  app.use(subdomain('2015', site2015));
+ // app.use(subdomain('2016', site2016));
+ // app.use(subdomain('2015', site2015));
 
+	app.get('/2016', function(req, res, next) {
+		res.render('index/index', {
+			title: 'HackFSU\'16'
+		});
+	});
 
 	/**
 	 * Mount paths
