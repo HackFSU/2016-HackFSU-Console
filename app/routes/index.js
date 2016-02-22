@@ -58,7 +58,7 @@ export default function(app) {
  // app.use(subdomain('2015', site2015));
 
 	app.get('/2016', function(req, res, next) {
-		res.render('index/index', {
+		res.render('site2016/index', {
 			title: 'HackFSU\'16'
 		});
 	});
@@ -79,7 +79,7 @@ export default function(app) {
 	 * Random pages/shortcuts
 	 */
 	app.get('/no', function(req, res) {
-		res.render('index/no', {
+		res.render('no', {
 			notReady: !!req.query.notReady
 		});
 	});
