@@ -1,15 +1,15 @@
 @font-face {
 	font-family: 'Uni Sans';
 	font-weight: 700;
-	src: url('/assets/fonts/unisansfree/UniSansHeavyWeb.woff2') format('woff2');
-	src: url('/assets/fonts/unisansfree/UniSansHeavyWeb.woff') format('woff');
+	src: url('http://hackfsu.com/assets/fonts/unisansfree/UniSansHeavyWeb.woff2') format('woff2');
+	src: url('http://hackfsu.com/assets/fonts/unisansfree/UniSansHeavyWeb.woff') format('woff');
 
 }
 
 @font-face {
 	font-family: 'Uni Sans';
 	font-weight: 100;
-	src: url('/assets/fonts/unisansfree/Uni Sans Thin.otf');
+	src: url('http://hackfsu.com/assets/fonts/unisansfree/Uni Sans Thin.otf');
 }
 
 #error-page, #help-request-page {
