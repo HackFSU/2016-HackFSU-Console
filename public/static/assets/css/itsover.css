@@ -218,7 +218,10 @@ p#be-the-first {
 }
 }
 
-@media screen and (min-width: 351px) and (max-width: 450px) {
+/*
+* iPhone 6+ and related
+*/
+@media screen and (min-width: 401px) and (max-width: 450px) {
   .video-overlay {
     max-width: 350px;
   }
@@ -268,6 +271,118 @@ p#be-the-first {
   }
 
 }
+
+/*
+* iPhone 6 and related
+*/
+
+@media screen and (min-width: 351px) and (max-width: 400px) {
+  .video-overlay {
+    max-width: 300px;
+  }
+
+  p#description-text {
+    text-align: left;
+    margin: 0;
+    font-size: 1em;
+    margin-top: -15px;
+  }
+
+  p#description-text br {
+    content: " ";
+    display: none;
+  }
+
+  img#logo {
+    max-width: 10.25em;
+    text-align: center;
+    margin-top: 190px !important;
+    margin-right: 28%;
+    float: right;
+  }
+
+  .logo-header {
+    text-align: center;
+  }
+
+  h1#logo-text {
+    font-size: 3em;
+    text-align: center;
+    /*margin: 0 !important;*/
+    margin-top: -110px;
+    float: left;
+  }
+
+  button.video-btn {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 90px !important;
+    margin-top: -30px;
+  }
+
+  .content {
+    clear: both;
+    padding-top: 10px;
+  }
+
+}
+
+/*
+* iPhone 5 and related
+*/
+@media screen and (min-width: 301px) and (max-width: 350px) {
+  .video-overlay {
+    max-width: 275px;
+  }
+
+  p#description-text {
+    text-align: left;
+    margin: 0;
+    font-size: 0.85em;
+    margin-top: -5px;
+    margin-bottom: -15px;
+  }
+
+  p#description-text br {
+    content: " ";
+    display: none;
+  }
+
+  img#logo {
+    max-width: 9.5em;
+    text-align: center;
+    margin-top: 190px !important;
+    margin-right: 25%;
+    float: right;
+  }
+
+  .logo-header {
+    text-align: center;
+  }
+
+  h1#logo-text {
+    font-size: 2.75em;
+    text-align: center;
+    /*margin: 0 !important;*/
+    margin-top: -100px;
+    float: left;
+  }
+
+  button.video-btn {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 130px !important;
+    margin-top: -40px;
+    font-size: 0.85em;
+  }
+
+  .content {
+    clear: both;
+    padding-top: 10px;
+  }
+
+}
+
 
 
 .foot {
