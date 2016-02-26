@@ -157,7 +157,7 @@ li {
 
 .video-btn:hover {
 		cursor: pointer;
-		border: 0.15em solid rgba(255, 255, 255, 1);
+		border: 3px solid rgba(255, 255, 255, 1);
 		color: rgba(48, 48, 48, 0.6);
 		background-color: #fff;
 }
